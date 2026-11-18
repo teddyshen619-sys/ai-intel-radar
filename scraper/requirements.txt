@@ -1,0 +1,5 @@
+# 核心数据校验与后续自动化采集依赖
+# 注：scraper/validate_data.py 内置零依赖标准库校验逻辑；安装 jsonschema 后将自动启用完整 JSON Schema Draft 2020-12 校验。
+jsonschema>=4.23.0
+httpx>=0.27.0
+feedparser>=6.0.11

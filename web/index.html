@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="AI 圈前沿情报与算力羊毛雷达站 — 零 API 成本暗黑赛博情报终端，实时追踪算力羊毛、高危漏洞避坑与隐藏参数技巧。"
+    />
+    <title>AI 圈前沿情报与算力羊毛雷达站 // AI INTEL RADAR</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F19'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%2310B981' stroke-opacity='0.35' stroke-width='2.5'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%2310B981' stroke-opacity='0.65' stroke-width='2.5'/%3E%3Cline x1='32' y1='32' x2='48' y2='18' stroke='%2310B981' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%2310B981'/%3E%3C/svg%3E"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              void: '#0B0F19',
+              cyber: {
+                panel: '#111827',
+                emerald: '#10B981',
+                amber: '#F59E0B',
+                red: '#EF4444',
+                cyan: '#06B6D4',
+              },
+            },
+            fontFamily: {
+              mono: [
+                '"JetBrains Mono"',
+                '"Fira Code"',
+                '"Cascadia Code"',
+                'ui-monospace',
+                'SFMono-Regular',
+                'Menlo',
+                'Monaco',
+                'Consolas',
+                'monospace',
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="./css/terminal.css" />
+  </head>
+  <body class="cyber-grid-bg min-h-screen bg-[#0B0F19] text-slate-100 antialiased selection:bg-emerald-500/30">
+    <!-- Top cyber accent scanline -->
+    <div class="terminal-top-bar h-[2px] w-full" aria-hidden="true"></div>
+
+    <!-- Main Terminal Shell -->
+    <div class="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-3.5 sm:px-6 lg:px-8">
+      <!-- Header: Brand Terminal Bar + Real-time KPI Dashboard -->
+      <header class="pt-5 pb-5 sm:pt-7 sm:pb-6">
+        <!-- Brand Row -->
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <span
+                class="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 font-mono text-[11px] font-semibold tracking-wider text-emerald-300"
+              >
+                <span class="status-beacon" aria-hidden="true">
+                  <span class="status-ring-active"></span>
+                  <span class="status-dot-active"></span>
+                </span>
+                <span>RADAR ONLINE</span>
+              </span>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-slate-500">
+                AI INTEL RADAR // ZERO-API STATIC
+              </span>
+            </div>
+
+            <h1
+              class="mt-2.5 text-xl font-bold tracking-tight text-slate-50 sm:text-2xl lg:text-[1.75rem] leading-snug break-words"
+            >
+              AI 圈前沿情报与算力羊毛雷达站
+            </h1>
+            <p class="mt-1.5 text-xs sm:text-sm text-slate-400 leading-relaxed">
+              高信息密度暗黑情报终端 · 聚焦<span class="text-emerald-300/90">算力羊毛</span>、<span
+                class="text-red-300/90"
+                >高危避坑</span
+              >与<span class="text-cyan-300/90">极客隐藏参数</span>，开箱即复制
+            </p>
+          </div>
+
+          <!-- Data Source Telemetry Badge -->
+          <div class="flex shrink-0 items-center gap-2 self-start sm:pt-1">
+            <div
+              class="inline-flex items-center gap-2 rounded-lg border border-slate-800/90 bg-slate-900/80 px-3 py-1.5 font-mono text-xs text-slate-300 shadow-inner"
+            >
+              <span class="text-[10px] uppercase tracking-wider text-slate-500">SOURCE</span>
+              <span class="h-3 w-px bg-slate-700/80" aria-hidden="true"></span>
+              <span
+                id="stat-data-source"
+                class="font-semibold tracking-wide text-emerald-300"
+              >
+                SYNCING...
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live KPI Telemetry Cards -->
+        <section
+          aria-label="实时情报数据看板"
+          class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4"
+        >
+          <!-- KPI 1: Active Deals -->
+          <div class="kpi-tile kpi-tile-emerald rounded-xl p-3.5 sm:p-4">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-medium text-slate-400">当前有效羊毛</span>
+              <span class="status-beacon" aria-hidden="true">
+                <span class="status-ring-active"></span>
+                <span class="status-dot-active"></span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span
+                id="stat-active-deals"
+                class="font-mono text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-emerald-400"
+              >
+                0
+              </span>
+              <span class="font-mono text-[11px] uppercase tracking-wider text-emerald-500/80">
+                DEALS
+              </span>
+            </div>
+            <p class="mt-1 font-mono text-[11px] text-slate-500 truncate">
+              ACTIVE / URGENT 可领额度
+            </p>
+          </div>
+
+          <!-- KPI 2: Active Alerts / Bugs -->
+          <div class="kpi-tile kpi-tile-alert rounded-xl p-3.5 sm:p-4">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-medium text-slate-400">活跃避坑预警</span>
+              <span class="status-beacon" aria-hidden="true">
+                <span class="status-ring-urgent"></span>
+                <span class="status-dot-urgent"></span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span
+                id="stat-active-alerts"
+                class="font-mono text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-amber-400"
+              >
+                0
+              </span>
+              <span class="font-mono text-[11px] uppercase tracking-wider text-red-400/85">
+                ALERTS
+              </span>
+            </div>
+            <p class="mt-1 font-mono text-[11px] text-slate-500 truncate">
+              未修复高危故障 &amp; 避坑
+            </p>
+          </div>
+
+          <!-- KPI 3: Last Updated Timestamp -->
+          <div class="kpi-tile kpi-tile-sync col-span-2 rounded-xl p-3.5 sm:col-span-1 sm:p-4">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-medium text-slate-400">最近更新时间</span>
+              <svg
+                class="h-4 w-4 shrink-0 text-cyan-400/80"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9"></circle>
+                <polyline points="12 7 12 12 15.5 14"></polyline>
+              </svg>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2 min-w-0">
+              <span
+                id="stat-updated-at"
+                class="font-mono text-lg sm:text-xl font-bold tabular-nums tracking-tight text-slate-100 truncate"
+              >
+                --
+              </span>
+            </div>
+            <p class="mt-1 font-mono text-[11px] text-slate-500 truncate">
+              STATIC JSON SNAPSHOT · LOCAL TIME
+            </p>
+          </div>
+        </section>
+      </header>
+
+      <!-- Friendly file:// CORS module-block fallback notice (only shown on file:// if modules fail) -->
+      <div
+        id="file-protocol-banner"
+        role="alert"
+        class="hidden mb-5 rounded-xl border border-amber-500/45 bg-amber-500/10 p-4 text-xs sm:text-sm text-amber-100"
+      >
+        <div class="flex items-start gap-3">
+          <span class="status-dot-urgent mt-1.5 shrink-0" aria-hidden="true"></span>
+          <div class="min-w-0 space-y-1.5">
+            <p class="font-semibold text-amber-300">
+              检测到以 file:// 协议直接打开，浏览器安全策略可能拦截了原生 ES6 模块加载
+            </p>
+            <p class="text-amber-100/85 leading-relaxed">
+              请在项目根目录启动任意本地静态服务器预览完整交互功能，例如：
+            </p>
+            <pre
+              class="rounded-lg border border-amber-500/30 bg-[#0B0F19]/90 px-3 py-2 font-mono text-xs text-emerald-300"
+            ><code>python -m http.server 8765 --directory web</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <noscript>
+        <div
+          class="mb-5 rounded-xl border border-red-500/45 bg-red-500/10 p-4 text-sm text-red-200"
+        >
+          请启用浏览器 JavaScript 以加载实时情报卡片、筛选检索与战报长图生成功能。
+        </div>
+      </noscript>
+
+      <!-- Filter & Search Control Bar -->
+      <section
+        aria-label="情报筛选与搜索控制栏"
+        class="terminal-panel rounded-xl p-3.5 sm:p-4"
+      >
+        <!-- Row 1: Category Filter Tabs + Show-Fixed Switch -->
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <!-- Category Tabs -->
+          <div
+            id="category-tabs"
+            role="group"
+            aria-label="情报分类筛选"
+            class="flex flex-wrap items-center gap-2 min-w-0"
+          >
+            <button
+              type="button"
+              data-filter-type="ALL"
+              aria-pressed="true"
+              class="inline-flex min-h-[36px] items-center gap-1.5 rounded-lg border border-emerald-500/60 bg-emerald-500/15 px-3 py-1.5 text-xs sm:text-sm font-medium text-emerald-200 hover:border-emerald-400/80"
+            >
+              <span>全部</span>
+              <span
+                data-tab-count="ALL"
+                class="rounded-md bg-slate-950/60 px-1.5 py-0.5 font-mono text-[11px] tabular-nums text-emerald-300"
+              >
+                0
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-filter-type="DEAL"
+              aria-pressed="false"
+              class="inline-flex min-h-[36px] items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/75 px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-300 hover:border-emerald-500/45 hover:text-emerald-200"
+            >
+              <span>💸 算力羊毛 DEAL</span>
+              <span
+                data-tab-count="DEAL"
+                class="rounded-md bg-slate-950/70 px-1.5 py-0.5 font-mono text-[11px] tabular-nums text-slate-400"
+              >
+                0
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-filter-type="BUG"
+              aria-pressed="false"
+              class="inline-flex min-h-[36px] items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/75 px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-300 hover:border-red-500/45 hover:text-red-200"
+            >
+              <span>🐛 漏洞避坑 BUG</span>
+              <span
+                data-tab-count="BUG"
+                class="rounded-md bg-slate-950/70 px-1.5 py-0.5 font-mono text-[11px] tabular-nums text-slate-400"
+              >
+                0
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-filter-type="HACK"
+              aria-pressed="false"
+              class="inline-flex min-h-[36px] items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/75 px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-300 hover:border-cyan-500/45 hover:text-cyan-200"
+            >
+              <span>🔓 极客技巧 HACK</span>
+              <span
+                data-tab-count="HACK"
+                class="rounded-md bg-slate-950/70 px-1.5 py-0.5 font-mono text-[11px] tabular-nums text-slate-400"
+              >
+                0
+              </span>
+            </button>
+          </div>
+
+          <!-- FIXED Toggle Switch -->
+          <label
+            for="toggle-show-fixed"
+            class="inline-flex shrink-0 cursor-pointer select-none items-center gap-2.5 self-start rounded-lg border border-slate-800/90 bg-slate-950/60 px-3 py-1.5 text-xs text-slate-300 transition-colors hover:border-slate-700 lg:self-auto"
+          >
+            <span class="relative inline-flex items-center">
+              <input
+                type="checkbox"
+                id="toggle-show-fixed"
+                class="peer sr-only"
+              />
+              <span
+                class="h-5 w-9 rounded-full border border-slate-700 bg-slate-800/90 transition-colors peer-checked:border-amber-400/70 peer-checked:bg-amber-500/25 peer-focus-visible:ring-2 peer-focus-visible:ring-emerald-400/70"
+              ></span>
+              <span
+                class="pointer-events-none absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-slate-400 transition-transform peer-checked:translate-x-4 peer-checked:bg-amber-400"
+              ></span>
+            </span>
+            <span class="font-medium text-slate-300">显示已失效</span>
+            <span
+              id="fixed-count-label"
+              class="font-mono text-[11px] tabular-nums text-slate-500"
+            >
+              (0 条已折叠)
+            </span>
+          </label>
+        </div>
+
+        <!-- Row 2: Keyword Search Input + Results Summary -->
+        <div class="mt-3 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+          <div class="relative flex-1 min-w-0">
+            <span
+              class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-500"
+              aria-hidden="true"
+            >
+              <svg
+                class="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+
+            <input
+              type="search"
+              id="search-input"
+              placeholder="实时检索标题、省流结论、命令片段、平台或编号 (如 OpenRouter / flex / Dify)..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="关键词实时搜索"
+              class="w-full min-w-0 rounded-lg border border-slate-800 bg-[#0B0F19]/90 py-2.5 pl-9 pr-10 text-xs sm:text-sm text-slate-100 placeholder-slate-500 transition-colors focus:border-emerald-500/70 focus:outline-none focus:ring-1 focus:ring-emerald-500/40"
+            />
+
+            <button
+              type="button"
+              id="search-clear-btn"
+              aria-label="清空搜索关键词"
+              class="hidden absolute inset-y-0 right-2 my-auto inline-flex h-7 w-7 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100"
+            >
+              <svg
+                class="h-3.5 w-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Filter Results Summary -->
+          <div class="flex shrink-0 items-center justify-between sm:justify-end">
+            <p
+              id="results-summary"
+              class="font-mono text-xs text-slate-400 tabular-nums"
+              aria-live="polite"
+            >
+              正在同步情报信号...
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Intel Feed Area -->
+      <main class="mt-5 flex-1 min-w-0 max-w-full">
+        <section
+          id="intel-feed"
+          aria-label="情报列表"
+          class="grid grid-cols-1 gap-5 lg:grid-cols-2 min-w-0 max-w-full"
+        ></section>
+
+        <!-- Empty State (hidden by default) -->
+        <section
+          id="empty-state"
+          aria-live="polite"
+          class="hidden terminal-panel mt-2 rounded-2xl px-6 py-12 text-center"
+        >
+          <div
+            class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-slate-800 bg-slate-900/90 text-slate-400"
+          >
+            <svg
+              class="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </div>
+          <p class="mt-4 font-mono text-xs uppercase tracking-widest text-slate-500">
+            SIGNAL NOT FOUND
+          </p>
+          <h2 class="mt-1.5 text-base font-semibold text-slate-200">
+            当前筛选条件下暂无匹配情报
+          </h2>
+          <p class="mx-auto mt-1.5 max-w-md text-xs sm:text-sm text-slate-400 leading-relaxed">
+            可以尝试缩短关键词、切换至「全部」分类，或勾选「显示已失效」查看已归档的历史避坑条目。
+          </p>
+          <button
+            type="button"
+            id="reset-filters-btn"
+            class="mt-5 inline-flex items-center gap-2 rounded-lg border border-emerald-500/50 bg-emerald-500/15 px-4 py-2 text-xs sm:text-sm font-medium text-emerald-200 transition-colors hover:border-emerald-400 hover:bg-emerald-500/25"
+          >
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            <span>重置全部筛选</span>
+          </button>
+        </section>
+      </main>
+
+      <!-- Footer (extra bottom clearance for floating poster button) -->
+      <footer
+        class="mt-10 border-t border-slate-800/80 pt-5 pb-24 sm:pb-20 text-xs text-slate-500"
+      >
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p class="font-mono tracking-wide text-slate-400">
+            AI 圈前沿情报与算力羊毛雷达站 · ZERO-API STATIC TERMINAL
+          </p>
+          <p class="font-mono text-[11px] text-slate-500">
+            DATA SCHEMA DRAFT 2020-12 · PURE HTML5 / ES6 / CANVAS 2D
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Fixed Toast Notification Container -->
+    <div
+      id="toast-container"
+      aria-live="polite"
+      aria-atomic="false"
+      class="pointer-events-none fixed top-4 right-4 left-4 sm:left-auto z-50 flex max-w-full sm:max-w-sm flex-col items-end gap-2.5"
+    ></div>
+
+    <!-- Fixed Bottom-Right Floating CTA: Viral Poster Generator -->
+    <button
+      type="button"
+      id="open-poster-btn"
+      class="fab-poster-btn fixed bottom-5 right-5 z-40 inline-flex max-w-[calc(100vw-2.5rem)] items-center gap-2 rounded-full px-4 py-3 text-xs sm:text-sm font-semibold text-slate-950 focus:outline-none"
+    >
+      <svg
+        class="h-4 w-4 shrink-0"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+      </svg>
+      <span class="truncate">生成群聊速报长图</span>
+      <span
+        class="hidden sm:inline-flex rounded-full bg-slate-950/20 px-1.5 py-0.5 font-mono text-[10px] font-bold tracking-wider text-slate-950"
+      >
+        PNG
+      </span>
+    </button>
+
+    <!-- Poster Generator Drawer Mount Point -->
+    <div id="poster-drawer-root"></div>
+
+    <!-- Main Entry ES6 Module -->
+    <script type="module" src="./js/app.js"></script>
+
+    <!-- Friendly file:// fallback check (no-op on http:// and https://) -->
+    <script>
+      (function () {
+        if (window.location.protocol !== 'file:') return;
+        window.setTimeout(function () {
+          if (!window.__RADAR_APP__) {
+            var banner = document.getElementById('file-protocol-banner');
+            if (banner) banner.classList.remove('hidden');
+          }
+        }, 900);
+      })();
+    </script>
+  </body>
+</html>

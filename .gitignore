@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Node / Vite (如后续切换为 Vite 构建)
+node_modules/
+web/dist/
+
+# 仅跟踪静态部署所需的数据副本
+web/data/*
+!web/data/intel_data.json
+
+# Secrets & Local Env
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db

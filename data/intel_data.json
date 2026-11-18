@@ -1,0 +1,210 @@
+{
+  "$schema": "./schema.json",
+  "updated_at": "2026-11-18T13:08:00+08:00",
+  "items": [
+    {
+      "id": "ai-20261118-03",
+      "date": "2026-11-18",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "title": "CMU 卡内基梅隆大学 CS Learn 免费上线：AI Agents、ML Systems 等全套顶尖正课公开",
+      "value_tag": "零学费 CMU 正课",
+      "tldr": "CMU 计算机科学学院推出 CS Learn 平台，通过 YouTube 免费开放多门完整正课录像，含 AI Agents、机器学习系统与大规模机器学习等硬核课程。",
+      "details": [
+        "免费资源：无需学生邮箱、无需注册付费，直接在 YouTube (@CMULearn) 与 cs.cmu.edu/learn 观看完整学期剪辑课程录像。",
+        "AI 核心课表：已上线 10-605（大规模数据集机器学习）与 15-442（陈天奇、贾志豪主讲机器学习系统），11 月 19 日首播 11-768（AI Agents）与 17-645（生产级机器学习）。",
+        "后续预告：2027 年 1 月还将陆续免费开放 11-777（多模态机器学习）与 15-259（概率与计算）等课程及配套交互学习资料。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hacker News",
+      "source_url": "https://www.cs.cmu.edu/learn/"
+    },
+    {
+      "id": "ai-20261118-04",
+      "date": "2026-11-18",
+      "type": "DEAL",
+      "status": "URGENT",
+      "title": "GPT-6.2 Astra/Sol API 上线即降价：缓存输入低至 $0.10/M，Ultrafast 限时半价",
+      "value_tag": "缓存降价 60%",
+      "tldr": "OpenAI 发布 gpt-6.2-astra 与 gpt-6.2-sol，旗舰款输入输出直降 20%、缓存输入砍掉 60%，且 Ultrafast 极速档截至 2027-02-28 享 3 倍促销费率（原价 6 倍）。",
+      "details": [
+        "API 定价：gpt-6.2-astra 输入 $8 / 缓存输入 $0.40 / 输出 $40（每百万 Token）；gpt-6.2-sol 保持 $2 / $0.10 / $10 高性价比，复杂任务所需输出更精简。",
+        "限时窗口：service_tier=\"ultrafast\" 极速推理档在太平洋时间 2027-02-28 前按标准费率 3 倍计费，2027-03-01 起恢复 6 倍标准价。",
+        "订阅福利：ChatGPT Pro 200 档用户首次解锁 Ultrafast 通道（率先覆盖 GPT-6.2 Sol），Pro 500 档支持 Astra 与 Sol 双模型极速模式。"
+      ],
+      "action_snippet": "{\n  \"model\": \"gpt-6.2-sol\",\n  \"service_tier\": \"ultrafast\",\n  \"input\": \"Summarize and extract structured anomalies from these logs.\"\n}",
+      "source_platform": "Hacker News",
+      "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
+    },
+    {
+      "id": "ai-20261118-05",
+      "date": "2026-11-18",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "title": "Claude Code 团队防 AI 作弊验证架构：E2E 闭环、基线分支读规则与三轮止损铁律",
+      "value_tag": "成功率最高 +10 点",
+      "tldr": "Claude Code 团队公开 90% 代码由 AI 生成下的工程验证闭环：将验收规则锁定在默认分支防 PR 篡改，用 .claude/skills/verify 驱动真实 E2E 冒烟并设三轮止损。",
+      "details": [
+        "技能固化：在源码就近目录放置 .claude/skills/verify，用 CDP、模拟器或本地服务跑通端到端链路，辅以属性测试（Hypothesis / fast-check）与差异测试防止单元测试作弊。",
+        "规则隔离：Code Review 必须从 base / 默认分支读取 REVIEW.md 与检查清单，严禁读取 PR 分支内同名文件，杜绝 Agent 改代码时顺手放宽验收条件。",
+        "止损灰度：同一报错连续修复 3 轮仍失败即强制停机交由人工；新门禁按 off -> observe -> enforce 灰度推进，单会话拦截 2 次后允许附解释放行防止死锁。"
+      ],
+      "action_snippet": "# 校验时强制从默认基线分支读取 REVIEW.md，防止 PR 篡改验收规则\ngit fetch origin main && git show origin/main:REVIEW.md\n\n# 在代码目录就近创建 E2E 冒烟验证技能目录：\n# .claude/skills/verify/",
+      "source_platform": "Hacker News",
+      "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"
+    },
+    {
+      "id": "ai-20261118-06",
+      "date": "2026-11-18",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "title": "OpenHands Agent Canvas 1.41.0 Windows 内存泄漏：sort.exe 孤儿进程死占 ~4GB 修复",
+      "value_tag": "拯救 4GB+ 内存",
+      "tldr": "Windows 原生运行 Agent Canvas 1.41.0 打开 Files 面板时，findstr 反斜杠未转义导致过滤失效，30s 超时后孤儿 sort.exe 残留并预占高达 ~4GB 内存。",
+      "details": [
+        "触发条件：Windows 11 原生环境使用 @openhands/agent-canvas 1.41.0（agent-server 1.62.0）打开大型 Git 仓库并停留 Files 面板（每 30s 刷新）。",
+        "根因定位：buildWindowsWorkspaceFileListCommand 生成的 /c:\"\\.git\\\" 被 findstr 当作转义引号导致全量扫描；超时取消仅杀 cmd.exe 未杀进程树，sort.exe 默认预占 90% 内存。",
+        "绕过热修：先清理残留 sort.exe 释放内存；临时可修改本地 bundle 将过滤参数改为 findstr /v /i /l /c:\"\\\\.git\\\\\" 并在管道末端追加 sort /M 65536 限制 64MB 上限。"
+      ],
+      "action_snippet": "# 1. PowerShell 排查并强杀残留孤儿 sort.exe 进程树：\nGet-Process sort -ErrorAction SilentlyContinue | Select-Object Id, WorkingSet64\ntaskkill /F /IM sort.exe /T\n\n# 2. 本地 bundle 热修参考（限制 sort 内存上限为 64MB 并强制字面匹配）：\n# findstr /v /i /l /c:\"\\\\.git\\\\\" /c:\"\\\\node_modules\\\\\" | sort /M 65536",
+      "source_platform": "GitHub Issues",
+      "source_url": "https://github.com/OpenHands/OpenHands/issues/19823"
+    },
+    {
+      "id": "ai-20261118-07",
+      "date": "2026-11-18",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "title": "Dify 1.19.0 WebApp Human Input 表单提交必现 404 \"Form not found\" 回归绕过",
+      "value_tag": "避坑 HITL 卡死",
+      "tldr": "Dify 1.19.0 自托管镜像中，WebApp 端暂停等待 Human Input 表单时被误发 BACKSTAGE 令牌，点击任意操作按钮均触发 POST 404 导致工作流永久卡死。",
+      "details": [
+        "影响范围：Dify 1.19.0 Docker 自托管版中启用了 webapp 投递方式的 Chatflow 人工审核（Human Input）节点。",
+        "故障特征：表单卡片正常渲染，但提交触发 POST /api/form/human_input/{token} 返回 404 {\"message\": \"Form not found\"}，根因系 #44864 重构导致表面令牌路由回归。",
+        "绕过方案：官方确认 PR #45827 已于 11 月 13 日合入 main 分支；生产环境需升级至包含 #45827 的新镜像，临时可改由控制台 Debug 预览页提交 BACKSTAGE 令牌恢复流程。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub Issues",
+      "source_url": "https://github.com/langgenius/dify/issues/46535"
+    },
+    {
+      "id": "ai-20261118-08",
+      "date": "2026-11-18",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "title": "Dify 1.17~1.19 Loop 节点切换变量类型后静默丢值，致已发布工作流 API 全线失败",
+      "value_tag": "防线上工作流全挂",
+      "tldr": "在 Loop 节点修改循环变量类型或 Constant/Variable 模式后，前端会写入 undefined 并在保存草稿时丢失 value 键；保存与发布不报错，但线上调用 API 必报错失败。",
+      "details": [
+        "影响范围：Dify 1.17.x、1.18.0、1.19.0 自托管版中使用 Loop 节点的工作流；一旦发布损坏快照，整条工作流所有 API 请求都会在图预校验阶段直接失败。",
+        "报错特征：运行时 graphon 的 LoopNodeData.model_validate() 抛出 1 validation error: loop_variables.0.value Field required [type=missing]。",
+        "避坑操作：每次切换 Loop 变量类型（如 String 改 Number）或输入模式后，务必手动重新填写默认字面量或重选一次上游变量以写回 value 键，切勿改完直接点击发布。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub Issues",
+      "source_url": "https://github.com/langgenius/dify/issues/46550"
+    },
+    {
+      "id": "ai-20261118-01",
+      "date": "2026-11-18",
+      "type": "DEAL",
+      "status": "FIXED",
+      "title": "OpenRouter 开发者黑客松限时口令：免绑卡领取 $25 全模型通用推理额度",
+      "value_tag": "立省 $25",
+      "tldr": "使用注册满 90 天的 GitHub 账号登录并兑换活动口令，可直接获赠 $25 OpenRouter Credits，覆盖 Claude / Gemini / DeepSeek 主流模型。",
+      "details": [
+        "资格门槛：GitHub 账号需注册满 90 天且至少有 1 个公开仓库，无需绑定信用卡即可激活。",
+        "库存预警：总奖池限量 5,000 份，单账号限领一次，到账后 60 天内有效，手慢随时下线。",
+        "调用避坑：使用免费/赠金路由时建议在请求头附带 HTTP-Referer 与 X-Title，避免触发匿名风控限速。"
+      ],
+      "action_snippet": "# 1. OpenRouter 控制台 Credits -> Redeem 输入优惠码：\nBUILD2026-OR25\n\n# 2. 终端快速核验到账余额：\ncurl -s https://openrouter.ai/api/v1/auth/key \\\n  -H \"Authorization: Bearer $OPENROUTER_API_KEY\"",
+      "source_platform": "Hacker News",
+      "source_url": "https://news.ycombinator.com/item?id=42168491"
+    },
+    {
+      "id": "ai-20261118-02",
+      "date": "2026-11-18",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "title": "LangGraph 0.4.x + AsyncPostgresSaver 并发流式输出偶发 Checkpoint 死锁临时修复",
+      "value_tag": "避坑 3 小时",
+      "tldr": "并发调用 astream_events 且共享 thread_id 时，psycopg 连接池默认关闭 autocommit 会引发 checkpoints 表行锁死锁，需显式透传连接参数绕过。",
+      "details": [
+        "触发条件：langgraph>=0.4.0 搭配 langgraph-checkpoint-postgres，在 FastAPI 异步高并发下读写同一会话状态。",
+        "典型报错：psycopg.errors.DeadlockDetected 或流式响应无故 hang 住 30 秒后触发 statement_timeout。",
+        "临时方案：初始化 AsyncConnectionPool 时强制开启 autocommit=True 并设置 prepare_threshold=0，同时兼容 PgBouncer 事务池模式。"
+      ],
+      "action_snippet": "from psycopg_pool import AsyncConnectionPool\nfrom langgraph.checkpoint.postgres.aio import AsyncPostgresSaver\n\npool = AsyncConnectionPool(\n    conninfo=DATABASE_URL,\n    max_size=20,\n    kwargs={\"autocommit\": True, \"prepare_threshold\": 0},\n)\ncheckpointer = AsyncPostgresSaver(pool)",
+      "source_platform": "GitHub Issues",
+      "source_url": "https://github.com/langchain-ai/langgraph/issues/3842"
+    },
+    {
+      "id": "ai-20261117-01",
+      "date": "2026-11-17",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "title": "OpenAI API 隐藏参数组合：service_tier=\"flex\" 叠加 prompt_cache_key 成本直降 50%+",
+      "value_tag": "成本直降 50%",
+      "tldr": "非实时 Agent 离线任务显式开启 flex 算力层即可按半价计费，再绑定固定 prompt_cache_key 可将跨节点前缀缓存命中率拉升至 90% 以上。",
+      "details": [
+        "适用场景：定时爬虫抽取、批量文档摘要、离线 Eval 评测等可接受 5~15 秒首字延迟的后台流水线。",
+        "组合增益：flex 档位单价直接减半，固定 prompt_cache_key 会引导路由尽量落在同一缓存分片，避免高并发下缓存击穿。",
+        "兜底建议：算力紧张时段可能返回 429 Resource Unavailable，建议客户端捕获后自动降级为 service_tier=\"auto\"。"
+      ],
+      "action_snippet": "{\n  \"model\": \"gpt-4.1-mini\",\n  \"service_tier\": \"flex\",\n  \"prompt_cache_key\": \"radar-intel-extractor-v1\",\n  \"messages\": [\n    { \"role\": \"system\", \"content\": \"You are a strict JSON intelligence extractor...\" },\n    { \"role\": \"user\", \"content\": \"{{raw_content}}\" }\n  ]\n}",
+      "source_platform": "X (Twitter)",
+      "source_url": "https://x.com/OpenAIDevs/status/1989512048371920112"
+    },
+    {
+      "id": "ai-20261117-02",
+      "date": "2026-11-17",
+      "type": "DEAL",
+      "status": "FIXED",
+      "title": "Cerebras Free Tier + Cloudflare Workers AI 零成本组合：日均白嫖 100 万 Token 推理流",
+      "value_tag": "月省 $40+",
+      "tldr": "用 Cerebras 免费层承接高速大参数结构化提取，配合 Cloudflare Workers AI 每日 10,000 Neurons 兜底，个人 AI 雷达站可实现彻底零 API 账单。",
+      "details": [
+        "Cerebras 免费层实测稳定给到每日 1,000,000 Tokens 配额，Llama-3.3-70B 吐字速度 1,800+ tok/s，非常适合定时批处理。",
+        "Cloudflare Workers AI 免费账号每日重置 10,000 Neurons，无需绑定信用卡即可直接跑 Embedding 与短文本分类。",
+        "开通方式：分别登录各自控制台在 Web 界面生成 API Token 即可，无需优惠码；建议在脚本层加上 429 自动故障切换逻辑。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Reddit r/LocalLLaMA",
+      "source_url": "https://www.reddit.com/r/LocalLLaMA/comments/1gtt8x2/zero_cost_inference_stack_cerebras_cf_workers_ai/"
+    },
+    {
+      "id": "ai-20261116-01",
+      "date": "2026-11-16",
+      "type": "HACK",
+      "status": "FIXED",
+      "title": "Anthropic API 开启 1 小时扩展 Prompt Cache：长间隔多轮 Agent 账单再砍 65%",
+      "value_tag": "长对话省 65%",
+      "tldr": "在请求头注入 extended-cache-ttl Beta 标识并在 cache_control 中指定 ttl=\"1h\"，打破默认 5 分钟缓存失效限制，拯救低频长上下文工作流。",
+      "details": [
+        "痛点解决：人工审批流（HITL）或长代码库交互式排查往往间隔超 5 分钟，默认 5m 缓存频繁失效导致 System Prompt 反复全额计费。",
+        "回本测算：1 小时缓存写入溢价略高于默认档，但 60 分钟窗口内只要命中读取 >= 2 次即净省，多轮工具调用直接砍掉 65% 输入费用。",
+        "窗口提醒：该参数仍依赖 Beta Header 协议头，近期可能随 SDK 大版本合并至正式参数，上线前请锁定依赖版本并关注响应头弃用提示。"
+      ],
+      "action_snippet": "curl https://api.anthropic.com/v1/messages \\\n  -H \"x-api-key: $ANTHROPIC_API_KEY\" \\\n  -H \"anthropic-version: 2023-06-01\" \\\n  -H \"anthropic-beta: extended-cache-ttl-2025-04-11\" \\\n  -H \"content-type: application/json\" \\\n  -d '{\"model\":\"claude-sonnet-4-5\",\"max_tokens\":1024,\"system\":[{\"type\":\"text\",\"text\":\"<LARGE_SYSTEM_PROMPT>\",\"cache_control\":{\"type\":\"ephemeral\",\"ttl\":\"1h\"}}],\"messages\":[{\"role\":\"user\",\"content\":\"Analyze logs\"}]}'",
+      "source_platform": "GitHub Discussions",
+      "source_url": "https://github.com/anthropics/anthropic-sdk-python/discussions/914"
+    },
+    {
+      "id": "ai-20261115-01",
+      "date": "2026-11-15",
+      "type": "BUG",
+      "status": "FIXED",
+      "title": "Dify v1.2.0 Docker Compose 原地升级后 plugin_daemon 循环重启（Redis 鉴权失败）修复指南",
+      "value_tag": "避坑 2 小时",
+      "tldr": "Dify v1.2.0 新增的插件守护进程未正确回退读取旧版 REDIS_PASSWORD 导致启动即 CrashLoop，官方已于 v1.2.1 紧急修复，旧版亦可通过补齐环境变量热修。",
+      "details": [
+        "影响范围：从 Dify 0.15.x / 1.1.x 直接拉取镜像升级到 v1.2.0 且沿用旧 docker/.env 的自托管实例。",
+        "排查特征：docker logs docker-plugin_daemon-1 刷屏报错 redis: NOAUTH Authentication required，控制台插件市场白屏。",
+        "修复状态：官方已发布 v1.2.1 补丁版本；若生产环境暂无法跨小版本升级，可先显式写入 PLUGIN_REDIS_PASSWORD 后单独重建容器。"
+      ],
+      "action_snippet": "# 推荐：直接升级至官方已修复版本 v1.2.1\ngit fetch origin && git checkout 1.2.1 && docker compose -f docker/docker-compose.yaml up -d --force-recreate plugin_daemon\n\n# 临时热修（仅限停留在 v1.2.0 时）：\necho 'PLUGIN_REDIS_PASSWORD=${REDIS_PASSWORD}' >> docker/.env && docker compose -f docker/docker-compose.yaml up -d plugin_daemon",
+      "source_platform": "GitHub Issues",
+      "source_url": "https://github.com/langgenius/dify/issues/16409"
+    }
+  ]
+}

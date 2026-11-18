@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-intel-radar.local/data/schema.json",
+  "title": "AI Intel Radar Dataset",
+  "description": "《AI 圈前沿情报与算力羊毛雷达站》核心静态数据源（/data/intel_data.json）及单条情报字段的严格规范。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "updated_at",
+    "items"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema 相对路径引用，供 IDE 自动补全与静态校验使用。"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$",
+      "description": "情报库最近一次同步/更新的 ISO-8601 时间戳（含时区）。"
+    },
+    "items": {
+      "type": "array",
+      "description": "按发布时间倒序排列的情报列表。",
+      "items": {
+        "$ref": "#/$defs/IntelItem"
+      }
+    }
+  },
+  "$defs": {
+    "IntelItem": {
+      "title": "IntelItem",
+      "description": "单条 AI 前沿情报与算力羊毛的严格数据结构规范。",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "date",
+        "type",
+        "status",
+        "title",
+        "value_tag",
+        "tldr",
+        "details",
+        "action_snippet",
+        "source_platform",
+        "source_url"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ai-\\d{8}-\\d{2,}$",
+          "description": "情报全局唯一 ID，格式为 ai-YYYYMMDD-NN（如 ai-20261118-01）。"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "情报捕获或发布日期，严格采用 YYYY-MM-DD 格式。"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "DEAL",
+            "BUG",
+            "HACK"
+          ],
+          "description": "情报类型枚举：DEAL（羊毛/优惠）、BUG（漏洞/故障）、HACK（隐藏技巧）。"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "URGENT",
+            "FIXED"
+          ],
+          "description": "情报状态枚举：ACTIVE（亲测有效）、URGENT（手慢无/即将失效）、FIXED（已修复/已过期）。"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "硬核直击痛点的情报标题。"
+        },
+        "value_tag": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "量化核心价值标签（如“立省 $50”、“避坑 2 小时”、“成本直降 50%”）。"
+        },
+        "tldr": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "description": "一句话省流核心总结。"
+        },
+        "details": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "关键细节、适用门槛、触发条件或避坑说明列表。"
+        },
+        "action_snippet": {
+          "type": "string",
+          "description": "可直接一键复制的命令、配置、优惠码或临时修复代码；无可执行片段时必须为空字符串 \"\"。"
+        },
+        "source_platform": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "原始情报来源平台（如 GitHub Issues、Hacker News、Reddit r/LocalLLaMA、X (Twitter)）。"
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://",
+          "description": "原始情报来源链接（需为有效的 HTTP/HTTPS URL）。"
+        }
+      }
+    }
+  }
+}
