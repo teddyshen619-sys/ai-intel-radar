@@ -404,9 +404,11 @@
           </div>
           <div class="footer-contact">
             <span class="footer-contact-divider" aria-hidden="true"></span>
-            <span>联系我们</span>
-            <a class="footer-contact-email" href="mailto:a92869511@gmail.com">a92869511@gmail.com</a>
-            <button type="button" id="footer-copy-email" aria-label="复制联系邮箱">复制</button>
+            <button type="button" id="footer-contact-toggle" aria-expanded="false" aria-controls="footer-contact-details">联系我们</button>
+            <div id="footer-contact-details" class="footer-contact-details" hidden>
+              <a class="footer-contact-email" href="mailto:a92869511@gmail.com">a92869511@gmail.com</a>
+              <button type="button" id="footer-copy-email" aria-label="复制联系邮箱">复制</button>
+            </div>
           </div>
           <time id="footer-updated-at" class="footer-updated">--</time>
         </div>

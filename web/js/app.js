@@ -676,6 +676,13 @@ function resetFilters(dom, options) {
 }
 
 function bindEvents(dom) {
+  const contactToggle = document.getElementById('footer-contact-toggle');
+  const contactDetails = document.getElementById('footer-contact-details');
+  contactToggle.addEventListener('click', () => {
+    const expanded = contactDetails.hidden;
+    contactDetails.hidden = !expanded;
+    contactToggle.setAttribute('aria-expanded', String(expanded));
+  });
   const copyEmailButton = document.getElementById('footer-copy-email');
   let copyEmailTimer;
   copyEmailButton.addEventListener('click', async () => {
