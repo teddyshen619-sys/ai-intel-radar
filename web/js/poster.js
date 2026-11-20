@@ -1,8 +1,9 @@
+import { qrcode } from './qrcode.js';
+
 /**
- * AI 圈前沿情报与算力羊毛雷达站 — 零依赖原生 Canvas 2D 病毒战报生成器
- *
- * 严格零外部库依赖、零外部跨域图片，100% 纯 HTML5 Canvas 2D API 绘制，
- * 保证 canvas.toBlob() / canvas.toDataURL('image/png') 永不触发 Tainted Canvas SecurityError。
+ * AI Intel Radar — Apple Keynote / Google Editorial Canvas 2D Poster Generator
+ * 750x1334 portrait PNG · Zero external dependencies · Zero cross-origin assets · Zero Emojis
+ * Safe DOM API + textContent throughout (XSS-safe)
  */
 
 const POSTER_WIDTH = 750;
@@ -11,105 +12,106 @@ const POSTER_HEIGHT = 1334;
 const MIN_SELECTION = 1;
 const MAX_SELECTION = 4;
 const DEFAULT_SELECTION_LIMIT = 3;
+const DEFAULT_POSTER_STYLE = 'apple-light';
 
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+const FONT_DISPLAY =
+  '"DM Sans", "Noto Sans SC", "SF Pro Display", "PingFang SC", "Microsoft YaHei Light", "DengXian Light", "Helvetica Neue", sans-serif';
 const FONT_SANS =
-  '"PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Hiragino Sans GB", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  '-apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Google Sans", "Helvetica Neue", "Microsoft YaHei", sans-serif';
 const FONT_MONO =
-  '"JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace';
+  '"IBM Plex Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
 
-const TYPE_THEMES = {
-  DEAL: {
-    code: 'DEAL',
-    label: 'DEAL · 算力羊毛',
-    shortLabel: '算力羊毛',
-    accent: '#10B981',
-    text: '#34D399',
-    softBg: 'rgba(16, 185, 129, 0.15)',
-    border: 'rgba(16, 185, 129, 0.48)',
-    valueBgStart: '#059669',
-    valueBgEnd: '#10B981',
-    valueText: '#ECFDF5',
-  },
-  BUG: {
-    code: 'BUG',
-    label: 'BUG · 漏洞避坑',
-    shortLabel: '漏洞避坑',
-    accent: '#EF4444',
-    text: '#F87171',
-    softBg: 'rgba(239, 68, 68, 0.15)',
-    border: 'rgba(239, 68, 68, 0.48)',
-    valueBgStart: '#DC2626',
-    valueBgEnd: '#EF4444',
-    valueText: '#FEF2F2',
-  },
-  HACK: {
-    code: 'HACK',
-    label: 'HACK · 极客技巧',
-    shortLabel: '极客技巧',
-    accent: '#06B6D4',
-    text: '#22D3EE',
-    softBg: 'rgba(6, 182, 212, 0.15)',
-    border: 'rgba(6, 182, 212, 0.48)',
-    valueBgStart: '#0284C7',
-    valueBgEnd: '#06B6D4',
-    valueText: '#ECFEFF',
-  },
-};
+const STATUS_WEIGHT = Object.freeze({
+  URGENT: 3,
+  ACTIVE: 2,
+  FIXED: 1,
+});
 
-const STATUS_THEMES = {
-  URGENT: {
-    code: 'URGENT',
-    label: '手慢无',
-    barColor: '#F59E0B',
-    dotColor: '#FBBF24',
-    text: '#FCD34D',
-    softBg: 'rgba(245, 158, 11, 0.16)',
-    border: 'rgba(245, 158, 11, 0.52)',
-    strikethrough: false,
-  },
-  ACTIVE: {
-    code: 'ACTIVE',
-    label: '亲测有效',
-    barColor: '#10B981',
-    dotColor: '#34D399',
-    text: '#6EE7B7',
-    softBg: 'rgba(16, 185, 129, 0.15)',
-    border: 'rgba(16, 185, 129, 0.45)',
-    strikethrough: false,
-  },
-  FIXED: {
-    code: 'FIXED',
-    label: '已失效',
-    barColor: '#64748B',
-    dotColor: '#94A3B8',
-    text: '#94A3B8',
-    softBg: 'rgba(100, 116, 139, 0.18)',
-    border: 'rgba(100, 116, 139, 0.42)',
-    strikethrough: true,
-  },
-};
+const TYPE_LABELS = Object.freeze({
+  BENCHMARK: '深度评测',
+  VIDEO: '视频拆解',
+  DEAL: '算力羊毛',
+  BUG: '漏洞避坑',
+  HACK: '极客技巧',
+  MODEL: '新模型',
+  PRODUCT: '新产品',
+  POLICY: '新条款与定价',
+});
 
-const DEFAULT_TYPE_THEME = TYPE_THEMES.HACK;
-const DEFAULT_STATUS_THEME = STATUS_THEMES.ACTIVE;
+export const POSTER_STYLES = Object.freeze({
+  'apple-light': Object.freeze({
+    id: 'apple-light',
+    name: '极简白',
+    bg: '#FFFFFF',
+    panelBg: '#F5F5F7',
+    leadPanelBg: '#F2F3F7',
+    leadUrgentBg: '#F7F2F2',
+    ink: '#1D1D1F',
+    bodyInk: '#424245',
+    mutedInk: '#6E6E73',
+    faintInk: '#86868B',
+    accent: '#0066CC',
+    urgent: '#C5221F',
+    urgentDot: '#D93025',
+    activeDot: '#188038',
+    hairline: 'rgba(0, 0, 0, 0.09)',
+    strongRule: 'rgba(0, 0, 0, 0.16)',
+    artPrimary: 'rgba(0, 102, 204, 0.16)',
+    artSecondary: 'rgba(29, 29, 31, 0.06)',
+    codeBg: '#FFFFFF',
+    codeBorder: 'rgba(0, 0, 0, 0.09)',
+    codeInk: '#1D1D1F',
+  }),
+  'space-gray': Object.freeze({
+    id: 'space-gray',
+    name: '深空灰',
+    bg: '#0B0C0E',
+    panelBg: '#141519',
+    leadPanelBg: '#171921',
+    leadUrgentBg: '#1E1618',
+    ink: '#F5F5F7',
+    bodyInk: '#C7C7CC',
+    mutedInk: '#8E8E93',
+    faintInk: '#6E6E73',
+    accent: '#2997FF',
+    urgent: '#FF6961',
+    urgentDot: '#FF453A',
+    activeDot: '#30D158',
+    hairline: 'rgba(255, 255, 255, 0.10)',
+    strongRule: 'rgba(255, 255, 255, 0.18)',
+    artPrimary: 'rgba(41, 151, 255, 0.22)',
+    artSecondary: 'rgba(255, 255, 255, 0.07)',
+    codeBg: '#0E1014',
+    codeBorder: 'rgba(255, 255, 255, 0.11)',
+    codeInk: '#E5E5EA',
+  }),
+});
 
-/**
- * 解析战报日期：优先 meta.date，其次 meta.updatedAt 的 YYYY-MM-DD，最后回退当天本地日期
- */
-function resolvePosterDate(meta = {}) {
-  const candidates = [meta?.date, meta?.updatedAt, meta?.updated_at];
-  for (const raw of candidates) {
-    if (typeof raw !== 'string') continue;
-    const trimmed = raw.trim();
-    const directMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})/);
-    if (directMatch) {
-      return directMatch[1];
-    }
-    const parsed = new Date(trimmed);
-    if (!Number.isNaN(parsed.getTime())) {
-      return formatLocalDate(parsed);
-    }
-  }
-  return formatLocalDate(new Date());
+function normalizeStyleKey(styleKey) {
+  return Object.prototype.hasOwnProperty.call(POSTER_STYLES, styleKey)
+    ? styleKey
+    : DEFAULT_POSTER_STYLE;
+}
+
+function sortItemsByValue(items) {
+  if (!Array.isArray(items)) return [];
+  return [...items]
+    .filter((it) => it && typeof it === 'object')
+    .sort((a, b) => {
+      const weightDiff =
+        (STATUS_WEIGHT[b.status] ?? 0) - (STATUS_WEIGHT[a.status] ?? 0);
+      if (weightDiff !== 0) return weightDiff;
+
+      const prioDiff = (Number(b.priority) || 0) - (Number(a.priority) || 0);
+      if (prioDiff !== 0) return prioDiff;
+
+      const dateCmp = String(b.date || '').localeCompare(String(a.date || ''));
+      if (dateCmp !== 0) return dateCmp;
+
+      return String(b.id || '').localeCompare(String(a.id || ''));
+    });
 }
 
 function formatLocalDate(dateObj) {
@@ -119,72 +121,39 @@ function formatLocalDate(dateObj) {
   return `${y}-${m}-${d}`;
 }
 
-/**
- * 确定性 FNV-1a 32-bit 哈希 + Mulberry32 伪随机数生成器（用于纯矢量二维码数据区）
- */
-function hashString(input) {
-  let h = 0x811c9dc5;
-  const str = String(input ?? 'ai-intel-radar');
-  for (let i = 0; i < str.length; i += 1) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 0x01000193);
+function resolvePosterDate(meta = {}) {
+  const candidates = [meta?.date, meta?.updatedAt, meta?.updated_at];
+  for (const raw of candidates) {
+    if (typeof raw !== 'string') continue;
+    const trimmed = raw.trim();
+    const directMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})/);
+    if (directMatch) return directMatch[1];
+    const parsed = new Date(trimmed);
+    if (!Number.isNaN(parsed.getTime())) return formatLocalDate(parsed);
   }
-  return h >>> 0;
+  return formatLocalDate(new Date());
 }
 
-function createPrng(seed) {
-  let state = seed >>> 0 || 0x1a2b3c4d;
-  return function nextRandom() {
-    state = (state + 0x6d2b79f5) >>> 0;
-    let t = Math.imul(state ^ (state >>> 15), 1 | state);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
+function formatHumanCnDate(isoDateStr) {
+  const match = String(isoDateStr ?? '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return isoDateStr;
+  return `${Number(match[1])}年${Number(match[2])}月${Number(match[3])}日`;
 }
 
-/**
- * 跨浏览器圆角矩形路径
- */
-function drawRoundedRectPath(ctx, x, y, w, h, radius) {
-  const radii = Array.isArray(radius)
-    ? radius
-    : [radius, radius, radius, radius];
-  const maxR = Math.min(w / 2, h / 2);
-  const [tl, tr, br, bl] = radii.map((r) => Math.max(0, Math.min(r, maxR)));
 
-  ctx.beginPath();
-  ctx.moveTo(x + tl, y);
-  ctx.lineTo(x + w - tr, y);
-  ctx.arcTo(x + w, y, x + w, y + tr, tr);
-  ctx.lineTo(x + w, y + h - br);
-  ctx.arcTo(x + w, y + h, x + w - br, y + h, br);
-  ctx.lineTo(x + bl, y + h);
-  ctx.arcTo(x, y + h, x, y + h - bl, bl);
-  ctx.lineTo(x, y + tl);
-  ctx.arcTo(x, y, x + tl, y, tl);
-  ctx.closePath();
-}
-
-/**
- * 中英文混排分词：保持常规英文/数字/符号词组完整，同时逐字切分中文与标点
- */
 function tokenizeMixedText(str) {
   const normalized = String(str ?? '')
     .replace(/[\r\n\t]+/g, ' ')
     .replace(/\s{2,}/g, ' ')
     .trim();
   if (!normalized) return [];
-  const regex =
-    /[A-Za-z0-9_$%]+(?:[._\-/+,][A-Za-z0-9_$%+]+)*|\s+|./gu;
+  const regex = /[A-Za-z0-9_$%]+(?:[._\-/+,][A-Za-z0-9_$%+]+)*|\s+|./gu;
   return normalized.match(regex) || [];
 }
 
-/**
- * 严格基于 ctx.measureText 的单行省略号截断（二分查找，支持 Unicode 代理对）
- */
 function truncateWithEllipsis(ctx, text, maxWidth) {
   const clean = String(text ?? '').trimEnd();
-  if (!clean) return '';
+  if (!clean || maxWidth <= 0) return '';
   if (ctx.measureText(clean).width <= maxWidth) return clean;
 
   const ellipsis = '…';
@@ -203,24 +172,20 @@ function truncateWithEllipsis(ctx, text, maxWidth) {
       hi = mid - 1;
     }
   }
-
   return chars.slice(0, lo).join('').trimEnd() + ellipsis;
 }
 
 const CLOSING_PUNCT_RE = /^[，。、：；！？）】》”’.,:;!?)]$/;
+const CJK_CHAR_RE = /^[\u4e00-\u9fff]$/;
+const TRAILING_OPEN_PUNCT_RE = /(?:^|\s)([“‘（(【《"])$/;
+const TRAILING_ASCII_WORD_RE = /([A-Za-z0-9_$%][A-Za-z0-9_$%._\-/+,]*)$/;
 
-/**
- * 严谨的中英文混排自动折行算法（基于 ctx.measureText + 避头标点优化 + 最大行数省略号截断）
- */
 function wrapText(ctx, text, maxWidth, maxLines = 2) {
   if (maxLines <= 0 || maxWidth <= 0) {
     return { lines: [], truncated: false };
   }
-
   const tokens = tokenizeMixedText(text);
-  if (tokens.length === 0) {
-    return { lines: [], truncated: false };
-  }
+  if (tokens.length === 0) return { lines: [], truncated: false };
 
   const lines = [];
   let current = '';
@@ -228,28 +193,21 @@ function wrapText(ctx, text, maxWidth, maxLines = 2) {
 
   for (let i = 0; i < tokens.length; i += 1) {
     const token = tokens[i];
-
-    // 跳过行首空白
-    if (current === '' && /^\s+$/.test(token)) {
-      continue;
-    }
+    if (current === '' && /^\s+$/.test(token)) continue;
 
     const candidate = current + token;
     const candidateW = ctx.measureText(candidate).width;
-    // 避头标点（如句号/逗号）：允许极轻微光学悬挂（<=8px）避免孤立标点独占一行
     const isClosingPunct = CLOSING_PUNCT_RE.test(token);
+
     if (
       candidateW <= maxWidth ||
-      (isClosingPunct && current !== '' && candidateW <= maxWidth + 8)
+      (isClosingPunct && current !== '' && candidateW <= maxWidth + 10)
     ) {
       current = candidate;
       continue;
     }
 
-    const isLastLine = lines.length === maxLines - 1;
-
-    if (isLastLine) {
-      // 最后一行：合并剩余文本并在精确像素边界处加省略号，避免半行留白
+    if (lines.length === maxLines - 1) {
       const remainder = (current + tokens.slice(i).join('')).trim();
       lines.push(truncateWithEllipsis(ctx, remainder, maxWidth));
       current = '';
@@ -258,25 +216,44 @@ function wrapText(ctx, text, maxWidth, maxLines = 2) {
     }
 
     if (current !== '') {
-      // 若触发换行的是行首禁则标点，将上一行末尾 1 个字符带入下一行避免孤标点
+      const trimmedCur = current.trimEnd();
       if (isClosingPunct) {
-        const curChars = Array.from(current.trimEnd());
-        if (curChars.length > 2) {
+        const asciiMatch = trimmedCur.match(TRAILING_ASCII_WORD_RE);
+        if (asciiMatch && asciiMatch.index > 0) {
+          const head = trimmedCur.slice(0, asciiMatch.index).trimEnd();
+          if (head) {
+            lines.push(head);
+            current = asciiMatch[1] + token;
+            continue;
+          }
+        }
+        const curChars = Array.from(trimmedCur);
+        if (curChars.length > 2 && CJK_CHAR_RE.test(curChars[curChars.length - 1])) {
           const carried = curChars.pop();
           lines.push(curChars.join('').trimEnd());
           current = carried + token;
           continue;
         }
       }
-      lines.push(current.trimEnd());
-      current = '';
-      if (!/^\s+$/.test(token)) {
-        i -= 1;
+
+      const openMatch = trimmedCur.match(TRAILING_OPEN_PUNCT_RE);
+      if (openMatch) {
+        const cutIdx = trimmedCur.length - openMatch[1].length;
+        const head = trimmedCur.slice(0, cutIdx).trimEnd();
+        if (head) {
+          lines.push(head);
+          current = openMatch[1];
+          if (!/^\s+$/.test(token)) i -= 1;
+          continue;
+        }
       }
+
+      lines.push(trimmedCur);
+      current = '';
+      if (!/^\s+$/.test(token)) i -= 1;
       continue;
     }
 
-    // 单个超长 token 本身超出 maxWidth：按 Unicode 字符逐字拆分
     const chars = Array.from(token);
     let chunk = '';
     let consumed = 0;
@@ -289,7 +266,6 @@ function wrapText(ctx, text, maxWidth, maxLines = 2) {
         break;
       }
     }
-
     lines.push(chunk);
     const rest = chars.slice(consumed).join('');
     if (rest) {
@@ -301,1229 +277,599 @@ function wrapText(ctx, text, maxWidth, maxLines = 2) {
   if (!truncated && current.trim()) {
     lines.push(current.trimEnd());
   }
-
   return { lines, truncated };
 }
 
-/**
- * 绘制背景：#0B0F19 深灰黑底色 + 精细赛博网格 + 四角霓虹低饱和径向光晕
- */
-function drawBackground(ctx) {
-  // 1. 深邃底色渐变
-  const baseGrad = ctx.createLinearGradient(0, 0, 0, POSTER_HEIGHT);
-  baseGrad.addColorStop(0, '#0D1322');
-  baseGrad.addColorStop(0.28, '#0B0F19');
-  baseGrad.addColorStop(0.78, '#0B0F19');
-  baseGrad.addColorStop(1, '#080C15');
-  ctx.fillStyle = baseGrad;
-  ctx.fillRect(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
-
-  // 2. 低饱和赛博光晕（顶部双色 + 底部双色）
-  const glows = [
-    { x: 645, y: 105, r: 380, color: 'rgba(16, 185, 129, 0.14)' },
-    { x: 110, y: 85, r: 320, color: 'rgba(6, 182, 212, 0.11)' },
-    { x: 145, y: 1210, r: 340, color: 'rgba(16, 185, 129, 0.12)' },
-    { x: 635, y: 1230, r: 310, color: 'rgba(14, 165, 233, 0.09)' },
-  ];
-
-  for (const g of glows) {
-    const rad = ctx.createRadialGradient(g.x, g.y, 6, g.x, g.y, g.r);
-    rad.addColorStop(0, g.color);
-    rad.addColorStop(1, 'rgba(11, 15, 25, 0)');
-    ctx.fillStyle = rad;
-    ctx.fillRect(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
-  }
-
-  // 3. 精细赛博网格线
-  ctx.save();
-  ctx.strokeStyle = 'rgba(148, 163, 184, 0.048)';
-  ctx.lineWidth = 1;
-  const gridStep = 30;
-  ctx.beginPath();
-  for (let x = gridStep; x < POSTER_WIDTH; x += gridStep) {
-    ctx.moveTo(x + 0.5, 0);
-    ctx.lineTo(x + 0.5, POSTER_HEIGHT);
-  }
-  for (let y = gridStep; y < POSTER_HEIGHT; y += gridStep) {
-    ctx.moveTo(0, y + 0.5);
-    ctx.lineTo(POSTER_WIDTH, y + 0.5);
-  }
-  ctx.stroke();
-
-  // 4. 网格交叉点微弱 HUD 十字星标
-  ctx.strokeStyle = 'rgba(16, 185, 129, 0.15)';
-  ctx.lineWidth = 1;
-  const crossStep = 120;
-  ctx.beginPath();
-  for (let x = crossStep; x < POSTER_WIDTH; x += crossStep) {
-    for (let y = crossStep; y < POSTER_HEIGHT; y += crossStep) {
-      ctx.moveTo(x - 3.5, y + 0.5);
-      ctx.lineTo(x + 4.5, y + 0.5);
-      ctx.moveTo(x + 0.5, y - 3.5);
-      ctx.lineTo(x + 0.5, y + 4.5);
-    }
-  }
-  ctx.stroke();
-  ctx.restore();
-}
-
-/**
- * 绘制四角终端 HUD 装饰框线与微弱遥测文字
- */
-function drawHudFrame(ctx) {
-  const pad = 18;
-  const x = pad;
-  const y = pad;
-  const w = POSTER_WIDTH - pad * 2;
-  const h = POSTER_HEIGHT - pad * 2;
-  const arm = 24;
-
-  ctx.save();
-  // 外框细线
-  ctx.strokeStyle = 'rgba(51, 65, 85, 0.45)';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
-
-  // 四角高亮 L 型 HUD 支架
-  ctx.lineWidth = 2.5;
-  ctx.lineCap = 'square';
-
-  // 左上（霓虹绿）
-  ctx.strokeStyle = '#10B981';
-  ctx.beginPath();
-  ctx.moveTo(x, y + arm);
-  ctx.lineTo(x, y);
-  ctx.lineTo(x + arm, y);
-  ctx.stroke();
-
-  // 右上（赛博青）
-  ctx.strokeStyle = '#06B6D4';
-  ctx.beginPath();
-  ctx.moveTo(x + w - arm, y);
-  ctx.lineTo(x + w, y);
-  ctx.lineTo(x + w, y + arm);
-  ctx.stroke();
-
-  // 左下（赛博青）
-  ctx.strokeStyle = '#06B6D4';
-  ctx.beginPath();
-  ctx.moveTo(x, y + h - arm);
-  ctx.lineTo(x, y + h);
-  ctx.lineTo(x + arm, y + h);
-  ctx.stroke();
-
-  // 右下（霓虹绿）
-  ctx.strokeStyle = '#10B981';
-  ctx.beginPath();
-  ctx.moveTo(x + w - arm, y + h);
-  ctx.lineTo(x + w, y + h);
-  ctx.lineTo(x + w, y + h - arm);
-  ctx.stroke();
-
-  // 顶部遥测角标
-  ctx.font = `600 10px ${FONT_MONO}`;
-  ctx.fillStyle = 'rgba(100, 116, 139, 0.72)';
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'left';
-  ctx.fillText('SYS.RADAR // STATIC-EDGE', x + 32, y + 9);
-  ctx.textAlign = 'right';
-  ctx.fillText('FRAME 750×1334 · ZERO-API', x + w - 32, y + 9);
-  ctx.restore();
-}
-
-/**
- * 绘制紧凑胶囊标签
- */
-function drawBadgePill(
-  ctx,
-  {
-    x,
-    y,
-    height,
-    text,
-    font,
-    textColor,
-    bgColor,
-    borderColor,
-    dotColor = null,
-    strikethrough = false,
-    paddingX = 11,
-    radius = 6,
-    maxWidth = null,
-  }
-) {
-  ctx.save();
-  ctx.font = font;
-  const dotSpace = dotColor ? 13 : 0;
-  let displayText = String(text ?? '');
-  if (maxWidth !== null) {
-    const availTextW = Math.max(24, maxWidth - paddingX * 2 - dotSpace);
-    displayText = truncateWithEllipsis(ctx, displayText, availTextW);
-  }
-  const textW = ctx.measureText(displayText).width;
-  const width = Math.ceil(paddingX * 2 + dotSpace + textW);
-
-  drawRoundedRectPath(ctx, x, y, width, height, radius);
-  ctx.fillStyle = bgColor;
-  ctx.fill();
-  if (borderColor) {
-    ctx.strokeStyle = borderColor;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
-
-  let textX = x + paddingX;
-  const centerY = y + height / 2;
-
-  if (dotColor) {
-    ctx.beginPath();
-    ctx.arc(textX + 3.5, centerY, 3.5, 0, Math.PI * 2);
-    ctx.fillStyle = dotColor;
-    ctx.fill();
-    textX += dotSpace;
-  }
-
-  ctx.fillStyle = textColor;
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'left';
-  ctx.fillText(displayText, textX, centerY + 0.5);
-
-  if (strikethrough && textW > 0) {
-    ctx.strokeStyle = textColor;
-    ctx.lineWidth = 1.3;
-    ctx.beginPath();
-    ctx.moveTo(textX - 1, centerY + 0.5);
-    ctx.lineTo(textX + textW + 1, centerY + 0.5);
-    ctx.stroke();
-  }
-
-  ctx.restore();
-  return width;
-}
-
-/**
- * 绘制顶部铭牌区（Y: 38 -> 236）
- */
-function drawHeader(ctx, items, dateStr) {
-  const leftX = 36;
-  const rightX = POSTER_WIDTH - 36;
-  const contentW = rightX - leftX;
-
-  ctx.save();
-
-  // 1. 顶部 Eyebrow 与日期/数量徽章行（Y = 46..72）
-  const eyebrowY = 58;
-  // 霓虹绿状态灯
-  ctx.beginPath();
-  ctx.arc(leftX + 6, eyebrowY, 9, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(16, 185, 129, 0.22)';
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(leftX + 6, eyebrowY, 4.5, 0, Math.PI * 2);
-  ctx.fillStyle = '#10B981';
-  ctx.fill();
-
-  ctx.font = `700 13px ${FONT_MONO}`;
-  ctx.fillStyle = '#34D399';
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'left';
-  ctx.fillText('AI INTEL RADAR // DAILY DISPATCH', leftX + 22, eyebrowY + 0.5);
-
-  // 右侧：精选条数角标 + 日期胶囊
-  const countText = `精选 ${items.length} 条`;
-  const countFont = `700 13px ${FONT_SANS}`;
-  ctx.font = countFont;
-  const countPillW = Math.ceil(ctx.measureText(countText).width + 22);
-  const countPillX = rightX - countPillW;
-
-  drawBadgePill(ctx, {
-    x: countPillX,
-    y: 45,
-    height: 26,
-    text: countText,
-    font: countFont,
-    textColor: '#34D399',
-    bgColor: 'rgba(16, 185, 129, 0.16)',
-    borderColor: 'rgba(16, 185, 129, 0.52)',
-    paddingX: 11,
-    radius: 6,
-  });
-
-  const dateFont = `600 13px ${FONT_MONO}`;
-  ctx.font = dateFont;
-  const datePillW = Math.ceil(ctx.measureText(dateStr).width + 22);
-  const datePillX = countPillX - 8 - datePillW;
-
-  drawBadgePill(ctx, {
-    x: datePillX,
-    y: 45,
-    height: 26,
-    text: dateStr,
-    font: dateFont,
-    textColor: '#E2E8F0',
-    bgColor: 'rgba(15, 23, 42, 0.85)',
-    borderColor: 'rgba(71, 85, 105, 0.72)',
-    paddingX: 11,
-    radius: 6,
-  });
-
-  // 2. 主标题（自适应字号防超宽）
-  const mainTitle = 'AI 圈前沿情报与算力羊毛速报';
-  let titleSize = 41;
-  while (titleSize > 30) {
-    ctx.font = `800 ${titleSize}px ${FONT_SANS}`;
-    if (ctx.measureText(mainTitle).width <= contentW) {
-      break;
-    }
-    titleSize -= 1;
-  }
-
-  const titleGrad = ctx.createLinearGradient(leftX, 88, rightX, 140);
-  titleGrad.addColorStop(0, '#FFFFFF');
-  titleGrad.addColorStop(0.65, '#F1F5F9');
-  titleGrad.addColorStop(1, '#A7F3D0');
-
-  ctx.save();
-  ctx.font = `800 ${titleSize}px ${FONT_SANS}`;
-  ctx.fillStyle = titleGrad;
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'left';
-  ctx.shadowColor = 'rgba(16, 185, 129, 0.24)';
-  ctx.shadowBlur = 14;
-  ctx.fillText(mainTitle, leftX, 114);
-  ctx.restore();
-
-  // 标题下方双色霓虹指示细条
-  ctx.fillStyle = '#10B981';
-  ctx.fillRect(leftX, 146, 68, 3);
-  ctx.fillStyle = '#06B6D4';
-  ctx.fillRect(leftX + 74, 146, 26, 3);
-  ctx.fillStyle = 'rgba(51, 65, 85, 0.65)';
-  ctx.fillRect(leftX + 106, 147, contentW - 106, 1);
-
-  // 3. 终端副标题与分类统计信息条（Y = 162..210）
-  const stripY = 164;
-  const stripH = 44;
-  drawRoundedRectPath(ctx, leftX, stripY, contentW, stripH, 10);
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(51, 65, 85, 0.72)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  // 左侧绿竖条
-  drawRoundedRectPath(ctx, leftX + 1, stripY + 9, 3, stripH - 18, 2);
-  ctx.fillStyle = '#10B981';
-  ctx.fill();
-
-  // 右侧统计本次包含的分类胶囊（先绘制以精确计算左侧副标题安全宽度）
-  const typeCounts = { DEAL: 0, BUG: 0, HACK: 0 };
-  for (const it of items) {
-    if (it && typeCounts[it.type] !== undefined) {
-      typeCounts[it.type] += 1;
-    }
-  }
-  const activeTypes = ['HACK', 'BUG', 'DEAL'].filter((t) => typeCounts[t] > 0);
-  let cursorRight = rightX - 12;
-  for (const typeKey of activeTypes) {
-    const theme = TYPE_THEMES[typeKey];
-    const label = `${typeKey} ×${typeCounts[typeKey]}`;
-    const pillFont = `700 12px ${FONT_MONO}`;
-    ctx.font = pillFont;
-    const pillW = Math.ceil(ctx.measureText(label).width + 16);
-    cursorRight -= pillW;
-    drawBadgePill(ctx, {
-      x: cursorRight,
-      y: stripY + 10,
-      height: 24,
-      text: label,
-      font: pillFont,
-      textColor: theme.text,
-      bgColor: theme.softBg,
-      borderColor: theme.border,
-      paddingX: 8,
-      radius: 5,
-    });
-    cursorRight -= 6;
-  }
-
-  ctx.font = `500 15px ${FONT_SANS}`;
-  ctx.fillStyle = '#CBD5E1';
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'left';
-  const subCopyMaxW = Math.max(120, cursorRight - (leftX + 16) - 8);
-  const subCopy = truncateWithEllipsis(
-    ctx,
-    '高纯度硬核信息差 · 省钱算力 · 避坑预警 · 隐藏参数',
-    subCopyMaxW
-  );
-  ctx.fillText(subCopy, leftX + 16, stripY + stripH / 2 + 0.5);
-
-  // 4. 分割光束线（Y = 228）
-  const lineGrad = ctx.createLinearGradient(leftX, 228, rightX, 228);
-  lineGrad.addColorStop(0, 'rgba(16, 185, 129, 0.65)');
-  lineGrad.addColorStop(0.45, 'rgba(6, 182, 212, 0.35)');
-  lineGrad.addColorStop(1, 'rgba(51, 65, 85, 0.15)');
-  ctx.strokeStyle = lineGrad;
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(leftX, 228);
-  ctx.lineTo(rightX, 228);
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-/**
- * 绘制右上角高亮 value_tag 胶囊
- */
-function drawValueTagCapsule(ctx, { rightX, y, height, text, theme, isFixed, maxWidth = 215 }) {
-  const font = `700 ${height >= 30 ? 15 : 13.5}px ${FONT_SANS}`;
-  ctx.save();
-  ctx.font = font;
-  const paddingX = height >= 30 ? 14 : 11;
-  const display = truncateWithEllipsis(ctx, text || '精选情报', maxWidth - paddingX * 2);
-  const textW = ctx.measureText(display).width;
-  const pillW = Math.ceil(textW + paddingX * 2);
-  const x = rightX - pillW;
-
-  drawRoundedRectPath(ctx, x, y, pillW, height, height / 2);
-  if (isFixed) {
-    ctx.fillStyle = 'rgba(71, 85, 105, 0.45)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  } else {
-    const grad = ctx.createLinearGradient(x, y, x + pillW, y + height);
-    grad.addColorStop(0, theme.valueBgStart);
-    grad.addColorStop(1, theme.valueBgEnd);
-    ctx.shadowColor = theme.border;
-    ctx.shadowBlur = 10;
-    ctx.fillStyle = grad;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-  }
-
-  ctx.fillStyle = isFixed ? '#CBD5E1' : theme.valueText;
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'center';
-  ctx.fillText(display, x + pillW / 2, y + height / 2 + 0.5);
-  ctx.restore();
-  return pillW;
-}
-
-/**
- * 根据选定条目数量（1–4）获取自适应排版规格
- */
-function getCardLayoutConfig(count) {
+function getLayoutSpec(count, isLead) {
   switch (count) {
     case 1:
       return {
-        padTop: 26,
-        padLeft: 26,
-        padRight: 24,
-        badgeHeight: 32,
-        badgeFontSize: 14,
-        titleSize: 31,
-        titleLineHeight: 43,
+        padX: 36,
+        padY: 36,
+        titleSize: 32,
+        titleLineH: 44,
         titleMaxLines: 3,
-        titleGapTop: 22,
-        tldrSize: 20,
-        tldrLineHeight: 31,
+        tldrSize: 18.5,
+        tldrLineH: 30,
         tldrMaxLines: 4,
-        tldrBoxPadY: 16,
-        tldrGapTop: 20,
-        showTldrHeader: true,
         showDetails: true,
         maxDetails: 3,
-        detailSize: 17.5,
-        detailLineHeight: 26,
-        detailMaxLines: 2,
+        detailSize: 15.5,
+        detailLineH: 25,
         showSnippet: true,
-        footerHeight: 50,
-        footerFontSize: 14,
       };
     case 2:
       return {
-        padTop: 20,
-        padLeft: 24,
-        padRight: 22,
-        badgeHeight: 28,
-        badgeFontSize: 13,
-        titleSize: 25,
-        titleLineHeight: 35,
+        padX: 34,
+        padY: 30,
+        titleSize: isLead ? 26 : 24,
+        titleLineH: isLead ? 36 : 33,
         titleMaxLines: 2,
-        titleGapTop: 15,
-        tldrSize: 18,
-        tldrLineHeight: 26,
+        tldrSize: 16.5,
+        tldrLineH: 26,
         tldrMaxLines: 3,
-        tldrBoxPadY: 11,
-        tldrGapTop: 12,
-        showTldrHeader: false,
         showDetails: true,
         maxDetails: 2,
-        detailSize: 15.5,
-        detailLineHeight: 22,
-        detailMaxLines: 2,
+        detailSize: 14.5,
+        detailLineH: 22.5,
         showSnippet: false,
-        footerHeight: 44,
-        footerFontSize: 13.5,
       };
     case 3:
       return {
-        padTop: 16,
-        padLeft: 22,
-        padRight: 20,
-        badgeHeight: 27,
-        badgeFontSize: 12.5,
-        titleSize: 22.5,
-        titleLineHeight: 30,
+        padX: 30,
+        padY: 26,
+        titleSize: isLead ? 23 : 21.5,
+        titleLineH: isLead ? 31.5 : 29.5,
         titleMaxLines: 2,
-        titleGapTop: 11,
-        tldrSize: 17,
-        tldrLineHeight: 24,
+        tldrSize: 15,
+        tldrLineH: 23.5,
         tldrMaxLines: 3,
-        tldrBoxPadY: 9,
-        tldrGapTop: 10,
-        showTldrHeader: false,
-        showDetails: false,
-        maxDetails: 0,
-        detailSize: 15,
-        detailLineHeight: 21,
-        detailMaxLines: 1,
-        showSnippet: false,
-        footerHeight: 37,
-        footerFontSize: 13,
-      };
-    default: // 4 items
-      return {
-        padTop: 13,
-        padLeft: 22,
-        padRight: 18,
-        badgeHeight: 25,
-        badgeFontSize: 12,
-        titleSize: 20.5,
-        titleLineHeight: 27,
-        titleMaxLines: 2,
-        titleGapTop: 8,
-        tldrSize: 15.5,
-        tldrLineHeight: 21.5,
-        tldrMaxLines: 2,
-        tldrBoxPadY: 5,
-        tldrGapTop: 7,
-        showTldrHeader: false,
         showDetails: false,
         maxDetails: 0,
         detailSize: 14,
-        detailLineHeight: 19,
-        detailMaxLines: 1,
+        detailLineH: 20,
         showSnippet: false,
-        footerHeight: 30,
-        footerFontSize: 12.5,
+      };
+    default:
+      return {
+        padX: 28,
+        padY: 20,
+        titleSize: isLead ? 19.5 : 18.5,
+        titleLineH: isLead ? 26.5 : 25,
+        titleMaxLines: 2,
+        tldrSize: 13.8,
+        tldrLineH: 20.5,
+        tldrMaxLines: 2,
+        showDetails: false,
+        maxDetails: 0,
+        detailSize: 13,
+        detailLineH: 19,
+        showSnippet: false,
       };
   }
 }
 
 /**
- * 绘制单条情报战报卡片（严格游标边界保护，绝不越界重叠）
+ * Pure Canvas 2D geometric optical arcs in the masthead top-right (DeepMind / Apple Keynote inspired)
  */
-function drawIntelCard(ctx, item, index, rect, totalCount) {
-  const { x, y, w, h } = rect;
-  const cfg = getCardLayoutConfig(totalCount);
-  const typeTheme = TYPE_THEMES[item?.type] || DEFAULT_TYPE_THEME;
-  const statusTheme = STATUS_THEMES[item?.status] || DEFAULT_STATUS_THEME;
-  const isFixed = item?.status === 'FIXED';
-
+function drawMastheadOpticalArcs(ctx, palette) {
   ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 72, POSTER_WIDTH, 98);
+  ctx.clip();
 
-  // 1. 卡片背景与阴影
-  ctx.save();
-  drawRoundedRectPath(ctx, x, y, w, h, 14);
-  ctx.shadowColor = 'rgba(2, 6, 23, 0.52)';
-  ctx.shadowBlur = 18;
-  ctx.shadowOffsetY = 8;
-  const cardGrad = ctx.createLinearGradient(x, y, x, y + h);
-  if (isFixed) {
-    cardGrad.addColorStop(0, 'rgba(17, 24, 39, 0.88)');
-    cardGrad.addColorStop(1, 'rgba(11, 15, 25, 0.92)');
-  } else {
-    cardGrad.addColorStop(0, 'rgba(21, 31, 50, 0.95)');
-    cardGrad.addColorStop(1, 'rgba(14, 21, 36, 0.96)');
-  }
-  ctx.fillStyle = cardGrad;
+  const cx = POSTER_WIDTH - 64;
+  const cy = 118;
+  const radii = [24, 48, 76, 108];
+  radii.forEach((r, idx) => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.strokeStyle = idx < 2 ? palette.artPrimary : palette.artSecondary;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, 3.2, 0, Math.PI * 2);
+  ctx.fillStyle = palette.accent;
   ctx.fill();
   ctx.restore();
+}
 
-  // 卡片边框与顶部高光
-  drawRoundedRectPath(ctx, x, y, w, h, 14);
-  ctx.strokeStyle = isFixed
-    ? 'rgba(71, 85, 105, 0.48)'
-    : 'rgba(51, 65, 85, 0.88)';
-  ctx.lineWidth = 1.2;
+// Same 74 × 32 outlines and fill rules as #radar-lettering in index.html.
+function drawRadarWordmark(ctx, x, y, height) {
+  const scale = height / 32;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+  ctx.fill(new Path2D('M6 1h5l3 6h-4z M24 1h5l-5 7h-4z M1 8h33l-2 2.5H1z'));
+  ctx.fill(new Path2D('M4 13h14v15.5L15 32h-4l3-4V15.5H8v6.7c0 4.5-1.6 7.7-5.5 9.4 1.1-2.9 1.5-6.6 1.5-10.2z'));
+  ctx.fill(new Path2D('M7 18.2h8v2H7z M7 23h8v2H7z M21 14h3.5v12H21z M28 12h4v16.5L28.5 32H24l4-4.5z'));
+  ctx.fill(new Path2D('M39 9h10.5v17H43v2h-4z M43 11.5v12h3v-12z'), 'evenodd');
+  ctx.fill(new Path2D('M59 0h4.5v11H59z M50.5 3H54l3.5 6H54z M68.5 2H73l-5 7h-3.5z'));
+  ctx.fill(new Path2D('M52 11h19v17.5L67.5 32h-4.8l4.1-4.5V13.6H56V32h-4z M55 17.4h13v2.1H55z M55 23h13v2.1H55z'));
+  ctx.restore();
+  return 74 * scale;
+}
+
+function drawFooterMonogram(ctx, x, y, palette) {
+  ctx.save();
+  const rOuter = 14;
+  const rInner = 8;
+  const gapStart = -Math.PI / 4 - 0.28;
+  const gapEnd = -Math.PI / 4 + 0.28;
+
+  ctx.lineCap = 'round';
+
+  // Whisper orbital ring with true negative-space opening around beacon
+  ctx.strokeStyle = palette.hairline;
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.arc(x, y, rOuter, gapEnd, gapStart + Math.PI * 2);
   ctx.stroke();
 
-  // 左侧状态竖条
-  drawRoundedRectPath(ctx, x + 1.5, y + 12, 4.5, h - 24, 3);
-  ctx.fillStyle = statusTheme.barColor;
+  // Inner harmonic quadrant arc
+  ctx.strokeStyle = palette.mutedInk;
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.arc(x, y, rInner, -Math.PI / 2, 0);
+  ctx.stroke();
+
+  // Leading 90-degree Radar sweep split cleanly around frontier beacon
+  ctx.strokeStyle = palette.ink;
+  ctx.lineWidth = 2.1;
+  ctx.beginPath();
+  ctx.arc(x, y, rOuter, -Math.PI / 2, gapStart);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x, y, rOuter, gapEnd, 0);
+  ctx.stroke();
+
+  // Subtle 45-degree sightline
+  ctx.strokeStyle = palette.mutedInk;
+  ctx.lineWidth = 1.3;
+  ctx.beginPath();
+  ctx.moveTo(x + 2.4, y - 2.4);
+  ctx.lineTo(x + 6.6, y - 6.6);
+  ctx.stroke();
+
+  // Outpost origin pinpoint
+  ctx.fillStyle = palette.ink;
+  ctx.beginPath();
+  ctx.arc(x, y, 2.2, 0, Math.PI * 2);
   ctx.fill();
 
-  const innerLeft = x + cfg.padLeft;
-  const innerRight = x + w - cfg.padRight;
-  const contentW = innerRight - innerLeft;
-  const footerLineY = y + h - cfg.footerHeight;
+  // Frontier signal beacon at 45deg northeast
+  const bx = x + rOuter * Math.SQRT1_2;
+  const by = y - rOuter * Math.SQRT1_2;
+  ctx.fillStyle = palette.accent;
+  ctx.beginPath();
+  ctx.arc(bx, by, 3.0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
 
-  // 2. 顶部标签行：类型标签 + 状态标（左） | value_tag 胶囊（右）
-  const badgeY = y + cfg.padTop;
-  const badgeFont = `700 ${cfg.badgeFontSize}px ${FONT_SANS}`;
+function buildPosterEyebrow(item) {
+  const statusKey = String(item?.status || 'ACTIVE').toUpperCase();
+  const typeLabel = TYPE_LABELS[String(item?.type || '').toUpperCase()] || item?.type || '动态';
+  const vendor = String(item?.vendor || '').trim();
 
-  const typePillW = drawBadgePill(ctx, {
-    x: innerLeft,
-    y: badgeY,
-    height: cfg.badgeHeight,
-    text: typeTheme.label,
-    font: badgeFont,
-    textColor: isFixed ? '#94A3B8' : typeTheme.text,
-    bgColor: isFixed ? 'rgba(71, 85, 105, 0.22)' : typeTheme.softBg,
-    borderColor: isFixed ? 'rgba(100, 116, 139, 0.38)' : typeTheme.border,
-    paddingX: 10,
-    radius: 6,
-  });
+  if (item.channel === 'REVIEW') {
+    return ['测评与视频', typeLabel, vendor, statusKey === 'FIXED' && '已归档'].filter(Boolean).join(' · ');
+  }
+  if (statusKey === 'FIXED') {
+    return [vendor || typeLabel, '已归档'].filter(Boolean).join(' · ');
+  }
+  return vendor || typeLabel;
+}
 
-  drawBadgePill(ctx, {
-    x: innerLeft + typePillW + 8,
-    y: badgeY,
-    height: cfg.badgeHeight,
-    text: statusTheme.label,
-    font: badgeFont,
-    textColor: statusTheme.text,
-    bgColor: statusTheme.softBg,
-    borderColor: statusTheme.border,
-    dotColor: statusTheme.dotColor,
-    strikethrough: statusTheme.strikethrough,
-    paddingX: 10,
-    radius: 6,
-  });
+function drawEditorialPanel(ctx, item, index, bounds, totalCount, palette) {
+  const { left, right, top, bottom } = bounds;
+  const panelW = right - left;
+  const panelH = bottom - top;
+  const isLead = index === 0;
+  const spec = getLayoutSpec(totalCount, isLead);
 
-  drawValueTagCapsule(ctx, {
-    rightX: innerRight,
-    y: badgeY,
-    height: cfg.badgeHeight,
-    text: item?.value_tag || '高价值情报',
-    theme: typeTheme,
-    isFixed,
-    maxWidth: 210,
-  });
+  const statusKey = String(item?.status || 'ACTIVE').toUpperCase();
+  const isFixed = statusKey === 'FIXED';
+  const isUrgent = statusKey === 'URGENT';
+  const valueTag = String(item?.metric_badge || item?.value_tag || '').trim();
 
-  let cursorY = badgeY + cfg.badgeHeight + cfg.titleGapTop;
+  ctx.save();
 
-  // 3. 情报硬核标题（中英混排自动折行）
-  ctx.font = `700 ${cfg.titleSize}px ${FONT_SANS}`;
-  const titleWrap = wrapText(ctx, item?.title || '未命名情报', contentW, cfg.titleMaxLines);
-  ctx.fillStyle = isFixed ? '#94A3B8' : '#F8FAFC';
-  ctx.textBaseline = 'top';
+  // 1. Flat architectural tonal panel (Apple Newsroom plane contrast, zero drop shadows)
+  ctx.fillStyle = isLead
+    ? isUrgent
+      ? palette.leadUrgentBg
+      : palette.leadPanelBg
+    : palette.panelBg;
+  ctx.fillRect(left, top, panelW, panelH);
+
+  // Subtle 3px architectural rail on lead #1 story
+  if (isLead) {
+    ctx.fillStyle = isFixed
+      ? palette.faintInk
+      : isUrgent
+        ? palette.urgentDot
+        : palette.accent;
+    ctx.fillRect(left, top, 3, panelH);
+  }
+
+  const innerLeft = left + spec.padX;
+  const innerRight = right - spec.padX;
+  const innerW = innerRight - innerLeft;
+  let y = top + spec.padY;
+
+  // 2. Quiet Eyebrow Row (Optional vermilion dot for URGENT + Vendor | flush-right value highlight)
+  ctx.textBaseline = 'middle';
+  const metaY = y + 9;
+  let cursorX = innerLeft;
+
+  if (isUrgent) {
+    ctx.beginPath();
+    ctx.arc(cursorX + 3, metaY, 3, 0, Math.PI * 2);
+    ctx.fillStyle = palette.urgentDot;
+    ctx.fill();
+    cursorX += 13;
+  }
+
+  const rightReserve = valueTag ? 185 : 0;
+  const eyebrowStr = buildPosterEyebrow(item).toUpperCase();
+  ctx.font = `400 12px ${FONT_MONO}`;
+  ctx.fillStyle = isFixed ? palette.faintInk : palette.mutedInk;
   ctx.textAlign = 'left';
+  ctx.fillText(
+    truncateWithEllipsis(ctx, eyebrowStr, Math.max(80, innerRight - rightReserve - cursorX)),
+    cursorX,
+    metaY
+  );
 
+  if (valueTag) {
+    ctx.font = `300 ${isLead ? 16 : 15}px ${FONT_DISPLAY}`;
+    ctx.fillStyle = isFixed
+      ? palette.faintInk
+      : isUrgent
+        ? palette.urgent
+        : palette.accent;
+    ctx.textAlign = 'right';
+    ctx.fillText(truncateWithEllipsis(ctx, valueTag, 178), innerRight, metaY);
+  }
+
+  y += totalCount >= 4 ? 26 : 32;
+
+  // 3. Light-Weight Display Title (Distinct from Regular body summary)
+  ctx.font = `300 ${spec.titleSize + 1}px ${FONT_DISPLAY}`;
+  ctx.fillStyle = isFixed ? palette.faintInk : palette.ink;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  const titleWrap = wrapText(ctx, item?.title || '未命名情报', innerW, spec.titleMaxLines);
   for (let i = 0; i < titleWrap.lines.length; i += 1) {
-    const lineText = titleWrap.lines[i];
-    const lineY = cursorY + i * cfg.titleLineHeight;
-    ctx.fillText(lineText, innerLeft, lineY);
+    const lineY = y + i * spec.titleLineH;
+    ctx.fillText(titleWrap.lines[i], innerLeft, lineY);
     if (isFixed) {
-      const lw = ctx.measureText(lineText).width;
-      ctx.strokeStyle = 'rgba(148, 163, 184, 0.55)';
-      ctx.lineWidth = 1.4;
+      const lw = ctx.measureText(titleWrap.lines[i]).width;
+      ctx.strokeStyle = palette.faintInk;
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
-      ctx.moveTo(innerLeft, lineY + cfg.titleSize * 0.54);
-      ctx.lineTo(innerLeft + lw, lineY + cfg.titleSize * 0.54);
+      ctx.moveTo(innerLeft, lineY + spec.titleSize * 0.56);
+      ctx.lineTo(innerLeft + lw, lineY + spec.titleSize * 0.56);
       ctx.stroke();
     }
   }
+  y += Math.max(1, titleWrap.lines.length) * spec.titleLineH + (totalCount >= 4 ? 8 : 12);
 
-  cursorY += Math.max(1, titleWrap.lines.length) * cfg.titleLineHeight;
-
-  // 1 条特写模式下增加细霓虹装饰线
-  if (totalCount === 1) {
-    cursorY += 12;
-    ctx.fillStyle = isFixed ? '#64748B' : typeTheme.accent;
-    ctx.fillRect(innerLeft, cursorY, 54, 3);
-    ctx.fillStyle = 'rgba(51, 65, 85, 0.6)';
-    ctx.fillRect(innerLeft + 62, cursorY + 1, contentW - 62, 1);
-    cursorY += 6;
-  }
-
-  // 4. 省流结论 TL;DR 区块
-  cursorY += cfg.tldrGapTop;
-  const tldrInnerPadLeft = 14;
-  const tldrInnerPadRight = 12;
-  const tldrTextW = contentW - tldrInnerPadLeft - tldrInnerPadRight;
-  const tldrHeaderH = cfg.showTldrHeader ? 24 : 0;
-
-  ctx.font = `400 ${cfg.tldrSize}px ${FONT_SANS}`;
-  // 预检查可用空间动态约束最大行数，绝对防止触碰底部线
-  const maxAvailForTldr = Math.max(
-    cfg.tldrLineHeight,
-    footerLineY - 8 - cursorY - cfg.tldrBoxPadY * 2 - tldrHeaderH
-  );
-  const safeTldrMaxLines = Math.max(
+  // 4. Concise Editorial Summary (TLDR)
+  // Also adjust footerReserved dynamically so 3-4 item cards gain extra serene bottom breathing room
+  const footerReserved = totalCount <= 2 ? spec.padY + 26 : spec.padY;
+  const availTldrH = Math.max(spec.tldrLineH, bottom - footerReserved - y);
+  const tldrLinesCap = Math.max(
     1,
-    Math.min(cfg.tldrMaxLines, Math.floor(maxAvailForTldr / cfg.tldrLineHeight))
+    Math.min(spec.tldrMaxLines, Math.floor(availTldrH / spec.tldrLineH))
   );
-  const tldrWrap = wrapText(ctx, item?.tldr || '', tldrTextW, safeTldrMaxLines);
-  const tldrLinesCount = Math.max(1, tldrWrap.lines.length);
-  const tldrBoxH = cfg.tldrBoxPadY * 2 + tldrHeaderH + tldrLinesCount * cfg.tldrLineHeight;
-
-  // 绘制 TL;DR 暗色嵌板
-  drawRoundedRectPath(ctx, innerLeft, cursorY, contentW, tldrBoxH, 8);
-  ctx.fillStyle = 'rgba(7, 11, 20, 0.58)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(51, 65, 85, 0.45)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  // TL;DR 左侧主题竖线
-  drawRoundedRectPath(
-    ctx,
-    innerLeft + 1,
-    cursorY + 6,
-    3,
-    Math.max(8, tldrBoxH - 12),
-    2
-  );
-  ctx.fillStyle = isFixed ? '#64748B' : typeTheme.accent;
-  ctx.fill();
-
-  let tldrTextY = cursorY + cfg.tldrBoxPadY;
-  if (cfg.showTldrHeader) {
-    ctx.font = `700 12.5px ${FONT_MONO}`;
-    ctx.fillStyle = isFixed ? '#94A3B8' : typeTheme.text;
-    ctx.textBaseline = 'top';
-    ctx.textAlign = 'left';
-    ctx.fillText('TL;DR // 核心省流结论', innerLeft + tldrInnerPadLeft, tldrTextY);
-    tldrTextY += tldrHeaderH;
-  }
-
-  ctx.font = `400 ${cfg.tldrSize}px ${FONT_SANS}`;
-  ctx.fillStyle = isFixed ? '#94A3B8' : '#CBD5E1';
-  ctx.textBaseline = 'top';
-  ctx.textAlign = 'left';
+  ctx.font = `400 ${spec.tldrSize}px ${FONT_SANS}`;
+  ctx.fillStyle = isFixed ? palette.faintInk : palette.bodyInk;
+  const tldrWrap = wrapText(ctx, item?.tldr || '', innerW, tldrLinesCap);
   for (let i = 0; i < tldrWrap.lines.length; i += 1) {
-    ctx.fillText(
-      tldrWrap.lines[i],
-      innerLeft + tldrInnerPadLeft,
-      tldrTextY + i * cfg.tldrLineHeight + 2
-    );
+    ctx.fillText(tldrWrap.lines[i], innerLeft, y + i * spec.tldrLineH);
   }
+  y += Math.max(1, tldrWrap.lines.length) * spec.tldrLineH + 14;
 
-  cursorY += tldrBoxH;
+  // 5. Spacious Mode (1-2 items): Numbered Editorial Takeaways
+  if (spec.showDetails && Array.isArray(item?.details) && item.details.length > 0) {
+    const safeDetailBottom = bottom - footerReserved - 12;
+    const detailsList = item.details.slice(0, spec.maxDetails);
 
-  // 5. 关键要点 Details（仅 1 条 / 2 条宽松版式，严格按剩余高度裁剪）
-  if (cfg.showDetails && Array.isArray(item?.details) && item.details.length > 0) {
-    const safeBottom = footerLineY - 14;
-    const headerNeed = totalCount === 1 ? 34 : 16;
+    if (safeDetailBottom - y >= spec.detailLineH + 18) {
+      ctx.strokeStyle = palette.hairline;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(innerLeft, y);
+      ctx.lineTo(innerRight, y);
+      ctx.stroke();
+      y += 18;
 
-    if (cursorY + headerNeed + cfg.detailLineHeight <= safeBottom) {
-      cursorY += totalCount === 1 ? 22 : 12;
-
-      if (totalCount === 1) {
-        ctx.font = `700 13px ${FONT_MONO}`;
-        ctx.fillStyle = '#94A3B8';
-        ctx.textBaseline = 'top';
-        ctx.textAlign = 'left';
-        ctx.fillText('KEY DETAILS // 关键门槛与执行要点', innerLeft, cursorY);
-        cursorY += 24;
-      }
-
-      const bulletIndent = 18;
-      const detailTextW = contentW - bulletIndent;
-      ctx.font = `400 ${cfg.detailSize}px ${FONT_SANS}`;
-
-      const detailsToDraw = item.details.slice(0, cfg.maxDetails);
-      for (const rawDetail of detailsToDraw) {
-        const remainH = safeBottom - cursorY;
-        if (remainH < cfg.detailLineHeight) break;
-
-        const allowedLines = Math.min(
-          cfg.detailMaxLines,
-          Math.floor(remainH / cfg.detailLineHeight)
-        );
-        if (allowedLines < 1) break;
-
-        const wrapped = wrapText(ctx, rawDetail, detailTextW, allowedLines);
+      for (let dIdx = 0; dIdx < detailsList.length; dIdx += 1) {
+        const rem = safeDetailBottom - y;
+        if (rem < spec.detailLineH) break;
+        const cap = Math.min(2, Math.floor(rem / spec.detailLineH));
+        ctx.font = `400 ${spec.detailSize}px ${FONT_SANS}`;
+        const wrapped = wrapText(ctx, detailsList[dIdx], innerW - 30, cap);
         if (wrapped.lines.length === 0) continue;
 
-        // 霓虹三角指示符
-        ctx.fillStyle = isFixed ? '#64748B' : typeTheme.text;
-        ctx.font = `700 ${cfg.detailSize}px ${FONT_SANS}`;
-        ctx.fillText('▸', innerLeft, cursorY);
+        ctx.font = `500 12px ${FONT_MONO}`;
+        ctx.fillStyle = palette.faintInk;
+        ctx.fillText(`0${dIdx + 1}`, innerLeft, y + 3);
 
-        ctx.fillStyle = isFixed ? '#94A3B8' : '#CBD5E1';
-        ctx.font = `400 ${cfg.detailSize}px ${FONT_SANS}`;
+        ctx.font = `400 ${spec.detailSize}px ${FONT_SANS}`;
+        ctx.fillStyle = isFixed ? palette.faintInk : palette.bodyInk;
         for (let l = 0; l < wrapped.lines.length; l += 1) {
-          ctx.fillText(
-            wrapped.lines[l],
-            innerLeft + bulletIndent,
-            cursorY + l * cfg.detailLineHeight
-          );
+          ctx.fillText(wrapped.lines[l], innerLeft + 30, y + l * spec.detailLineH);
         }
-        cursorY += wrapped.lines.length * cfg.detailLineHeight + (totalCount === 1 ? 10 : 6);
+        y += wrapped.lines.length * spec.detailLineH + 10;
       }
     }
   }
 
-  // 6. 单条特写模式下的 Action Snippet 终端代码块预览（仅当有内容且剩余高度充足）
-  const snippetRaw = typeof item?.action_snippet === 'string' ? item.action_snippet.trim() : '';
-  if (cfg.showSnippet && snippetRaw) {
-    const safeBottom = footerLineY - 16;
-    const availH = safeBottom - (cursorY + 14);
-    if (availH >= 102) {
-      cursorY += 14;
-      const codeHeaderH = 30;
-      const codePadY = 10;
-      const codeLineH = 21;
-      const maxCodeLines = Math.min(
-        5,
-        Math.max(2, Math.floor((availH - codeHeaderH - codePadY * 2) / codeLineH))
-      );
+  // 6. Single-Item Mode: Crisp Code Preview Block
+  const snippet = typeof item?.action_snippet === 'string' ? item.action_snippet.trim() : '';
+  if (spec.showSnippet && snippet) {
+    const safeCodeBottom = bottom - footerReserved - 14;
+    const availCodeH = safeCodeBottom - (y + 10);
+    if (availCodeH >= 80) {
+      y += 10;
+      const codeLineH = 22;
+      const maxLines = Math.min(5, Math.floor((availCodeH - 32) / codeLineH));
+      const lines = snippet.split(/\r?\n/).slice(0, maxLines);
+      const boxH = 30 + lines.length * codeLineH;
 
-      const rawLines = snippetRaw
-        .split(/\r?\n/)
-        .map((line) => line.replace(/\t/g, '  '));
-      const visibleLines = rawLines.slice(0, maxCodeLines);
-      if (rawLines.length > maxCodeLines && visibleLines.length > 0) {
-        visibleLines[visibleLines.length - 1] = `${visibleLines[visibleLines.length - 1]} …`;
-      }
-
-      const boxH = codeHeaderH + codePadY * 2 + visibleLines.length * codeLineH;
-      drawRoundedRectPath(ctx, innerLeft, cursorY, contentW, boxH, 10);
-      ctx.fillStyle = '#070B14';
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(51, 65, 85, 0.78)';
+      ctx.fillStyle = palette.codeBg;
+      ctx.fillRect(innerLeft, y, innerW, boxH);
+      ctx.strokeStyle = palette.codeBorder;
       ctx.lineWidth = 1;
-      ctx.stroke();
+      ctx.strokeRect(innerLeft + 0.5, y + 0.5, innerW - 1, boxH - 1);
 
-      // 代码框头部栏
-      drawRoundedRectPath(ctx, innerLeft, cursorY, contentW, codeHeaderH, [10, 10, 0, 0]);
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-      ctx.fill();
-
-      // 模拟终端三点指示灯
-      const dotY = cursorY + codeHeaderH / 2;
-      const dotColors = ['#EF4444', '#F59E0B', '#10B981'];
-      dotColors.forEach((c, idx) => {
-        ctx.beginPath();
-        ctx.arc(innerLeft + 14 + idx * 12, dotY, 3.5, 0, Math.PI * 2);
-        ctx.fillStyle = c;
-        ctx.fill();
-      });
-
-      ctx.font = `600 11.5px ${FONT_MONO}`;
-      ctx.fillStyle = '#94A3B8';
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'left';
-      ctx.fillText('ACTION SNIPPET // 可在雷达站一键复制', innerLeft + 56, dotY + 0.5);
-
-      // 代码内容（单行截断防横向溢出）
-      ctx.font = `400 14px ${FONT_MONO}`;
-      ctx.fillStyle = '#A7F3D0';
-      ctx.textBaseline = 'top';
-      const codeInnerW = contentW - 28;
-      visibleLines.forEach((line, idx) => {
-        const safeLine = truncateWithEllipsis(ctx, line, codeInnerW);
-        ctx.fillText(safeLine, innerLeft + 14, cursorY + codeHeaderH + codePadY + idx * codeLineH);
-      });
-    }
-  }
-
-  // 7. 卡片底部分割线与来源/日期信息
-  ctx.strokeStyle = 'rgba(51, 65, 85, 0.52)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(innerLeft, footerLineY);
-  ctx.lineTo(innerRight, footerLineY);
-  ctx.stroke();
-
-  const footerCenterY = footerLineY + cfg.footerHeight / 2;
-  const idxTag = `#0${index + 1}`;
-  const sourceText = `来源：${item?.source_platform || '未知渠道'}`;
-  const rightMeta = [item?.id, item?.date].filter(Boolean).join(' · ');
-
-  ctx.textBaseline = 'middle';
-
-  // 右侧 ID + 日期
-  ctx.font = `500 ${cfg.footerFontSize}px ${FONT_MONO}`;
-  ctx.fillStyle = '#64748B';
-  ctx.textAlign = 'right';
-  const rightW = ctx.measureText(rightMeta).width;
-  ctx.fillText(rightMeta, innerRight, footerCenterY + 0.5);
-
-  // 左侧序号 + 来源平台
-  ctx.font = `700 ${cfg.footerFontSize}px ${FONT_MONO}`;
-  ctx.fillStyle = isFixed ? '#64748B' : typeTheme.text;
-  ctx.textAlign = 'left';
-  const idxW = ctx.measureText(idxTag).width;
-  ctx.fillText(idxTag, innerLeft, footerCenterY + 0.5);
-
-  ctx.font = `500 ${cfg.footerFontSize}px ${FONT_SANS}`;
-  ctx.fillStyle = '#94A3B8';
-  const availSourceW = Math.max(80, contentW - idxW - rightW - 24);
-  const safeSource = truncateWithEllipsis(ctx, sourceText, availSourceW);
-  ctx.fillText(safeSource, innerLeft + idxW + 10, footerCenterY + 0.5);
-
-  ctx.restore();
-}
-
-/**
- * 空选中态卡片（防御性兜底）
- */
-function drawEmptyStateCard(ctx, rect) {
-  const { x, y, w, h } = rect;
-  ctx.save();
-  drawRoundedRectPath(ctx, x, y, w, h, 16);
-  ctx.fillStyle = 'rgba(15, 23, 42, 0.72)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(71, 85, 105, 0.6)';
-  ctx.setLineDash([8, 6]);
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = `700 24px ${FONT_SANS}`;
-  ctx.fillStyle = '#CBD5E1';
-  ctx.fillText('暂未勾选情报条目', x + w / 2, y + h / 2 - 20);
-  ctx.font = `400 16px ${FONT_SANS}`;
-  ctx.fillStyle = '#64748B';
-  ctx.fillText('请在左侧勾选 1–4 条高价值情报，实时渲染高清赛博战报', x + w / 2, y + h / 2 + 20);
-  ctx.restore();
-}
-
-/**
- * 纯原生 Canvas 2D 高仿真矢量二维码矩阵（25×25 Version 2 规范结构 + 确定性伪随机点阵）
- */
-function drawVectorQrCode(ctx, x, y, boxSize, seedText) {
-  const modules = 25;
-  const quietZone = 8;
-  const innerSize = boxSize - quietZone * 2;
-  const cellSize = Math.floor(innerSize / modules);
-  const matrixPx = cellSize * modules;
-  const startX = Math.round(x + (boxSize - matrixPx) / 2);
-  const startY = Math.round(y + (boxSize - matrixPx) / 2);
-
-  ctx.save();
-
-  // 霓虹扫码角标外框
-  const bracketOffset = 5;
-  const bracketArm = 16;
-  const bx1 = x - bracketOffset;
-  const by1 = y - bracketOffset;
-  const bx2 = x + boxSize + bracketOffset;
-  const by2 = y + boxSize + bracketOffset;
-
-  ctx.lineWidth = 2.5;
-  ctx.lineCap = 'square';
-  ctx.strokeStyle = '#10B981';
-  // 左上
-  ctx.beginPath();
-  ctx.moveTo(bx1, by1 + bracketArm);
-  ctx.lineTo(bx1, by1);
-  ctx.lineTo(bx1 + bracketArm, by1);
-  ctx.stroke();
-  // 右下
-  ctx.beginPath();
-  ctx.moveTo(bx2 - bracketArm, by2);
-  ctx.lineTo(bx2, by2);
-  ctx.lineTo(bx2, by2 - bracketArm);
-  ctx.stroke();
-
-  ctx.strokeStyle = '#06B6D4';
-  // 右上
-  ctx.beginPath();
-  ctx.moveTo(bx2 - bracketArm, by1);
-  ctx.lineTo(bx2, by1);
-  ctx.lineTo(bx2, by1 + bracketArm);
-  ctx.stroke();
-  // 左下
-  ctx.beginPath();
-  ctx.moveTo(bx1, by2 - bracketArm);
-  ctx.lineTo(bx1, by2);
-  ctx.lineTo(bx1 + bracketArm, by2);
-  ctx.stroke();
-
-  // 白色安全静音区底板
-  drawRoundedRectPath(ctx, x, y, boxSize, boxSize, 10);
-  ctx.fillStyle = '#F8FAFC';
-  ctx.fill();
-
-  // 构建 25×25 模块矩阵（null=未分配，0=白，1=黑）
-  const grid = Array.from({ length: modules }, () => Array(modules).fill(null));
-
-  const placeFinder = (topR, leftC) => {
-    for (let r = -1; r <= 7; r += 1) {
-      for (let c = -1; c <= 7; c += 1) {
-        const rr = topR + r;
-        const cc = leftC + c;
-        if (rr < 0 || rr >= modules || cc < 0 || cc >= modules) continue;
-        if (r === -1 || r === 7 || c === -1 || c === 7) {
-          grid[rr][cc] = 0; // 1 模块白色分隔区
-        } else if (
-          r === 0 ||
-          r === 6 ||
-          c === 0 ||
-          c === 6 ||
-          (r >= 2 && r <= 4 && c >= 2 && c <= 4)
-        ) {
-          grid[rr][cc] = 1;
-        } else {
-          grid[rr][cc] = 0;
-        }
-      }
-    }
-  };
-
-  // 3 个标准定位回字格
-  placeFinder(0, 0);
-  placeFinder(0, modules - 7);
-  placeFinder(modules - 7, 0);
-
-  // Version 2 对齐校正格（中心 18, 18 -> 16..20）
-  for (let r = 16; r <= 20; r += 1) {
-    for (let c = 16; c <= 20; c += 1) {
-      const dr = Math.abs(r - 18);
-      const dc = Math.abs(c - 18);
-      grid[r][c] = Math.max(dr, dc) === 2 || (dr === 0 && dc === 0) ? 1 : 0;
-    }
-  }
-
-  // 时序校准线（行 6 / 列 6）
-  for (let i = 8; i <= modules - 9; i += 1) {
-    if (grid[6][i] === null) grid[6][i] = i % 2 === 0 ? 1 : 0;
-    if (grid[i][6] === null) grid[i][6] = i % 2 === 0 ? 1 : 0;
-  }
-
-  // 标准暗模块
-  grid[modules - 8][8] = 1;
-
-  // 确定性伪随机填充数据编码区
-  const rand = createPrng(hashString(seedText));
-  for (let r = 0; r < modules; r += 1) {
-    for (let c = 0; c < modules; c += 1) {
-      if (grid[r][c] === null) {
-        grid[r][c] = rand() < 0.52 ? 1 : 0;
-      }
-    }
-  }
-
-  // 纯 fillRect 渲染黑色模块
-  ctx.fillStyle = '#0B0F19';
-  for (let r = 0; r < modules; r += 1) {
-    for (let c = 0; c < modules; c += 1) {
-      if (grid[r][c] === 1) {
-        ctx.fillRect(
-          startX + c * cellSize,
-          startY + r * cellSize,
-          cellSize,
-          cellSize
+      ctx.font = `400 13px ${FONT_MONO}`;
+      ctx.fillStyle = palette.codeInk;
+      lines.forEach((ln, idx) => {
+        ctx.fillText(
+          truncateWithEllipsis(ctx, ln.replace(/\t/g, '  '), innerW - 32),
+          innerLeft + 16,
+          y + 16 + idx * codeLineH
         );
-      }
+      });
     }
   }
 
-  // 极轻微扫码激光横线点缀（不遮挡识别对比度）
-  const scanGrad = ctx.createLinearGradient(x, y + boxSize * 0.36, x, y + boxSize * 0.56);
-  scanGrad.addColorStop(0, 'rgba(16, 185, 129, 0)');
-  scanGrad.addColorStop(0.5, 'rgba(16, 185, 129, 0.14)');
-  scanGrad.addColorStop(1, 'rgba(16, 185, 129, 0)');
-  ctx.fillStyle = scanGrad;
-  ctx.fillRect(x + 4, y + boxSize * 0.36, boxSize - 8, boxSize * 0.2);
+  // 7. Quiet bottom attribution only in spacious 1-2 item layouts (keep 3-4 item cards whisper-clean)
+  if (totalCount <= 2) {
+    const footY = bottom - Math.max(18, spec.padY - 4);
+    ctx.textBaseline = 'middle';
+    ctx.font = `400 12px ${FONT_SANS}`;
+    ctx.fillStyle = palette.faintInk;
 
-  ctx.restore();
-}
+    const sourceText = String(item?.source_platform || '').trim();
+    ctx.textAlign = 'right';
+    const safeSource = truncateWithEllipsis(ctx, sourceText, 180);
+    const sourceW = safeSource ? ctx.measureText(safeSource).width : 0;
+    if (safeSource) {
+      ctx.fillText(safeSource, innerRight, footY);
+    }
 
-/**
- * 绘制底部引导扫码框与品牌水印（Y: 1110 -> 1310）
- */
-function drawFooter(ctx, items, dateStr) {
-  const leftX = 36;
-  const rightX = POSTER_WIDTH - 36;
-  const panelW = rightX - leftX;
-  const panelY = 1112;
-  const panelH = 152;
-
-  ctx.save();
-
-  // 底部扫码面板
-  drawRoundedRectPath(ctx, leftX, panelY, panelW, panelH, 16);
-  const footGrad = ctx.createLinearGradient(leftX, panelY, rightX, panelY + panelH);
-  footGrad.addColorStop(0, 'rgba(15, 23, 42, 0.92)');
-  footGrad.addColorStop(1, 'rgba(13, 25, 42, 0.88)');
-  ctx.fillStyle = footGrad;
-  ctx.fill();
-
-  const borderGrad = ctx.createLinearGradient(leftX, panelY, rightX, panelY);
-  borderGrad.addColorStop(0, 'rgba(16, 185, 129, 0.52)');
-  borderGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.42)');
-  borderGrad.addColorStop(1, 'rgba(51, 65, 85, 0.65)');
-  ctx.strokeStyle = borderGrad;
-  ctx.lineWidth = 1.2;
-  ctx.stroke();
-
-  // 左侧纯矢量二维码
-  const qrSize = 116;
-  const qrX = leftX + 20;
-  const qrY = panelY + Math.round((panelH - qrSize) / 2);
-  const seedKey = [
-    'AI-INTEL-RADAR',
-    dateStr,
-    ...items.map((it) => it?.id || ''),
-  ].join('|');
-  drawVectorQrCode(ctx, qrX, qrY, qrSize, seedKey);
-
-  // 右侧扫码引导文案
-  const textX = qrX + qrSize + 28;
-  const textMaxW = rightX - 20 - textX;
-
-  ctx.font = `700 12px ${FONT_MONO}`;
-  ctx.fillStyle = '#34D399';
-  ctx.textBaseline = 'top';
-  ctx.textAlign = 'left';
-  ctx.fillText('SCAN TO ACCESS // LIVE STATIC RADAR', textX, panelY + 20);
-
-  ctx.font = `800 24px ${FONT_SANS}`;
-  ctx.fillStyle = '#F8FAFC';
-  ctx.fillText('长按识别 / 扫码直达雷达站', textX, panelY + 41);
-
-  ctx.font = `400 15px ${FONT_SANS}`;
-  ctx.fillStyle = '#94A3B8';
-  const desc = '每日零成本同步 AI 算力羊毛、高危避坑与隐藏参数，一键复制直达实操';
-  const descWrap = wrapText(ctx, desc, textMaxW, 2);
-  descWrap.lines.forEach((line, idx) => {
-    ctx.fillText(line, textX, panelY + 73 + idx * 21);
-  });
-
-  // 右下角特性胶囊
-  const tags = ['0 API 成本', '每日巡检', '一键复制指令'];
-  let tagCursorX = textX;
-  const tagY = panelY + 122;
-  for (const label of tags) {
-    const tagFont = `600 11.5px ${FONT_SANS}`;
-    const w = drawBadgePill(ctx, {
-      x: tagCursorX,
-      y: tagY,
-      height: 21,
-      text: label,
-      font: tagFont,
-      textColor: '#94A3B8',
-      bgColor: 'rgba(30, 41, 59, 0.78)',
-      borderColor: 'rgba(71, 85, 105, 0.55)',
-      paddingX: 8,
-      radius: 4,
-    });
-    tagCursorX += w + 8;
-  }
-
-  // 底部品牌水印行（Y = 1288）
-  const watermarkY = 1288;
-  const watermarkText = 'AI 圈前沿情报与算力羊毛雷达站  ·  ZERO-API STATIC RADAR';
-  ctx.font = `600 12.5px ${FONT_MONO}`;
-  ctx.fillStyle = '#64748B';
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'center';
-  const wmW = ctx.measureText(watermarkText).width;
-  ctx.fillText(watermarkText, POSTER_WIDTH / 2, watermarkY);
-
-  // 两侧装饰细线
-  const lineGap = 14;
-  const sideEndLeft = POSTER_WIDTH / 2 - wmW / 2 - lineGap;
-  const sideStartRight = POSTER_WIDTH / 2 + wmW / 2 + lineGap;
-  ctx.strokeStyle = 'rgba(51, 65, 85, 0.55)';
-  ctx.lineWidth = 1;
-  if (sideEndLeft > leftX + 8) {
-    ctx.beginPath();
-    ctx.moveTo(leftX, watermarkY);
-    ctx.lineTo(sideEndLeft, watermarkY);
-    ctx.stroke();
-  }
-  if (sideStartRight < rightX - 8) {
-    ctx.beginPath();
-    ctx.moveTo(sideStartRight, watermarkY);
-    ctx.lineTo(rightX, watermarkY);
-    ctx.stroke();
+    const impactText = String(item?.impact || '').trim();
+    if (impactText) {
+      ctx.textAlign = 'left';
+      ctx.fillText(
+        truncateWithEllipsis(ctx, impactText, Math.max(80, innerW - sourceW - 20)),
+        innerLeft,
+        footY
+      );
+    }
   }
 
   ctx.restore();
 }
 
-/**
- * 契约接口 1：在指定 Canvas 2D 上绘制 750×1334 暗黑赛博战报长图
- * @param {HTMLCanvasElement} canvas
- * @param {Array<object>} selectedItems
- * @param {object} meta
- */
+
+const PUBLIC_ORIGIN = 'https://ai-intel-radar.teddyshen619.workers.dev';
+
+function posterAddress(item) {
+  const location = globalThis.location;
+  const local = !location || !/^https?:$/.test(location.protocol) ||
+    /^(?:localhost\.?|.*\.localhost\.?|127\.[\d.]+|0\.0\.0\.0|\[::1\])$/i.test(location.hostname);
+  const url = new URL(local ? PUBLIC_ORIGIN : location.origin);
+  if (item?.id) url.searchParams.set('id', item.id);
+  return url;
+}
+
+function drawQr(ctx, url, right, top) {
+  const code = qrcode(0, 'M');
+  code.addData(url.href, 'Byte');
+  code.make();
+  const count = code.getModuleCount();
+  const quietZone = 4;
+  const unit = Math.max(1, Math.floor(132 / (count + 2 * quietZone)));
+  const size = (count + 2 * quietZone) * unit;
+  const left = right - size;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(left, top, size, size);
+  ctx.fillStyle = '#111111';
+  for (let row = 0; row < count; row++) {
+    for (let col = 0; col < count; col++) {
+      if (code.isDark(row, col)) {
+        ctx.fillRect(left + (quietZone + col) * unit, top + (quietZone + row) * unit, unit, unit);
+      }
+    }
+  }
+}
+
 export function drawPoster(canvas, selectedItems, meta = {}) {
-  if (!canvas || typeof canvas.getContext !== 'function') {
-    return;
-  }
+  if (!canvas || typeof canvas.getContext !== 'function') return;
 
   canvas.width = POSTER_WIDTH;
   canvas.height = POSTER_HEIGHT;
-
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
+  const styleKey = normalizeStyleKey(meta?.style);
+  const palette = POSTER_STYLES[styleKey];
   const items = Array.isArray(selectedItems)
     ? selectedItems.filter(Boolean).slice(0, MAX_SELECTION)
     : [];
   const dateStr = resolvePosterDate(meta);
+  const humanDate = formatHumanCnDate(dateStr);
 
-  // 1. 暗黑网格背景与 HUD 框线
-  drawBackground(ctx);
-  drawHudFrame(ctx);
+  const left = 52;
+  const right = POSTER_WIDTH - 52;
+  const contentW = right - left;
 
-  // 2. 顶部铭牌区
-  drawHeader(ctx, items, dateStr);
+  // 1. Pure Gallery Canvas
+  ctx.fillStyle = palette.bg;
+  ctx.fillRect(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
 
-  // 3. 中部自适应情报卡片区（Y: 250 -> 1094，总高 844px）
-  const zoneX = 36;
-  const zoneW = POSTER_WIDTH - 72; // 678px
-  const zoneTop = 248;
-  const zoneHeight = 846;
+  // 2. Subtle DeepMind / Apple Keynote Optical Arcs
+  drawMastheadOpticalArcs(ctx, palette);
+
+  // 3. Dramatic Light-Weight Editorial Masthead (Y: 0 -> 174, zero repetitive tagline clutter)
+  ctx.save();
+  ctx.textBaseline = 'top';
+  ctx.font = `400 12px ${FONT_MONO}`;
+  ctx.fillStyle = palette.mutedInk;
+  ctx.textAlign = 'left';
+  ctx.fillText('RADAR', left, 52);
+
+  ctx.font = `400 12.5px ${FONT_SANS}`;
+  ctx.textAlign = 'right';
+  ctx.fillText(humanDate, right, 51);
+
+  ctx.font = `300 44px ${FONT_DISPLAY}`;
+  ctx.fillStyle = palette.ink;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  const baseline = 131;
+  const ink = ctx.measureText('前沿速报');
+  const markHeight = ink.actualBoundingBoxAscent + ink.actualBoundingBoxDescent;
+  const markWidth = drawRadarWordmark(ctx, left, baseline - ink.actualBoundingBoxAscent, markHeight);
+  ctx.fillText('· AI 前沿速报', left + markWidth + 12, baseline);
+
+  ctx.strokeStyle = palette.strongRule;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(left, 170);
+  ctx.lineTo(right, 170);
+  ctx.stroke();
+  ctx.restore();
+
+  // 4. Story Blocks with Balanced Gutter Rhythm (Y: 196 -> 1154)
+  const bodyTop = 196;
+  const bodyBottom = 1154;
+  const bodyH = bodyBottom - bodyTop;
 
   if (items.length === 0) {
-    drawEmptyStateCard(ctx, { x: zoneX, y: zoneTop + 20, w: zoneW, h: zoneHeight - 40 });
-  } else if (items.length === 1) {
-    const cardH = 816;
-    const cardY = zoneTop + Math.round((zoneHeight - cardH) / 2);
-    drawIntelCard(ctx, items[0], 0, { x: zoneX, y: cardY, w: zoneW, h: cardH }, 1);
+    ctx.save();
+    ctx.fillStyle = palette.panelBg;
+    ctx.fillRect(left, bodyTop, contentW, bodyH);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `500 18px ${FONT_SANS}`;
+    ctx.fillStyle = palette.mutedInk;
+    ctx.fillText('请在左侧勾选 1–4 篇简报生成速报长图', POSTER_WIDTH / 2, bodyTop + bodyH / 2);
+    ctx.restore();
   } else {
-    const gapMap = { 2: 26, 3: 21, 4: 16 };
-    const gap = gapMap[items.length] ?? 16;
-    const totalGap = gap * (items.length - 1);
-    const cardH = Math.floor((zoneHeight - totalGap) / items.length);
-    const usedH = cardH * items.length + totalGap;
-    const startY = zoneTop + Math.floor((zoneHeight - usedH) / 2);
+    const gap = items.length >= 4 ? 14 : 18;
+    const totalGaps = gap * (items.length - 1);
+    const availableH = bodyH - totalGaps;
 
+    // Give lead #1 subtle editorial breathing weight when 3 items are shown
+    const weights =
+      items.length === 3
+        ? [1.12, 0.94, 0.94]
+        : items.length === 2
+          ? [1.06, 0.94]
+          : items.map(() => 1);
+    const weightSum = weights.reduce((a, b) => a + b, 0);
+
+    let cursorY = bodyTop;
     items.forEach((item, idx) => {
-      const cardY = startY + idx * (cardH + gap);
-      drawIntelCard(
+      const h =
+        idx === items.length - 1
+          ? bodyBottom - cursorY
+          : Math.round((availableH * weights[idx]) / weightSum);
+      drawEditorialPanel(
         ctx,
         item,
         idx,
-        { x: zoneX, y: cardY, w: zoneW, h: cardH },
-        items.length
+        { left, right, top: cursorY, bottom: cursorY + h },
+        items.length,
+        palette
       );
+      cursorY += h + gap;
     });
   }
 
-  // 4. 底部扫码区与品牌水印
-  drawFooter(ctx, items, dateStr);
+  // 5. Minimal Magazine Colophon Footer (Y: 1184 -> 1292)
+  const footRuleY = 1184;
+  ctx.save();
+  ctx.strokeStyle = palette.hairline;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(left, footRuleY);
+  ctx.lineTo(right, footRuleY);
+  ctx.stroke();
+
+  drawFooterMonogram(ctx, left + 16, footRuleY + 46, palette);
+
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'left';
+  ctx.fillStyle = palette.ink;
+  const markLeft = left + 44;
+  const footerMarkWidth = drawRadarWordmark(ctx, markLeft, footRuleY + 35, 22);
+
+  ctx.font = `400 13px ${FONT_MONO}`;
+  ctx.fillStyle = palette.mutedInk;
+  ctx.textBaseline = 'middle';
+  ctx.fillText('RADAR', markLeft + footerMarkWidth + 12, footRuleY + 46);
+  ctx.textBaseline = 'top';
+
+  const address = posterAddress(items.length === 1 ? items[0] : null);
+  ctx.font = `400 15px ${FONT_MONO}`;
+  ctx.fillText(address.origin, left, footRuleY + 87, contentW - 150);
+  drawQr(ctx, address, right, footRuleY + 8);
+  ctx.restore();
 }
 
-/* ============================================================================
- * 抽屉交互模块与导出控制器
- * ========================================================================== */
+/* ==========================================================================
+   Modal UI (Apple Newsroom / Gallery Preview Studio)
+   ========================================================================== */
 
 const DRAWER_STYLE_ID = 'ai-radar-poster-drawer-styles';
+
+function createCloseSvg() {
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.8');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('class', 'w-3.5 h-3.5 shrink-0');
+
+  const l1 = document.createElementNS(SVG_NS, 'line');
+  l1.setAttribute('x1', '18');
+  l1.setAttribute('y1', '6');
+  l1.setAttribute('x2', '6');
+  l1.setAttribute('y2', '18');
+
+  const l2 = document.createElementNS(SVG_NS, 'line');
+  l2.setAttribute('x1', '6');
+  l2.setAttribute('y1', '6');
+  l2.setAttribute('x2', '18');
+  l2.setAttribute('y2', '18');
+
+  svg.append(l1, l2);
+  return svg;
+}
 
 function ensureDrawerStyles() {
   if (typeof document === 'undefined') return;
@@ -1533,80 +879,100 @@ function ensureDrawerStyles() {
   style.id = DRAWER_STYLE_ID;
   style.textContent = `
     .poster-backdrop {
+      --p-overlay: rgba(0, 0, 0, 0.34);
+      --p-bg: #FFFFFF;
+      --p-subtle: #F5F5F7;
+      --p-border: rgba(0, 0, 0, 0.09);
+      --p-ink: #1D1D1F;
+      --p-muted: #6E6E73;
+      --p-accent: #0066CC;
       position: fixed;
       inset: 0;
-      z-index: 45;
+      z-index: 46;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
-      background: rgba(3, 7, 18, 0.82);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      opacity: 0;
-      transition: opacity 180ms ease;
+      padding: 20px;
+      background: transparent;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: background-color 180ms ease, backdrop-filter 180ms ease;
+    }
+    html.dark .poster-backdrop,
+    html[data-theme="dark"] .poster-backdrop {
+      --p-overlay: rgba(0, 0, 0, 0.72);
+      --p-bg: #0E0F12;
+      --p-subtle: #15171C;
+      --p-border: rgba(255, 255, 255, 0.11);
+      --p-ink: #F5F5F7;
+      --p-muted: #8E8E93;
+      --p-accent: #2997FF;
     }
     .poster-backdrop[data-open="true"] {
-      opacity: 1;
+      background: var(--p-overlay);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
-    .poster-backdrop[hidden] {
-      display: none !important;
-    }
+    .poster-backdrop[hidden] { display: none !important; }
     .poster-dialog {
-      width: min(1120px, 100%);
-      max-width: 100%;
-      height: min(880px, calc(100vh - 32px));
-      max-height: calc(100vh - 32px);
+      width: min(1080px, 100%);
+      height: min(860px, calc(100vh - 40px));
       display: flex;
       flex-direction: column;
-      background: #0B0F19;
-      border: 1px solid rgba(51, 65, 85, 0.9);
-      border-radius: 16px;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(16, 185, 129, 0.14);
+      background: var(--p-bg);
+      border: 1px solid var(--p-border);
+      border-radius: 2px;
+      color: var(--p-ink);
       overflow: hidden;
-      color: #E2E8F0;
-      transform: translateY(10px) scale(0.99);
-      transition: transform 200ms ease;
+      min-width: 0;
+      transform: translate3d(0, 10px, 0);
+      transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     .poster-backdrop[data-open="true"] .poster-dialog {
-      transform: translateY(0) scale(1);
+      transform: translate3d(0, 0, 0);
     }
     .poster-header {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.95);
-      background: #0D1322;
-    }
-    .poster-list-header {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 10px 16px;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.85);
-      background: rgba(2, 6, 23, 0.55);
-    }
-    .poster-footer {
-      flex: 0 0 auto;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 12px 20px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--p-border);
+    }
+    .poster-header-left {
+      display: flex;
+      align-items: baseline;
       gap: 12px;
-      padding: 12px 20px;
-      border-top: 1px solid rgba(30, 41, 59, 0.95);
-      background: #0D1322;
+      min-width: 0;
+    }
+    .poster-style-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .poster-style-btn {
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      padding: 4px 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--p-muted);
+      cursor: pointer;
+      transition: color 150ms ease, border-color 150ms ease;
+    }
+    .poster-style-btn:hover { color: var(--p-ink); }
+    .poster-style-btn[data-active="true"] {
+      color: var(--p-ink);
+      font-weight: 600;
+      border-bottom-color: var(--p-ink);
     }
     .poster-body {
       flex: 1 1 auto;
       min-height: 0;
       display: grid;
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
       overflow: hidden;
     }
     .poster-list-pane {
@@ -1614,19 +980,39 @@ function ensureDrawerStyles() {
       flex-direction: column;
       min-width: 0;
       min-height: 0;
-      border-right: 1px solid rgba(30, 41, 59, 0.95);
-      background: rgba(11, 15, 25, 0.96);
+      border-right: 1px solid var(--p-border);
+    }
+    .poster-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--p-border);
+      font-size: 12.5px;
+      color: var(--p-muted);
     }
     .poster-list-scroll {
       flex: 1 1 auto;
       min-height: 0;
       overflow-y: auto;
-      overflow-x: hidden;
-      padding: 12px 16px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
+    .poster-item-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 15px 24px;
+      border-bottom: 1px solid var(--p-border);
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      transition: background-color 150ms ease, border-color 150ms ease;
+    }
+    .poster-item-row:hover { background: var(--p-subtle); }
+    .poster-item-row[data-selected="true"] {
+      background: var(--p-subtle);
+      border-left-color: var(--p-accent);
+    }
+    .poster-item-row[data-fixed="true"] { opacity: 0.6; }
     .poster-preview-pane {
       display: flex;
       flex-direction: column;
@@ -1634,160 +1020,76 @@ function ensureDrawerStyles() {
       justify-content: center;
       min-width: 0;
       min-height: 0;
+      padding: 28px 24px 20px;
+      background: var(--p-subtle);
       overflow-y: auto;
-      overflow-x: hidden;
-      padding: 16px 20px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08), transparent 60%),
-        #070B13;
     }
     .poster-canvas-frame {
+      flex: 1 1 0%;
+      width: 100%;
+      min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      flex: 1 1 0%;
-      min-height: 0;
-      height: 100%;
     }
     .poster-canvas-el {
       display: block;
       aspect-ratio: 750 / 1334;
       width: auto;
       height: auto;
-      max-width: min(100%, 400px);
+      max-width: min(100%, 386px);
       max-height: 100%;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid rgba(51, 65, 85, 0.85);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.65);
-      background: #0B0F19;
+      border: 1px solid var(--p-border);
+      background: #FFFFFF;
     }
-    .poster-item-row {
+    .poster-footer {
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 11px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(30, 41, 59, 0.95);
-      background: rgba(15, 23, 42, 0.72);
-      cursor: pointer;
-      transition: border-color 140ms ease, background-color 140ms ease;
-      min-width: 0;
-      max-width: 100%;
-    }
-    .poster-item-row:hover {
-      border-color: rgba(71, 85, 105, 0.95);
-      background: rgba(15, 23, 42, 0.95);
-    }
-    .poster-item-row[data-selected="true"] {
-      border-color: rgba(16, 185, 129, 0.65);
-      background: rgba(6, 78, 59, 0.18);
-      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.18);
-    }
-    .poster-item-row[data-fixed="true"] {
-      opacity: 0.76;
-    }
-    .poster-item-title {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      word-break: break-word;
-    }
-    .poster-scroll::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .poster-scroll::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
-    }
-    .poster-scroll::-webkit-scrollbar-thumb {
-      background: rgba(71, 85, 105, 0.7);
-      border-radius: 999px;
-    }
-    .poster-scroll::-webkit-scrollbar-thumb:hover {
-      background: rgba(100, 116, 139, 0.9);
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 24px;
+      border-top: 1px solid var(--p-border);
     }
     @media (max-width: 1023px) {
-      .poster-backdrop {
-        padding: 0;
-        align-items: flex-end;
-      }
-      .poster-dialog {
-        width: 100%;
-        height: 100dvh;
-        max-height: 100vh;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
-      }
-      .poster-body {
-        display: block;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-      }
-      .poster-list-pane {
-        border-right: none;
-        border-bottom: 1px solid rgba(30, 41, 59, 0.95);
-      }
-      .poster-list-scroll {
-        overflow: visible;
-        max-height: none;
-      }
-      .poster-preview-pane {
-        overflow: visible;
-        padding: 16px 14px 20px;
-      }
-      .poster-canvas-frame {
-        flex: none;
-      }
-      .poster-canvas-el {
-        width: min(100%, 332px);
-        max-width: 100%;
-        height: auto;
-        max-height: none;
-      }
+      .poster-backdrop { padding: 0; }
+      .poster-dialog { width: 100%; height: 100dvh; max-height: 100vh; border-radius: 0; border: 0; }
+      .poster-header { padding: 14px 18px; }
+      .poster-header-left { order: 1; flex: 1 1 auto; }
+      .poster-header-right { order: 2; flex-shrink: 0; }
+      .poster-style-tabs { order: 3; flex: 0 0 100%; padding-top: 6px; border-top: 1px solid var(--p-border); }
+      .poster-list-header { padding: 11px 18px; }
+      .poster-item-row { padding: 14px 18px; }
+      .poster-body { display: flex; flex-direction: column; overflow-y: auto; }
+      .poster-list-pane { flex: 0 0 auto; border-right: 0; border-bottom: 1px solid var(--p-border); }
+      .poster-list-scroll { max-height: 250px; }
+      .poster-preview-pane { flex: 0 0 auto; overflow: visible; padding: 20px 18px; }
+      .poster-canvas-frame { flex: none; height: auto; }
+      .poster-canvas-el { width: min(100%, 320px); max-height: none; }
+      .poster-footer { padding: 12px 18px; flex-wrap: wrap; }
+      .poster-footer > span { display: none; }
     }
   `;
   document.head.appendChild(style);
 }
 
-/**
- * 默认选中规则：前 3 条 ACTIVE/URGENT；不足 3 条全选有效项；全为 FIXED 则选第 1 条
- */
-function computeDefaultSelectedIds(items) {
-  if (!Array.isArray(items) || items.length === 0) {
-    return [];
-  }
-  const activeOrUrgent = items.filter(
-    (it) => it && (it.status === 'ACTIVE' || it.status === 'URGENT')
-  );
-  if (activeOrUrgent.length > 0) {
-    return activeOrUrgent.slice(0, DEFAULT_SELECTION_LIMIT).map((it) => it.id);
-  }
-  return items[0]?.id ? [items[0].id] : [];
+function computeDefaultSelectedIds(sortedItems) {
+  if (!Array.isArray(sortedItems) || sortedItems.length === 0) return [];
+  const nonFixed = sortedItems.filter((it) => it && it.status !== 'FIXED' && it.id);
+  const fixed = sortedItems.filter((it) => it && it.status === 'FIXED' && it.id);
+  return [...nonFixed, ...fixed].slice(0, DEFAULT_SELECTION_LIMIT).map((it) => it.id);
 }
 
-/**
- * 按当前 items 顺序提取已选条目
- */
-function resolveSelectedItems(items, selectedIds) {
-  if (!Array.isArray(items) || !Array.isArray(selectedIds) || selectedIds.length === 0) {
+function resolveSelectedItems(sortedItems, selectedIds) {
+  if (!Array.isArray(sortedItems) || !Array.isArray(selectedIds) || selectedIds.length === 0) {
     return [];
   }
-  const selectedSet = new Set(selectedIds);
-  return items.filter((it) => it && selectedSet.has(it.id)).slice(0, MAX_SELECTION);
+  const set = new Set(selectedIds);
+  return sortedItems.filter((it) => it && set.has(it.id)).slice(0, MAX_SELECTION);
 }
 
-/**
- * 触发浏览器下载 PNG 文件（优先 canvas.toBlob，失败或不支持时回退 canvas.toDataURL）
- */
 function exportCanvasAsPng(canvas, filename) {
   return new Promise((resolve, reject) => {
-    const triggerAnchor = (href, shouldRevoke) => {
+    const trigger = (href, revoke) => {
       try {
         const link = document.createElement('a');
         link.href = href;
@@ -1797,25 +1099,20 @@ function exportCanvasAsPng(canvas, filename) {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        if (shouldRevoke) {
+        if (revoke) {
           setTimeout(() => {
-            try {
-              URL.revokeObjectURL(href);
-            } catch {
-              // ignore revoke error
-            }
+            try { URL.revokeObjectURL(href); } catch {}
           }, 1500);
         }
-        resolve({ filename, method: shouldRevoke ? 'blob' : 'dataURL' });
+        resolve({ filename, method: revoke ? 'blob' : 'dataURL' });
       } catch (err) {
         reject(err);
       }
     };
 
-    const fallbackDataUrl = () => {
+    const fallback = () => {
       try {
-        const dataUrl = canvas.toDataURL('image/png');
-        triggerAnchor(dataUrl, false);
+        trigger(canvas.toDataURL('image/png'), false);
       } catch (err) {
         reject(err);
       }
@@ -1823,31 +1120,23 @@ function exportCanvasAsPng(canvas, filename) {
 
     if (typeof canvas.toBlob === 'function') {
       try {
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) {
-              fallbackDataUrl();
-              return;
-            }
-            const objectUrl = URL.createObjectURL(blob);
-            triggerAnchor(objectUrl, true);
-          },
-          'image/png',
-          1.0
-        );
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            fallback();
+            return;
+          }
+          trigger(URL.createObjectURL(blob), true);
+        }, 'image/png', 1.0);
       } catch {
-        fallbackDataUrl();
+        fallback();
       }
     } else {
-      fallbackDataUrl();
+      fallback();
     }
   });
 }
 
-/**
- * 创建单条勾选列表项（100% DOM API + textContent，杜绝 XSS）
- */
-function createChecklistItemRow(item, isSelected, orderIndex, onToggle) {
+function createChecklistRow(item, isSelected, onToggle) {
   const row = document.createElement('label');
   row.className = 'poster-item-row';
   row.dataset.itemId = item.id || '';
@@ -1858,103 +1147,58 @@ function createChecklistItemRow(item, isSelected, orderIndex, onToggle) {
   checkbox.type = 'checkbox';
   checkbox.checked = isSelected;
   checkbox.value = item.id || '';
-  checkbox.className =
-    'mt-1 h-4 w-4 shrink-0 rounded border-slate-600 bg-slate-900 accent-emerald-500 cursor-pointer';
-  checkbox.setAttribute('aria-label', `选择情报：${item.title || item.id}`);
+  checkbox.className = 'mt-1 h-3.5 w-3.5 shrink-0 accent-[#0066CC] dark:accent-[#2997FF] cursor-pointer';
+  checkbox.setAttribute('aria-label', `选择简报：${item.title || item.id}`);
   checkbox.addEventListener('change', (evt) => {
     onToggle(item.id, evt.target.checked, checkbox);
   });
 
-  const content = document.createElement('div');
-  content.className = 'min-w-0 flex-1 space-y-1.5';
+  const body = document.createElement('div');
+  body.className = 'min-w-0 flex-1 space-y-1.5';
 
-  // 顶部元信息行
-  const metaRow = document.createElement('div');
-  metaRow.className = 'flex flex-wrap items-center gap-1.5';
+  const metaLine = document.createElement('div');
+  metaLine.className = 'flex items-baseline justify-between gap-2 text-[12px]';
 
-  if (isSelected && orderIndex >= 0) {
-    const orderBadge = document.createElement('span');
-    orderBadge.className =
-      'inline-flex items-center rounded bg-emerald-500/20 px-1.5 py-0.5 font-mono text-[11px] font-bold text-emerald-300 border border-emerald-500/40';
-    orderBadge.textContent = `#${orderIndex + 1}`;
-    metaRow.appendChild(orderBadge);
-  }
+  const leftMeta = document.createElement('span');
+  leftMeta.className = 'text-[#6E6E73] dark:text-[#8E8E93] truncate';
+  leftMeta.textContent = buildPosterEyebrow(item);
 
-  const typeTheme = TYPE_THEMES[item.type] || DEFAULT_TYPE_THEME;
-  const typeBadge = document.createElement('span');
-  typeBadge.className =
-    'inline-flex items-center rounded px-1.5 py-0.5 font-mono text-[11px] font-semibold border';
-  typeBadge.style.color = typeTheme.text;
-  typeBadge.style.backgroundColor = typeTheme.softBg;
-  typeBadge.style.borderColor = typeTheme.border;
-  typeBadge.textContent = item.type || 'INTEL';
-  metaRow.appendChild(typeBadge);
+  const rightMeta = document.createElement('span');
+  rightMeta.className =
+    item.status === 'URGENT'
+      ? 'shrink-0 font-normal text-[#C5221F] dark:text-[#FF6961]'
+      : 'shrink-0 font-normal text-[#0066CC] dark:text-[#2997FF]';
+  rightMeta.textContent = item.metric_badge || item.value_tag || '';
 
-  const statusTheme = STATUS_THEMES[item.status] || DEFAULT_STATUS_THEME;
-  const statusBadge = document.createElement('span');
-  statusBadge.className =
-    'inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] font-medium border';
-  statusBadge.style.color = statusTheme.text;
-  statusBadge.style.backgroundColor = statusTheme.softBg;
-  statusBadge.style.borderColor = statusTheme.border;
-  if (statusTheme.strikethrough) {
-    statusBadge.classList.add('line-through');
-  }
-  statusBadge.textContent = statusTheme.label;
-  metaRow.appendChild(statusBadge);
-
-  if (item.value_tag) {
-    const valBadge = document.createElement('span');
-    valBadge.className =
-      'ml-auto inline-flex items-center rounded-full bg-slate-800/90 px-2 py-0.5 text-[11px] font-semibold text-emerald-300 border border-slate-700 shrink-0';
-    valBadge.textContent = item.value_tag;
-    metaRow.appendChild(valBadge);
-  }
+  metaLine.append(leftMeta, rightMeta);
 
   const titleEl = document.createElement('p');
-  titleEl.className = `poster-item-title text-[13px] font-semibold leading-snug ${
-    item.status === 'FIXED' ? 'text-slate-400 line-through' : 'text-slate-100'
+  titleEl.className = `font-editorial-display text-[14.5px] leading-[1.45] ${
+    item.status === 'FIXED'
+      ? 'text-[#86868B] line-through'
+      : 'text-[#1D1D1F] dark:text-[#F5F5F7]'
   }`;
   titleEl.textContent = item.title || '未命名情报';
 
-  const footRow = document.createElement('div');
-  footRow.className =
-    'flex items-center justify-between gap-2 font-mono text-[11px] text-slate-400';
-  const sourceSpan = document.createElement('span');
-  sourceSpan.className = 'truncate';
-  sourceSpan.textContent = item.source_platform || '';
-  const dateSpan = document.createElement('span');
-  dateSpan.className = 'shrink-0';
-  dateSpan.textContent = item.date || '';
-  footRow.append(sourceSpan, dateSpan);
-
-  content.append(metaRow, titleEl, footRow);
-  row.append(checkbox, content);
+  body.append(metaLine, titleEl);
+  row.append(checkbox, body);
   return row;
 }
 
-/**
- * 契约接口 2：初始化悬浮战报生成器抽屉、实时预览与一键导出 PNG 控制器
- * @param {object} options
- * @param {() => Array<object>} options.getItems
- * @param {() => string} options.getUpdatedAt
- * @param {HTMLElement|null} options.triggerButton
- * @param {HTMLElement|null} options.mountRoot
- * @param {(message: string, variant?: string) => void} options.onToast
- */
 export function initPosterGenerator({
   getItems,
   getUpdatedAt,
+  getFilteredItems,
   triggerButton,
   mountRoot,
   onToast,
 } = {}) {
   ensureDrawerStyles();
 
-  const safeGetItems = () => {
+  const safeGetSortedItems = () => {
     try {
       const result = typeof getItems === 'function' ? getItems() : [];
-      return Array.isArray(result) ? result : [];
+      return sortItemsByValue(Array.isArray(result) ? result : []);
     } catch {
       return [];
     }
@@ -1969,22 +1213,19 @@ export function initPosterGenerator({
   };
 
   const notify = (msg, variant = 'info') => {
-    if (typeof onToast === 'function') {
-      onToast(msg, variant);
-    }
+    if (typeof onToast === 'function') onToast(msg, variant);
   };
 
-  const resolvedTrigger =
-    triggerButton || document.getElementById('open-poster-btn');
+  const resolvedTrigger = triggerButton || document.getElementById('open-poster-btn');
   const resolvedRoot =
     mountRoot || document.getElementById('poster-drawer-root') || document.body;
 
   let isOpen = false;
   let hasUserModified = false;
   let selectedIds = [];
+  let currentStyle = DEFAULT_POSTER_STYLE;
   let previousBodyOverflow = '';
 
-  // 构建抽屉 DOM 结构
   const backdrop = document.createElement('div');
   backdrop.className = 'poster-backdrop';
   backdrop.hidden = true;
@@ -1996,241 +1237,240 @@ export function initPosterGenerator({
   const dialog = document.createElement('div');
   dialog.className = 'poster-dialog';
 
-  // Header
   const header = document.createElement('div');
-  header.className =
-    'poster-header shrink-0 flex items-center justify-between gap-3 px-4 py-3.5 sm:px-5 border-b border-slate-800 bg-[#0D1322]';
+  header.className = 'poster-header';
 
   const headerLeft = document.createElement('div');
-  headerLeft.className = 'min-w-0';
+  headerLeft.className = 'poster-header-left';
+
   const titleHeading = document.createElement('h2');
   titleHeading.id = 'poster-drawer-title';
-  titleHeading.className =
-    'text-base sm:text-lg font-bold text-slate-100 tracking-tight truncate';
-  titleHeading.textContent = '⚡ 生成群聊速报长图';
-  const titleSub = document.createElement('p');
-  titleSub.className = 'font-mono text-[11px] text-slate-400 truncate mt-0.5';
-  titleSub.textContent = 'NATIVE CANVAS 2D · 750×1334 HD · ZERO EXTERNAL ASSETS';
-  headerLeft.append(titleHeading, titleSub);
+  titleHeading.className = 'text-[16px] font-semibold tracking-[-0.02em] truncate';
+  titleHeading.textContent = '生成速报长图';
+  headerLeft.appendChild(titleHeading);
+
+  const styleTabs = document.createElement('div');
+  styleTabs.className = 'poster-style-tabs';
+  styleTabs.setAttribute('role', 'group');
+  styleTabs.setAttribute('aria-label', '选择海报版面风格');
+  styleTabs.dataset.posterStyleSwitch = '';
+
+  const styleButtons = new Map();
+  for (const opt of [
+    { key: 'apple-light', label: '极简白' },
+    { key: 'space-gray', label: '深空灰' },
+  ]) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'poster-style-btn';
+    btn.dataset.posterStyle = opt.key;
+    btn.dataset.active = opt.key === currentStyle ? 'true' : 'false';
+    btn.textContent = opt.label;
+    btn.addEventListener('click', () => setStyle(opt.key));
+    styleButtons.set(opt.key, btn);
+    styleTabs.appendChild(btn);
+  }
 
   const headerRight = document.createElement('div');
-  headerRight.className = 'flex items-center gap-2.5 shrink-0';
+  headerRight.className = 'poster-header-right flex items-center gap-4 text-[13px]';
 
-  const countBadge = document.createElement('span');
-  countBadge.className =
-    'inline-flex items-center rounded-md border border-emerald-500/45 bg-emerald-500/15 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-300';
-  countBadge.dataset.posterCount = '';
-  countBadge.textContent = '已选 0 / 4 条';
+  const countLabel = document.createElement('span');
+  countLabel.className = 'text-[#6E6E73] dark:text-[#8E8E93] tabular-nums';
+  countLabel.dataset.posterCount = '';
+  countLabel.textContent = '已选 0 篇';
 
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
   closeBtn.className =
-    'inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-slate-500 hover:text-white transition cursor-pointer';
-  closeBtn.setAttribute('aria-label', '关闭战报生成器');
-  closeBtn.textContent = '✕';
+    'inline-flex items-center gap-1 text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#8E8E93] dark:hover:text-[#F5F5F7] transition-colors cursor-pointer';
+  closeBtn.setAttribute('aria-label', '关闭速报生成器');
+  const closeText = document.createElement('span');
+  closeText.textContent = '关闭';
+  closeBtn.append(closeText, createCloseSvg());
 
-  headerRight.append(countBadge, closeBtn);
-  header.append(headerLeft, headerRight);
+  headerRight.append(countLabel, closeBtn);
+  header.append(headerLeft, styleTabs, headerRight);
 
-  // Body
   const body = document.createElement('div');
-  body.className = 'poster-body poster-scroll';
+  body.className = 'poster-body';
 
-  // Left Pane: 勾选清单
   const listPane = document.createElement('section');
   listPane.className = 'poster-list-pane';
-  listPane.setAttribute('aria-label', '选择要生成战报的情报条目');
+  listPane.setAttribute('aria-label', '勾选速报条目');
 
   const listHeader = document.createElement('div');
-  listHeader.className =
-    'poster-list-header shrink-0 flex items-center justify-between gap-2 px-4 py-2.5 border-b border-slate-800/80 bg-slate-950/60';
+  listHeader.className = 'poster-list-header';
   const listHint = document.createElement('span');
-  listHint.className = 'text-xs font-medium text-slate-300';
-  listHint.textContent = '勾选 1–4 条高价值情报，右侧实时重绘';
+  listHint.textContent = '勾选 1–4 篇内容';
 
   const resetDefaultBtn = document.createElement('button');
   resetDefaultBtn.type = 'button';
-  resetDefaultBtn.className =
-    'shrink-0 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] font-medium text-slate-300 hover:border-emerald-500/60 hover:text-emerald-300 transition cursor-pointer';
-  resetDefaultBtn.textContent = '恢复默认精选';
-
-  listHeader.append(listHint, resetDefaultBtn);
+  resetDefaultBtn.className = 'text-[#0066CC] hover:underline underline-offset-4 dark:text-[#2997FF] cursor-pointer';
+  resetDefaultBtn.textContent = '恢复默认';
+  const importBtn = document.createElement('button');
+  importBtn.type = 'button';
+  importBtn.textContent = '一键导入当前筛选';
+  importBtn.className = resetDefaultBtn.className;
+  listHeader.append(listHint, importBtn, resetDefaultBtn);
 
   const listContainer = document.createElement('div');
-  listContainer.className = 'poster-list-scroll poster-scroll';
+  listContainer.className = 'poster-list-scroll';
   listPane.append(listHeader, listContainer);
 
-  // Right Pane: 高清 Canvas 预览
   const previewPane = document.createElement('section');
-  previewPane.className = 'poster-preview-pane poster-scroll';
-  previewPane.setAttribute('aria-label', '750x1334 战报高清预览');
+  previewPane.className = 'poster-preview-pane';
+  previewPane.setAttribute('aria-label', '750x1334 海报预览');
 
   const canvasFrame = document.createElement('div');
   canvasFrame.className = 'poster-canvas-frame';
-
   const canvasEl = document.createElement('canvas');
   canvasEl.width = POSTER_WIDTH;
   canvasEl.height = POSTER_HEIGHT;
   canvasEl.className = 'poster-canvas-el';
-  canvasEl.setAttribute('aria-label', 'AI 情报速报长图 Canvas 预览');
+  canvasEl.setAttribute('aria-label', 'AI 速报长图预览');
   canvasFrame.appendChild(canvasEl);
 
   const previewMeta = document.createElement('p');
-  previewMeta.className =
-    'mt-2.5 text-center font-mono text-[11px] text-slate-400 shrink-0';
-  previewMeta.textContent = '750 × 1334 px 高清竖屏 · 纯矢量无外链防污染';
-
+  previewMeta.className = 'mt-3.5 text-[12px] text-[#6E6E73] dark:text-[#8E8E93]';
+  previewMeta.textContent = '750 × 1334 竖屏高清长图';
   previewPane.append(canvasFrame, previewMeta);
   body.append(listPane, previewPane);
 
-  // Footer
   const footer = document.createElement('div');
-  footer.className =
-    'poster-footer shrink-0 flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5 border-t border-slate-800 bg-[#0D1322]';
+  footer.className = 'poster-footer';
 
-  const footerMeta = document.createElement('div');
-  footerMeta.className = 'font-mono text-xs text-slate-400 truncate min-w-0';
-  footerMeta.textContent = 'ai-intel-radar.png';
+  const footerMeta = document.createElement('span');
+  footerMeta.className = 'font-mono text-[11.5px] text-[#86868B] dark:text-[#8E8E93] truncate';
+  footerMeta.textContent = 'radar-brief.png';
 
   const footerActions = document.createElement('div');
-  footerActions.className = 'flex items-center gap-2.5 ml-auto shrink-0';
+  footerActions.className = 'flex flex-wrap items-center gap-4';
 
   const cancelBtn = document.createElement('button');
   cancelBtn.type = 'button';
   cancelBtn.className =
-    'rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2 text-xs sm:text-sm font-medium text-slate-300 hover:border-slate-500 hover:text-white transition cursor-pointer';
-  cancelBtn.textContent = '关闭';
+    'text-[13px] font-medium text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#8E8E93] dark:hover:text-[#F5F5F7] transition-colors cursor-pointer';
+  cancelBtn.textContent = '取消';
 
   const exportBtn = document.createElement('button');
   exportBtn.type = 'button';
   exportBtn.setAttribute('data-export-poster', '');
   exportBtn.className =
-    'inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-xs sm:text-sm font-bold text-slate-950 shadow-lg shadow-emerald-500/25 hover:bg-emerald-400 active:scale-[0.99] transition cursor-pointer';
-  exportBtn.textContent = '⬇ 一键保存 PNG 战报';
+    'rounded-[2px] bg-[#0066CC] hover:bg-[#0052A3] text-white px-5 py-2 text-[13px] font-medium transition-colors cursor-pointer disabled:opacity-60';
+  exportBtn.textContent = '保存高清 PNG';
 
-  footerActions.append(cancelBtn, exportBtn);
+  const copyBtn = document.createElement('button');
+  copyBtn.type = 'button';
+  copyBtn.className = cancelBtn.className;
+  copyBtn.textContent = '复制图片到剪贴板';
+  footerActions.append(cancelBtn, copyBtn, exportBtn);
   footer.append(footerMeta, footerActions);
 
   dialog.append(header, body, footer);
   backdrop.appendChild(dialog);
 
-  // 挂载前清空旧挂载点内容（防止重复初始化产生双弹窗）
   if (resolvedRoot && resolvedRoot !== document.body) {
     resolvedRoot.replaceChildren(backdrop);
   } else {
     resolvedRoot.appendChild(backdrop);
   }
 
-  /**
-   * 校验并同步选中状态
-   */
   function syncSelectionWithItems() {
-    const items = safeGetItems();
+    const sorted = safeGetSortedItems();
     if (!hasUserModified) {
-      selectedIds = computeDefaultSelectedIds(items);
-      return items;
+      selectedIds = computeDefaultSelectedIds(sorted);
+      return sorted;
     }
-    const validIdSet = new Set(items.map((it) => it?.id).filter(Boolean));
-    selectedIds = selectedIds.filter((id) => validIdSet.has(id)).slice(0, MAX_SELECTION);
-    if (selectedIds.length === 0 && items.length > 0) {
-      selectedIds = computeDefaultSelectedIds(items);
+    const valid = new Set(sorted.map((it) => it?.id).filter(Boolean));
+    selectedIds = selectedIds.filter((id) => valid.has(id)).slice(0, MAX_SELECTION);
+    if (selectedIds.length === 0 && sorted.length > 0) {
+      selectedIds = computeDefaultSelectedIds(sorted);
     }
-    return items;
+    return sorted;
   }
 
-  function updateSummaryLabels(selectedItems, dateStr) {
-    const count = selectedItems.length;
-    countBadge.textContent = `已选 ${count} / ${MAX_SELECTION} 条`;
-    footerMeta.textContent = `已选 ${count} / ${MAX_SELECTION} 条 · ai-intel-radar-${dateStr}.png`;
+  function syncStyleControlUi() {
+    for (const [key, btn] of styleButtons.entries()) {
+      const active = key === currentStyle;
+      btn.dataset.active = active ? 'true' : 'false';
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    }
+    canvasEl.style.backgroundColor = currentStyle === 'space-gray' ? '#0B0C0E' : '#FFFFFF';
+  }
+
+  function renderChecklist(sortedItems) {
+    listContainer.replaceChildren();
+    if (!sortedItems || sortedItems.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'p-8 text-center text-[13px] text-[#6E6E73]';
+      empty.textContent = '暂无可用内容';
+      listContainer.appendChild(empty);
+      return;
+    }
+    const ordered = resolveSelectedItems(sortedItems, selectedIds);
+    const selectedSet = new Set(ordered.map((it) => it.id));
+    const frag = document.createDocumentFragment();
+    for (const item of sortedItems) {
+      if (!item) continue;
+      frag.appendChild(createChecklistRow(item, selectedSet.has(item.id), handleToggleItem));
+    }
+    listContainer.appendChild(frag);
   }
 
   function handleToggleItem(itemId, wantChecked, checkboxEl) {
-    const items = safeGetItems();
-    const currentlySelected = selectedIds.includes(itemId);
+    const sorted = safeGetSortedItems();
+    const currently = selectedIds.includes(itemId);
 
-    if (wantChecked && !currentlySelected) {
+    if (wantChecked && !currently) {
       if (selectedIds.length >= MAX_SELECTION) {
         if (checkboxEl) checkboxEl.checked = false;
-        notify(`最多支持勾选 ${MAX_SELECTION} 条情报，请先取消 1 条后再选`, 'warning');
+        notify(`最多选择 ${MAX_SELECTION} 篇简报`, 'warning');
         return;
       }
       selectedIds = [...selectedIds, itemId];
       hasUserModified = true;
-    } else if (!wantChecked && currentlySelected) {
+    } else if (!wantChecked && currently) {
       if (selectedIds.length <= MIN_SELECTION) {
         if (checkboxEl) checkboxEl.checked = true;
-        notify(`至少保留 ${MIN_SELECTION} 条情报才能生成战报长图`, 'warning');
+        notify(`至少保留 ${MIN_SELECTION} 篇简报`, 'warning');
         return;
       }
       selectedIds = selectedIds.filter((id) => id !== itemId);
       hasUserModified = true;
     }
 
-    // 保持选中顺序与原始情报列表顺序一致，便于阅读排版
-    const orderLookup = new Map(items.map((it, idx) => [it.id, idx]));
-    selectedIds.sort(
-      (a, b) => (orderLookup.get(a) ?? 9999) - (orderLookup.get(b) ?? 9999)
-    );
+    const orderLookup = new Map(sorted.map((it, idx) => [it.id, idx]));
+    selectedIds.sort((a, b) => (orderLookup.get(a) ?? 9999) - (orderLookup.get(b) ?? 9999));
 
-    renderChecklist(items);
+    renderChecklist(sorted);
     redraw();
-
-    // 保留键盘操作焦点在刚切换的复选框上
-    const safeEscapedId =
-      typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
-        ? CSS.escape(itemId)
-        : String(itemId).replace(/["\\]/g, '\\$&');
-    const restored = listContainer.querySelector(
-      `input[type="checkbox"][value="${safeEscapedId}"]`
-    );
-    if (restored && typeof restored.focus === 'function') {
-      restored.focus({ preventScroll: true });
-    }
-  }
-
-  function renderChecklist(items) {
-    listContainer.replaceChildren();
-    if (!items || items.length === 0) {
-      const emptyMsg = document.createElement('div');
-      emptyMsg.className =
-        'rounded-lg border border-dashed border-slate-700 p-6 text-center text-xs text-slate-400';
-      emptyMsg.textContent = '当前暂无可用情报条目';
-      listContainer.appendChild(emptyMsg);
-      return;
-    }
-
-    const orderedSelected = resolveSelectedItems(items, selectedIds);
-    const orderIndexMap = new Map(
-      orderedSelected.map((it, idx) => [it.id, idx])
-    );
-
-    const frag = document.createDocumentFragment();
-    for (const item of items) {
-      if (!item) continue;
-      const isSelected = orderIndexMap.has(item.id);
-      const orderIdx = isSelected ? orderIndexMap.get(item.id) : -1;
-      frag.appendChild(
-        createChecklistItemRow(item, isSelected, orderIdx, handleToggleItem)
-      );
-    }
-    listContainer.appendChild(frag);
   }
 
   function redraw() {
-    const items = syncSelectionWithItems();
-    const selectedItems = resolveSelectedItems(items, selectedIds);
+    const sorted = syncSelectionWithItems();
+    const selected = resolveSelectedItems(sorted, selectedIds);
     const updatedAt = safeGetUpdatedAt();
     const dateStr = resolvePosterDate({ updatedAt });
-    drawPoster(canvasEl, selectedItems, { date: dateStr, updatedAt });
-    updateSummaryLabels(selectedItems, dateStr);
-    return selectedItems;
+    syncStyleControlUi();
+    drawPoster(canvasEl, selected, { date: dateStr, updatedAt, style: currentStyle });
+    const styleMeta = POSTER_STYLES[currentStyle] || POSTER_STYLES[DEFAULT_POSTER_STYLE];
+    countLabel.textContent = `已选 ${selected.length} 篇`;
+    previewMeta.textContent = `750 × 1334 · ${styleMeta.name}`;
+    footerMeta.textContent = `radar-${dateStr}.png`;
+    return selected;
+  }
+
+  function setStyle(styleKey) {
+    currentStyle = normalizeStyleKey(styleKey);
+    syncStyleControlUi();
+    redraw();
+    return currentStyle;
   }
 
   function open() {
-    const items = syncSelectionWithItems();
-    renderChecklist(items);
+    const sorted = syncSelectionWithItems();
+    renderChecklist(sorted);
     redraw();
-
     if (!isOpen) {
       isOpen = true;
       previousBodyOverflow = document.body.style.overflow;
@@ -2255,80 +1495,104 @@ export function initPosterGenerator({
   }
 
   async function exportPng() {
-    const selectedItems = redraw();
-    if (selectedItems.length === 0) {
-      notify('至少保留 1 条情报才能导出战报长图', 'warning');
-      return { ok: false, filename: '', count: 0 };
+    const selected = redraw();
+    if (selected.length === 0) {
+      notify('至少保留 1 篇简报', 'warning');
+      return { ok: false, filename: '', count: 0, style: currentStyle };
     }
-
-    const updatedAt = safeGetUpdatedAt();
-    const dateStr = resolvePosterDate({ updatedAt });
-    const filename = `ai-intel-radar-${dateStr}.png`;
+    const dateStr = resolvePosterDate({ updatedAt: safeGetUpdatedAt() });
+    const filename = `radar-${dateStr}.png`;
 
     exportBtn.disabled = true;
-    const prevLabel = exportBtn.textContent;
-    exportBtn.textContent = '正在导出高清 PNG...';
-
+    const prev = exportBtn.textContent;
+    exportBtn.textContent = '正在导出...';
     try {
-      const result = await exportCanvasAsPng(canvasEl, filename);
-      notify('战报长图 PNG 已生成并开始保存', 'success');
-      return { ok: true, count: selectedItems.length, ...result };
+      const res = await exportCanvasAsPng(canvasEl, filename);
+      notify('速报长图已保存', 'success');
+      return { ok: true, count: selected.length, style: currentStyle, ...res };
     } catch {
-      notify('战报导出失败，请检查浏览器下载权限后重试', 'error');
-      return { ok: false, filename, count: selectedItems.length };
+      notify('导出失败，请检查下载权限', 'error');
+      return { ok: false, filename, count: selected.length, style: currentStyle };
     } finally {
       exportBtn.disabled = false;
-      exportBtn.textContent = prevLabel;
+      exportBtn.textContent = prev;
     }
   }
 
-  function getSelectedIds() {
-    return [...selectedIds];
-  }
-
-  // 事件绑定
   if (resolvedTrigger) {
-    resolvedTrigger.addEventListener('click', () => {
-      open();
-    });
+    resolvedTrigger.addEventListener('click', open);
   }
-
   closeBtn.addEventListener('click', close);
   cancelBtn.addEventListener('click', close);
-
   backdrop.addEventListener('click', (evt) => {
-    if (evt.target === backdrop) {
-      close();
-    }
+    if (evt.target === backdrop) close();
   });
-
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape' && isOpen) {
       evt.preventDefault();
       close();
     }
   });
-
   resetDefaultBtn.addEventListener('click', () => {
     hasUserModified = false;
-    const items = syncSelectionWithItems();
-    renderChecklist(items);
+    const sorted = syncSelectionWithItems();
+    renderChecklist(sorted);
     redraw();
-    notify('已恢复默认精选条目', 'info');
+    notify('已恢复默认精选', 'info');
   });
-
-  exportBtn.addEventListener('click', () => {
-    exportPng();
+  importBtn.addEventListener('click', () => {
+    const items = getFilteredItems?.() || [];
+    if (!items.length) {
+      notify('当前没有可导入的情报', 'info');
+      return;
+    }
+    selectedIds = items.slice(0, MAX_SELECTION).map(item => item.id);
+    hasUserModified = true;
+    renderChecklist(syncSelectionWithItems());
+    redraw();
+    notify(items.length > MAX_SELECTION ? '已导入当前筛选的前 4 篇' : `已导入 ${items.length} 篇`, 'success');
   });
+  copyBtn.addEventListener('click', async () => {
+    if (!navigator.clipboard?.write || typeof ClipboardItem !== 'function') {
+      notify('此浏览器不支持复制图片，可选择「保存高清 PNG」', 'info');
+      return;
+    }
+    if (!redraw().length) return notify('请先选择简报', 'info');
+    try {
+      // Start the write during the click gesture, including on Safari.
+      const png = new Promise((resolve, reject) => canvasEl.toBlob(blob => {
+        if (blob) resolve(blob);
+        else reject(new Error('PNG encoding failed'));
+      }, 'image/png'));
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
+      notify('海报图片已复制', 'success');
+    } catch {
+      notify('图片复制失败，可选择「保存高清 PNG」', 'info');
+    }
+  });
+  exportBtn.addEventListener('click', exportPng);
 
-  // 初始化时预同步默认选中项（供外部提前调用 getSelectedIds/exportPng）
   syncSelectionWithItems();
+  syncStyleControlUi();
+
+  if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      if (isOpen) redraw();
+    });
+  }
 
   return {
     open,
+    openItem(item) {
+      selectedIds = [item.id];
+      hasUserModified = true;
+      open();
+    },
     close,
     redraw,
-    getSelectedIds,
+    getSelectedIds: () => [...selectedIds],
+    getStyle: () => currentStyle,
+    setStyle,
     exportPng,
   };
 }

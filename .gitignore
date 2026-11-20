@@ -12,6 +12,8 @@ web/dist/
 # 仅跟踪静态部署所需的数据副本
 web/data/*
 !web/data/intel_data.json
+!web/data/models_catalog.json
+!web/data/catalog_changes.json
 
 # Secrets & Local Env
 .env

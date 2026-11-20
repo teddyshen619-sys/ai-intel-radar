@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>前哨 Radar</title>
+  <!-- Whisper orbital horizon (true transparent negative-space opening around beacon) -->
+  <path d="M 52.99 20.36 A 24 24 0 1 1 43.64 11.01" stroke="#1D1D1F" stroke-opacity="0.18" stroke-width="2.4" stroke-linecap="round" />
+  <!-- Inner harmonic quadrant -->
+  <path d="M 32 18 A 14 14 0 0 1 46 32" stroke="#1D1D1F" stroke-opacity="0.42" stroke-width="2.2" stroke-linecap="round" />
+  <!-- Leading 90-degree Radar sweep split cleanly around frontier beacon -->
+  <path d="M 32 8 A 24 24 0 0 1 43.64 11.01" stroke="#1D1D1F" stroke-width="3.4" stroke-linecap="round" />
+  <path d="M 52.99 20.36 A 24 24 0 0 1 56 32" stroke="#1D1D1F" stroke-width="3.4" stroke-linecap="round" />
+  <!-- Subtle 45-degree sightline -->
+  <line x1="36.2" y1="27.8" x2="43.5" y2="20.5" stroke="#1D1D1F" stroke-opacity="0.45" stroke-width="2.2" stroke-linecap="round" />
+  <!-- Outpost origin dot -->
+  <circle cx="32" cy="32" r="3.6" fill="#1D1D1F" />
+  <!-- Frontier signal beacon -->
+  <circle cx="48.97" cy="15.03" r="4.8" fill="#0066CC" />
+</svg>

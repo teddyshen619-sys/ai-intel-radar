@@ -22,6 +22,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Build and validate guides
+        run: python scraper/build_guides.py
+
       - name: Collect radar digest
         run: python scraper/fetch_radar.py
 
@@ -31,11 +34,23 @@ jobs:
       - name: Sync static dataset
         run: |
           mkdir -p web/data
+          cp data/guides.json web/data/guides.json
+          cmp data/guides.json web/data/guides.json
           cp data/intel_data.json web/data/intel_data.json
+          cp data/models_catalog.json web/data/models_catalog.json
+          cmp data/models_catalog.json web/data/models_catalog.json
+          if [ -f data/catalog_changes.json ]; then
+            cp data/catalog_changes.json web/data/
+          fi
 
       - name: Commit and push updates
         run: |
-          git add -- scraper/raw_digest.md web/data/intel_data.json
+          git add -- scraper/raw_digest.md data/models_catalog.json web/data/models_catalog.json web/data/intel_data.json
+          git add -- scraper/guides_updates.md data/guides.json
+          git add -f -- web/data/guides.json
+          if [ -f data/catalog_changes.json ]; then
+            git add -- data/catalog_changes.json web/data/catalog_changes.json
+          fi
           if git diff --cached --quiet; then
             exit 0
           fi

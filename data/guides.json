@@ -1,0 +1,118 @@
+{
+  "schema_version": "4.0",
+  "guides": [
+    {
+      "id": "lesson-f7b9543273b0",
+      "order": 1,
+      "track": "通用课程",
+      "title": "如何解决网络问题",
+      "summary": "",
+      "updated_at": "2026-11-20",
+      "author_note": "",
+      "related_tags": [
+        "教程"
+      ],
+      "source_file": "guides/01-lesson-f7b9543273b0.md",
+      "body_markdown": "\n## 第一步\n\n首先在大陆，很多网站无法在境内的网络正常打开。所以此时我们需要网络代理服务。这篇教程就是解决这个问题，这也是使用所有海外ai的基础。\n\n## 第二步\n\n对于chatgpt来说，解决网络问题的成本非常低。因为chatgpt是目前海外主流ai中对于网络代理以及IP纯净度要求最低的，便宜的代理就可以解决问题。这里站主向大家分享一个非常便宜且较为稳定的网络代理（ti子）\n\n[点击就可以注册了，当然大家有其他好的代理就可以不看这个啦，都可以分享给我！](https://mojie.app/#/register?code=EsFnZdUc)\n\n## 第三步\n\n当然，比如要使用例如Gemini，Claude等时，需要更高要求的网络环境。（慎用Claude最近新号封号跳验证频率太高，即使有好的网络环境也很容易kyc）\n\n如果想要静态住宅IP可以点击下方，且通过下方链接注册的新号还有免费的额度（免费额度可以留着gpt菲区开通时使用）\n\n[静态住宅IP](https://www.zhizhuip.com/?ref=22531)\n",
+      "steps": [
+        {
+          "number": 1,
+          "title": "第一步",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n首先在大陆，很多网站无法在境内的网络正常打开。所以此时我们需要网络代理服务。这篇教程就是解决这个问题，这也是使用所有海外ai的基础。\n\n"
+        },
+        {
+          "number": 2,
+          "title": "第二步",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n对于chatgpt来说，解决网络问题的成本非常低。因为chatgpt是目前海外主流ai中对于网络代理以及IP纯净度要求最低的，便宜的代理就可以解决问题。这里站主向大家分享一个非常便宜且较为稳定的网络代理（ti子）\n\n[点击就可以注册了，当然大家有其他好的代理就可以不看这个啦，都可以分享给我！](https://mojie.app/#/register?code=EsFnZdUc)\n\n"
+        },
+        {
+          "number": 3,
+          "title": "第三步",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n当然，比如要使用例如Gemini，Claude等时，需要更高要求的网络环境。（慎用Claude最近新号封号跳验证频率太高，即使有好的网络环境也很容易kyc）\n\n如果想要静态住宅IP可以点击下方，且通过下方链接注册的新号还有免费的额度（免费额度可以留着gpt菲区开通时使用）\n\n[静态住宅IP](https://www.zhizhuip.com/?ref=22531)\n"
+        }
+      ]
+    },
+    {
+      "id": "lesson-657ffec5712f",
+      "order": 2,
+      "track": "通用课程",
+      "title": "申请一张可在海外平台使用的Visa卡",
+      "summary": "在解决网络问题后，解决支付难题",
+      "updated_at": "2026-11-20",
+      "author_note": "",
+      "related_tags": [],
+      "source_file": "guides/02-lesson-657ffec5712f.md",
+      "body_markdown": "\n## 第一步\n\n相较于网络问题，支付问题是一个更难解决的问题，所以给大家介绍一种几乎无门槛，不需要信用卡即可在海外平台正常支付的途径\n\n## 第二步：了解虚拟卡\n\n在订阅 ChatGPT / OpenAI 等海外 AI 服务或进行海外网站消费时，中国大陆发行的信用卡非常容易触发风控而导致拒付（支付失败）——常见原因包括海外商户对大陆卡段（BIN）限制严格、账单地址校验不通过以及国内发卡行的跨境交易拦截等。\n\n因此，选择 Roogoo 虚拟预付卡（支持 VISA / Mastercard）作为替代方案更为稳妥。它专为海外线上消费与 AI 订阅场景设计，能够有效避开大陆信用卡常见的卡段与发卡行拒付问题。在开始操作前，先了解该卡的基本规则与专属权益：\n\n卡片性质：属于虚拟预付卡，不是信用卡，不能透支，必须先充值、后消费。\n\n支持证件：支持使用本人中国大陆居民身份证完成实名认证。\n\n适用场景：订阅 ChatGPT 等海外 AI 会员、海外网站日常线上消费，以及绑定部分数字钱包（如 Apple Pay、Google Pay、支付宝、微信支付等）。\n\n核心费用与专属权益（具体以 Roogoo 页面实时展示为准）：\n\n首张卡开卡费：$0（通过专属邀请链接/邀请码注册可享免费开卡）。\n\n最低首充金额：$10。注意：这 10 美元不是开卡费，而是直接充入你的卡内余额，供后续订阅和消费使用。\n\n新用户专属权益：享 7 天 0 费率试用（累计限额 500 美元；退款费、拒付费及其他特殊费用不一定减免），并可升级卡片终身 0 费率权益。\n\n## 第三步：注册roogoo平台\n\n开卡需要10刀左右的费用，但不是开卡费，通过下面链接可以免费开卡，并且有1刀的返利。（点击下方链接，邀请码是预填好的）\n\n10刀是一开始存到卡里的，加上返利的一刀，一开始卡内就有11刀左右。\n[通过本链接注册可以免费开第一张卡](https://wap.roogoo.money/register?inviteCode=0tez4x)\n\n## 第四步：实名认证\n\n必须先通过实名认证，后台才会开放申请卡片的权限。注意：每人名下只能认证一个账号。\n\n登录 Roogoo 后台，点击页面右上角的头像进入「设置」。\n\n![操作截图](guides-media/lesson-657ffec5712f/6a6f377a4e947816e19d5c8d4998770e1c959cfaa25572e376d83184daa41765.png)\n\n在设置菜单中找到「实名认证」（当前状态显示为“待认证”），点击进入。\n\n点击「开始认证」，按照页面指引上传/拍摄本人大陆身份证，并完成本人人脸识别即可。\n\n## 第五步：购买USDT\n\n由于Roogoo 平台当前仅支持加密稳定币USDT充值，不支持任何法币充值，所以我们需要先到虚拟币交易平台来购买USDT来给我们的roogoo账户充值。\n\n\n对于区块链小白，我推荐在全球最大的数字货币交易所币安（Binance）进行购买，可以有效避免在其他途径购买收到黑U或者假U。大家可以放心使用币安。\n\n \n\n下面详细介绍从交易所购买加密货币的步骤。\n\n \n\n第一步：下载币安(Binance)APP 并安装\n \n\n对于已经使用梯子的用户，可以打开这个页面 下载 币安(Binance) APP 或者获得下载指引：https://www.binance.com/zh-CN/download\n\n \n\n1.安卓用户下载币安APP：\n安卓用户请务必通过官方渠道下载App，您可以直接复制以下链接到浏览器中打开，然后完成下载、安装。\n\n \n\n下载链接1：https://download.binance.com/authenticator/binance-authenticator.apk\n\n \n\n也可以发任意邮件至 download@binance.com , 自动获取下载链接。\n\n \n\n2.安卓用户安装币安APP：\n一些安卓手机在完成欧易 App 安装包下载之后，可能会出现“安全风险”、“病毒风险”等提示而无法完成安装，您可以参照以下方法完成安装。\n\nhttps://help.roogoo.com/zh-CN/articles/10914411 （注：文中以Roogoo App为例，安装方法是一样的）\n\n \n\n3. iPhone 手机用户下载币安APP：\n \n\niPhone 手机用户下载币安APP需要有海外的 Apple ID ，如果没有你需要重新注册一个。\n\n \n\n建议注册个国家或地区为菲律宾，台湾，新加坡等，币安 App 支持的国家/地区参加： https://www.binance.com/zh-CN/support-region-list ；特别注意不要用美区 Apple ID。\n\n \n\n如何注册海外Apple ID 建议参考这篇文章 https://help.roogoo.com/zh-CN/articles/10625818\n\n \n\n注册完海外 Apple ID 后，打开 App Store 搜索 “币安”或“Binance” ，完成下载即可。\n\n \n\n \n\n第二步：注册币安账号\n打开币安APP，通过邮箱和手机号码注册账号；注册账号完成是会询问是否有人邀请，建议大家填写邀请码：\n\nCPA_00600B9GPP\n\n币安对于填写邀请码的受邀用户，可以享受部分手续费减免，和参与多种活动。\n\n网页端注册：通过我的邀请码注册，您能享受平台提供的专属优惠与返佣。\n\n[点击链接注册](https://www.bsmkweb.net/activity/referral-entry/CPA?ref=CPA%5F00600B9GPP)\n\n在app上登陆后\n![操作截图](guides-media/lesson-657ffec5712f/d4873bc65014f8191ef8f87f21a2314e53c51cb625c0d2934392d54457c20b14.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/cc0ee90c094facfe464fc9dbe74d7cb1aebb58dd1ea2fab634206bfbeced05c3.png)\n第三步：购买 USDT\n在币安购买USDT需要通过C2C交易方式进行，即你先个人够买USDT。大致的流程就是通过币安平台担保，你需要将人民币通过支付宝，微信，银行卡转账的方式，将人民转账到卖家的个人账户；卖家收到款项后，将USDT 自动汇入你在币安的资金账户，这样交易就完成了。具体购买步骤：\n\n \n\n1、点击APP首页上的C2C买币 或 添加资金 按钮，你就可以进入购买USDT的界面；如图：\n\n![操作截图](guides-media/lesson-657ffec5712f/a1e4060770daa741c5b84e17df79f6a7dda5ecd0235b5f23de1f6830a3203144.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/4ea079615bbbeae933cc43b60ef21f45dc80c3a5424953f3eee08461157af3ba.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/c931a5268aa6782d6ada3e57502a8a249374b1054b07ba6a770230bfa11d63ad.png)\n\n注意！！！要确保自己诚信交易否则可能账号会受限。还有我们开卡需要10U，为了避免手续费等费用造成开卡失败，适当多充一些例如10.5U！！！\n\n> 风险提示：如果你的用途只是支付 AI 订阅或其他数字服务，每个月只充值当月实际需要消费的金额，不要超额充值，也不要把交易平台当成长期存钱的地方。\n> 不要炒币，不要炒币，不要炒币。重要的事情说三遍。十赌九输，请远离投机，理性消费。\n\n## 第六步：将买到的USDT提币到Roogoo\n\n1.要将 USDT 充币到 Roogoo 平台，需要你在Roogoo 平台上获取充币地址二维码，或者复制充币地址：\n\n![操作截图](guides-media/lesson-657ffec5712f/b9bc03458edf2e92673eb4923c1577195fbdde0403e9f00107862ca55f98d330.png)\n！！！注意，在充币之前你要确定充币提币区块链网络，确保提币平台与提币平台一致的网络。\n\n\n2、在币安(Binance)平台提币，具体步骤：\n\n \n\n![操作截图](guides-media/lesson-657ffec5712f/d3be505db6cb9643f33ed8c4a4c285b3efad18db7ecaf988cb50f4f400a9d597.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/e696404dd8fc4d76316a9630ebb052db912998f29674a551a8c4af0b3bad05e1.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/90c8acdd4477ae77845ec962781113727397506c07033167cce3981c38b42d44.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/f89eb3bd213524b6fb98b6bba5d0b98104b36683228eccdb3ae674222786bd49.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/84cfe9b98fa16e7f9cc3134864a6f54f879885ecb007953d09afa27bffa999ec.png)\n这样就可以等待区块链转账完成，在Roogoo平台收到USDT了\n \n\n> 风险提示：请仔细看图，在提币时确保两个平台提币网络一致！！！\n\n## 第七步：开卡\n\n![操作截图](guides-media/lesson-657ffec5712f/08ac4f467b058f06421fbf01bfb4b609f13eba90f249ac2c95c8b0dcecf07f46.png)\n\n等待几分钟链上到账后，回到 Roogoo，此时点击左上角卡片，点击申请新卡。\n\n![操作截图](guides-media/lesson-657ffec5712f/2773c6536271d39b4d760d38e67688bfecc30c7e9b2a58d649ba36e5cad0aab4.png)\n\n选择中间的乐享卡，第一张卡不需要开卡费，没有管理费，且可以用来充值ai（其他的不行或有额外费用）\n\n接下来按照平台流程开通卡片即可，卡里会有11.5U左右（提币10.5U+返现1U）\n此时就可以把卡拿去Gemini，GPT等平台绑定付款了。GPT与Gemini的正规低价路径后面我会更新教程。\n\n> 风险提示：特别注意！！！！不要在卡里留太多余额，即充即用就行！！！但也不能完全没有，留5U左右就差不多，还要记得自己有没有自动续费，在自动续费前一定要保证卡里有钱否则会出问题！！！\n\n## 总结\n\n最后我想说，这可能是没有海外信用卡的大家能接触到的最方便的方法了，这个方法能比代充便宜不少，虽然站主用到现在还没有啥问题，但网络上总说虚拟卡有一定风险。\n\n\n但大家只要多加注意，比如不留太多钱，我认为这还是一个不错的路径。\n",
+      "steps": [
+        {
+          "number": 1,
+          "title": "第一步",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n相较于网络问题，支付问题是一个更难解决的问题，所以给大家介绍一种几乎无门槛，不需要信用卡即可在海外平台正常支付的途径\n\n"
+        },
+        {
+          "number": 2,
+          "title": "第二步：了解虚拟卡",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n在订阅 ChatGPT / OpenAI 等海外 AI 服务或进行海外网站消费时，中国大陆发行的信用卡非常容易触发风控而导致拒付（支付失败）——常见原因包括海外商户对大陆卡段（BIN）限制严格、账单地址校验不通过以及国内发卡行的跨境交易拦截等。\n\n因此，选择 Roogoo 虚拟预付卡（支持 VISA / Mastercard）作为替代方案更为稳妥。它专为海外线上消费与 AI 订阅场景设计，能够有效避开大陆信用卡常见的卡段与发卡行拒付问题。在开始操作前，先了解该卡的基本规则与专属权益：\n\n卡片性质：属于虚拟预付卡，不是信用卡，不能透支，必须先充值、后消费。\n\n支持证件：支持使用本人中国大陆居民身份证完成实名认证。\n\n适用场景：订阅 ChatGPT 等海外 AI 会员、海外网站日常线上消费，以及绑定部分数字钱包（如 Apple Pay、Google Pay、支付宝、微信支付等）。\n\n核心费用与专属权益（具体以 Roogoo 页面实时展示为准）：\n\n首张卡开卡费：$0（通过专属邀请链接/邀请码注册可享免费开卡）。\n\n最低首充金额：$10。注意：这 10 美元不是开卡费，而是直接充入你的卡内余额，供后续订阅和消费使用。\n\n新用户专属权益：享 7 天 0 费率试用（累计限额 500 美元；退款费、拒付费及其他特殊费用不一定减免），并可升级卡片终身 0 费率权益。\n\n"
+        },
+        {
+          "number": 3,
+          "title": "第三步：注册roogoo平台",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n开卡需要10刀左右的费用，但不是开卡费，通过下面链接可以免费开卡，并且有1刀的返利。（点击下方链接，邀请码是预填好的）\n\n10刀是一开始存到卡里的，加上返利的一刀，一开始卡内就有11刀左右。\n[通过本链接注册可以免费开第一张卡](https://wap.roogoo.money/register?inviteCode=0tez4x)\n\n"
+        },
+        {
+          "number": 4,
+          "title": "第四步：实名认证",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n必须先通过实名认证，后台才会开放申请卡片的权限。注意：每人名下只能认证一个账号。\n\n登录 Roogoo 后台，点击页面右上角的头像进入「设置」。\n\n![操作截图](guides-media/lesson-657ffec5712f/6a6f377a4e947816e19d5c8d4998770e1c959cfaa25572e376d83184daa41765.png)\n\n在设置菜单中找到「实名认证」（当前状态显示为“待认证”），点击进入。\n\n点击「开始认证」，按照页面指引上传/拍摄本人大陆身份证，并完成本人人脸识别即可。\n\n"
+        },
+        {
+          "number": 5,
+          "title": "第五步：购买USDT",
+          "code_blocks": [],
+          "risk_notes": [
+            "如果你的用途只是支付 AI 订阅或其他数字服务，每个月只充值当月实际需要消费的金额，不要超额充值，也不要把交易平台当成长期存钱的地方。\n不要炒币，不要炒币，不要炒币。重要的事情说三遍。十赌九输，请远离投机，理性消费。"
+          ],
+          "markdown": "\n由于Roogoo 平台当前仅支持加密稳定币USDT充值，不支持任何法币充值，所以我们需要先到虚拟币交易平台来购买USDT来给我们的roogoo账户充值。\n\n\n对于区块链小白，我推荐在全球最大的数字货币交易所币安（Binance）进行购买，可以有效避免在其他途径购买收到黑U或者假U。大家可以放心使用币安。\n\n \n\n下面详细介绍从交易所购买加密货币的步骤。\n\n \n\n第一步：下载币安(Binance)APP 并安装\n \n\n对于已经使用梯子的用户，可以打开这个页面 下载 币安(Binance) APP 或者获得下载指引：https://www.binance.com/zh-CN/download\n\n \n\n1.安卓用户下载币安APP：\n安卓用户请务必通过官方渠道下载App，您可以直接复制以下链接到浏览器中打开，然后完成下载、安装。\n\n \n\n下载链接1：https://download.binance.com/authenticator/binance-authenticator.apk\n\n \n\n也可以发任意邮件至 download@binance.com , 自动获取下载链接。\n\n \n\n2.安卓用户安装币安APP：\n一些安卓手机在完成欧易 App 安装包下载之后，可能会出现“安全风险”、“病毒风险”等提示而无法完成安装，您可以参照以下方法完成安装。\n\nhttps://help.roogoo.com/zh-CN/articles/10914411 （注：文中以Roogoo App为例，安装方法是一样的）\n\n \n\n3. iPhone 手机用户下载币安APP：\n \n\niPhone 手机用户下载币安APP需要有海外的 Apple ID ，如果没有你需要重新注册一个。\n\n \n\n建议注册个国家或地区为菲律宾，台湾，新加坡等，币安 App 支持的国家/地区参加： https://www.binance.com/zh-CN/support-region-list ；特别注意不要用美区 Apple ID。\n\n \n\n如何注册海外Apple ID 建议参考这篇文章 https://help.roogoo.com/zh-CN/articles/10625818\n\n \n\n注册完海外 Apple ID 后，打开 App Store 搜索 “币安”或“Binance” ，完成下载即可。\n\n \n\n \n\n第二步：注册币安账号\n打开币安APP，通过邮箱和手机号码注册账号；注册账号完成是会询问是否有人邀请，建议大家填写邀请码：\n\nCPA_00600B9GPP\n\n币安对于填写邀请码的受邀用户，可以享受部分手续费减免，和参与多种活动。\n\n网页端注册：通过我的邀请码注册，您能享受平台提供的专属优惠与返佣。\n\n[点击链接注册](https://www.bsmkweb.net/activity/referral-entry/CPA?ref=CPA%5F00600B9GPP)\n\n在app上登陆后\n![操作截图](guides-media/lesson-657ffec5712f/d4873bc65014f8191ef8f87f21a2314e53c51cb625c0d2934392d54457c20b14.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/cc0ee90c094facfe464fc9dbe74d7cb1aebb58dd1ea2fab634206bfbeced05c3.png)\n第三步：购买 USDT\n在币安购买USDT需要通过C2C交易方式进行，即你先个人够买USDT。大致的流程就是通过币安平台担保，你需要将人民币通过支付宝，微信，银行卡转账的方式，将人民转账到卖家的个人账户；卖家收到款项后，将USDT 自动汇入你在币安的资金账户，这样交易就完成了。具体购买步骤：\n\n \n\n1、点击APP首页上的C2C买币 或 添加资金 按钮，你就可以进入购买USDT的界面；如图：\n\n![操作截图](guides-media/lesson-657ffec5712f/a1e4060770daa741c5b84e17df79f6a7dda5ecd0235b5f23de1f6830a3203144.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/4ea079615bbbeae933cc43b60ef21f45dc80c3a5424953f3eee08461157af3ba.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/c931a5268aa6782d6ada3e57502a8a249374b1054b07ba6a770230bfa11d63ad.png)\n\n注意！！！要确保自己诚信交易否则可能账号会受限。还有我们开卡需要10U，为了避免手续费等费用造成开卡失败，适当多充一些例如10.5U！！！\n\n> 风险提示：如果你的用途只是支付 AI 订阅或其他数字服务，每个月只充值当月实际需要消费的金额，不要超额充值，也不要把交易平台当成长期存钱的地方。\n> 不要炒币，不要炒币，不要炒币。重要的事情说三遍。十赌九输，请远离投机，理性消费。\n\n"
+        },
+        {
+          "number": 6,
+          "title": "第六步：将买到的USDT提币到Roogoo",
+          "code_blocks": [],
+          "risk_notes": [
+            "请仔细看图，在提币时确保两个平台提币网络一致！！！"
+          ],
+          "markdown": "\n1.要将 USDT 充币到 Roogoo 平台，需要你在Roogoo 平台上获取充币地址二维码，或者复制充币地址：\n\n![操作截图](guides-media/lesson-657ffec5712f/b9bc03458edf2e92673eb4923c1577195fbdde0403e9f00107862ca55f98d330.png)\n！！！注意，在充币之前你要确定充币提币区块链网络，确保提币平台与提币平台一致的网络。\n\n\n2、在币安(Binance)平台提币，具体步骤：\n\n \n\n![操作截图](guides-media/lesson-657ffec5712f/d3be505db6cb9643f33ed8c4a4c285b3efad18db7ecaf988cb50f4f400a9d597.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/e696404dd8fc4d76316a9630ebb052db912998f29674a551a8c4af0b3bad05e1.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/90c8acdd4477ae77845ec962781113727397506c07033167cce3981c38b42d44.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/f89eb3bd213524b6fb98b6bba5d0b98104b36683228eccdb3ae674222786bd49.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/84cfe9b98fa16e7f9cc3134864a6f54f879885ecb007953d09afa27bffa999ec.png)\n这样就可以等待区块链转账完成，在Roogoo平台收到USDT了\n \n\n> 风险提示：请仔细看图，在提币时确保两个平台提币网络一致！！！\n\n"
+        },
+        {
+          "number": 7,
+          "title": "第七步：开卡",
+          "code_blocks": [],
+          "risk_notes": [
+            "特别注意！！！！不要在卡里留太多余额，即充即用就行！！！但也不能完全没有，留5U左右就差不多，还要记得自己有没有自动续费，在自动续费前一定要保证卡里有钱否则会出问题！！！"
+          ],
+          "markdown": "\n![操作截图](guides-media/lesson-657ffec5712f/08ac4f467b058f06421fbf01bfb4b609f13eba90f249ac2c95c8b0dcecf07f46.png)\n\n等待几分钟链上到账后，回到 Roogoo，此时点击左上角卡片，点击申请新卡。\n\n![操作截图](guides-media/lesson-657ffec5712f/2773c6536271d39b4d760d38e67688bfecc30c7e9b2a58d649ba36e5cad0aab4.png)\n\n选择中间的乐享卡，第一张卡不需要开卡费，没有管理费，且可以用来充值ai（其他的不行或有额外费用）\n\n接下来按照平台流程开通卡片即可，卡里会有11.5U左右（提币10.5U+返现1U）\n此时就可以把卡拿去Gemini，GPT等平台绑定付款了。GPT与Gemini的正规低价路径后面我会更新教程。\n\n> 风险提示：特别注意！！！！不要在卡里留太多余额，即充即用就行！！！但也不能完全没有，留5U左右就差不多，还要记得自己有没有自动续费，在自动续费前一定要保证卡里有钱否则会出问题！！！\n\n"
+        },
+        {
+          "number": 8,
+          "title": "总结",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n最后我想说，这可能是没有海外信用卡的大家能接触到的最方便的方法了，这个方法能比代充便宜不少，虽然站主用到现在还没有啥问题，但网络上总说虚拟卡有一定风险。\n\n\n但大家只要多加注意，比如不留太多钱，我认为这还是一个不错的路径。\n"
+        }
+      ]
+    }
+  ]
+}

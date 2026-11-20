@@ -1,134 +1,314 @@
 import {
   loadIntelData,
   computeStats,
+  getFeaturedHeadlines,
+  extractVendors,
   filterItems,
-  computeCategoryCounts,
 } from './data.js';
-import { renderIntelCards, showToast } from './card.js';
+import {
+  configureReader,
+  bilibiliSearchUrl,
+  itemMarkdown,
+  renderIntelCards,
+  renderHeadlineCards,
+  openIntelReader,
+  closeIntelReader,
+  showToast,
+  copyTextToClipboard,
+} from './card.js';
 import { initPosterGenerator } from './poster.js';
 
-const TYPE_LABELS = {
-  ALL: '全部',
-  DEAL: '算力羊毛 DEAL',
-  BUG: '漏洞避坑 BUG',
-  HACK: '极客技巧 HACK',
-};
+import { initCatalog } from './catalog.js';
+import { initGuides } from './guides.js';
 
-const SOURCE_META = {
-  'web-data': {
-    label: 'LIVE JSON',
-    title: '实时加载自 ./data/intel_data.json',
-    tone: 'live',
-  },
-  'root-data': {
-    label: 'LIVE JSON',
-    title: '实时加载自 ../data/intel_data.json',
-    tone: 'live',
-  },
-  fallback: {
-    label: '离线兜底',
-    title: '网络或本地文件受限，已启用内置兜底情报库',
-    tone: 'fallback',
-  },
-};
+const THEME_STORAGE_KEY = 'ai-intel-theme';
 
-const TAB_ACCENT_STYLES = {
+const CHANNEL_COPY = {
+  REVIEW: { title: '测评与视频' },
+  MODELS: { title: '模型比价与免费额度速查' },
+  GUIDES: { title: 'Agent 实战教程' },
   ALL: {
-    activeBtn: [
-      'is-active',
-      'bg-emerald-500/15',
-      'text-emerald-200',
-      'border-emerald-500/60',
-    ],
-    activeCount: ['text-emerald-300'],
+    title: '前沿 AI 情报与算力简报',
   },
-  DEAL: {
-    activeBtn: [
-      'is-active',
-      'bg-emerald-500/15',
-      'text-emerald-200',
-      'border-emerald-500/60',
-    ],
-    activeCount: ['text-emerald-300'],
+  RADAR: {
+    title: '算力降本与工程避坑',
   },
-  BUG: {
-    activeBtn: [
-      'is-active',
-      'bg-red-500/15',
-      'text-red-200',
-      'border-red-500/60',
-    ],
-    activeCount: ['text-red-300'],
-  },
-  HACK: {
-    activeBtn: [
-      'is-active',
-      'bg-cyan-500/15',
-      'text-cyan-200',
-      'border-cyan-500/60',
-    ],
-    activeCount: ['text-cyan-300'],
+  INTEL: {
+    title: '全球 AI 厂商前沿动态',
   },
 };
 
-const ALL_TAB_ACTIVE_BTN_CLASSES = [
-  'is-active',
-  'bg-emerald-500/15',
-  'text-emerald-200',
-  'text-emerald-300',
-  'border-emerald-500/50',
-  'border-emerald-500/60',
-  'bg-red-500/15',
-  'text-red-200',
-  'border-red-500/60',
-  'bg-cyan-500/15',
-  'text-cyan-200',
-  'border-cyan-500/60',
-];
+const SUB_TYPE_CONFIG = {
+  REVIEW: [
+    { key: 'ALL', label: '全部' },
+    { key: 'BENCHMARK', label: '深度评测' },
+    { key: 'VIDEO', label: '视频拆解' },
+  ],
+  RADAR: [
+    { key: 'ALL', label: '全部' },
+    { key: 'DEAL', label: '算力羊毛' },
+    { key: 'BUG', label: '漏洞避坑' },
+    { key: 'HACK', label: '极客技巧' },
+  ],
+  INTEL: [
+    { key: 'ALL', label: '全部' },
+    { key: 'MODEL', label: '新模型' },
+    { key: 'PRODUCT', label: '新产品' },
+    { key: 'POLICY', label: '新条款与定价' },
+  ],
+};
 
-const ALL_TAB_COUNT_CLASSES = [
-  'text-emerald-300',
-  'text-red-300',
-  'text-cyan-300',
-  'text-slate-400',
-];
+const TAB_LINK_BASE =
+  'font-editorial-nav inline-flex items-baseline pb-1 text-[13.5px] border-b-[1.5px] transition-colors cursor-pointer focus:outline-none whitespace-nowrap';
+const TAB_LINK_ACTIVE =
+  'border-[#1D1D1F] font-medium text-[#1D1D1F] dark:border-[#F5F5F7] dark:text-[#F5F5F7]';
+const TAB_LINK_IDLE =
+  'border-transparent font-normal text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#A1A1A6] dark:hover:text-[#F5F5F7]';
 
-const TAB_INACTIVE_CLASSES = [
-  'bg-slate-900/75',
-  'text-slate-300',
-  'border-slate-800',
-];
-
-const SOURCE_LIVE_CLASSES = ['text-emerald-300'];
-
-const SOURCE_FALLBACK_CLASSES = ['text-amber-300'];
+const VENDOR_LINK_BASE =
+  'inline-flex items-baseline transition-colors cursor-pointer focus:outline-none whitespace-nowrap';
+const VENDOR_LINK_ACTIVE =
+  'font-medium text-[#0066CC] dark:text-[#2997FF] underline underline-offset-4';
+const VENDOR_LINK_IDLE =
+  'font-normal text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#A1A1A6] dark:hover:text-[#F5F5F7]';
 
 const state = {
+  density: 'magazine',
+  onlySaved: false,
+  channel: 'ALL',
   type: 'ALL',
+  vendor: 'ALL',
   showFixed: false,
   query: '',
 };
 
-let intelData = {
-  updated_at: '',
-  items: [],
-};
+let currentTheme = 'light';
+let intelData = { updated_at: '', items: [] };
 let dataSource = 'fallback';
 let statsCache = null;
 let posterController = null;
+let domRefs = null;
+
+
+const SAVED_KEY = 'ai-intel-saved-v3';
+function readSaved() {
+  try {
+    const records = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    return new Map(records.filter(item => item && typeof item.id === 'string').map(item => [item.id, item]));
+  } catch {
+    return new Map();
+  }
+}
+
+let saved = readSaved();
+
+let catalog;
+let guidesController;
+let readerItem = null;
+let readerTrigger = null;
+let returningFromReader = false;
+let sourceHref = '';
+let restoringUrl = false;
+const routeKeys = ['channel', 'type', 'vendor', 'q', 'saved', 'active', 'free', 'sort', 'input', 'output', 'id', 'guide', 'step'];
+
+function syncUrl() {
+  if (readerItem || restoringUrl || !catalog || !guidesController) return;
+  const url = new URL(location.href);
+  for (const key of routeKeys) url.searchParams.delete(key);
+  const params =
+    state.channel === 'MODELS'
+      ? catalog.parameters()
+      : state.channel === 'GUIDES'
+        ? guidesController.parameters()
+        : {
+            type: state.type === 'ALL' ? null : state.type,
+            vendor: state.vendor === 'ALL' ? null : state.vendor,
+            q: state.query || null,
+            saved: state.onlySaved ? '1' : null,
+            active: state.showFixed ? '0' : null,
+          };
+  if (state.channel !== 'ALL') url.searchParams.set('channel', state.channel);
+  for (const [key, value] of Object.entries(params)) {
+    if (value != null) url.searchParams.set(key, value);
+  }
+  sourceHref = url.href;
+  if (url.href !== location.href) history.replaceState(history.state, '', url);
+}
+
+function restoreChannel(dom, params) {
+  const channel = params.get('channel');
+  state.channel = Object.hasOwn(CHANNEL_COPY, channel) ? channel : 'ALL';
+  const type = params.get('type');
+  state.type = SUB_TYPE_CONFIG[state.channel]?.some(spec => spec.key === type) ? type : 'ALL';
+  state.vendor = state.channel === 'INTEL' && params.get('vendor') || 'ALL';
+  state.query = state.channel === 'MODELS' || state.channel === 'GUIDES' ? '' : params.get('q') || '';
+  state.onlySaved = params.get('saved') === '1';
+  state.showFixed = params.get('active') === '0';
+  dom.searchInput.value = state.query;
+  dom.toggleHideFixed.checked = !state.showFixed;
+  if (state.channel === 'MODELS') catalog.restore(params);
+  if (state.channel === 'GUIDES') guidesController.restore(params);
+  render(dom);
+}
+
+function restoreUrl(dom) {
+  posterController?.close();
+  const url = new URL(location.href);
+  const id = url.searchParams.get('id');
+  const item = intelData.items.find(entry => entry.id === id) || saved.get(id);
+  url.searchParams.delete('id');
+  const previous = readerItem;
+  const sameSource = sourceHref === url.href;
+  restoringUrl = true;
+  returningFromReader = false;
+  try {
+    readerItem = null;
+    if (!sameSource) restoreChannel(dom, url.searchParams);
+    sourceHref = url.href;
+    if (item) {
+      openIntelReader(item);
+    } else {
+      updatePanels(dom);
+      dom.detail.replaceChildren();
+      if (sameSource && previous) {
+        const fallback = !dom.main.hidden && dom.main.querySelector('[data-intel-id="' + CSS.escape(previous.id) + '"] .story-title-button');
+        const target = readerTrigger?.isConnected ? readerTrigger : fallback;
+        (target || dom.channelTabs.querySelector('[data-active="true"]'))?.focus({ preventScroll: true });
+      }
+      readerTrigger = null;
+      if (Number.isFinite(history.state?.radarScrollY)) {
+        window.scrollTo({ top: history.state.radarScrollY, behavior: 'instant' });
+      }
+    }
+  } finally {
+    restoringUrl = false;
+  }
+  syncUrl();
+}
+
+function openReaderRoute(dom, item, trigger) {
+  const url = new URL(sourceHref || location.href);
+  url.searchParams.set('id', item.id);
+  if (!restoringUrl || !history.state?.radarReader) {
+    // Give shared links the same return destination as an in-page visit.
+    if (!readerItem) {
+      history.scrollRestoration = 'manual';
+      history.replaceState({ ...history.state, radarScrollY: restoringUrl ? 0 : window.scrollY }, '', sourceHref);
+      history.pushState({ radarReader: true }, '', url);
+    } else {
+      history.replaceState(history.state, '', url);
+    }
+  }
+  if (trigger) readerTrigger = trigger;
+  readerItem = item;
+  markRead(item);
+  updatePanels(dom);
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function leaveReaderForChannel(dom) {
+  if (!readerItem) return;
+  history.pushState({}, '', sourceHref);
+  readerItem = null;
+  readerTrigger = null;
+  dom.detail.replaceChildren();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+const VISIT_KEY = 'ai-intel-visit-v1';
+const READ_KEY = 'ai-intel-read-v1';
+let newItems = new Set();
+
+function readLocal(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+  catch { return fallback; }
+}
+
+function showVisitCount() {
+  const note = document.getElementById('visit-increment');
+  note.hidden = !newItems.size || state.channel === 'MODELS' || state.channel === 'GUIDES';
+  note.textContent = newItems.size ? '自上次访问新增 ' + newItems.size + ' 条' : '';
+}
+
+function recordVisit() {
+  if (dataSource === 'fallback') return;
+  const previous = readLocal(VISIT_KEY, null);
+  const current = { updated_at: intelData.updated_at, ids: intelData.items.map(item => item.id) };
+  if (previous && Date.parse(previous.updated_at) > Date.parse(current.updated_at)) return;
+  if (Array.isArray(previous?.ids) && Date.parse(current.updated_at) > Date.parse(previous.updated_at)) {
+    const read = readLocal(READ_KEY, []);
+    const known = new Set([...previous.ids, ...(Array.isArray(read) ? read : [])]);
+    newItems = new Set(current.ids.filter(id => !known.has(id)));
+  }
+  try { localStorage.setItem(VISIT_KEY, JSON.stringify(current)); } catch { /* Storage unavailable. */ }
+}
+
+function markRead(item) {
+  const stored = readLocal(READ_KEY, []);
+  const ids = new Set(Array.isArray(stored) ? stored : []);
+  ids.add(item.id);
+  try { localStorage.setItem(READ_KEY, JSON.stringify([...ids])); } catch { /* Storage unavailable. */ }
+}
+
+
+function filteredItems() {
+  const current = new Map(intelData.items.map(item => [item.id, item]));
+  const items = state.onlySaved ? [...saved.values()].map(item => current.get(item.id) || item) : intelData.items;
+  return filterItems(items, state);
+}
+
+function toggleBookmark(id, dom) {
+  if (saved.has(id)) saved.delete(id);
+  else {
+    const item = readerItem?.id === id ? readerItem : intelData.items.find(entry => entry.id === id);
+    if (!item) return;
+    saved.set(id, item);
+  }
+  try {
+    localStorage.setItem(SAVED_KEY, JSON.stringify([...saved.values()]));
+  } catch {
+    showToast('浏览器存储不可用，收藏仅保留在本次浏览', 'info');
+  }
+  render(dom);
+  if (readerItem) return;
+  const next = [...dom.main.querySelectorAll('[data-bookmark]')].find(button => button.dataset.bookmark === id);
+  (next || dom.savedFilter).focus({ preventScroll: true });
+}
+
+async function exportMarkdown() {
+  const items = filteredItems();
+  if (!items.length) return;
+  const sections = items.map(itemMarkdown);
+  const heading = state.onlySaved ? '# 收藏简报' : '# 情报简报';
+  const copied = await copyTextToClipboard([heading, ...sections].join('\n\n'));
+  showToast(copied ? '已复制 ' + items.length + ' 条简报为 Markdown' : '复制失败，请检查剪贴板权限', copied ? 'success' : 'error');
+}
 
 function getDomRefs() {
   return {
-    statActiveDeals: document.getElementById('stat-active-deals'),
-    statActiveAlerts: document.getElementById('stat-active-alerts'),
-    statUpdatedAt: document.getElementById('stat-updated-at'),
-    statDataSource: document.getElementById('stat-data-source'),
-    categoryTabs: document.getElementById('category-tabs'),
-    toggleShowFixed: document.getElementById('toggle-show-fixed'),
-    fixedCountLabel: document.getElementById('fixed-count-label'),
+    header: document.querySelector('#top > header'),
+    detail: document.getElementById('intel-detail-panel'),
+    reviewSearch: document.getElementById('review-video-search'),
+    controls: document.getElementById('intel-controls'),
+    main: document.getElementById('intel-main'),
+    catalog: document.getElementById('model-panel'),
+    guidesPanel: document.getElementById('guides-panel'),
+    savedFilter: document.getElementById('saved-filter'),
+    exportButton: document.getElementById('export-md'),
+    themeToggleBtn: document.getElementById('theme-toggle-btn'),
+    channelTabs: document.getElementById('channel-tabs'),
+    mastheadTitle: document.getElementById('masthead-title'),
+    footerUpdatedAt: document.getElementById('footer-updated-at'),
+    subTypeBar: document.getElementById('sub-type-bar'),
+    subTypeTabs: document.getElementById('sub-type-tabs'),
+    vendorFilterBar: document.getElementById('vendor-filter-bar'),
+    vendorChips: document.getElementById('vendor-chips'),
+    toggleHideFixed: document.getElementById('toggle-hide-fixed'),
     searchInput: document.getElementById('search-input'),
     searchClearBtn: document.getElementById('search-clear-btn'),
-    resultsSummary: document.getElementById('results-summary'),
+    headlineSection: document.getElementById('headline-section'),
+    headlineGrid: document.getElementById('headline-grid'),
+    feedSection: document.getElementById('feed-section'),
     feedEl: document.getElementById('intel-feed'),
     emptyState: document.getElementById('empty-state'),
     resetFiltersBtn: document.getElementById('reset-filters-btn'),
@@ -137,80 +317,203 @@ function getDomRefs() {
   };
 }
 
-function updateStatsDashboard(dom, stats, source) {
-  if (dom.statActiveDeals) {
-    dom.statActiveDeals.textContent = String(stats.activeDeals ?? 0);
+function formatFooterDate(isoString) {
+  if (typeof isoString !== 'string' || !isoString.trim()) return '';
+  const match = isoString.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (match) {
+    return `${Number(match[1])}年${Number(match[2])}月${Number(match[3])}日更新`;
   }
-  if (dom.statActiveAlerts) {
-    dom.statActiveAlerts.textContent = String(stats.activeBugs ?? 0);
+  return '';
+}
+
+function readInitialTheme() {
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+  } catch {
+    // Ignore storage errors
   }
-  if (dom.statUpdatedAt) {
-    dom.statUpdatedAt.textContent =
-      stats.updatedAtFormatted || stats.updatedAtRaw || '--';
-    if (stats.updatedAtRaw) {
-      dom.statUpdatedAt.setAttribute('title', stats.updatedAtRaw);
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+}
+
+function syncThemeToggleButton(theme) {
+  const btn = domRefs?.themeToggleBtn || document.getElementById('theme-toggle-btn');
+  if (!btn) return;
+  const isDark = theme === 'dark';
+  btn.dataset.themeCurrent = theme;
+  btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  btn.setAttribute(
+    'aria-label',
+    isDark ? '当前深色外观，点击切换浅色外观' : '当前浅色外观，点击切换深色外观'
+  );
+  const labelEl = btn.querySelector('[data-theme-label]');
+  if (labelEl) {
+    labelEl.textContent = isDark ? '浅色' : '深色';
+  }
+}
+
+function applyTheme(theme, { persist = true, dispatch = true } = {}) {
+  const normalized = theme === 'dark' ? 'dark' : 'light';
+  currentTheme = normalized;
+
+  const root = document.documentElement;
+  root.classList.toggle('dark', normalized === 'dark');
+  root.dataset.theme = normalized;
+  root.style.colorScheme = normalized;
+
+  if (persist) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, normalized);
+    } catch {
+      // Ignore storage errors
     }
   }
-  if (dom.statDataSource) {
-    const meta = SOURCE_META[source] || SOURCE_META.fallback;
-    dom.statDataSource.textContent = meta.label;
-    dom.statDataSource.setAttribute('title', meta.title);
-    dom.statDataSource.dataset.source = source;
 
-    dom.statDataSource.classList.remove(
-      ...SOURCE_LIVE_CLASSES,
-      ...SOURCE_FALLBACK_CLASSES
+  syncThemeToggleButton(normalized);
+
+  if (dispatch) {
+    window.dispatchEvent(
+      new CustomEvent('radar:theme-change', {
+        detail: { theme: normalized },
+      })
     );
-    if (meta.tone === 'live') {
-      dom.statDataSource.classList.add(...SOURCE_LIVE_CLASSES);
-    } else {
-      dom.statDataSource.classList.add(...SOURCE_FALLBACK_CLASSES);
+  }
+
+  return normalized;
+}
+
+function toggleTheme(explicitTheme) {
+  const next =
+    explicitTheme === 'dark' || explicitTheme === 'light'
+      ? explicitTheme
+      : currentTheme === 'dark'
+        ? 'light'
+        : 'dark';
+  return applyTheme(next, { persist: true, dispatch: true });
+}
+
+function updateMasthead(dom, stats) {
+  const copy = CHANNEL_COPY[state.channel] || CHANNEL_COPY.ALL;
+  if (dom.mastheadTitle) {
+    dom.mastheadTitle.textContent = copy.title;
+  }
+  if (dom.footerUpdatedAt) {
+    dom.footerUpdatedAt.textContent = formatFooterDate(stats?.updatedAtRaw);
+    if (stats?.updatedAtRaw) {
+      dom.footerUpdatedAt.setAttribute('datetime', stats.updatedAtRaw);
     }
   }
 }
 
-function updateFixedCountLabel(dom, stats) {
-  if (!dom.fixedCountLabel) return;
-  const fixedCount = stats?.fixedCount ?? 0;
-  if (fixedCount <= 0) {
-    dom.fixedCountLabel.textContent = '(0 条)';
-    return;
-  }
-  dom.fixedCountLabel.textContent = state.showFixed
-    ? `(${fixedCount} 条已展开)`
-    : `(${fixedCount} 条已折叠)`;
-}
-
-function updateCategoryTabs(dom, counts) {
-  if (!dom.categoryTabs) return;
-  const buttons = dom.categoryTabs.querySelectorAll('[data-filter-type]');
+function updateChannelTabs(dom) {
+  if (!dom.channelTabs) return;
+  const buttons = dom.channelTabs.querySelectorAll('[data-channel]');
   buttons.forEach((btn) => {
-    const filterType = (btn.dataset.filterType || 'ALL').toUpperCase();
-    const isActive = filterType === state.type;
-    const accent = TAB_ACCENT_STYLES[filterType] || TAB_ACCENT_STYLES.ALL;
-
+    const channelKey = (btn.dataset.channel || 'ALL').toUpperCase();
+    const isActive = channelKey === state.channel;
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     btn.dataset.active = isActive ? 'true' : 'false';
-
-    btn.classList.remove(...ALL_TAB_ACTIVE_BTN_CLASSES, ...TAB_INACTIVE_CLASSES);
-    if (isActive) {
-      btn.classList.add(...accent.activeBtn);
-    } else {
-      btn.classList.add(...TAB_INACTIVE_CLASSES);
-    }
-
-    const countEl = btn.querySelector('[data-tab-count]');
-    if (countEl) {
-      const countKey = (countEl.dataset.tabCount || filterType).toUpperCase();
-      countEl.textContent = String(counts[countKey] ?? 0);
-      countEl.classList.remove(...ALL_TAB_COUNT_CLASSES);
-      if (isActive) {
-        countEl.classList.add(...accent.activeCount);
-      } else {
-        countEl.classList.add('text-slate-400');
-      }
-    }
   });
+}
+
+function updateSubTypeBar(dom) {
+  if (!dom.subTypeBar || !dom.subTypeTabs) return;
+
+  const specs = SUB_TYPE_CONFIG[state.channel];
+  if (!specs) {
+    dom.subTypeBar.classList.add('hidden');
+    dom.subTypeBar.classList.remove('flex');
+    dom.subTypeTabs.replaceChildren();
+    return;
+  }
+
+  dom.subTypeBar.classList.remove('hidden');
+  dom.subTypeBar.classList.add('flex');
+
+  const fragment = document.createDocumentFragment();
+  for (const spec of specs) {
+    const isActive = state.type === spec.key;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.dataset.filterType = spec.key;
+    btn.dataset.active = isActive ? 'true' : 'false';
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    btn.className = `${TAB_LINK_BASE} ${isActive ? TAB_LINK_ACTIVE : TAB_LINK_IDLE}`;
+    btn.textContent = spec.label;
+    fragment.appendChild(btn);
+  }
+
+  dom.subTypeTabs.replaceChildren(fragment);
+}
+
+function updateVendorFilterBar(dom, items) {
+  if (!dom.vendorFilterBar || !dom.vendorChips) return;
+
+  if (state.channel !== 'INTEL') {
+    dom.vendorFilterBar.classList.add('hidden');
+    dom.vendorFilterBar.classList.remove('flex');
+    dom.vendorChips.replaceChildren();
+    return;
+  }
+
+  const vendors = extractVendors(items, {
+    channel: 'INTEL',
+    type: state.type,
+    showFixed: state.showFixed,
+    query: state.query,
+  });
+
+  const displayVendors = vendors.slice();
+  if (
+    state.vendor !== 'ALL' &&
+    !displayVendors.some(
+      (entry) => entry.vendor.toLowerCase() === state.vendor.toLowerCase()
+    )
+  ) {
+    displayVendors.push({ vendor: state.vendor, count: 0, maxPriority: 0 });
+  }
+
+  if (displayVendors.length === 0) {
+    dom.vendorFilterBar.classList.add('hidden');
+    dom.vendorFilterBar.classList.remove('flex');
+    dom.vendorChips.replaceChildren();
+    return;
+  }
+
+  dom.vendorFilterBar.classList.remove('hidden');
+  dom.vendorFilterBar.classList.add('flex');
+
+  const fragment = document.createDocumentFragment();
+
+  const buildVendorBtn = (vendorKey, label, isActive) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.dataset.vendor = vendorKey;
+    btn.dataset.active = isActive ? 'true' : 'false';
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    const fontVoice =
+      vendorKey === 'ALL'
+        ? 'font-editorial-nav text-[13px]'
+        : 'font-editorial-vendor';
+    btn.className = `${VENDOR_LINK_BASE} ${fontVoice} ${
+      isActive ? VENDOR_LINK_ACTIVE : VENDOR_LINK_IDLE
+    }`;
+    btn.textContent = label;
+    return btn;
+  };
+
+  fragment.appendChild(
+    buildVendorBtn('ALL', '全部厂商', state.vendor === 'ALL')
+  );
+
+  for (const entry of displayVendors) {
+    const isActive =
+      state.vendor !== 'ALL' &&
+      state.vendor.toLowerCase() === entry.vendor.toLowerCase();
+    fragment.appendChild(buildVendorBtn(entry.vendor, entry.vendor, isActive));
+  }
+
+  dom.vendorChips.replaceChildren(fragment);
 }
 
 function updateSearchClearButton(dom) {
@@ -221,83 +524,226 @@ function updateSearchClearButton(dom) {
   dom.searchClearBtn.setAttribute('aria-hidden', hasQuery ? 'false' : 'true');
 }
 
-function updateResultsSummary(dom, filteredCount, totalCount) {
-  if (!dom.resultsSummary) return;
-  const parts = [`当前显示 ${filteredCount} / ${totalCount} 条情报`];
-
-  if (state.type !== 'ALL') {
-    parts.push(`分类：${TYPE_LABELS[state.type] || state.type}`);
+function updatePanels(dom) {
+  const reading = Boolean(readerItem);
+  const isModels = state.channel === 'MODELS';
+  const isGuides = state.channel === 'GUIDES';
+  dom.header.hidden = reading;
+  dom.detail.hidden = !reading;
+  dom.main.hidden = dom.controls.hidden = reading || isModels || isGuides;
+  dom.catalog.hidden = reading || !isModels;
+  dom.guidesPanel.hidden = reading || !isGuides;
+  dom.footerUpdatedAt.hidden = !reading && (isModels || isGuides);
+  if (reading) {
+    const bookmark = dom.detail.querySelector('[data-bookmark]');
+    const active = saved.has(readerItem.id);
+    bookmark.textContent = active ? '已收藏' : '收藏';
+    bookmark.setAttribute('aria-pressed', String(active));
   }
-  if (!state.showFixed && (statsCache?.fixedCount ?? 0) > 0) {
-    parts.push(`已折叠 ${statsCache.fixedCount} 条 FIXED`);
-  } else if (state.showFixed) {
-    parts.push('包含已失效条目');
-  }
-  const trimmedQuery = state.query.trim();
-  if (trimmedQuery) {
-    parts.push(`关键词：“${trimmedQuery}”`);
-  }
-
-  dom.resultsSummary.textContent = parts.join(' · ');
 }
 
 function render(dom) {
-  const items = Array.isArray(intelData.items) ? intelData.items : [];
-  const counts = computeCategoryCounts(items, {
-    showFixed: state.showFixed,
-    query: state.query,
-  });
-  const filtered = filterItems(items, {
-    type: state.type,
-    showFixed: state.showFixed,
-    query: state.query,
-  });
-
-  updateCategoryTabs(dom, counts);
-  updateFixedCountLabel(dom, statsCache);
-  updateSearchClearButton(dom);
-  updateResultsSummary(dom, filtered.length, items.length);
-
-  if (dom.feedEl) {
-    renderIntelCards(dom.feedEl, filtered);
-    dom.feedEl.classList.toggle('hidden', filtered.length === 0);
+  updatePanels(dom);
+  updateMasthead(dom, statsCache);
+  updateChannelTabs(dom);
+  showVisitCount();
+  syncUrl();
+  if (state.channel === 'GUIDES') {
+    if (!readerItem) guidesController?.refreshRelated();
+    return;
   }
+  if (state.channel === 'MODELS') return;
+  dom.reviewSearch.hidden = state.channel !== 'REVIEW';
+  if (!dom.reviewSearch.hidden) dom.reviewSearch.href = bilibiliSearchUrl(state.query);
+
+  const filtered = filteredItems();
+  dom.savedFilter.textContent = '仅看收藏 (' + saved.size + ')';
+  dom.savedFilter.setAttribute('aria-pressed', String(state.onlySaved));
+  dom.exportButton.disabled = !filtered.length;
+  dom.feedEl.dataset.density = state.density;
+  dom.controls.querySelectorAll('[data-density]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.density === state.density));
+  });
+  updateSubTypeBar(dom);
+  updateVendorFilterBar(dom, state.onlySaved ? [...saved.values()] : intelData.items);
+  updateSearchClearButton(dom);
+
+  const trimmedQuery = state.query.trim();
+  const headlines = trimmedQuery || state.density === 'brief' ? [] : getFeaturedHeadlines(filtered, 2);
+  const headlineIds = new Set(headlines.map((item) => item.id));
+  const remaining =
+    headlines.length > 0
+      ? filtered.filter((item) => !headlineIds.has(item.id))
+      : filtered;
+
+  if (dom.headlineSection && dom.headlineGrid) {
+    if (headlines.length > 0) {
+      dom.headlineSection.classList.remove('hidden');
+      renderHeadlineCards(dom.headlineGrid, headlines, { saved });
+    } else {
+      dom.headlineSection.classList.add('hidden');
+      dom.headlineGrid.replaceChildren();
+    }
+  }
+
+  if (dom.feedSection && dom.feedEl) {
+    if (remaining.length > 0) {
+      dom.feedSection.classList.remove('hidden');
+      renderIntelCards(dom.feedEl, remaining, { variant: state.density, saved });
+    } else {
+      dom.feedSection.classList.add('hidden');
+      dom.feedEl.replaceChildren();
+    }
+  }
+
   if (dom.emptyState) {
     dom.emptyState.classList.toggle('hidden', filtered.length > 0);
   }
 }
 
 function resetFilters(dom) {
+  state.onlySaved = false;
+  state.channel = 'ALL';
   state.type = 'ALL';
+  state.vendor = 'ALL';
   state.showFixed = false;
   state.query = '';
 
-  if (dom.toggleShowFixed) {
-    dom.toggleShowFixed.checked = false;
-  }
-  if (dom.searchInput) {
-    dom.searchInput.value = '';
-  }
+  if (dom.toggleHideFixed) dom.toggleHideFixed.checked = true;
+  if (dom.searchInput) dom.searchInput.value = '';
 
   render(dom);
 }
 
 function bindEvents(dom) {
-  if (dom.categoryTabs) {
-    dom.categoryTabs.addEventListener('click', (event) => {
+  document.querySelector('nav a[href="#top"]').addEventListener('click', event => {
+    if (!readerItem || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+  dom.detail.addEventListener('click', event => {
+    if (readerItem && event.target.closest('[data-bookmark]')) toggleBookmark(readerItem.id, dom);
+  });
+  window.addEventListener('keydown', event => {
+    if (readerItem && event.key === 'Escape' && !event.defaultPrevented) {
+      event.preventDefault();
+      closeIntelReader();
+    }
+  });
+
+  // Resolve related intel lazily when the model row is expanded.
+  dom.catalog.addEventListener('toggle', event => {
+    const row = event.target;
+    if (!row.matches('#model-rows details[open]') || row.querySelector('[data-related-intel-id]')) return;
+    const normalize = text => text.toLowerCase().replace(/[-_]+/g, ' ');
+    const name = normalize(row.querySelector('summary').textContent.split(':').pop().replace(/ *\(free\)$/i, '').trim());
+    if (!name) return;
+    const item = intelData.items.find(entry => {
+      const text = normalize([entry.title, entry.tldr].join(' '));
+      const index = text.indexOf(name);
+      if (index < 0) return false;
+      return !/[a-z0-9]/.test(text.charAt(index - 1)) && !/[a-z0-9]/.test(text.charAt(index + name.length));
+    });
+    if (!item) return;
+    const link = document.createElement('a');
+    link.className = 'story-link';
+    link.dataset.relatedIntelId = item.id;
+    const url = new URL(location.href);
+    url.searchParams.set('id', item.id);
+    link.href = url.href;
+    link.textContent = '相关情报 · ' + item.title;
+    link.addEventListener('click', click => {
+      if (click.metaKey || click.ctrlKey || click.shiftKey || click.altKey) return;
+      click.preventDefault();
+      openIntelReader(item, link);
+    });
+    row.append(link);
+  }, true);
+  dom.controls.addEventListener('click', event => {
+    const button = event.target.closest('[data-density]');
+    if (!button) return;
+    state.density = button.dataset.density;
+    render(dom);
+  });
+  dom.savedFilter.addEventListener('click', () => {
+    state.onlySaved = !state.onlySaved;
+    render(dom);
+  });
+  dom.exportButton.addEventListener('click', exportMarkdown);
+  dom.main.addEventListener('click', event => {
+    const button = event.target.closest('[data-bookmark]');
+    if (button) toggleBookmark(button.dataset.bookmark, dom);
+  });
+  window.addEventListener('storage', event => {
+    if (event.key === SAVED_KEY || event.key === null) {
+      saved = readSaved();
+      render(dom);
+    }
+  });
+
+  if (dom.themeToggleBtn) {
+    dom.themeToggleBtn.addEventListener('click', () => {
+      toggleTheme();
+    });
+  }
+
+  if (dom.channelTabs) {
+    dom.channelTabs.addEventListener('click', (event) => {
+      const targetBtn = event.target.closest('[data-channel]');
+      if (!targetBtn || !dom.channelTabs.contains(targetBtn)) return;
+      const nextChannel = (targetBtn.dataset.channel || 'ALL').toUpperCase();
+      if (nextChannel === state.channel) {
+        if (readerItem) {
+          closeIntelReader();
+          return;
+        }
+        if (nextChannel === 'GUIDES' && guidesController?.getActiveGuideId()) {
+          guidesController.returnToHub({ scrollTop: true });
+        }
+        return;
+      }
+
+      leaveReaderForChannel(dom);
+      state.channel = nextChannel;
+      state.type = 'ALL';
+      if (nextChannel !== 'INTEL') {
+        state.vendor = 'ALL';
+      }
+      if (nextChannel === 'GUIDES') {
+        guidesController?.returnToHub({ scrollTop: false, silent: true });
+      }
+      render(dom);
+    });
+  }
+
+  if (dom.subTypeTabs) {
+    dom.subTypeTabs.addEventListener('click', (event) => {
       const targetBtn = event.target.closest('[data-filter-type]');
-      if (!targetBtn || !dom.categoryTabs.contains(targetBtn)) return;
+      if (!targetBtn || !dom.subTypeTabs.contains(targetBtn)) return;
       const nextType = (targetBtn.dataset.filterType || 'ALL').toUpperCase();
       if (nextType === state.type) return;
+
       state.type = nextType;
       render(dom);
     });
   }
 
-  if (dom.toggleShowFixed) {
-    dom.toggleShowFixed.checked = state.showFixed;
-    dom.toggleShowFixed.addEventListener('change', () => {
-      state.showFixed = Boolean(dom.toggleShowFixed.checked);
+  if (dom.vendorChips) {
+    dom.vendorChips.addEventListener('click', (event) => {
+      const targetBtn = event.target.closest('[data-vendor]');
+      if (!targetBtn || !dom.vendorChips.contains(targetBtn)) return;
+      const nextVendor = targetBtn.dataset.vendor || 'ALL';
+      if (nextVendor === state.vendor) return;
+
+      state.vendor = nextVendor;
+      render(dom);
+    });
+  }
+
+  if (dom.toggleHideFixed) {
+    dom.toggleHideFixed.checked = !state.showFixed;
+    dom.toggleHideFixed.addEventListener('change', () => {
+      state.showFixed = !dom.toggleHideFixed.checked;
       render(dom);
     });
   }
@@ -332,13 +778,13 @@ function bindEvents(dom) {
   if (dom.resetFiltersBtn) {
     dom.resetFiltersBtn.addEventListener('click', () => {
       resetFilters(dom);
-      showToast('已重置全部筛选条件', 'info');
+      showToast('已恢复默认浏览', 'info');
     });
   }
 }
 
 function getState() {
-  return { ...state };
+  return { ...state, theme: currentTheme };
 }
 
 function getData() {
@@ -355,9 +801,23 @@ function getPosterController() {
 
 async function bootstrap() {
   const dom = getDomRefs();
+  domRefs = dom;
+
+  applyTheme(readInitialTheme(), { persist: false, dispatch: false });
 
   try {
-    const loaded = await loadIntelData();
+    const [loaded, modelCatalog, guidesMod] = await Promise.all([
+      loadIntelData(),
+      initCatalog(syncUrl),
+      initGuides({
+        getIntelItems: () => (Array.isArray(intelData.items) ? intelData.items : []),
+        onOpenIntel: (item, triggerEl) => openIntelReader(item, triggerEl),
+        onChange: syncUrl,
+        onToast: showToast,
+      }),
+    ]);
+    catalog = modelCatalog;
+    guidesController = guidesMod;
     intelData =
       loaded && loaded.data && Array.isArray(loaded.data.items)
         ? loaded.data
@@ -367,17 +827,17 @@ async function bootstrap() {
     console.error('[AI Intel Radar] Failed to load intel data:', err);
     intelData = { updated_at: '', items: [] };
     dataSource = 'fallback';
-    showToast('情报数据加载失败，请刷新重试', 'error');
+    showToast('情报加载失败，请刷新重试', 'error');
   }
 
   statsCache = computeStats(intelData);
-  updateStatsDashboard(dom, statsCache, dataSource);
   bindEvents(dom);
-  render(dom);
+  recordVisit();
 
   try {
     posterController = initPosterGenerator({
-      getItems: () => (Array.isArray(intelData.items) ? intelData.items : []),
+      getItems: () => [...new Map([...saved, ...intelData.items.map(item => [item.id, item])]).values()],
+      getFilteredItems: filteredItems,
       getUpdatedAt: () => intelData.updated_at || '',
       triggerButton: dom.openPosterBtn,
       mountRoot: dom.posterDrawerRoot,
@@ -385,13 +845,43 @@ async function bootstrap() {
     });
   } catch (err) {
     console.error('[AI Intel Radar] Failed to initialize poster generator:', err);
-    showToast('战报生成器初始化异常', 'error');
+    showToast('速报生成器初始化异常', 'error');
   }
+
+  configureReader({
+    onOpen: (item, trigger) => openReaderRoute(dom, item, trigger),
+    backLabel: () => ['MODELS', 'GUIDES'].includes(state.channel) ? '← 返回上一页' : '← 返回情报列表',
+    onClose() {
+      if (!readerItem || returningFromReader) return;
+      returningFromReader = true;
+      history.back();
+    },
+    openPoster: item => posterController?.openItem(item),
+    matchVendor: item => catalog?.matchVendor(item),
+    openPrices(params) {
+      leaveReaderForChannel(dom);
+      state.channel = 'MODELS';
+      state.vendor = 'ALL';
+      state.type = 'ALL';
+      catalog.restore(params);
+      render(dom);
+      document.getElementById('model-vendor').focus();
+    },
+  });
+  restoreUrl(dom);
+  window.addEventListener('popstate', () => restoreUrl(dom));
 
   window.__RADAR_APP__ = {
     getState,
     getData,
     getPosterController,
+    getGuidesController: () => guidesController,
+    toggleTheme,
+    openReaderById: (itemId) => {
+      const target = (intelData.items || []).find((it) => it.id === itemId) || saved.get(itemId);
+      if (target) openIntelReader(target);
+    },
+    closeReader: closeIntelReader,
   };
 }
 

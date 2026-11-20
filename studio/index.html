@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/studio/studio.css">
+  <title>Local Studio · 教程编辑室</title>
+</head>
+<body>
+<header class="bar">
+  <div class="brand"><i class="book" aria-hidden="true"></i><span>Local Studio</span><span class="brand-sub">教程编辑室</span></div>
+  <div class="actions"><span id="status" role="status" aria-live="polite" aria-atomic="true">正在读取</span><button id="save" class="primary" type="submit" form="editor" disabled>保存并同步到网页</button></div>
+</header>
+<p id="message" role="alert" hidden></p>
+<nav class="mobile" aria-label="工作区"><button data-pane="catalog">课程目录</button><button data-pane="edit">课程编辑</button><button data-pane="reference">预览与线索</button></nav>
+<main id="workspace" data-pane="edit">
+  <aside class="catalog pane" aria-label="课程目录">
+    <div class="heading-row"><h2>课程目录</h2><span id="count" class="count">0 门</span></div>
+    <button id="new" class="new" disabled>＋ 新建课程</button>
+    <nav id="courses" aria-label="选择课程"></nav>
+    <button id="reload" class="reload">重新读取本地文件</button>
+  </aside>
+  <section class="edit pane" aria-label="课程编辑">
+    <p id="empty" class="empty" hidden>课程库还是空白。点击「＋ 新建课程」，从头创建第 1 课。</p>
+    <form id="editor">
+      <div class="heading-row"><h1>基础信息</h1><span id="filelabel" class="file"></span></div>
+      <div class="fields">
+        <label class="wide">课程标题<input name="title" required autocomplete="off"></label>
+        <label>赛道分类<input name="track" placeholder="可选，如：通用课程"></label>
+        <label>排序序号<input name="order" type="number" min="1" step="1" required></label>
+        <label class="wide">课程简介<textarea name="summary" rows="2" placeholder="可选，简要介绍课程内容"></textarea></label>
+        <label class="wide">编者注<textarea name="author_note" rows="2" placeholder="可选，补充背景或阅读建议"></textarea></label>
+        <label>标签<span class="hint">用逗号分隔</span><input name="related_tags" placeholder="可选，如：入门, 工具"></label>
+        <label>更新日期<input name="updated_at" type="date" required></label>
+      </div>
+      <div class="step-heading heading-row"><h2>分步教学</h2><span id="step-count" class="count">0 步</span></div>
+      <div id="steps"></div>
+      <button id="add" type="button" class="new">＋ 新增下一步</button>
+      <div class="footer"><button id="delete" type="button" class="danger" disabled>删除本课程</button></div>
+    </form>
+  </section>
+  <aside class="reference pane" aria-label="参考区">
+    <div class="tabs"><button id="preview-tab" type="button" aria-pressed="true">实时效果预览</button><button id="updates-tab" type="button" aria-pressed="false">爬虫更新线索</button></div>
+    <div id="preview">
+      <div class="preview-head"><div id="preview-track" class="track"></div><h2 id="preview-title"></h2><p id="preview-summary"></p></div>
+      <div class="heading-row reader-nav"><span id="position"></span><div><button id="prev" aria-label="预览上一步">←</button><button id="next" aria-label="预览下一步">→</button></div></div>
+      <h3 id="preview-step"></h3><div id="preview-body" class="prose"></div>
+    </div>
+    <div id="updates" class="prose" hidden></div>
+  </aside>
+</main>
+<dialog id="create-dialog">
+  <form id="create-form"><h2>新建课程</h2>
+    <label>课程标题<input name="title" required autocomplete="off" autofocus></label>
+    <label>赛道分类<input name="track" placeholder="可选，如：通用课程"></label>
+    <div class="dialog-actions"><button type="button" id="cancel">取消</button><button class="primary">创建课程</button></div>
+  </form>
+</dialog>
+<dialog id="link-dialog" aria-labelledby="link-dialog-title">
+  <form id="link-form" novalidate>
+    <h2 id="link-dialog-title">插入链接</h2>
+    <label>目标网址<input id="link-url" name="url" type="text" required autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://example.com 或 example.com" aria-describedby="link-help link-error" autofocus></label>
+    <p id="link-help" class="dialog-hint">仅支持 HTTP(S) 网址；省略协议时，域名前会自动补上 https://。</p>
+    <label>显示文字<input id="link-text" name="text" type="text" autocomplete="off" placeholder="可选，留空显示完整网址"></label>
+    <label class="check-label"><input id="link-standalone" name="standalone" type="checkbox" checked>独占一行显示（在网页端展示为跳转入口）</label>
+    <p id="link-error" class="dialog-error" role="alert" hidden></p>
+    <div class="dialog-actions"><button type="button" id="link-cancel">取消</button><button type="submit" class="primary">插入链接</button></div>
+  </form>
+</dialog>
+<script type="module" src="/studio/app.js"></script>
+</body></html>

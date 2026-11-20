@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ai-intel-radar.local/data/schema.json",
-  "title": "AI Intel Radar Dataset",
+  "title": "AI Intel Radar Dataset V3.0",
   "description": "《AI 圈前沿情报与算力羊毛雷达站》核心静态数据源（/data/intel_data.json）及单条情报字段的严格规范。",
   "type": "object",
   "additionalProperties": false,
@@ -37,8 +37,12 @@
       "required": [
         "id",
         "date",
+        "channel",
         "type",
         "status",
+        "vendor",
+        "priority",
+        "impact",
         "title",
         "value_tag",
         "tldr",
@@ -46,6 +50,35 @@
         "action_snippet",
         "source_platform",
         "source_url"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": { "channel": { "const": "RADAR" } },
+            "required": ["channel"]
+          },
+          "then": {
+            "properties": { "type": { "enum": ["DEAL", "BUG", "HACK"] } }
+          }
+        },
+        {
+          "if": {
+            "properties": { "channel": { "const": "INTEL" } },
+            "required": ["channel"]
+          },
+          "then": {
+            "properties": { "type": { "enum": ["MODEL", "PRODUCT", "POLICY"] } }
+          }
+        },
+        {
+          "if": {
+            "properties": { "channel": { "const": "REVIEW" } },
+            "required": ["channel"]
+          },
+          "then": {
+            "properties": { "type": { "enum": ["BENCHMARK", "VIDEO"] } }
+          }
+        }
       ],
       "properties": {
         "id": {
@@ -59,14 +92,39 @@
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
           "description": "情报捕获或发布日期，严格采用 YYYY-MM-DD 格式。"
         },
+        "channel": {
+          "type": "string",
+          "enum": [
+            "RADAR",
+            "INTEL",
+            "REVIEW"
+          ],
+          "description": "所属频道：RADAR（优惠与避坑）、INTEL（模型、产品与政策）、REVIEW（实测与视频拆解）。"
+        },
         "type": {
           "type": "string",
           "enum": [
             "DEAL",
             "BUG",
-            "HACK"
+            "HACK",
+            "MODEL",
+            "PRODUCT",
+            "POLICY",
+            "BENCHMARK",
+            "VIDEO"
           ],
-          "description": "情报类型枚举：DEAL（羊毛/优惠）、BUG（漏洞/故障）、HACK（隐藏技巧）。"
+          "description": "RADAR 对应 DEAL/BUG/HACK，INTEL 对应 MODEL/PRODUCT/POLICY，REVIEW 对应 BENCHMARK/VIDEO。"
+        },
+        "media_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://[^\\s/?#]+[^\\s]*$",
+          "description": "视频封面缩略图或实测图表的 HTTP(S) 地址。"
+        },
+        "metric_badge": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "视频时长、评测成绩或上下文长度等关键指标。"
         },
         "status": {
           "type": "string",
@@ -75,7 +133,25 @@
             "URGENT",
             "FIXED"
           ],
-          "description": "情报状态枚举：ACTIVE（亲测有效）、URGENT（手慢无/即将失效）、FIXED（已修复/已过期）。"
+          "description": "情报状态枚举：ACTIVE（亲测有效/正式生效）、URGENT（手慢无/重大紧急变更）、FIXED（已修复/已过期）。"
+        },
+        "vendor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "description": "所属厂商或生态归属（如 OpenAI、Anthropic、Google、DeepSeek、Dify、Open Source）。"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "description": "消息价值与紧急度综合分（1~100）：90~100 为头条重磅，70~89 为高价值推荐，1~69 为常规收录。"
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "description": "一句话受众与影响范围提示（如“所有 GPT API 开发者”、“Windows 本地 Agent 用户”）。"
         },
         "title": {
           "type": "string",

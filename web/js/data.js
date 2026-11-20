@@ -1,124 +1,119 @@
 /**
- * AI Intel Radar — Static Data Engine (Native ES6 Module)
- * Strictly conforms to /data/schema.json (Draft 2020-12).
+ * AI Intel Radar V3.0 — Three-Channel Static Data & Value-Sorting Engine
+ * Pure ES6 Module · Zero build step · Conforms strictly to /data/schema.json (Draft 2020-12).
  */
 
 /**
- * Full offline/CORS fallback dataset, synchronized verbatim with /data/intel_data.json.
+ * Status priority weight for global value sorting:
+ * URGENT (3) > ACTIVE (2) > FIXED (1)
  */
+export const STATUS_WEIGHT = Object.freeze({
+  URGENT: 3,
+  ACTIVE: 2,
+  FIXED: 1,
+});
+
+/**
+ * Valid sub-types per primary channel (matches /data/schema.json allOf constraint).
+ */
+export const CHANNEL_TYPES = Object.freeze({
+  RADAR: Object.freeze(['DEAL', 'BUG', 'HACK']),
+  REVIEW: Object.freeze(['BENCHMARK', 'VIDEO']),
+  INTEL: Object.freeze(['MODEL', 'PRODUCT', 'POLICY']),
+});
+
+// Representative offline edition.
 export const FALLBACK_DATA = {
-  $schema: './schema.json',
-  updated_at: '2026-11-18T12:00:00+08:00',
-  items: [
+  "updated_at": "2026-11-19T19:59:00+08:00",
+  "items": [
     {
-      id: 'ai-20261118-01',
-      date: '2026-11-18',
-      type: 'DEAL',
-      status: 'URGENT',
-      title: 'OpenRouter 开发者黑客松限时口令：免绑卡领取 $25 全模型通用推理额度',
-      value_tag: '立省 $25',
-      tldr: '使用注册满 90 天的 GitHub 账号登录并兑换活动口令，可直接获赠 $25 OpenRouter Credits，覆盖 Claude / Gemini / DeepSeek 主流模型。',
-      details: [
-        '资格门槛：GitHub 账号需注册满 90 天且至少有 1 个公开仓库，无需绑定信用卡即可激活。',
-        '库存预警：总奖池限量 5,000 份，单账号限领一次，到账后 60 天内有效，手慢随时下线。',
-        '调用避坑：使用免费/赠金路由时建议在请求头附带 HTTP-Referer 与 X-Title，避免触发匿名风控限速。',
+      "id": "ai-20261119-05",
+      "date": "2026-11-19",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "URGENT",
+      "vendor": "OpenAI",
+      "priority": 95,
+      "impact": "高校教研人员、博士后与非营利科研实验室 PI",
+      "title": "OpenAI 学术科研免费计划扩容至 20 万名学者：先到先得送 3 席 ChatGPT Plus",
+      "value_tag": "白嫖 3 席 Plus",
+      "tldr": "OpenAI 将 ChatGPT for Academic Researchers 扩容至 200,000 人并由抽签改为先到先得，获批主申请人可携最多 2 名同机构协作者免费使用 Plus，且默认不用于模型训练。",
+      "details": [
+        "资格门槛：面向受认可高校、科研机构及非营利组织的研究员、博士后、PI 与实验室负责人（支持区域内开放申请）。",
+        "额度变更：名额由试点期翻倍至 20 万名；由试点 Pro 调整为正式 ChatGPT Plus（主申请人 + 最多 2 名同机构协作者共 3 席），审校机制改为先到先得。",
+        "隐私承诺：通过该学术通道提交的研究数据默认不参与 OpenAI 模型训练，降低未发表论文与实验数据外泄风险。"
       ],
-      action_snippet:
-        '# 1. OpenRouter 控制台 Credits -> Redeem 输入优惠码：\nBUILD2026-OR25\n\n# 2. 终端快速核验到账余额：\ncurl -s https://openrouter.ai/api/v1/auth/key \\\n  -H "Authorization: Bearer $OPENROUTER_API_KEY"',
-      source_platform: 'Hacker News',
-      source_url: 'https://news.ycombinator.com/item?id=42168491',
+      "action_snippet": "",
+      "source_platform": "OpenAI News",
+      "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
     },
     {
-      id: 'ai-20261118-02',
-      date: '2026-11-18',
-      type: 'BUG',
-      status: 'ACTIVE',
-      title: 'LangGraph 0.4.x + AsyncPostgresSaver 并发流式输出偶发 Checkpoint 死锁临时修复',
-      value_tag: '避坑 3 小时',
-      tldr: '并发调用 astream_events 且共享 thread_id 时，psycopg 连接池默认关闭 autocommit 会引发 checkpoints 表行锁死锁，需显式透传连接参数绕过。',
-      details: [
-        '触发条件：langgraph>=0.4.0 搭配 langgraph-checkpoint-postgres，在 FastAPI 异步高并发下读写同一会话状态。',
-        '典型报错：psycopg.errors.DeadlockDetected 或流式响应无故 hang 住 30 秒后触发 statement_timeout。',
-        '临时方案：初始化 AsyncConnectionPool 时强制开启 autocommit=True 并设置 prepare_threshold=0，同时兼容 PgBouncer 事务池模式。',
+      "id": "ai-20261119-01",
+      "date": "2026-11-19",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 98,
+      "impact": "AI 编程 Agent、科研与企业多模态工作流开发者",
+      "title": "Google DeepMind 发布 Gemini 4 Neon：1M 上下文旗舰推理模型，$3/$15 定价对标 Opus 5.5",
+      "value_tag": "AA 指数 #3 · 61 分",
+      "tldr": "Google 发布 Gemini 4 Neon（gemini-4-neon），拥有 100 万统一上下文窗口，xhigh 推理档在 Artificial Analysis 拿下 61 分（总榜第 3），输入 $3 / 缓存 $0.15 / 输出 $15 每百万 Token。",
+      "details": [
+        "基准表现：Vals Index 70.9%（第 2）、Agent Arena 1336 分（第 2）、Terminal-Bench Science 70.5%，在 Antigravity 内部测试中创下最低幻觉率。",
+        "定价与缓存：输入 $3.00/M、输出 $15.00/M，隐式前缀缓存命中低至 $0.15/M（享 95% 折扣）；同步输出默认 64K，后台长解码可扩展至 1M。",
+        "上线渠道：今日起在 Google AI Studio / Gemini API、Gemini for business、Google Antigravity（Pro/Ultra 订阅）及 Gemini App 同步开放，支持 low/medium/high/xhigh 四档思考深度。"
       ],
-      action_snippet:
-        'from psycopg_pool import AsyncConnectionPool\nfrom langgraph.checkpoint.postgres.aio import AsyncPostgresSaver\n\npool = AsyncConnectionPool(\n    conninfo=DATABASE_URL,\n    max_size=20,\n    kwargs={"autocommit": True, "prepare_threshold": 0},\n)\ncheckpointer = AsyncPostgresSaver(pool)',
-      source_platform: 'GitHub Issues',
-      source_url: 'https://github.com/langchain-ai/langgraph/issues/3842',
+      "action_snippet": "",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
     },
     {
-      id: 'ai-20261117-01',
-      date: '2026-11-17',
-      type: 'HACK',
-      status: 'ACTIVE',
-      title: 'OpenAI API 隐藏参数组合：service_tier="flex" 叠加 prompt_cache_key 成本直降 50%+',
-      value_tag: '成本直降 50%',
-      tldr: '非实时 Agent 离线任务显式开启 flex 算力层即可按半价计费，再绑定固定 prompt_cache_key 可将跨节点前缀缓存命中率拉升至 90% 以上。',
-      details: [
-        '适用场景：定时爬虫抽取、批量文档摘要、离线 Eval 评测等可接受 5~15 秒首字延迟的后台流水线。',
-        '组合增益：flex 档位单价直接减半，固定 prompt_cache_key 会引导路由尽量落在同一缓存分片，避免高并发下缓存击穿。',
-        '兜底建议：算力紧张时段可能返回 429 Resource Unavailable，建议客户端捕获后自动降级为 service_tier="auto"。',
+      "id": "ai-20261119-09",
+      "date": "2026-11-19",
+      "channel": "REVIEW",
+      "type": "BENCHMARK",
+      "metric_badge": "AA 61 分 · $2.82/任务",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 92,
+      "impact": "在 Neon、Carbon 与 Fable 5.2 间做 Agent 选型的团队",
+      "title": "Latent Space 深度汇总：Gemini 4 Neon 实测对标 Carbon/Fable 5.2，高并发下偶现容量报错",
+      "value_tag": "性价比追平 Carbon",
+      "tldr": "Latent Space 汇总首日第三方实测：Neon 在 high 档即追平 Carbon（AA 60 分、单任务 $3.74），Agent Arena 中位成本仅 $2.82；但高并发下偶现容量错误，Code Migration 仍略逊 Carbon。",
+      "details": [
+        "第三方榜单：Vals Index 达 70.9%（仅落后 Fable 5.2 0.4 分且单任务成本不到一半）；CursorBench 4.1 默认档从 Hydrogen 的 57.3% 跃升至 63.7%。",
+        "档位与效率：GDP.pdf 上 high 档反超 xhigh（33.4% vs 28.0%）；Code Migration 平均仅需 160 轮（Carbon 234 轮、Hydrogen 574 轮），但得分低于两者。",
+        "早期实测提醒：13 轮 Antigravity 重度测试录得 93% 输入缓存命中率，但也遇到 57 次容量错误与 4 次卡死；另 1.5 个月前发布的 Argon 已悄悄退役。"
       ],
-      action_snippet:
-        '{\n  "model": "gpt-4.1-mini",\n  "service_tier": "flex",\n  "prompt_cache_key": "radar-intel-extractor-v1",\n  "messages": [\n    { "role": "system", "content": "You are a strict JSON intelligence extractor..." },\n    { "role": "user", "content": "{{raw_content}}" }\n  ]\n}',
-      source_platform: 'X (Twitter)',
-      source_url: 'https://x.com/OpenAIDevs/status/1989512048371920112',
+      "action_snippet": "",
+      "source_platform": "Latent Space",
+      "source_url": "https://latent.space/p/ainews-gemini-4-neon-gdm-s-opus-sol-contender/"
     },
     {
-      id: 'ai-20261117-02',
-      date: '2026-11-17',
-      type: 'DEAL',
-      status: 'ACTIVE',
-      title: 'Cerebras Free Tier + Cloudflare Workers AI 零成本组合：日均白嫖 100 万 Token 推理流',
-      value_tag: '月省 $40+',
-      tldr: '用 Cerebras 免费层承接高速大参数结构化提取，配合 Cloudflare Workers AI 每日 10,000 Neurons 兜底，个人 AI 雷达站可实现彻底零 API 账单。',
-      details: [
-        'Cerebras 免费层实测稳定给到每日 1,000,000 Tokens 配额，Llama-3.3-70B 吐字速度 1,800+ tok/s，非常适合定时批处理。',
-        'Cloudflare Workers AI 免费账号每日重置 10,000 Neurons，无需绑定信用卡即可直接跑 Embedding 与短文本分类。',
-        '开通方式：分别登录各自控制台在 Web 界面生成 API Token 即可，无需优惠码；建议在脚本层加上 429 自动故障切换逻辑。',
+      "id": "ai-20261119-16",
+      "date": "2026-11-19",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "media_url": "https://i2.ytimg.com/vi/EDp4IoAUsXY/hqdefault.jpg",
+      "metric_badge": "720p 24fps 世界模型",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 85,
+      "impact": "世界模型研究者、交互仿真与多模态开发者",
+      "title": "Google DeepMind 发布 Project Genie 实机视频：Genie 4 驱动 720p/24fps 实时交互与原生音效",
+      "value_tag": "实时交互世界模型",
+      "tldr": "DeepMind 发布 Genie 4 驱动的 Project Genie 演示，告别静态视频渲染，直接在浏览器内以键鼠实时漫游 720p 24fps 动态世界，并首次原生同步生成环境音效与角色语音。",
+      "details": [
+        "多模型协同架构：由 Gemini Omni / Omni Flash 锚定视觉外观与物理规律，搭配 Gemini 推理模型保持多步事件连贯性与文本实时干预。",
+        "原生音频生成：首次在世界模型内实时同步生成风声海浪、背景配乐及场景人物的动态交互对话。",
+        "开放进度：正逐步面向 Google AI Ultra 订阅用户及 Google AI Studio / Gemini API 早期合作测试者推送。"
       ],
-      action_snippet: '',
-      source_platform: 'Reddit r/LocalLLaMA',
-      source_url:
-        'https://www.reddit.com/r/LocalLLaMA/comments/1gtt8x2/zero_cost_inference_stack_cerebras_cf_workers_ai/',
-    },
-    {
-      id: 'ai-20261116-01',
-      date: '2026-11-16',
-      type: 'HACK',
-      status: 'URGENT',
-      title: 'Anthropic API 开启 1 小时扩展 Prompt Cache：长间隔多轮 Agent 账单再砍 65%',
-      value_tag: '长对话省 65%',
-      tldr: '在请求头注入 extended-cache-ttl Beta 标识并在 cache_control 中指定 ttl="1h"，打破默认 5 分钟缓存失效限制，拯救低频长上下文工作流。',
-      details: [
-        '痛点解决：人工审批流（HITL）或长代码库交互式排查往往间隔超 5 分钟，默认 5m 缓存频繁失效导致 System Prompt 反复全额计费。',
-        '回本测算：1 小时缓存写入溢价略高于默认档，但 60 分钟窗口内只要命中读取 >= 2 次即净省，多轮工具调用直接砍掉 65% 输入费用。',
-        '窗口提醒：该参数仍依赖 Beta Header 协议头，近期可能随 SDK 大版本合并至正式参数，上线前请锁定依赖版本并关注响应头弃用提示。',
-      ],
-      action_snippet:
-        'curl https://api.anthropic.com/v1/messages \\\n  -H "x-api-key: $ANTHROPIC_API_KEY" \\\n  -H "anthropic-version: 2023-06-01" \\\n  -H "anthropic-beta: extended-cache-ttl-2025-04-11" \\\n  -H "content-type: application/json" \\\n  -d \'{"model":"claude-sonnet-4-5","max_tokens":1024,"system":[{"type":"text","text":"<LARGE_SYSTEM_PROMPT>","cache_control":{"type":"ephemeral","ttl":"1h"}}],"messages":[{"role":"user","content":"Analyze logs"}]}\'',
-      source_platform: 'GitHub Discussions',
-      source_url: 'https://github.com/anthropics/anthropic-sdk-python/discussions/914',
-    },
-    {
-      id: 'ai-20261115-01',
-      date: '2026-11-15',
-      type: 'BUG',
-      status: 'FIXED',
-      title: 'Dify v1.2.0 Docker Compose 原地升级后 plugin_daemon 循环重启（Redis 鉴权失败）修复指南',
-      value_tag: '避坑 2 小时',
-      tldr: 'Dify v1.2.0 新增的插件守护进程未正确回退读取旧版 REDIS_PASSWORD 导致启动即 CrashLoop，官方已于 v1.2.1 紧急修复，旧版亦可通过补齐环境变量热修。',
-      details: [
-        '影响范围：从 Dify 0.15.x / 1.1.x 直接拉取镜像升级到 v1.2.0 且沿用旧 docker/.env 的自托管实例。',
-        '排查特征：docker logs docker-plugin_daemon-1 刷屏报错 redis: NOAUTH Authentication required，控制台插件市场白屏。',
-        '修复状态：官方已发布 v1.2.1 补丁版本；若生产环境暂无法跨小版本升级，可先显式写入 PLUGIN_REDIS_PASSWORD 后单独重建容器。',
-      ],
-      action_snippet:
-        "# 推荐：直接升级至官方已修复版本 v1.2.1\ngit fetch origin && git checkout 1.2.1 && docker compose -f docker/docker-compose.yaml up -d --force-recreate plugin_daemon\n\n# 临时热修（仅限停留在 v1.2.0 时）：\necho 'PLUGIN_REDIS_PASSWORD=${REDIS_PASSWORD}' >> docker/.env && docker compose -f docker/docker-compose.yaml up -d plugin_daemon",
-      source_platform: 'GitHub Issues',
-      source_url: 'https://github.com/langgenius/dify/issues/16409',
-    },
-  ],
+      "action_snippet": "",
+      "source_platform": "YouTube · Google DeepMind",
+      "source_url": "https://www.youtube.com/watch?v=EDp4IoAUsXY"
+    }
+  ]
 };
 
 const DATA_CANDIDATES = [
@@ -127,7 +122,7 @@ const DATA_CANDIDATES = [
 ];
 
 /**
- * Deep-clone helper so consumers never accidentally mutate FALLBACK_DATA.
+ * Deep-clone helper so consumers never mutate FALLBACK_DATA.
  * @template T
  * @param {T} value
  * @returns {T}
@@ -152,6 +147,60 @@ function isValidDataset(payload) {
     typeof payload.updated_at === 'string' &&
     Array.isArray(payload.items)
   );
+}
+
+/**
+ * Resolve numeric status weight (URGENT: 3 > ACTIVE: 2 > FIXED: 1).
+ * @param {unknown} status
+ * @returns {number}
+ */
+function getStatusWeight(status) {
+  const key = typeof status === 'string' ? status.trim().toUpperCase() : '';
+  return STATUS_WEIGHT[key] || 0;
+}
+
+/**
+ * Resolve numeric priority score (defaults safely to 0).
+ * @param {unknown} priority
+ * @returns {number}
+ */
+function getPriorityScore(priority) {
+  const score = Number(priority);
+  return Number.isFinite(score) ? score : 0;
+}
+
+/**
+ * Strictly sort intel items without mutating the input array:
+ * 1) status weight desc (URGENT: 3 > ACTIVE: 2 > FIXED: 1)
+ * 2) priority desc
+ * 3) date desc (YYYY-MM-DD)
+ * 4) id desc
+ * @param {Array<Record<string, unknown>>} items
+ * @returns {Array<Record<string, unknown>>}
+ */
+export function sortIntelItems(items) {
+  if (!Array.isArray(items)) return [];
+
+  return items
+    .filter((item) => item && typeof item === 'object')
+    .slice()
+    .sort((a, b) => {
+      const weightDiff = getStatusWeight(b.status) - getStatusWeight(a.status);
+      if (weightDiff !== 0) return weightDiff;
+
+      const priorityDiff = getPriorityScore(b.priority) - getPriorityScore(a.priority);
+      if (priorityDiff !== 0) return priorityDiff;
+
+      const dateA = typeof a.date === 'string' ? a.date : '';
+      const dateB = typeof b.date === 'string' ? b.date : '';
+      if (dateB !== dateA) return dateB > dateA ? 1 : -1;
+
+      const idA = typeof a.id === 'string' ? a.id : '';
+      const idB = typeof b.id === 'string' ? b.id : '';
+      if (idB !== idA) return idB > idA ? 1 : -1;
+
+      return 0;
+    });
 }
 
 /**
@@ -181,6 +230,7 @@ export function formatUpdatedAt(isoString) {
  * 1) ./data/intel_data.json ('web-data')
  * 2) ../data/intel_data.json ('root-data')
  * 3) FALLBACK_DATA ('fallback')
+ * Returned items are guaranteed to be sorted by sortIntelItems().
  * @returns {Promise<{ data: typeof FALLBACK_DATA, source: 'web-data' | 'root-data' | 'fallback' }>}
  */
 export async function loadIntelData() {
@@ -194,7 +244,10 @@ export async function loadIntelData() {
         const parsed = await response.json();
         if (isValidDataset(parsed)) {
           return {
-            data: parsed,
+            data: {
+              ...parsed,
+              items: sortIntelItems(parsed.items),
+            },
             source: candidate.source,
           };
         }
@@ -204,10 +257,25 @@ export async function loadIntelData() {
     }
   }
 
+  const fallback = cloneDataset(FALLBACK_DATA);
+  fallback.items = sortIntelItems(fallback.items);
   return {
-    data: cloneDataset(FALLBACK_DATA),
+    data: fallback,
     source: 'fallback',
   };
+}
+
+/**
+ * Determine whether an item qualifies for the featured headline spotlight:
+ * Non-FIXED and (URGENT or priority >= 90).
+ * @param {Record<string, unknown>} item
+ * @returns {boolean}
+ */
+function isFeaturedItem(item) {
+  if (!item || typeof item !== 'object') return false;
+  const status = typeof item.status === 'string' ? item.status.toUpperCase() : '';
+  if (status === 'FIXED') return false;
+  return status === 'URGENT' || getPriorityScore(item.priority) >= 90;
 }
 
 /**
@@ -216,27 +284,30 @@ export async function loadIntelData() {
  */
 export function computeStats(data) {
   const items = Array.isArray(data?.items) ? data.items : [];
-  let activeDeals = 0;
-  let activeBugs = 0;
-  let activeHacks = 0;
   let activeTotal = 0;
+  let featuredCount = 0;
   let urgentCount = 0;
   let fixedCount = 0;
+  let radarActiveCount = 0;
+  let intelActiveCount = 0;
+  let reviewActiveCount = 0;
 
   for (const item of items) {
     if (!item || typeof item !== 'object') continue;
-    const isFixed = item.status === 'FIXED';
+    const status = typeof item.status === 'string' ? item.status.toUpperCase() : '';
+    const channel = typeof item.channel === 'string' ? item.channel.toUpperCase() : '';
 
-    if (isFixed) {
+    if (status === 'FIXED') {
       fixedCount += 1;
     } else {
       activeTotal += 1;
-      if (item.type === 'DEAL') activeDeals += 1;
-      else if (item.type === 'BUG') activeBugs += 1;
-      else if (item.type === 'HACK') activeHacks += 1;
+      if (channel === 'RADAR') radarActiveCount += 1;
+      else if (channel === 'REVIEW') reviewActiveCount += 1;
+      else if (channel === 'INTEL') intelActiveCount += 1;
+      if (isFeaturedItem(item)) featuredCount += 1;
     }
 
-    if (item.status === 'URGENT') {
+    if (status === 'URGENT') {
       urgentCount += 1;
     }
   }
@@ -244,20 +315,35 @@ export function computeStats(data) {
   const updatedAtRaw = typeof data?.updated_at === 'string' ? data.updated_at : '';
 
   return {
-    activeDeals,
-    activeBugs,
-    activeHacks,
     activeTotal,
+    featuredCount,
     urgentCount,
     fixedCount,
     totalCount: items.length,
+    radarActiveCount,
+    intelActiveCount,
+    reviewActiveCount,
     updatedAtRaw,
     updatedAtFormatted: formatUpdatedAt(updatedAtRaw),
   };
 }
 
 /**
- * Case-insensitive search across all specified schema fields.
+ * Extract top featured headline items (non-FIXED and URGENT or priority >= 90),
+ * strictly ordered by sortIntelItems().
+ * @param {Array<Record<string, unknown>>} items
+ * @param {number} [limit=2]
+ * @returns {Array<Record<string, unknown>>}
+ */
+export function getFeaturedHeadlines(items, limit = 2) {
+  if (!Array.isArray(items)) return [];
+  const cap = Number.isFinite(Number(limit)) ? Math.max(0, Math.floor(Number(limit))) : 2;
+  if (cap === 0) return [];
+  return sortIntelItems(items.filter(isFeaturedItem)).slice(0, cap);
+}
+
+/**
+ * Case-insensitive search across all specified V3.0 schema fields.
  * @param {Record<string, unknown>} item
  * @param {string} normalizedQuery
  * @returns {boolean}
@@ -272,10 +358,14 @@ function matchesSearchQuery(item, normalizedQuery) {
   const haystack = [
     item.title,
     item.tldr,
+    item.impact,
+    item.vendor,
     item.value_tag,
+    item.metric_badge,
     detailsJoined,
     item.action_snippet,
     item.source_platform,
+    item.channel,
     item.type,
     item.id,
   ]
@@ -296,57 +386,190 @@ function matchesSearchQuery(item, normalizedQuery) {
 }
 
 /**
- * Filter intel items by type, FIXED visibility, and keyword query.
+ * Filter intel items by channel, sub-type, vendor, FIXED visibility, and keyword query.
+ * Output is strictly sorted by sortIntelItems().
  * @param {Array<Record<string, unknown>>} items
- * @param {{ type?: string, showFixed?: boolean, query?: string }} [options]
+ * @param {{ channel?: string, type?: string, vendor?: string, showFixed?: boolean, query?: string }} [options]
+ * @returns {Array<Record<string, unknown>>}
  */
 export function filterItems(items, options = {}) {
   if (!Array.isArray(items)) return [];
 
   const {
+    channel = 'ALL',
+    type = 'ALL',
+    vendor = 'ALL',
+    showFixed = false,
+    query = '',
+  } = options && typeof options === 'object' ? options : {};
+
+  const normalizedChannel =
+    typeof channel === 'string' ? channel.trim().toUpperCase() : 'ALL';
+  const normalizedType = typeof type === 'string' ? type.trim().toUpperCase() : 'ALL';
+  const normalizedVendor = typeof vendor === 'string' ? vendor.trim() : 'ALL';
+  const normalizedVendorLower = normalizedVendor.toLowerCase();
+  const normalizedQuery = typeof query === 'string' ? query.trim().toLowerCase() : '';
+
+  const filtered = items.filter((item) => {
+    if (!item || typeof item !== 'object') return false;
+
+    const itemStatus = typeof item.status === 'string' ? item.status.toUpperCase() : '';
+    if (!showFixed && itemStatus === 'FIXED') return false;
+
+    if (normalizedChannel && normalizedChannel !== 'ALL') {
+      const itemChannel =
+        typeof item.channel === 'string' ? item.channel.toUpperCase() : '';
+      if (itemChannel !== normalizedChannel) return false;
+    }
+
+    if (normalizedType && normalizedType !== 'ALL') {
+      const itemType = typeof item.type === 'string' ? item.type.toUpperCase() : '';
+      if (itemType !== normalizedType) return false;
+    }
+
+    if (normalizedVendor && normalizedVendorLower !== 'all') {
+      const itemVendor =
+        typeof item.vendor === 'string' ? item.vendor.trim().toLowerCase() : '';
+      if (itemVendor !== normalizedVendorLower) return false;
+    }
+
+    return matchesSearchQuery(item, normalizedQuery);
+  });
+
+  return sortIntelItems(filtered);
+}
+
+/**
+ * Aggregate vendors with item counts and highest priority from filtered items.
+ * Ordered by: count desc -> maxPriority desc -> alphabetical asc.
+ * @param {Array<Record<string, unknown>>} items
+ * @param {{ channel?: string, type?: string, showFixed?: boolean, query?: string }} [options]
+ * @returns {Array<{ vendor: string, count: number, maxPriority: number }>}
+ */
+export function extractVendors(items, options = {}) {
+  if (!Array.isArray(items)) return [];
+
+  const {
+    channel = 'ALL',
     type = 'ALL',
     showFixed = false,
     query = '',
   } = options && typeof options === 'object' ? options : {};
 
-  const normalizedType = typeof type === 'string' ? type.trim().toUpperCase() : 'ALL';
-  const normalizedQuery = typeof query === 'string' ? query.trim().toLowerCase() : '';
+  const scoped = filterItems(items, {
+    channel,
+    type,
+    vendor: 'ALL',
+    showFixed,
+    query,
+  });
 
-  return items.filter((item) => {
-    if (!item || typeof item !== 'object') return false;
-    if (!showFixed && item.status === 'FIXED') return false;
-    if (normalizedType && normalizedType !== 'ALL' && item.type !== normalizedType) {
-      return false;
+  const vendorMap = new Map();
+  for (const item of scoped) {
+    const rawVendor = typeof item.vendor === 'string' ? item.vendor.trim() : '';
+    if (!rawVendor) continue;
+    const key = rawVendor.toLowerCase();
+    const score = getPriorityScore(item.priority);
+    const existing = vendorMap.get(key);
+    if (existing) {
+      existing.count += 1;
+      if (score > existing.maxPriority) {
+        existing.maxPriority = score;
+      }
+    } else {
+      vendorMap.set(key, {
+        vendor: rawVendor,
+        count: 1,
+        maxPriority: score,
+      });
     }
-    return matchesSearchQuery(item, normalizedQuery);
+  }
+
+  return Array.from(vendorMap.values()).sort((a, b) => {
+    if (b.count !== a.count) return b.count - a.count;
+    if (b.maxPriority !== a.maxPriority) return b.maxPriority - a.maxPriority;
+    return a.vendor.localeCompare(b.vendor, 'en', { sensitivity: 'base' });
   });
 }
 
 /**
- * Compute per-category item counts under the current showFixed & query state.
+ * Compute per-channel item counts under the current showFixed & query state.
  * @param {Array<Record<string, unknown>>} items
  * @param {{ showFixed?: boolean, query?: string }} [options]
- * @returns {{ ALL: number, DEAL: number, BUG: number, HACK: number }}
+ * @returns {{ ALL: number, RADAR: number, INTEL: number, REVIEW: number }}
  */
-export function computeCategoryCounts(items, options = {}) {
+export function computeChannelCounts(items, options = {}) {
   const {
     showFixed = false,
     query = '',
   } = options && typeof options === 'object' ? options : {};
 
-  const matched = filterItems(items, { type: 'ALL', showFixed, query });
+  const matched = filterItems(items, {
+    channel: 'ALL',
+    type: 'ALL',
+    vendor: 'ALL',
+    showFixed,
+    query,
+  });
+
+  const counts = {
+    ALL: 0,
+    RADAR: 0,
+    INTEL: 0,
+    REVIEW: 0,
+  };
+
+  for (const item of matched) {
+    counts.ALL += 1;
+    const ch = typeof item.channel === 'string' ? item.channel.toUpperCase() : '';
+    if (ch === 'RADAR') counts.RADAR += 1;
+    else if (ch === 'REVIEW') counts.REVIEW += 1;
+    else if (ch === 'INTEL') counts.INTEL += 1;
+  }
+
+  return counts;
+}
+
+/**
+ * Compute per-sub-type item counts under the current channel, vendor, showFixed & query state.
+ * @param {Array<Record<string, unknown>>} items
+ * @param {{ channel?: string, vendor?: string, showFixed?: boolean, query?: string }} [options]
+ * @returns {{ ALL: number, DEAL: number, BUG: number, HACK: number, MODEL: number, PRODUCT: number, POLICY: number, BENCHMARK: number, VIDEO: number }}
+ */
+export function computeSubTypeCounts(items, options = {}) {
+  const {
+    channel = 'ALL',
+    vendor = 'ALL',
+    showFixed = false,
+    query = '',
+  } = options && typeof options === 'object' ? options : {};
+
+  const matched = filterItems(items, {
+    channel,
+    type: 'ALL',
+    vendor,
+    showFixed,
+    query,
+  });
+
   const counts = {
     ALL: 0,
     DEAL: 0,
     BUG: 0,
     HACK: 0,
+    MODEL: 0,
+    PRODUCT: 0,
+    POLICY: 0,
+    BENCHMARK: 0,
+    VIDEO: 0,
   };
 
   for (const item of matched) {
     counts.ALL += 1;
-    if (item.type === 'DEAL') counts.DEAL += 1;
-    else if (item.type === 'BUG') counts.BUG += 1;
-    else if (item.type === 'HACK') counts.HACK += 1;
+    const t = typeof item.type === 'string' ? item.type.toUpperCase() : '';
+    if (Object.prototype.hasOwnProperty.call(counts, t)) {
+      counts[t] += 1;
+    }
   }
 
   return counts;
