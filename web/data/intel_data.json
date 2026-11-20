@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-21T00:15:00+08:00",
+  "updated_at": "2026-11-21T00:58:00+08:00",
   "items": [
     {
       "id": "ai-20261120-28",
@@ -9,20 +9,20 @@
       "status": "URGENT",
       "vendor": "Anthropic",
       "priority": 100,
-      "metric_badge": "882赞 · 14卷 Lean 4",
+      "metric_badge": "HN 1113赞 · 14卷 Lean",
       "impact": "关注 AI 数学推理边界、形式化验证（Lean）与千禧年难题动向的全圈层读者",
-      "title": "重磅头条：Anthropic 数学家宣称携手 Claude 证明黎曼猜想及 GRH，开源 14 卷 Lean 形式化代码（待学界验真）",
-      "value_tag": "AI 挑战千禧年难题 · 待验真",
-      "tldr": "哈佛 Junior Fellow 兼 Anthropic 研究员 Levent Alpöge 发布 4 页声明，称与 Claude 合作发现了黎曼猜想与广义黎曼猜想（GRH）的无条件证明，并放出 14 卷 Lean 4 形式化代码包。HN 热度已达 882 分，但截至目前尚未完成学界独立编译与同行核验。",
+      "title": "作者声称突破：Anthropic 研究员称携手 Claude 证明黎曼猜想与 GRH，公开 14 卷 Lean 形式化代码（尚未验证）",
+      "value_tag": "作者宣称突破 · 待验真",
+      "tldr": "Anthropic 技术人员兼哈佛学会成员 Levent Alpöge 个人发布声明，声称与 Claude 合作发现黎曼猜想（RH）及广义黎曼猜想（GRH）的无条件证明，并放出 14 卷 Lean 形式化代码包。HN 已达 1113 分且获 The Verge 等转述，但目前尚无任何独立验证或同行评审。",
       "details": [
-        "事件溯源：北京时间 2026 年 11 月 20 日 22:16，一篇指向 https://alpo.ge/remark.pdf 的帖文登上 Hacker News 首页并迅速冲上 882 分（536 条评论）。作者 Levent Alpöge（普林斯顿博士、哈佛学会 Junior Fellow，现任 Anthropic 技术研究员）在 4 页说明中宣布，其与 Claude 合作发现了黎曼猜想（RH）及广义黎曼猜想（GRH）的无条件证明，并预期该方法有望继续覆盖扩展黎曼猜想（ERH）。",
-        "人机协同与数学路线：作者自述采取“人类把控直觉与类比、Claude 推进高阶技术构建”的分工——其本人先从函数域上基于重数的 Stepanov 行列式思路切入寻找整数域类比，随后 Claude 在自守形式体系中独立串联出迭代 theta lifts（例如对长度为 X 的 von Mangoldt 求和提出链长为 sqrt(X) 的迭代构造），并融合 O(2,n) 本征自守行列式、GL5 六重覆盖与 Iwasawa 塔等 20 项关键拼图（时间线主要跨越 2026 年 10 月至 11 月中旬）。",
-        "为何只发 Lean 代码而非常规论文：Alpöge 坦言整个证明目前体量极为庞大——若按人类可读细节铺开成传统文本“书稿”将超过 25 万页，加之其本人尚未彻底消化周边全部高阶自守形式分支，因此没有急于发布难懂的长篇草稿，而是直接将完整形式化工程拆分为 14 个分卷压缩包（alpo.ge/lean.tar.gz.part01 至 part14）公开，供外部直接用机器验证。",
-        "2026 下半年 AI 数论连续突破背景：今年 8 月，Anthropic 内部科研版 Claude 曾将临界线上黎曼 zeta 函数零点比例的无条件证明下界从人类保持数十年的 41.6% 提升至 67.2%（随后经人类数学家简化并通过 Lean 4 验证）；10 月初 OpenAI 亦批量公开 722 篇数学手稿，其中包含针对弱化版“准黎曼猜想”的重要突破。",
-        "严正核验状态提示：截至北京时间 11 月 21 日 00:15，全球数论学者与 Lean 社区（参考讨论帖 https://news.ycombinator.com/item?id=50574968）才刚刚开始下载拆解这 14 个分卷，尚无任何权威数学机构或形式化团队确认证明成立。要真正定论，必须逐一通过三道严格门槛：1）Lean 工程能否无报错全量编译通过；2）代码中是否夹带 sorry 未证占位或非标准自定义公理；3）代码里被证明的定理陈述与数学界公认的黎曼猜想是否完全等价、无定义偏差。在独立复现与同侪评审完成前，黎曼猜想仍属于“有待核验的重大宣称”。"
+        "作者声称证明范围：2026 年 11 月 20 日晚，Levent Alpöge 在个人站点放出 4 页声明（https://alpo.ge/remark.pdf），声称其与 Claude 合作发现了黎曼猜想（RH）及广义黎曼猜想（GRH）的无条件证明，并预期该方法有望进一步覆盖扩展黎曼猜想（ERH）；其本人今年 7 月也曾宣称用 Claude 解决 Jacobian 猜想。",
+        "Claude 参与环节：据作者自述，他先从函数域上基于重数的 Stepanov 行列式思路切入并引导整数域类比，随后 Claude 在冲刺阶段主导高阶自守形式技术推进，针对长度为 X 的 von Mangoldt 求和提出链长为 sqrt(X) 的迭代 theta lifts 构造，并完成形式化及超 25 万页文本草稿。",
+        "关于“14 卷 / 公开 / Lean 形式化”的原文依据核查：作者脚注确切提供 https://alpo.ge/lean.tar.gz.part01 至 part14 共 14 个分卷压缩包（实测 part01 可达），并声明已完成“Lean 形式化”；但作者原文仅使用“Lean”（未写明具体版本号，亦未标注开源协议或采用开源仓库形式，属个人站点公开发布）。",
+        "发布与多方态度：该声明由个人站点放出；The Verge（https://www.theverge.com/ai-artificial-intelligence/1010051/anthropic-riemann-hypothesis-millennium-prize-problem）报道 Anthropic 官方未参与此次发布且尚未置评，并引述作者称其周日晚先短信询问 CEO Dario Amodei、待公司周四 IPO 后才公开，同时回顾 Anthropic 8 月研究黎曼猜想时曾坦言当时路线预计不足以证出完整猜想。",
+        "独立验证状态（目前为零）：尽管该帖在 HN 升至 1113 分（730 条评论，https://news.ycombinator.com/item?id=50574968）并获 Simon Willison（https://simonwillison.net/2026/Nov/20/levent-alpoge/）引述，但关注度不等于验证。目前 Clay 数学研究所尚未受理（按规则须正式发表并经至少 2 年学界检验方可评奖），亦无任何独立团队确认 14 卷 Lean 工程可无错编译、无占位/隐式公理且命题陈述完全等价。"
       ],
       "action_snippet": "",
-      "source_platform": "Levent Alpöge / Hacker News",
+      "source_platform": "Levent Alpöge / The Verge / HN",
       "source_url": "https://alpo.ge/remark.pdf"
     },
     {
@@ -34,17 +34,17 @@
       "vendor": "DeepSeek",
       "priority": 96,
       "impact": "通过 OpenRouter 调用 DeepSeek V4 系列的高并发与长文本开发者",
-      "title": "OpenRouter 晚间报价再反转：DeepSeek V4.1 Flash-1017 输入反弹 316%，V4 Pro 输出腰斩 65%",
-      "value_tag": "晚间报价剧烈反转",
-      "tldr": "OpenRouter 北京时间 20:01 晚间最新快照显示 DeepSeek 系列费率再度大幅洗牌：今早降价的 v4.1-flash-1017 输入反弹 316.67% 回升至 $0.15/M；v4-pro-0813 输入大涨至 $1.32/M 但输出暴降 65.57% 至 $3.96/M。",
+      "title": "OpenRouter DeepSeek 报价剧烈分化：00:46 快照 V4.1 Flash 回调 +491%，与 -1017 后缀为不同型号",
+      "value_tag": "00:46 快照价格追踪",
+      "tldr": "OpenRouter 北京时间 2026-11-21 00:46 快照显示，无后缀型号 deepseek/deepseek-v4.1-flash 输入/输出/缓存读取全线回调 +491.72%（分别回到 $0.30/$1.20/$0.006/M）；而此前调价的带 -1017 后缀款当前维持 $0.15/$0.60/$0.003/M，需严防混用型号 ID。",
       "details": [
-        "V4.1 Flash-1017 回弹：输入由早盘 $0.036/M 反弹至 $0.15/M（+316.67%）、输出由 $0.50 升至 $0.60/M（+20%），仅缓存读取从 $0.01 回落至 $0.003/M（-70%）。今早切入该型号兜底轻推理的路由需重算输入成本。",
-        "V4 Pro 0813 费率结构倒转：输入价格由 $0.27 飙升至 $1.32/M（+388.89%），但输出价格由 $11.50 骤降至 $3.96/M（-65.57%）、缓存读取由 $0.21 降至 $0.044/M（-79.05%），高输出/高缓存场景性价比反升。",
-        "V4 Flash-0731 降价承接：输入价格由 $0.10 下调至 $0.047/M（-53%），缓存读取由 $0.05 降至 $0.035/M（-30%），成为当前日内波动后的低输入单价替代选项。"
+        "00:46 快照核心异动（deepseek/deepseek-v4.1-flash）：较上一周期（22:04）三项报价同步回调 +491.72%——输入由 $0.0507 升至 $0.30/M，输出由 $0.2028 升至 $1.20/M，缓存读取由 $0.001014 升至 $0.006/M，低价窗口再次关闭。",
+        "同系列不同型号 ID 价差核对（截至 2026-11-21 00:46 快照）：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 当前报价为输入 $0.15/M、输出 $0.60/M、缓存读取 $0.003/M（为昨晚 20:01 调价后维持价），是当前无后缀款的一半。",
+        "其余 V4 型号当前快照报价：deepseek/deepseek-v4-pro-0813 维持昨晚 20:01 调价后的输入 $1.32/M、输出 $3.96/M、缓存读取 $0.044/M；deepseek/deepseek-v4-flash-0731 输入微调至 $0.0443/M、输出 $0.30/M、缓存读取 $0.035/M，是长输入短输出任务更低成本的备选。"
       ],
-      "action_snippet": "若你的任务以大段输入、短输出为主，可将高并发低价路由从已反弹的 deepseek/deepseek-v4.1-flash-1017 改配至降价后的 deepseek/deepseek-v4-flash-0731。",
+      "action_snippet": "核对调用配置的完整 model ID：若需降低常规推理成本，可对照 OpenRouter 00:46 快照价（$0.15/$0.60/M）评估切换至 deepseek/deepseek-v4.1-flash-1017，或长输入场景采用 deepseek/deepseek-v4-flash-0731（$0.0443/$0.30/M）。",
       "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash-1017"
+      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash"
     },
     {
       "id": "ai-20261118-04",
@@ -424,6 +424,27 @@
       "action_snippet": "# 升级 vLLM v0.34.0 前检查：\nunset VLLM_USE_V2_MODEL_RUNNER\npip install -U \"vllm==0.34.0\" \"huggingface_hub>=2.0.0\"",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0"
+    },
+    {
+      "id": "ai-20261120-29",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Signal",
+      "priority": 90,
+      "impact": "在 iOS / Android / Mac 上使用加密聊天与开启系统 AI 助手的隐私敏感用户",
+      "title": "Signal 在移动端默认拦截应用内截屏，直接阻断 Gemini 与 Siri AI 读取聊天屏幕",
+      "value_tag": "隐私防 AI 读屏",
+      "tldr": "加密通讯应用 Signal 宣布在 Android 与 iOS 27 移动端默认限制应用内截屏，直接阻止 Siri AI、Gemini 等系统级 AI Agent 扫描屏幕聊天记录；但总裁 Meredith Whittaker 坦言 OS 厂商缺乏权限接口，macOS 端暂无法屏蔽。",
+      "details": [
+        "发生了什么变化：Signal 移动端默认屏蔽截屏权限，阻止操作系统内置智能体通过屏幕分析采集对话（去年曾以此防御微软 Recall）；用户虽可在 Signal 设置内手动恢复截屏，但官方警告恢复后可能向系统 AI 暴露本人与联系人的消息内容。",
+        "对用户与生态的影响：Signal 总裁 Meredith Whittaker 指出，当前谷歌、苹果与微软未提供低摩擦的开发者隔离工具，导致 Signal 暂无法在 macOS 端落地同等防护，且截屏封堵仍防不住 AI 经由设备文件系统或无障碍权限（文中点名 Meta Muse）读取数据的路径。",
+        "实操建议：在手机端发现 Signal 无法截图属于最新隐私保护机制，建议非必要勿开启设置中的允许截屏开关；在桌面端使用涉密通信软件时，同步检查并限制无关 AI 助手的辅助功能与磁盘访问授权。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge",
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app"
     },
     {
       "id": "ai-20261120-08",
