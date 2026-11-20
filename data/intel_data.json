@@ -1,27 +1,6 @@
 {
-  "updated_at": "2026-11-20T09:15:00+08:00",
+  "updated_at": "2026-11-20T20:10:00+08:00",
   "items": [
-    {
-      "id": "ai-20261120-03",
-      "date": "2026-11-20",
-      "channel": "RADAR",
-      "type": "BUG",
-      "status": "URGENT",
-      "vendor": "Meta",
-      "priority": 97,
-      "impact": "在 OpenRouter 生产路由中使用 Llama 3.2 3B Instruct 的开发者",
-      "title": "OpenRouter 停服预警：meta-llama/llama-3.2-3b-instruct 将于今日（2026-11-20）到期下线",
-      "value_tag": "今日到期停服",
-      "tldr": "OpenRouter 模型目录异动监测显示 meta-llama/llama-3.2-3b-instruct 到期日为 2026-11-20（距快照仅剩 1 天），依赖该轻量模型的在线接口须立即切换替代模型避免报错。",
-      "details": [
-        "下线模型：meta-llama/llama-3.2-3b-instruct（131,072 上下文、最大输出 72,000 Token、当前定价输入 $0.0509/M / 输出 $0.335/M）。",
-        "排查重点：检查代码中硬编码的 model 字段或 OpenRouter fallback 列表，防止到期下线后返回模型不可用错误。",
-        "替代参考：轻量免费备选可切至今日新增免费通道 nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free，或改用大幅降价的 deepseek/deepseek-v4.1-flash。"
-      ],
-      "action_snippet": "# 检索代码库中是否引用即将停服的模型 ID：\ngrep -rn \"meta-llama/llama-3.2-3b-instruct\" .",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=meta-llama%2Fllama-3.2-3b-instruct"
-    },
     {
       "id": "ai-20261120-02",
       "date": "2026-11-20",
@@ -31,15 +10,15 @@
       "vendor": "DeepSeek",
       "priority": 96,
       "impact": "通过 OpenRouter 调用 DeepSeek V4 系列的高并发与长文本开发者",
-      "title": "OpenRouter 价格大异动：DeepSeek V4.1 Flash 回调 +491%，V4.1 Flash-1017 输入暴降 76%",
-      "value_tag": "早盘调价追踪",
-      "tldr": "OpenRouter 北京时间 08:56 最新报价显示：凌晨短时降价的 deepseek/deepseek-v4.1-flash 已回调至 $0.30/$1.20/M（+491.72%）；deepseek-v4.1-flash-1017 输入大降 76% 至 $0.036/M；deepseek-v4-pro-0813 输入与输出翻倍至 $0.27/$11.50/M。",
+      "title": "OpenRouter 晚间报价再反转：DeepSeek V4.1 Flash-1017 输入反弹 316%，V4 Pro 输出腰斩 65%",
+      "value_tag": "晚间报价剧烈反转",
+      "tldr": "OpenRouter 北京时间 20:01 晚间最新快照显示 DeepSeek 系列费率再度大幅洗牌：今早降价的 v4.1-flash-1017 输入反弹 316.67% 回升至 $0.15/M；v4-pro-0813 输入大涨至 $1.32/M 但输出暴降 65.57% 至 $3.96/M。",
       "details": [
-        "回调警惕：凌晨一度降价 83.1% 的 deepseek/deepseek-v4.1-flash 已回弹至输入 $0.30/M（+491.72%）、输出 $1.20/M（+491.72%）、缓存读取 $0.006/M（+491.72%），仍在按凌晨价格跑批量的路由需立刻复核账单。",
-        "最新低价与缓存分化：deepseek/deepseek-v4.1-flash-1017 输入价格由 $0.15/M 下调至 $0.036/M（-76%），但缓存读取上调至 $0.01/M（+233.33%），适合低命中率轻量推理路由。",
-        "高价模型继续走高：deepseek/deepseek-v4-pro-0813 输入由 $0.13 升至 $0.27/M（+107.69%）、输出由 $5.5 升至 $11.5/M（+109.09%）、缓存读取 $0.21/M（+90.91%）；deepseek/deepseek-v4-flash-0731 输入与缓存亦上涨 42.86%~61.29%。"
+        "V4.1 Flash-1017 回弹：输入由早盘 $0.036/M 反弹至 $0.15/M（+316.67%）、输出由 $0.50 升至 $0.60/M（+20%），仅缓存读取从 $0.01 回落至 $0.003/M（-70%）。今早切入该型号兜底轻推理的路由需重算输入成本。",
+        "V4 Pro 0813 费率结构倒转：输入价格由 $0.27 飙升至 $1.32/M（+388.89%），但输出价格由 $11.50 骤降至 $3.96/M（-65.57%）、缓存读取由 $0.21 降至 $0.044/M（-79.05%），高输出/高缓存场景性价比反升。",
+        "V4 Flash-0731 降价承接：输入价格由 $0.10 下调至 $0.047/M（-53%），缓存读取由 $0.05 降至 $0.035/M（-30%），成为当前日内波动后的低输入单价替代选项。"
       ],
-      "action_snippet": "将高并发轻推理路由从已回调的 deepseek/deepseek-v4.1-flash 切换至降价后的 deepseek/deepseek-v4.1-flash-1017，并核对 0813 版本费用。",
+      "action_snippet": "若你的任务以大段输入、短输出为主，可将高并发低价路由从已反弹的 deepseek/deepseek-v4.1-flash-1017 改配至降价后的 deepseek/deepseek-v4-flash-0731。",
       "source_platform": "OpenRouter",
       "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash-1017"
     },
@@ -105,6 +84,26 @@
       "action_snippet": "",
       "source_platform": "OpenAI News",
       "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
+    },
+    {
+      "id": "ai-20261120-20",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "URGENT",
+      "vendor": "Liquid AI",
+      "priority": 94,
+      "impact": "需要 256K 长上下文与原生函数调用能力的零预算 Agent 开发者",
+      "title": "OpenRouter 晚间新增免费模型：LiquidAI LFM3-1.7B 零费率开放（256K 上下文 + Tool Calling）",
+      "value_tag": "新增免费模型",
+      "tldr": "OpenRouter 晚间目录（20:01）新上线免费轻量推理模型 liquid/lfm-3-1.7b:free：输入输出全免（$0/M），配备 262,144 上下文窗口，专为 Agent 工具调用与结构化输出优化，支持先思考后作答。",
+      "details": [
+        "核心参数：1.7B 轻量参数规模，最大支持 262,144 tokens 上下文与单次最高 8,192 tokens 输出，原生开启 supports_tools（函数/工具调用）与 JSON 结构化输出，适合路由分发、表单抽取和轻量多步 Agent 子任务。",
+        "费率与权限提示：当前 OpenRouter 标价为输入 $0/M、输出 $0/M；但模型卡片明确标注免费通道下的提示词与输出可能被服务端留存并用于后续训练评估，生产环境切勿传入商业机密或用户个人隐私。"
+      ],
+      "action_snippet": "liquid/lfm-3-1.7b:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=liquid%2Flfm-3-1.7b%3Afree"
     },
     {
       "id": "ai-20261119-19",
@@ -222,11 +221,10 @@
       "impact": "AI 行业从业者、二级市场投资者与企业级 Claude 客户",
       "title": "Anthropic 正式登陆纳斯达克：$83/股定价估值约 $1.5 万亿，代码 ANT 挂牌",
       "value_tag": "估值 $1.5T · 代码 ANT",
-      "tldr": "Anthropic 于美东时间 11 月 18 日确定 IPO 发行价为每股 $83.00（高于此前 $70~$78 区间），公开发行 9.8 亿股 A 类普通股，11 月 19 日在纳斯达克以代码 ANT 正式挂牌交易。",
+      "tldr": "Anthropic 已正式在纳斯达克以代码 ANT 挂牌：发行价 $83/股，首日开盘冲上 $111.50（+34.3%）并收报 $97.17（+17%），募资规模达 $813 亿超越 SpaceX 创历史纪录，盘后交易回落至 $92.60。",
       "details": [
-        "发行规模：合计发行 980,000,000 股（公司新发约 9.56 亿股、老股东出售约 2,365 万股），主承销商另有 1.47 亿股 30 天超额配售权，预计 11 月 20 日完成交割。",
-        "估值体量：按发行价估算整体估值约 $1.5 万亿美元，成为首个登陆公开资本市场的头部前沿大模型厂商。",
-        "行业影响：随着上市后财务披露与公开市场定价落地，头部模型商业化毛利结构与算力资本开支透明度将全面重构行业估值锚。"
+        "上市与股权表现：IPO 定价 $83/股对应约 $1.5 万亿美元完全稀释估值，七位创始人合计套现近 $20 亿（人均约 $2.8 亿）；公司披露上半年营收 $163 亿、会计准则净亏损 $807 亿。",
+        "治理与长期提示：创始人持有的 Class F 股保留 50.1% 投票权，CEO Dario Amodei 重申不会因商业或政治压力放弃安全节奏；市场同时关注未来一年约 1 万亿美元市值股票解禁对股价的压力。"
       ],
       "action_snippet": "",
       "source_platform": "Anthropic News",
@@ -467,6 +465,27 @@
       "source_url": "https://www.theverge.com/tech/1038227/apple-ai-agent-engineer-job-listing"
     },
     {
+      "id": "ai-20261120-21",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "ChatPRD",
+      "priority": 89,
+      "impact": "做 AI SaaS 产品的独立开发者与近期发现免费试用大面积收紧的普通用户",
+      "title": "AI 免费试用遭自动化羊毛党围猎：ChatPRD 创始人披露“Token 欺诈”已逼停试用通道",
+      "value_tag": "行业风控警钟",
+      "tldr": "Simon Willison 今日重点推荐：ChatPRD 创始人 Claire Vo 披露其产品遭遇有组织的“Token 欺诈”浪潮，黑灰产通过批量轮询免费试用与优惠码盗用其 Agent 算力支撑外部游戏地图工作室与倒卖，迫使平台彻底关停免费试用。",
+      "details": [
+        "攻击画像：羊毛团伙自动化注册并循环叠加免费试用与促销码，通过隧道将 ChatPRD 的后台 Agent 当成免费大模型网关调用，甚至在后台高频出现用来探测底层模型指纹的特征提示词（如绘制“骑自行车的鹈鹕 SVG”）。",
+        "普通用户影响：这也解释了为何近期大量消费级 AI 工具与 API 平台同步收紧新户白嫖额度、强制绑卡核验或误伤虚拟卡用户——在算力成本直连上游账单的背景下，公开无门槛试用正迅速退出历史舞台。",
+        "合规声明：本文仅做行业欺诈现状与风控背景客观报道，平台不提供、也不传播任何自动化绕过或滥用试用接口的方法。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Simon Willison",
+      "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/"
+    },
+    {
       "id": "ai-20261119-07",
       "date": "2026-11-19",
       "channel": "RADAR",
@@ -530,6 +549,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · OpenAI",
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
+    },
+    {
+      "id": "ai-20261120-22",
+      "date": "2026-11-20",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 88,
+      "impact": "需要做季度销售复盘、财务报表分析与团队看板展示的职场与运营人员",
+      "title": "OpenAI 官方实操演示：用 ChatGPT Data Agent 提问数据并一键生成可共享仪表盘",
+      "value_tag": "官方数据分析教程",
+      "tldr": "OpenAI 下午连发 ChatGPT Data 插件实操视频，完整演示如何把零散数据表变成可交互团队看板：支持自然语言追问指标变化、点击穿透查看图表底层数据、对话微调样式并直接分享给同事协作。",
+      "details": [
+        "实操路径：视频以 Acme 季度销售数据为例，展示如何在 ChatGPT 内整合季度业绩与客户跟进清单，用户只需用日常口语即可让 Data Agent 定位异动原因和需重点关注的客户。",
+        "协作亮点：生成的图表并非静态图片，而是支持鼠标查看背后原始数据、实时对话修改图表样式与布局，并可将完整分析仪表盘直接共享到团队空间供成员查看与后续追问。"
+      ],
+      "action_snippet": "",
+      "media_url": "https://i4.ytimg.com/vi/OSHSopaYjTw/hqdefault.jpg",
+      "metric_badge": "OpenAI 官方实操",
+      "source_platform": "YouTube · OpenAI",
+      "source_url": "https://www.youtube.com/watch?v=OSHSopaYjTw"
     },
     {
       "id": "ai-20261119-10",
@@ -597,6 +638,26 @@
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037634/openai-chatgpt-live-dictation"
     },
     {
+      "id": "ai-20261120-23",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "Architect Silicon",
+      "priority": 87,
+      "impact": "关注 AI 辅助底层芯片设计、软硬件协同与计算体系突破的技术从业者",
+      "title": "AI 端到端独立发现全新 CPU 架构：Frostbite 能效比达到现代双发射核心的 4.59 倍",
+      "value_tag": "芯片设计新突破",
+      "tldr": "晚间登上 HN 热门：Architect Silicon 发布由 AI 系统自主发现、设计与验证的全新通用 CPU 架构 Frostbite，基于交互网（Interaction Nets）从零打造指令集，每瓦性能达到现代双发射顺序核心的 4.59 倍。",
+      "details": [
+        "技术本质：不同于此前仅由 AI 帮写 RTL 实现既定架构的“Redwood”项目，Frostbite 允许 AI 同时协同探索软硬件指令集空间，最终选定 Interaction Nets 作为计算底座。",
+        "核心收益：利用交互网“每步局部化、依赖全显式、每个值仅单一所有权”的特性，大幅消除传统乱序/超标量核心复杂的全局控制与调度功耗，为 AI 反哺基础计算机架构设计提供实证样本。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hacker News / Architect Silicon",
+      "source_url": "https://architectlabs.com/blog/frostbite"
+    },
+    {
       "id": "ai-20261119-11",
       "date": "2026-11-18",
       "channel": "REVIEW",
@@ -640,6 +701,47 @@
       "action_snippet": "",
       "source_platform": "YouTube · AI Engineer",
       "source_url": "https://www.youtube.com/watch?v=vlfCjWuv4es"
+    },
+    {
+      "id": "ai-20261120-24",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 86,
+      "impact": "使用入门级或老款低内存安卓手机、想免费用语音和相机 AI 功能的普通用户",
+      "title": "Gemini App 正式适配低内存安卓机型（Android Go），老设备免费用实时语音与生图",
+      "value_tag": "老手机免费升级",
+      "tldr": "Google 宣布完成 Gemini 移动客户端轻量化重构，正式向 Android Go 等低内存入门手机开放完整核心体验，支持 45+ 种语言 Gemini Live 实时语音对练、相机拍笔记翻译及 Nano Banana 生图。",
+      "details": [
+        "过去受限于运行内存门槛，低配置安卓机往往只能触发基础语音指令；重构后的 Gemini App 可在低内存设备上流畅运行，直接覆盖全球数亿台入门级与备用手机用户。",
+        "实用场景：无需打字即可开口用 Gemini Live 模拟面试或学外语、对准纸质表格或课堂笔记拍照翻译讲解，或用内置 Nano Banana 模型生成海报配图。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/"
+    },
+    {
+      "id": "ai-20261120-25",
+      "date": "2026-11-20",
+      "channel": "REVIEW",
+      "type": "BENCHMARK",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 86,
+      "impact": "在工程代码能力与 API Token 花费之间做模型选型的开发团队",
+      "title": "Models Engineering Index 工程榜单更新：Gemini 4 Neon 登顶第一，领跑 Fable 5.2 与 GPT-6.2",
+      "value_tag": "工程实测榜 #1",
+      "tldr": "HN 今日 352 赞高热讨论：聚焦真实软件工程任务、同时对比得分与美元成本/Token 消耗的 Models Engineering Index（MEI）更新榜单，Google Gemini 4 Neon 升至第一，超越 Anthropic Fable 5.2 与 OpenAI 6.2 Astra。",
+      "details": [
+        "第一梯队排序：榜单头部依次为 Gemini 4 Neon、Claude Fable 5.2、GPT-6.2 Astra、Claude Opus 5.5、Gemini 4 Carbon、Claude Sonnet 5.5、Gemini 4 Hydrogen 与 GPT-6.2 Sol。",
+        "性价比观察：除闭源旗舰外，榜单亦收录了阿里 4-Max、月之暗面 K3.1 Pro、Meta Wonder Full、DeepSeek V4.1 Flash 与小米 V2.6-Pro 的工程得分与成本散点对比，方便按预算精确下钻选型。"
+      ],
+      "action_snippet": "",
+      "metric_badge": "MEI 工程榜 #1 · 352赞",
+      "source_platform": "Hacker News / MEI",
+      "source_url": "https://git-aarvin.github.io/mei/"
     },
     {
       "id": "ai-20261119-04",
@@ -725,6 +827,26 @@
       "action_snippet": "",
       "source_platform": "Google AI Blog",
       "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/"
+    },
+    {
+      "id": "ai-20261120-26",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 85,
+      "impact": "日常在终端使用 OpenAI Codex CLI 写代码与多智能体协作的开发者",
+      "title": "OpenAI Codex CLI v0.171.0 发布：默认启用 TUI 工作区与 GPT-6.2 Sol，新增远程配对命令",
+      "value_tag": "客户端重磅更新",
+      "tldr": "openai/codex 发布 rust-v0.171.0：正式把 GPT-6.2 Sol 和 Astra 接入目录并设为默认选项，默认开启带文档/图片预览的 TUI 工作区，同时新增 `/rc` 本地远程控制与 `codex exec --remote`。",
+      "details": [
+        "交互升级：全新 TUI 工作区默认启用，支持在终端内并排检索查看文档预览、图片预览及子 Agent 执行记录；非 Vim 编辑器模式新增可配置的撤回/重做快捷键，支持恢复附件与大段粘贴内容。",
+        "远程与扩展：通过 `/rc` 或 `/remote` 可在终端生成设备配对码接管本地会话，新增 `codex exec --remote <ADDR>` 连接已有 App Server 执行非交互任务，并支持 `/statusline` 自定义 MCP 状态栏。"
+      ],
+      "action_snippet": "codex exec --remote <ADDR>",
+      "source_platform": "GitHub Releases",
+      "source_url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0"
     },
     {
       "id": "ai-20261119-16",
@@ -854,6 +976,26 @@
       "source_url": "https://developers.openai.com/community/students"
     },
     {
+      "id": "ai-20261120-27",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 84,
+      "impact": "构建挂载数十至上百个 MCP/Function Calling 工具的 Gemini Agent 开发者",
+      "title": "Gemini API 推出 Tool Retrieval 按需加载工具：百级工具场景免塞全量 Schema，大幅省 Token",
+      "value_tag": "百工具省 Token 技巧",
+      "tldr": "Google 在 Gemini Interactions API 预览上线 Tool Retrieval：Agent 挂载上百个工具时不必再每轮把所有参数 Schema 塞进 prompt，开启 `tool_search` 与 `defer_loading: true` 即可按需检索加载，同时降成本和延迟。",
+      "details": [
+        "痛点解决：多工具 Agent 常见输入 Token 爆炸以及工具过多导致模型选错函数的准确率下降；Tool Retrieval 允许开发者先延迟加载外部工具定义，仅在模型通过工具检索命中后再动态展开完整参数表。",
+        "接入方式：当前已在 Gemini Interactions API 开放预览，只需在请求配置中添加 `tool_search` 工具并将长尾工具声明的 `defer_loading` 设为 `true` 即可生效。"
+      ],
+      "action_snippet": "\"defer_loading\": true",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+    },
+    {
       "id": "ai-20261120-17",
       "date": "2026-11-20",
       "channel": "RADAR",
@@ -934,6 +1076,26 @@
       "action_snippet": "{\n  \"model\": \"gpt-4.1-mini\",\n  \"service_tier\": \"flex\",\n  \"prompt_cache_key\": \"radar-intel-extractor-v1\",\n  \"messages\": [\n    { \"role\": \"system\", \"content\": \"You are a strict JSON intelligence extractor...\" },\n    { \"role\": \"user\", \"content\": \"{{raw_content}}\" }\n  ]\n}",
       "source_platform": "X (Twitter)",
       "source_url": "https://x.com/OpenAIDevs/status/1989512048371920112"
+    },
+    {
+      "id": "ai-20261120-03",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "FIXED",
+      "vendor": "Meta",
+      "priority": 55,
+      "impact": "在 OpenRouter 生产路由中使用 Llama 3.2 3B Instruct 的开发者",
+      "title": "OpenRouter 停服跟踪：meta-llama/llama-3.2-3b-instruct 过期预警已解除（到期日已清空）",
+      "value_tag": "停服预警解除",
+      "tldr": "OpenRouter 2026-11-20 晚间（20:01）目录快照显示，expiring 列表已清空（[]），meta-llama/llama-3.2-3b-instruct 的 expiration_date 已重置为 null 并仍保持在线可调（$0.05/$0.33/M）。",
+      "details": [
+        "晚间核查结论：原定 2026-11-20 到期的停服倒计时已在 20:01 快照中清空，当前 data/catalog_changes.json 的 expiring 为空，且 models_catalog.json 显示该模型仍处于非免费在线状态（输入 $0.05/M、输出 $0.33/M）。",
+        "迁移建议：虽然短期暂未断服，鉴于该模型为 2024 年旧版 3B 架构且不支持工具调用，建议后续仍逐步平滑迁移至更新的轻量替代模型。"
+      ],
+      "action_snippet": "",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=meta-llama%2Fllama-3.2-3b-instruct"
     }
   ]
 }
