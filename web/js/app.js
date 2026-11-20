@@ -26,7 +26,7 @@ const THEME_STORAGE_KEY = 'ai-intel-theme';
 const CHANNEL_COPY = {
   REVIEW: { title: '测评与视频' },
   MODELS: { title: '模型比价与免费额度速查' },
-  GUIDES: { title: 'Agent 实战教程' },
+  GUIDES: { title: '实战教程' },
   ALL: {
     title: '前沿 AI 情报与算力简报',
   },
@@ -109,9 +109,9 @@ let readerTrigger = null;
 let returningFromReader = false;
 let sourceHref = '';
 let restoringUrl = false;
-const routeKeys = ['channel', 'type', 'vendor', 'q', 'saved', 'active', 'free', 'sort', 'input', 'output', 'id', 'guide', 'step'];
+const routeKeys = ['channel', 'type', 'vendor', 'q', 'saved', 'active', 'free', 'sort', 'input', 'output', 'id', 'guide', 'step', 'track'];
 
-function syncUrl() {
+function syncUrl({ push = false } = {}) {
   if (readerItem || restoringUrl || !catalog || !guidesController) return;
   const url = new URL(location.href);
   for (const key of routeKeys) url.searchParams.delete(key);
@@ -132,7 +132,10 @@ function syncUrl() {
     if (value != null) url.searchParams.set(key, value);
   }
   sourceHref = url.href;
-  if (url.href !== location.href) history.replaceState(history.state, '', url);
+  if (url.href !== location.href) {
+    if (push) history.pushState({}, '', url);
+    else history.replaceState(history.state, '', url);
+  }
 }
 
 function restoreChannel(dom, params) {
@@ -173,7 +176,7 @@ function restoreUrl(dom) {
       if (sameSource && previous) {
         const fallback = !dom.main.hidden && dom.main.querySelector('[data-intel-id="' + CSS.escape(previous.id) + '"] .story-title-button');
         const target = readerTrigger?.isConnected ? readerTrigger : fallback;
-        (target || dom.channelTabs.querySelector('[data-active="true"]'))?.focus({ preventScroll: true });
+        (target || (state.channel === 'GUIDES' ? dom.primaryPillars : dom.channelTabs).querySelector('[data-active="true"]'))?.focus({ preventScroll: true });
       }
       readerTrigger = null;
       if (Number.isFinite(history.state?.radarScrollY)) {
@@ -215,9 +218,25 @@ function leaveReaderForChannel(dom) {
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
+function openGuides(guideId = '') {
+  const wasReading = Boolean(readerItem);
+  leaveReaderForChannel(domRefs);
+  state.channel = 'GUIDES';
+  state.vendor = 'ALL';
+  state.type = 'ALL';
+  guidesController.setTrack('', { scrollTop: false, silent: true });
+  if (guideId) guidesController.openGuide(guideId, { scrollTop: false, silent: true });
+  render(domRefs, { push: !wasReading });
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  const heading = domRefs.guidesPanel.querySelector('.guide-doc-title') || domRefs.mastheadTitle;
+  heading.tabIndex = -1;
+  heading.focus({ preventScroll: true });
+}
+
 const VISIT_KEY = 'ai-intel-visit-v1';
 const READ_KEY = 'ai-intel-read-v1';
 let newItems = new Set();
+let visitSnapshot = null;
 
 function readLocal(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
@@ -227,20 +246,33 @@ function readLocal(key, fallback) {
 function showVisitCount() {
   const note = document.getElementById('visit-increment');
   note.hidden = !newItems.size || state.channel === 'MODELS' || state.channel === 'GUIDES';
-  note.textContent = newItems.size ? '自上次访问新增 ' + newItems.size + ' 条' : '';
+  document.getElementById('visit-increment-text').textContent = newItems.size ? '自上次访问新增 ' + newItems.size + ' 条' : '';
+}
+
+function acknowledgeVisit() {
+  if (!visitSnapshot) return;
+  const previous = readLocal(VISIT_KEY, null);
+  if (!(Date.parse(previous?.updated_at) > Date.parse(visitSnapshot.updated_at))) {
+    try { localStorage.setItem(VISIT_KEY, JSON.stringify(visitSnapshot)); } catch { /* Storage unavailable. */ }
+  }
+  newItems.clear();
+  showVisitCount();
 }
 
 function recordVisit() {
   if (dataSource === 'fallback') return;
   const previous = readLocal(VISIT_KEY, null);
   const current = { updated_at: intelData.updated_at, ids: intelData.items.map(item => item.id) };
-  if (previous && Date.parse(previous.updated_at) > Date.parse(current.updated_at)) return;
-  if (Array.isArray(previous?.ids) && Date.parse(current.updated_at) > Date.parse(previous.updated_at)) {
+  const currentTime = Date.parse(current.updated_at);
+  const previousTime = Date.parse(previous?.updated_at);
+  if (!Number.isFinite(currentTime) || previousTime > currentTime) return;
+  visitSnapshot = current;
+  if (Array.isArray(previous?.ids) && currentTime > previousTime) {
     const read = readLocal(READ_KEY, []);
     const known = new Set([...previous.ids, ...(Array.isArray(read) ? read : [])]);
     newItems = new Set(current.ids.filter(id => !known.has(id)));
   }
-  try { localStorage.setItem(VISIT_KEY, JSON.stringify(current)); } catch { /* Storage unavailable. */ }
+  if (!newItems.size) acknowledgeVisit();
 }
 
 function markRead(item) {
@@ -248,6 +280,10 @@ function markRead(item) {
   const ids = new Set(Array.isArray(stored) ? stored : []);
   ids.add(item.id);
   try { localStorage.setItem(READ_KEY, JSON.stringify([...ids])); } catch { /* Storage unavailable. */ }
+  if (newItems.delete(item.id)) {
+    if (!newItems.size) acknowledgeVisit();
+    else showVisitCount();
+  }
 }
 
 
@@ -296,7 +332,12 @@ function getDomRefs() {
     savedFilter: document.getElementById('saved-filter'),
     exportButton: document.getElementById('export-md'),
     themeToggleBtn: document.getElementById('theme-toggle-btn'),
+    primaryPillars: document.getElementById('primary-pillars'),
+    subdirectory: document.getElementById('subdirectory'),
     channelTabs: document.getElementById('channel-tabs'),
+    guideDirectory: document.getElementById('guide-directory'),
+    guideTrackTabs: document.getElementById('guide-track-tabs'),
+    guideDirectoryProgress: document.getElementById('guide-directory-progress'),
     mastheadTitle: document.getElementById('masthead-title'),
     footerUpdatedAt: document.getElementById('footer-updated-at'),
     subTypeBar: document.getElementById('sub-type-bar'),
@@ -405,15 +446,37 @@ function updateMasthead(dom, stats) {
   }
 }
 
-function updateChannelTabs(dom) {
-  if (!dom.channelTabs) return;
-  const buttons = dom.channelTabs.querySelectorAll('[data-channel]');
-  buttons.forEach((btn) => {
-    const channelKey = (btn.dataset.channel || 'ALL').toUpperCase();
-    const isActive = channelKey === state.channel;
-    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    btn.dataset.active = isActive ? 'true' : 'false';
-  });
+function updateNavigation(dom) {
+  const isGuides = state.channel === 'GUIDES';
+  const activePillar = isGuides && !readerItem ? 'GUIDES' : 'INFO';
+  for (const button of dom.primaryPillars.querySelectorAll('[data-pillar]')) {
+    const active = button.dataset.pillar === activePillar;
+    button.setAttribute('aria-pressed', String(active));
+    button.dataset.active = String(active);
+  }
+  dom.channelTabs.hidden = isGuides;
+  dom.guideDirectory.hidden = !isGuides;
+  for (const button of dom.channelTabs.querySelectorAll('[data-channel]')) {
+    const active = button.dataset.channel === state.channel;
+    button.setAttribute('aria-pressed', String(active));
+    button.dataset.active = String(active);
+  }
+  for (const button of dom.guideTrackTabs.querySelectorAll('[data-guide-track]')) {
+    const active = button.dataset.guideTrack === guidesController.getActiveTrack();
+    button.setAttribute('aria-pressed', String(active));
+    button.dataset.active = String(active);
+  }
+  const selectedTrack = dom.guideTrackTabs.querySelector('[data-active="true"]');
+  if (isGuides && selectedTrack) {
+    const viewport = dom.guideTrackTabs.getBoundingClientRect();
+    const selected = selectedTrack.getBoundingClientRect();
+    if (selected.left < viewport.left || selected.right > viewport.right) {
+      dom.guideTrackTabs.scrollLeft += selected.left - viewport.left;
+    }
+  }
+  const { completed, total } = guidesController.getProgress();
+  dom.guideDirectoryProgress.hidden = !total;
+  dom.guideDirectoryProgress.textContent = total ? `已完成 ${completed} / ${total} 门` : '';
 }
 
 function updateSubTypeBar(dom) {
@@ -529,11 +592,13 @@ function updatePanels(dom) {
   const isModels = state.channel === 'MODELS';
   const isGuides = state.channel === 'GUIDES';
   dom.header.hidden = reading;
+  dom.subdirectory.hidden = reading;
   dom.detail.hidden = !reading;
   dom.main.hidden = dom.controls.hidden = reading || isModels || isGuides;
   dom.catalog.hidden = reading || !isModels;
   dom.guidesPanel.hidden = reading || !isGuides;
   dom.footerUpdatedAt.hidden = !reading && (isModels || isGuides);
+  updateNavigation(dom);
   if (reading) {
     const bookmark = dom.detail.querySelector('[data-bookmark]');
     const active = saved.has(readerItem.id);
@@ -542,17 +607,12 @@ function updatePanels(dom) {
   }
 }
 
-function render(dom) {
+function render(dom, options) {
   updatePanels(dom);
   updateMasthead(dom, statsCache);
-  updateChannelTabs(dom);
   showVisitCount();
-  syncUrl();
-  if (state.channel === 'GUIDES') {
-    if (!readerItem) guidesController?.refreshRelated();
-    return;
-  }
-  if (state.channel === 'MODELS') return;
+  syncUrl(options);
+  if (state.channel === 'GUIDES' || state.channel === 'MODELS') return;
   dom.reviewSearch.hidden = state.channel !== 'REVIEW';
   if (!dom.reviewSearch.hidden) dom.reviewSearch.href = bilibiliSearchUrl(state.query);
 
@@ -601,7 +661,7 @@ function render(dom) {
   }
 }
 
-function resetFilters(dom) {
+function resetFilters(dom, options) {
   state.onlySaved = false;
   state.channel = 'ALL';
   state.type = 'ALL';
@@ -612,10 +672,49 @@ function resetFilters(dom) {
   if (dom.toggleHideFixed) dom.toggleHideFixed.checked = true;
   if (dom.searchInput) dom.searchInput.value = '';
 
-  render(dom);
+  render(dom, options);
 }
 
 function bindEvents(dom) {
+  const copyEmailButton = document.getElementById('footer-copy-email');
+  let copyEmailTimer;
+  copyEmailButton.addEventListener('click', async () => {
+    const copied = await copyTextToClipboard('a92869511@gmail.com');
+    clearTimeout(copyEmailTimer);
+    copyEmailButton.textContent = copied ? '已复制' : '复制';
+    if (copied) {
+      showToast('已复制邮箱：a92869511@gmail.com', 'success');
+      copyEmailTimer = setTimeout(() => { copyEmailButton.textContent = '复制'; }, 2000);
+    } else {
+      showToast('复制失败，请手动复制邮箱', 'error');
+    }
+  });
+  for (const track of ['', ...guidesController.getTracks()]) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'nav-channel-btn';
+    button.dataset.guideTrack = track;
+    button.textContent = track || '全部课程';
+    dom.guideTrackTabs.appendChild(button);
+  }
+  dom.primaryPillars.addEventListener('click', event => {
+    const button = event.target.closest('[data-pillar]');
+    if (!button || !dom.primaryPillars.contains(button)) return;
+    if (button.dataset.pillar === 'GUIDES') {
+      openGuides();
+    } else {
+      const wasReading = Boolean(readerItem);
+      leaveReaderForChannel(dom);
+      resetFilters(dom, { push: !wasReading });
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  });
+  dom.guideTrackTabs.addEventListener('click', event => {
+    const button = event.target.closest('[data-guide-track]');
+    if (!button || !dom.guideTrackTabs.contains(button)) return;
+    guidesController.setTrack(button.dataset.guideTrack);
+  });
+  document.getElementById('visit-mark-read').addEventListener('click', acknowledgeVisit);
   document.querySelector('nav a[href="#top"]').addEventListener('click', event => {
     if (!readerItem || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
@@ -692,27 +791,13 @@ function bindEvents(dom) {
       const targetBtn = event.target.closest('[data-channel]');
       if (!targetBtn || !dom.channelTabs.contains(targetBtn)) return;
       const nextChannel = (targetBtn.dataset.channel || 'ALL').toUpperCase();
-      if (nextChannel === state.channel) {
-        if (readerItem) {
-          closeIntelReader();
-          return;
-        }
-        if (nextChannel === 'GUIDES' && guidesController?.getActiveGuideId()) {
-          guidesController.returnToHub({ scrollTop: true });
-        }
-        return;
-      }
-
+      if (nextChannel === state.channel && !readerItem) return;
+      const wasReading = Boolean(readerItem);
       leaveReaderForChannel(dom);
       state.channel = nextChannel;
       state.type = 'ALL';
-      if (nextChannel !== 'INTEL') {
-        state.vendor = 'ALL';
-      }
-      if (nextChannel === 'GUIDES') {
-        guidesController?.returnToHub({ scrollTop: false, silent: true });
-      }
-      render(dom);
+      if (nextChannel !== 'INTEL') state.vendor = 'ALL';
+      render(dom, { push: !wasReading });
     });
   }
 
@@ -808,11 +893,12 @@ async function bootstrap() {
   try {
     const [loaded, modelCatalog, guidesMod] = await Promise.all([
       loadIntelData(),
-      initCatalog(syncUrl),
+      initCatalog(syncUrl, openGuides),
       initGuides({
-        getIntelItems: () => (Array.isArray(intelData.items) ? intelData.items : []),
-        onOpenIntel: (item, triggerEl) => openIntelReader(item, triggerEl),
-        onChange: syncUrl,
+        onChange: options => {
+          updateNavigation(dom);
+          syncUrl(options);
+        },
         onToast: showToast,
       }),
     ]);
@@ -858,6 +944,8 @@ async function bootstrap() {
     },
     openPoster: item => posterController?.openItem(item),
     matchVendor: item => catalog?.matchVendor(item),
+    getGuides: () => guidesController.getGuides(),
+    openGuides,
     openPrices(params) {
       leaveReaderForChannel(dom);
       state.channel = 'MODELS';
@@ -876,6 +964,8 @@ async function bootstrap() {
     getData,
     getPosterController,
     getGuidesController: () => guidesController,
+    getGuides: () => guidesController.getGuides(),
+    openGuides,
     toggleTheme,
     openReaderById: (itemId) => {
       const target = (intelData.items || []).find((it) => it.id === itemId) || saved.get(itemId);

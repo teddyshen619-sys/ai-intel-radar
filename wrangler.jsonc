@@ -1,0 +1,13 @@
+{
+  "name": "ai-intel-radar",
+  "compatibility_date": "2026-11-20",
+  "assets": {
+    "directory": "./web"
+  },
+  "routes": [
+    {
+      "pattern": "radarqs.fyi",
+      "custom_domain": true
+    }
+  ]
+}

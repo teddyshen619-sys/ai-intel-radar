@@ -14,12 +14,6 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect width='64' height='64' rx='12' fill='%23141519'/%3E%3Ccircle cx='32' cy='32' r='21' stroke='%23FFFFFF' stroke-opacity='0.22' stroke-width='2.4'/%3E%3Cpath d='M32 20 A12 12 0 0 1 44 32' stroke='%23FFFFFF' stroke-opacity='0.48' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M32 11 A21 21 0 0 1 53 32' stroke='%23FFFFFF' stroke-width='3.4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='3.4' fill='%23FFFFFF'/%3E%3Ccircle cx='46.85' cy='17.15' r='6.6' fill='%23141519'/%3E%3Ccircle cx='46.85' cy='17.15' r='4.6' fill='%232997FF'/%3E%3C/svg%3E"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@200;300;400&family=Noto+Serif+SC:wght@400;500&display=swap"
-    />
     <script>
       (function () {
         try {
@@ -37,77 +31,24 @@
         }
       })();
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      if (window.tailwind) window.tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              editorial: {
-                bg: '#FFFFFF',
-                surface: '#F5F5F7',
-                ink: '#1D1D1F',
-                body: '#515154',
-                muted: '#6E6E73',
-                accent: '#0066CC',
-                darkBg: '#0B0C0E',
-                darkSurface: '#141519',
-              },
-            },
-            fontFamily: {
-              display: [
-                '"DM Sans"',
-                '"Noto Sans SC"',
-                '"SF Pro Display"',
-                '"PingFang SC"',
-                '"Microsoft YaHei Light"',
-                '"DengXian Light"',
-                '"Helvetica Neue"',
-                'sans-serif',
-              ],
-              sans: [
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"SF Pro Text"',
-                '"PingFang SC"',
-                '"Google Sans"',
-                '"Microsoft YaHei"',
-                '"Helvetica Neue"',
-                'sans-serif',
-              ],
-              mono: [
-                '"SF Mono"',
-                'ui-monospace',
-                'SFMono-Regular',
-                'Menlo',
-                'Monaco',
-                'Consolas',
-                'monospace',
-              ],
-            },
-          },
-        },
-      };
-    </script>
+    <link rel="stylesheet" href="./css/preflight.css" />
     <link rel="stylesheet" href="./css/terminal.css" />
+    <link rel="stylesheet" href="./css/utilities.css" />
   </head>
   <body
-    class="min-h-screen bg-white text-[#1D1D1F] dark:bg-[#0B0C0E] dark:text-[#F5F5F7] antialiased selection:bg-[#0066CC]/15 selection:text-[#1D1D1F] dark:selection:bg-[#2997FF]/25 dark:selection:text-white"
+    class="min-h-screen bg-white text-[#1D1D1F] dark:bg-[#000000] dark:text-[#F5F5F7] antialiased selection:bg-[#0066CC]/15 selection:text-[#1D1D1F] dark:selection:bg-[#2997FF]/25 dark:selection:text-white"
   >
     <!-- Minimalist Sticky Editorial Navigation -->
     <nav
       aria-label="主导航与频道切换"
-      class="editorial-nav sticky top-0 z-30 w-full border-b border-black/[0.07] bg-white/[0.86] dark:border-white/[0.09] dark:bg-[#0B0C0E]/[0.86]"
+      class="editorial-nav sticky top-0 z-30 w-full border-b border-black/[0.07] bg-white/[0.86] dark:border-white/[0.09] dark:bg-[#000000]/[0.88]"
     >
-      <div
-        class="mx-auto flex w-full max-w-[1120px] flex-wrap items-center justify-between gap-x-8 gap-y-1 px-6 sm:px-10 lg:h-[60px] lg:flex-nowrap lg:py-0 py-3"
-      >
+      <div class="editorial-nav-inner">
         <!-- Brand Lockup: 前哨 (Radar symbol and custom Chinese wordmark) -->
         <a
           href="#top"
           aria-label="前哨 Radar 首页"
-          class="order-1 inline-flex shrink-0 items-center gap-2.5 text-[17px] font-medium text-[#1D1D1F] dark:text-[#F5F5F7] hover:opacity-75 transition-opacity"
+          class="nav-brand inline-flex shrink-0 items-center gap-2.5 text-[17px] font-medium text-[#1D1D1F] dark:text-[#F5F5F7] hover:opacity-75 transition-opacity"
         >
           <svg
             class="h-[22px] w-[22px] shrink-0"
@@ -140,76 +81,13 @@
           </svg>
         </a>
 
-        <!-- Primary channel navigation (6 compact tabs, single-row safe at 375px) -->
-        <div
-          id="channel-tabs"
-          role="group"
-          aria-label="主频道切换"
-          class="no-scrollbar order-3 flex w-full items-center overflow-x-auto overflow-y-hidden border-t border-black/[0.06] pt-2.5 dark:border-white/[0.08] lg:order-2 lg:w-auto lg:overflow-visible lg:border-t-0 lg:pt-0"
-        >
-          <button
-            type="button"
-            data-channel="ALL"
-            data-active="true"
-            aria-pressed="true"
-            class="nav-channel-btn relative shrink-0 py-2 lg:py-[19px] whitespace-nowrap transition-colors cursor-pointer focus:outline-none"
-          >
-            全部
-          </button>
-
-          <button
-            type="button"
-            data-channel="RADAR"
-            data-active="false"
-            aria-pressed="false"
-            class="nav-channel-btn relative shrink-0 py-2 lg:py-[19px] whitespace-nowrap transition-colors cursor-pointer focus:outline-none"
-          >
-            算力避坑
-          </button>
-
-          <button
-            type="button"
-            data-channel="INTEL"
-            data-active="false"
-            aria-pressed="false"
-            class="nav-channel-btn relative shrink-0 py-2 lg:py-[19px] whitespace-nowrap transition-colors cursor-pointer focus:outline-none"
-          >
-            厂商情报
-          </button>
-
-          <button
-            type="button"
-            data-channel="REVIEW"
-            data-active="false"
-            aria-pressed="false"
-            class="nav-channel-btn relative shrink-0 py-2 lg:py-[19px] whitespace-nowrap transition-colors cursor-pointer focus:outline-none"
-          >
-            测评视频
-          </button>
-
-          <button
-            type="button"
-            data-channel="MODELS"
-            data-active="false"
-            aria-pressed="false"
-            class="nav-channel-btn relative shrink-0 py-2 lg:py-[19px] whitespace-nowrap transition-colors cursor-pointer focus:outline-none"
-          >
-            模型比价
-          </button>
-
-          <button
-            type="button"
-            data-channel="GUIDES"
-            data-active="false"
-            aria-pressed="false"
-            class="nav-channel-btn relative shrink-0 py-2 lg:py-[19px] whitespace-nowrap transition-colors cursor-pointer focus:outline-none"
-          >
-            实战教程
-          </button>
+        <div id="primary-pillars" class="primary-pillars" role="group" aria-label="主类切换">
+          <button type="button" data-pillar="INFO" data-active="true" aria-pressed="true" class="primary-pillar-btn">前沿情报</button>
+          <button type="button" data-pillar="GUIDES" data-active="false" aria-pressed="false" class="primary-pillar-btn">实战教程</button>
         </div>
 
         <!-- Global Right Utility Actions -->
-        <div class="order-2 flex shrink-0 items-center gap-5 lg:order-3">
+        <div class="nav-tools">
           <button
             type="button"
             id="open-poster-btn"
@@ -273,22 +151,37 @@
       id="top"
       class="mx-auto flex min-h-[calc(100vh-3.75rem)] w-full max-w-[1120px] flex-col px-6 sm:px-10"
     >
-      <!-- Pure Minimalist Masthead (Lone Sculpted Light Display Title, Zero Subtitle Clutter) -->
-      <header class="pt-12 pb-9 sm:pt-16 sm:pb-11 lg:pt-[76px] lg:pb-12">
+      <nav id="subdirectory" class="subdirectory" aria-label="子目录">
+        <div id="channel-tabs" class="subdirectory-tabs no-scrollbar" role="group" aria-label="情报频道">
+          <button type="button" data-channel="ALL" data-active="true" aria-pressed="true" class="nav-channel-btn">全部</button>
+          <button type="button" data-channel="RADAR" data-active="false" aria-pressed="false" class="nav-channel-btn">算力避坑</button>
+          <button type="button" data-channel="INTEL" data-active="false" aria-pressed="false" class="nav-channel-btn">厂商情报</button>
+          <button type="button" data-channel="REVIEW" data-active="false" aria-pressed="false" class="nav-channel-btn">测评视频</button>
+          <button type="button" data-channel="MODELS" data-active="false" aria-pressed="false" class="nav-channel-btn">模型比价</button>
+        </div>
+        <div id="guide-directory" class="guide-directory" hidden>
+          <div id="guide-track-tabs" class="subdirectory-tabs no-scrollbar" role="group" aria-label="教程赛道"></div>
+          <p id="guide-directory-progress" class="guide-directory-progress" aria-live="polite"></p>
+        </div>
+      </nav>
+      <header class="editorial-masthead">
         <h1
           id="masthead-title"
           class="font-editorial-display max-w-[18ch] text-[38px] sm:text-[48px] lg:text-[56px] tracking-[-0.03em] leading-[1.1] text-[#1D1D1F] dark:text-[#F5F5F7]"
         >
           前沿 AI 情报与算力简报
         </h1>
-        <p id="visit-increment" class="visit-increment" aria-live="polite" hidden></p>
+        <div id="visit-increment" class="visit-increment" hidden>
+          <span id="visit-increment-text" aria-live="polite"></span>
+          <button id="visit-mark-read" class="visit-mark-read" type="button">标为已读</button>
+        </div>
       </header>
 
       <!-- Friendly file:// fallback notice -->
       <div
         id="file-protocol-banner"
         role="alert"
-        class="hidden mb-8 border-l-2 border-[#D93025] bg-[#F5F5F7] px-5 py-4 text-[13.5px] text-[#1D1D1F] dark:bg-[#141519] dark:text-[#F5F5F7]"
+        class="hidden mb-8 border-l-2 border-[#D93025] bg-[#F5F5F7] px-5 py-4 text-[13.5px] text-[#1D1D1F] dark:bg-[#111111] dark:text-[#F5F5F7]"
       >
         <p class="font-medium">检测到通过本地文件直接打开，浏览器可能拦截原生模块脚本。</p>
         <p class="mt-1 text-[#6E6E73] dark:text-[#A1A1A6]">
@@ -436,7 +329,7 @@
         <section
           id="empty-state"
           aria-live="polite"
-          class="hidden bg-[#F5F5F7] dark:bg-[#141519] px-8 py-20 text-center"
+          class="hidden bg-[#F5F5F7] dark:bg-[#111111] px-8 py-20 text-center"
         >
           <h2 class="font-editorial-display text-[24px] tracking-[-0.02em] text-[#1D1D1F] dark:text-[#F5F5F7]">
             暂未检索到相关简报
@@ -455,6 +348,7 @@
       </main>
 
       <main id="model-panel" hidden aria-labelledby="masthead-title">
+        <p id="model-changes" class="catalog-changes" aria-live="polite" hidden></p>
         <div class="catalog-controls">
           <label>搜索模型<input type="search" id="model-search" placeholder="模型、厂商或关键词"></label>
           <label>费用<select id="model-free"><option value="all">全部模型</option><option value="free">仅看免费模型</option></select></label>
@@ -472,6 +366,7 @@
           <label>输出百万 Token 数<input id="budget-output" type="number" min="0" step="any" value="1"></label>
         </fieldset>
         <p class="catalog-caption" id="model-summary" aria-live="polite"></p>
+        <p class="catalog-guide"><a id="model-guides-link" href="?channel=GUIDES">开通或接入有疑问？前往实战教程 →</a></p>
         <div class="spec-scroll" tabindex="0" role="region" aria-label="模型价格对比表">
           <table class="spec-table">
             <thead><tr><th scope="col">模型</th><th scope="col">输入单价</th><th scope="col">输出单价</th><th scope="col">上下文长度</th><th scope="col">上线日期</th><th scope="col">预估月费</th></tr></thead>
@@ -488,8 +383,8 @@
       <footer
         class="border-t border-black/[0.08] py-10 text-[12.5px] text-[#86868B] dark:border-white/[0.10] dark:text-[#8E8E93]"
       >
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div class="inline-flex items-center gap-2.5">
+        <div class="footer-layout">
+          <div class="footer-brand">
             <svg
               class="h-4 w-4 shrink-0 text-[#1D1D1F] dark:text-[#F5F5F7]"
               viewBox="0 0 24 24"
@@ -507,9 +402,13 @@
             </svg>
             <span class="radar-brand-name font-editorial-vendor text-[#86868B] dark:text-[#6E6E73] text-[11px]">Radar</span>
           </div>
-          <p class="text-[#6E6E73] dark:text-[#8E8E93]">
-            <time id="footer-updated-at">--</time>
-          </p>
+          <div class="footer-contact">
+            <span class="footer-contact-divider" aria-hidden="true"></span>
+            <span>联系我们</span>
+            <a class="footer-contact-email" href="mailto:a92869511@gmail.com">a92869511@gmail.com</a>
+            <button type="button" id="footer-copy-email" aria-label="复制联系邮箱">复制</button>
+          </div>
+          <time id="footer-updated-at" class="footer-updated">--</time>
         </div>
       </footer>
     </div>

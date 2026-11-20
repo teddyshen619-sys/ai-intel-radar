@@ -1,8 +1,4 @@
-"""严格校验 /data/intel_data.json 是否完全符合 /data/schema.json 规范。
-
-支持零第三方依赖运行（纯 Python 标准库实现全部核心约束校验）；
-若运行环境安装了 `jsonschema`，则额外执行 Draft 2020-12 Schema 全量校验。
-"""
+"""只读校验情报、模型目录、教程数据及本地图片，支持可选 jsonschema 校验。"""
 
 from __future__ import annotations
 
@@ -200,6 +196,175 @@ def validate_with_jsonschema(data: object, schema: dict) -> list[str]:
     ]
 
 
+def validate_guides_stdlib(data: object) -> list[str]:
+    errors = []
+
+    def shape(value, keys, prefix):
+        if not isinstance(value, dict):
+            errors.append(f"{prefix} 必须为 JSON Object")
+            return False
+        missing, extra = keys - value.keys(), value.keys() - keys
+        if missing:
+            errors.append(f"{prefix} 缺少必填字段: {sorted(missing)}")
+        if extra:
+            errors.append(f"{prefix} 包含未定义字段: {sorted(extra)}")
+        return True
+
+    def text(value, prefix, nonempty=False):
+        if not isinstance(value, str) or (nonempty and not value):
+            errors.append(f"{prefix} 必须为{'非空' if nonempty else ''}字符串")
+
+    def strings(value, prefix, unique=False):
+        if not isinstance(value, list) or not all(isinstance(s, str) and s for s in value):
+            errors.append(f"{prefix} 必须为非空字符串组成的数组（允许 []）")
+        elif unique and len(value) != len(set(value)):
+            errors.append(f"{prefix} 不能包含重复值")
+
+    if not shape(data, {"schema_version", "guides"}, "教程根节点"):
+        return errors
+    if data.get("schema_version") != "4.0":
+        errors.append('教程 schema_version 必须为 "4.0"')
+    guides = data.get("guides")
+    if not isinstance(guides, list):
+        return errors + ["guides 必须为数组"]
+    seen_ids, seen_orders = set(), set()
+    previous_order = 0
+    guide_keys = {"id", "order", "track", "title", "summary", "updated_at", "author_note",
+                  "related_tags", "source_file", "body_markdown", "steps"}
+    for i, guide in enumerate(guides):
+        prefix = f"guides[{i}]"
+        if not shape(guide, guide_keys, prefix):
+            continue
+        guide_id = guide.get("id")
+        if not isinstance(guide_id, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", guide_id):
+            errors.append(f"{prefix}.id 格式非法")
+        elif guide_id in seen_ids:
+            errors.append(f"{prefix}.id 重复: {guide_id}")
+        else:
+            seen_ids.add(guide_id)
+        order = guide.get("order")
+        if type(order) is not int or order < 1:
+            errors.append(f"{prefix}.order 必须为正整数")
+        else:
+            if order in seen_orders:
+                errors.append(f"{prefix}.order 重复: {order}")
+            if order <= previous_order:
+                errors.append(f"{prefix}.order 必须按升序排列")
+            seen_orders.add(order)
+            previous_order = order
+        for key in ("track", "title", "summary", "author_note", "source_file", "body_markdown"):
+            text(guide.get(key), f"{prefix}.{key}", key in {"title", "source_file"})
+        updated = guide.get("updated_at")
+        try:
+            if not isinstance(updated, str) or date.fromisoformat(updated).isoformat() != updated:
+                raise ValueError
+        except ValueError:
+            errors.append(f"{prefix}.updated_at 必须为有效的 YYYY-MM-DD 日期")
+        strings(guide.get("related_tags"), f"{prefix}.related_tags", unique=True)
+        steps = guide.get("steps")
+        if not isinstance(steps, list) or not steps:
+            errors.append(f"{prefix}.steps 必须为至少包含 1 个步骤的数组")
+            continue
+        for j, step in enumerate(steps):
+            step_prefix = f"{prefix}.steps[{j}]"
+            if not shape(step, {"number", "title", "markdown", "code_blocks", "risk_notes"}, step_prefix):
+                continue
+            if type(step.get("number")) is not int or step["number"] != j + 1:
+                errors.append(f"{step_prefix}.number 必须从 1 开始连续递增")
+            for key in ("title", "markdown"):
+                text(step.get(key), f"{step_prefix}.{key}")
+            strings(step.get("risk_notes"), f"{step_prefix}.risk_notes")
+            blocks = step.get("code_blocks")
+            if not isinstance(blocks, list):
+                errors.append(f"{step_prefix}.code_blocks 必须为数组")
+                continue
+            for k, block in enumerate(blocks):
+                block_prefix = f"{step_prefix}.code_blocks[{k}]"
+                if shape(block, {"language", "code"}, block_prefix):
+                    for key in ("language", "code"):
+                        text(block.get(key), f"{block_prefix}.{key}")
+    return errors
+
+
+def local_guide_images(markdown: str):
+    visible, marker, comment = [], "", False
+    for line in markdown.splitlines():
+        if marker:
+            if re.fullmatch(r" {0,3}" + re.escape(marker[0]) + "{%d,}" % len(marker) + r"[ \t]*", line):
+                marker = ""
+            continue
+        if comment:
+            if "-->" not in line:
+                continue
+            line = line.split("-->", 1)[1]
+            comment = False
+        line = re.sub(r"<!--.*?-->", "", line)
+        if "<!--" in line:
+            line = line.split("<!--", 1)[0]
+            comment = True
+        opening = re.match(r" {0,3}(`{3,}|~{3,})", line)
+        if opening:
+            marker = opening[1]
+            visible.append("")
+        else:
+            visible.append(line)
+    pattern = re.compile(
+        r"\\[\\\[\]()`*_!|<>]|(?<!`)(`+)(?!`)[\s\S]*?(?<!`)\1(?!`)"
+        r"|(!?)\[(?:\\.|[^\]\\])*\]\(<?([^)\s<>]+)>?\)"
+        r"|https?://[^\s<>\"'`\\\u0000-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2060-\u206f，。！？；：、…“”‘’]+",
+        re.I,
+    )
+    for line in visible:
+        for match in pattern.finditer(line):
+            if match[2] == "!" and match[3].startswith(("guides-media/", "/guides-media/")):
+                yield match[3]
+
+
+def validate_guides(root: Path = ROOT_DIR) -> list[str]:
+    errors, contents = [], {}
+    for name in ("data/guides.json", "web/data/guides.json", "data/guides_schema.json"):
+        try:
+            contents[name] = (root / name).read_bytes()
+        except OSError as exc:
+            errors.append(f"{name} 无法读取: {exc}")
+    if errors:
+        return errors
+    if contents["data/guides.json"] != contents["web/data/guides.json"]:
+        errors.append("data/guides.json 与 web/data/guides.json 字节不一致，请先同步教程数据")
+    try:
+        data = json.loads(contents["data/guides.json"])
+        schema = json.loads(contents["data/guides_schema.json"])
+    except (ValueError, UnicodeError) as exc:
+        return errors + [f"教程数据或规范不是有效的 UTF-8 JSON: {exc}"]
+    core_errors = validate_guides_stdlib(data)
+    errors.extend(core_errors)
+    errors.extend(validate_with_jsonschema(data, schema))
+    if core_errors:
+        return errors
+    web = root.resolve() / "web"
+    for i, guide in enumerate(data["guides"]):
+        for j, step in enumerate(guide["steps"]):
+            for source in dict.fromkeys(local_guide_images(step["markdown"])):
+                prefix = f"guides[{i}].steps[{j}] 本地图片 {source!r}"
+                relative = source.removeprefix("/")
+                if ".." in relative or not re.fullmatch(
+                    r"guides-media/(?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_.-]+\.(?:png|jpe?g|gif|webp)", relative, re.I
+                ):
+                    errors.append(f"{prefix} 路径或格式不安全")
+                    continue
+                path = web / relative
+                try:
+                    if path.resolve() != path:
+                        errors.append(f"{prefix} 不能使用链接或逃离 web 目录")
+                    elif not path.is_file():
+                        errors.append(f"{prefix} 文件不存在")
+                    elif path.stat().st_size == 0:
+                        errors.append(f"{prefix} 文件为空")
+                except (OSError, RuntimeError) as exc:
+                    errors.append(f"{prefix} 无法读取: {exc}")
+    return errors
+
+
 def main() -> int:
     if not DATA_PATH.exists():
         print(f"[ERROR] 找不到数据文件: {DATA_PATH}", file=sys.stderr)
@@ -222,6 +387,7 @@ def main() -> int:
     except (OSError, ValueError, TypeError, KeyError) as exc:
         errors.append(f"模型目录或异动报告：{exc}")
 
+    errors.extend(validate_guides(ROOT_DIR))
     if errors:
         print(f"[FAIL] 数据校验未通过，共发现 {len(errors)} 处问题：", file=sys.stderr)
         for err in errors:
@@ -229,6 +395,7 @@ def main() -> int:
         return 1
 
     items = data["items"]
+    print("[OK] guides.json 校验通过：两份数据字节一致，教程结构及本地图片有效")
     print(f"[OK] models_catalog.json 校验通过：{len(catalog['models'])} 个模型")
     channels = {item["channel"] for item in items}
     types = {item["type"] for item in items}

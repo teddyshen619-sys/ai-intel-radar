@@ -346,7 +346,7 @@ export function showToast(message, type = 'info') {
     [
       'pointer-events-auto flex items-center gap-2.5 border px-4 py-2.5 cursor-pointer select-none',
       'rounded-[2px] border-black/[0.12] bg-white/[0.96] text-[#1D1D1F] shadow-[0_8px_28px_rgba(0,0,0,0.08)]',
-      'dark:border-white/[0.14] dark:bg-[#1A1C21]/[0.96] dark:text-[#F5F5F7] dark:shadow-[0_12px_32px_rgba(0,0,0,0.55)]',
+      'dark:border-white/[0.14] dark:bg-[#141414]/[0.96] dark:text-[#F5F5F7] dark:shadow-[0_12px_32px_rgba(0,0,0,0.55)]',
       'backdrop-blur-md transition-all duration-200 ease-out opacity-0 translate-y-1',
     ].join(' ')
   );
@@ -401,6 +401,104 @@ export function configureReader(actions) {
   readerActions = actions;
 }
 
+const GUIDE_TOPICS = {
+  network: /网络|联网|连通|连接失败|无法连接|代理|地区限制|地域限制|区域限制|不支持的(?:国家|地区)|\b(?:network|proxy|vpn|dns|ip)\b/i,
+  payment: /支付|付款|信用卡|银行卡|借记卡|虚拟卡|外币卡|海外卡|充值|账单|扣款|续费|订阅|\b(?:visa|mastercard|payment|billing|subscription)\b/i,
+  agent: /智能体|命令行|\b(?:agents?|cli|codex)\b|\bclaude[\s-]*code\b/i,
+};
+const GUIDE_PRACTICE = /实战|实践|教程|指南|入门|上手|安装|配置|搭建|部署|工作流|脚本|命令|\b(?:tutorial|guide|setup|install|configure|workflow|hands-on)\b/i;
+const GUIDE_AGENT_TOOLS = [/\bcodex\b/i, /\bclaude[\s-]*code\b/i, /\bgemini[\s-]*cli\b/i];
+const GUIDE_ACCOUNT_RISK = /风控|封号|封禁|(?:账号|账户).{0,8}(?:异常|风险|受限|限制|验证)|\b(?:account (?:risk|ban|suspension)|suspended|banned)\b/i;
+const GUIDE_SUBSCRIPTION_OFFER = /优惠|折扣|促销|限免|试用|会员|\b(?:discount|offer|trial|promotion)\b/i;
+
+// Earlier fields always outrank later ones; a payment lesson mentioning networks stays a payment lesson.
+function guideTopicRank(pattern, fields) {
+  const index = fields.findIndex(text => pattern.test(text));
+  return index < 0 ? 0 : fields.length - index;
+}
+
+function guideAgentTools(fields) {
+  return fields.map(text => GUIDE_AGENT_TOOLS.filter(pattern => pattern.test(text)))
+    .find(tools => tools.length) || [];
+}
+
+function matchReaderGuide(item) {
+  if (typeof readerActions.getGuides !== 'function' || typeof readerActions.openGuides !== 'function') return null;
+  const guides = readerActions.getGuides();
+  if (!Array.isArray(guides) || !guides.length) return null;
+
+  const fields = [
+    String(item.title ?? ''),
+    String(item.tldr ?? ''),
+    [...(Array.isArray(item.details) ? item.details : []), item.action_snippet || ''].join('\n'),
+  ];
+  const text = [item.vendor, ...fields].join('\n');
+  const basicType = ['DEAL', 'POLICY', 'BUG'].includes(String(item.type ?? '').trim().toUpperCase());
+  const overseasVendor = /\b(?:openai|google|anthropic|chatgpt|gemini|claude|perplexity)\b/i.test(text);
+  const networkRank = Math.max(
+    guideTopicRank(GUIDE_TOPICS.network, fields) * 2,
+    guideTopicRank(GUIDE_ACCOUNT_RISK, fields) * 2 - 1
+  );
+  const paymentRank = Math.max(
+    guideTopicRank(GUIDE_TOPICS.payment, fields) * 2,
+    guideTopicRank(GUIDE_SUBSCRIPTION_OFFER, fields) * 2 - 1
+  );
+  let topic;
+  if (basicType && overseasVendor && Math.max(networkRank, paymentRank) > 0) {
+    topic = networkRank >= paymentRank ? 'network' : 'payment';
+  } else if (GUIDE_TOPICS.agent.test(fields.slice(0, 2).join('\n')) && GUIDE_PRACTICE.test(fields.join('\n'))) {
+    topic = 'agent';
+  } else {
+    return null;
+  }
+
+  const itemTools = topic === 'agent' ? guideAgentTools(fields) : [];
+  let best = null;
+  let bestRank = 0;
+  for (const guide of guides) {
+    if (!guide || typeof guide.id !== 'string' || !guide.id.trim()) continue;
+    const guideFields = [
+      String(guide.title ?? ''),
+      String(guide.summary ?? ''),
+      (Array.isArray(guide.steps) ? guide.steps : [])
+        .map(step => [step?.title, step?.markdown].filter(Boolean).join('\n')).join('\n'),
+      guide.id,
+    ];
+    const ranks = Object.fromEntries(Object.entries(GUIDE_TOPICS)
+      .map(([key, pattern]) => [key, guideTopicRank(pattern, guideFields)]));
+    let rank = ranks[topic];
+    if (!rank || rank < Math.max(...Object.values(ranks))) continue;
+    if (topic === 'agent') {
+      if (!GUIDE_PRACTICE.test(guideFields.slice(0, 3).join('\n'))) continue;
+      const tools = guideAgentTools(guideFields);
+      const sameTool = itemTools.some(tool => tools.includes(tool));
+      if (itemTools.length && tools.length && !sameTool) continue;
+      if (sameTool) rank += guideFields.length;
+    }
+    if (rank > bestRank) {
+      best = { id: guide.id, topic };
+      bestRank = rank;
+    }
+  }
+  return best;
+}
+
+function buildReaderGuideLink(item) {
+  const guide = matchReaderGuide(item);
+  if (!guide) return null;
+  const label = guide.topic === 'agent'
+    ? '动手用 Agent？查看实战教程 →'
+    : guide.topic === 'network' ? '网络有疑问？查看实战教程 →' : '支付有疑问？查看实战教程 →';
+  const link = el('a', 'reader-guide-link', label);
+  link.href = '?' + new URLSearchParams({ channel: 'GUIDES', guide: guide.id });
+  link.addEventListener('click', event => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    readerActions.openGuides(guide.id);
+  });
+  return link;
+}
+
 export function itemMarkdown(item) {
   const source = readableSourceUrl(item.source_url);
   return [
@@ -415,7 +513,7 @@ export function itemMarkdown(item) {
 function buildReaderSnippetBlock(snippet) {
   const outer = el(
     'div',
-    'min-w-0 max-w-full overflow-hidden border border-black/[0.09] bg-[#F5F5F7] dark:border-white/[0.11] dark:bg-[#16181E]'
+    'min-w-0 max-w-full overflow-hidden border border-black/[0.09] bg-[#F5F5F7] dark:border-white/[0.11] dark:bg-[#121212]'
   );
   outer.dataset.snippetBlock = 'true';
 
@@ -611,7 +709,7 @@ export function openIntelReader(item, triggerEl = null) {
   if (valueTag || impact) {
     const summaryBand = el(
       'div',
-      'mt-6 grid grid-cols-1 gap-5 bg-[#F5F5F7] px-6 py-5 sm:grid-cols-2 dark:bg-[#141519]'
+      'mt-6 grid grid-cols-1 gap-5 bg-[#F5F5F7] px-6 py-5 sm:grid-cols-2 dark:bg-[#111111]'
     );
 
     if (valueTag) {
@@ -745,6 +843,8 @@ export function openIntelReader(item, triggerEl = null) {
     });
     actions.append(link);
   }
+  const guideLink = buildReaderGuideLink(item);
+  if (guideLink) actions.append(guideLink);
   frag.append(actions);
   body.append(frag);
   panel.replaceChildren(shell);
@@ -1026,7 +1126,15 @@ export function createIntelCard(item, options = {}) {
   if (brief) {
     article = el('article', 'brief-row');
     article.dataset.intelId = item.id;
-    article.append(el('time', 'brief-date', item.date), el('h3', 'brief-title', item.title));
+    const vendor = el('div', 'brief-vendor');
+    if (String(item.status ?? '').trim().toUpperCase() === 'URGENT') {
+      const dot = el('span', 'brief-urgent-dot');
+      dot.setAttribute('aria-label', '紧急');
+      dot.setAttribute('role', 'img');
+      vendor.append(dot);
+    }
+    vendor.append(el('span', 'font-editorial-vendor', String(item.vendor ?? '').trim()));
+    article.append(el('time', 'brief-date', item.date), vendor, el('h3', 'brief-title', item.title));
   } else {
     // Image-led reviews use the standard editorial layout even in the spotlight.
     const variant = item.channel === 'REVIEW' ? 'standard' : options.variant;

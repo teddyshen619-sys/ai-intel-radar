@@ -38,8 +38,16 @@ const offlineCatalog = {
 };
 
 const decimal = new Intl.NumberFormat('en-US', { maximumFractionDigits: 8 });
+const isRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 
-export async function initCatalog(onChange) {
+function utcDay(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const time = Date.parse(value + 'T00:00:00Z');
+  if (!Number.isFinite(time) || new Date(time).toISOString().slice(0, 10) !== value) return null;
+  return time / 86400000;
+}
+
+export async function initCatalog(onChange, onOpenGuides) {
   const byId = id => document.getElementById(id);
   const panel = byId('model-panel');
   const query = byId('model-search');
@@ -49,17 +57,61 @@ export async function initCatalog(onChange) {
   const input = byId('budget-input');
   const output = byId('budget-output');
   const summary = byId('model-summary');
+  const changesSummary = byId('model-changes');
   const rows = byId('model-rows');
+  const priceLabels = { input_per_m: '输入', output_per_m: '输出', cache_read_per_m: '缓存读取' };
+  const priceChanges = new Map();
+  const newFree = new Set();
+  const expiring = new Map();
   let catalog = offlineCatalog;
   summary.textContent = '正在读取模型目录…';
+  if (changesSummary) {
+    changesSummary.hidden = true;
+    changesSummary.textContent = '';
+  }
   try {
     const response = await fetch('./data/models_catalog.json', { cache: 'no-cache' });
     if (response.ok) {
       const payload = await response.json();
-      if (Array.isArray(payload.models) && typeof payload.updated_at === 'string') catalog = payload;
+      if (isRecord(payload) && Array.isArray(payload.models) && typeof payload.updated_at === 'string' &&
+          payload.updated_at && payload.models.every(model => isRecord(model) && model.id &&
+            ['id', 'name', 'vendor', 'created_at'].every(field => typeof model[field] === 'string') &&
+            (model.description == null || typeof model.description === 'string'))) catalog = payload;
     }
   } catch {
     // Use the dated offline snapshot.
+  }
+
+  const modelsById = new Map(catalog.models.map(model => [model.id, model]));
+  let changes = null;
+  if (catalog !== offlineCatalog) {
+    try {
+      const response = await fetch('./data/catalog_changes.json', { cache: 'no-cache' });
+      if (response.ok) {
+        const payload = await response.json();
+        if (isRecord(payload) && payload.updated_at === catalog.updated_at &&
+            ['price_changes', 'new_free', 'expiring'].every(key => Array.isArray(payload[key])) &&
+            payload.price_changes.every(change => isRecord(change) && typeof change.id === 'string' &&
+              typeof change.field === 'string' && Object.hasOwn(priceLabels, change.field) &&
+              [change.old, change.new].every(value => Number.isFinite(value) && value >= 0) &&
+              change.old !== change.new && modelsById.get(change.id)?.[change.field] === change.new &&
+              (change.change_pct === null || Number.isFinite(change.change_pct))) &&
+            payload.new_free.every(id => typeof id === 'string' && modelsById.get(id)?.is_free === true) &&
+            payload.expiring.every(change => isRecord(change) && typeof change.id === 'string' &&
+              Number.isInteger(change.days_remaining) && change.days_remaining >= 0 && change.days_remaining <= 30 &&
+              utcDay(change.expiration_date) !== null &&
+              modelsById.get(change.id)?.expiration_date === change.expiration_date)) changes = payload;
+      }
+    } catch {}
+  }
+  if (changes) {
+    for (const change of changes.price_changes) {
+      if (!priceChanges.has(change.id)) priceChanges.set(change.id, new Map());
+      priceChanges.get(change.id).set(change.field, priceLabels[change.field] + ' $' + decimal.format(change.old) +
+        ' → $' + decimal.format(change.new) + ' / 百万 Token');
+    }
+    for (const id of changes.new_free) newFree.add(id);
+    for (const change of changes.expiring) expiring.set(change.id, utcDay(change.expiration_date));
   }
 
   for (const name of [...new Set(catalog.models.map(model => model.vendor))].sort()) {
@@ -67,6 +119,14 @@ export async function initCatalog(onChange) {
   }
 
   function render() {
+    const today = Math.floor(Date.now() / 86400000);
+    const expiringSoon = new Map([...expiring].filter(([, day]) => day >= today && day <= today + 30));
+    if (changesSummary) {
+      const counts = [['近期调价', priceChanges.size], ['新增免费', newFree.size], ['30 天内到期', expiringSoon.size]];
+      const text = counts.filter(([, count]) => count).map(([label, count]) => label + ' ' + count + ' 款').join(' · ');
+      changesSummary.textContent = text;
+      changesSummary.hidden = !text;
+    }
     const keyword = query.value.trim().toLowerCase();
     const models = catalog.models.filter(model =>
       (free.value !== 'free' || model.is_free) &&
@@ -86,6 +146,7 @@ export async function initCatalog(onChange) {
     const fragment = document.createDocumentFragment();
     for (const model of models) {
       const row = document.createElement('tr');
+      row.dataset.modelId = model.id;
       const heading = document.createElement('th');
       heading.scope = 'row';
       const info = document.createElement('details');
@@ -93,7 +154,36 @@ export async function initCatalog(onChange) {
       name.textContent = model.name;
       const description = document.createElement('p');
       description.textContent = model.description;
-      info.append(name, description);
+      const fields = document.createElement('dl');
+      fields.className = 'catalog-model-fields';
+      for (const [label, value] of [
+        ['缓存读取单价', Number.isFinite(model.cache_read_per_m) && model.cache_read_per_m >= 0 ?
+          '$' + decimal.format(model.cache_read_per_m) + ' / 百万 Token' : '未公布'],
+        ['最大输出 Token', Number.isInteger(model.max_completion_tokens) && model.max_completion_tokens >= 0 ?
+          decimal.format(model.max_completion_tokens) : '未公布'],
+        ['工具调用', model.supports_tools === true ? '支持' : model.supports_tools === false ? '不支持' : '未知'],
+        ['到期日期', utcDay(model.expiration_date) !== null ? model.expiration_date : '未公布']
+      ]) {
+        const term = document.createElement('dt');
+        term.textContent = label;
+        const detail = document.createElement('dd');
+        detail.textContent = value;
+        fields.append(term, detail);
+      }
+      info.append(name, description, fields);
+      const notes = [];
+      if (priceChanges.has(model.id)) notes.push('近期调价：' + [...priceChanges.get(model.id).values()].join('；'));
+      if (newFree.has(model.id)) notes.push('新增免费模型');
+      if (expiringSoon.has(model.id)) {
+        const days = expiringSoon.get(model.id) - today;
+        notes.push(model.expiration_date + ' 到期' + (days === 0 ? '（今日到期）' : '（剩余 ' + days + ' 天）'));
+      }
+      if (notes.length) {
+        const note = document.createElement('p');
+        note.className = 'catalog-model-note';
+        note.textContent = notes.join('；');
+        info.append(note);
+      }
       heading.append(info);
       row.append(heading);
       const cost = monthlyInput * model.input_per_m + monthlyOutput * model.output_per_m;
@@ -157,6 +247,12 @@ export async function initCatalog(onChange) {
     return (model || models.find(entry => mentions(entry.vendor)))?.vendor;
   }
 
+  byId('model-guides-link')?.addEventListener('click', event => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey ||
+        event.altKey || typeof onOpenGuides !== 'function') return;
+    event.preventDefault();
+    onOpenGuides();
+  });
   panel.addEventListener('input', () => {
     render();
     onChange();

@@ -20,26 +20,6 @@ const OFFLINE_GUIDES_PAYLOAD = {
   guides: [],
 };
 
-/**
- * 中英双语标签同义扩展，用于将课程 related_tags 与实时雷达情报精准联动
- */
-const TAG_SYNONYMS = {
-  payment: ['支付', '订阅', '账单', '扣款', '定价', '价格', '降价', '免费', 'pro', 'plus'],
-  billing: ['账单', '计费', '定价', '成本', '降价', '免费', '额度', 'token'],
-  'virtual card': ['订阅', '免绑卡', '信用卡', '充值', '支付', '额度'],
-  subscription: ['订阅', 'pro', 'plus', 'chatgpt', 'claude', '会员', '套餐'],
-  stripe: ['支付', '账单', '订阅', '定价'],
-  codex: ['openai', 'gpt', 'claude code', 'agent', 'cli', '编程', '代码'],
-  install: ['安装', '升级', 'docker', '部署', '环境', '配置'],
-  wsl: ['windows', '本地', '终端', 'agent'],
-  auth: ['鉴权', '认证', '登录', '令牌', 'token', 'key', 'api'],
-  api: ['api', 'token', '缓存', 'openai', 'anthropic', '定价', '降价'],
-  'agents.md': ['claude code', 'review', '规则', '验证', 'agent', 'skills'],
-  sandbox: ['agent', '验证', 'e2e', '隔离', '权限', 'windows'],
-  review: ['code review', '验证', '审查', 'pr', '测试', 'claude code'],
-  'codex exec': ['批处理', '离线', '自动', 'agent', 'cli', 'openai'],
-};
-
 function el(tag, className = '', text = '') {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -749,92 +729,21 @@ function renderSafeMarkdown(markdown, container, onToast) {
 }
 
 /* ==========================================================================
-   Related Live Radar Intel Matcher
-   ========================================================================== */
-
-function matchRelatedIntelItems(guide, intelItems, limit = 3) {
-  if (!guide || !Array.isArray(intelItems) || intelItems.length === 0) return [];
-
-  const rawTags = Array.isArray(guide.related_tags)
-    ? guide.related_tags.map((t) => String(t || '').trim().toLowerCase()).filter(Boolean)
-    : [];
-
-  const expandedSynonyms = new Set();
-  for (const tag of rawTags) {
-    const syns = TAG_SYNONYMS[tag];
-    if (Array.isArray(syns)) {
-      for (const s of syns) expandedSynonyms.add(s.toLowerCase());
-    }
-  }
-
-  const scored = [];
-  for (const item of intelItems) {
-    if (!item || typeof item !== 'object') continue;
-    const primaryText = [item.title, item.vendor, item.value_tag]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase();
-    const secondaryText = [
-      item.tldr,
-      item.impact,
-      item.action_snippet,
-      ...(Array.isArray(item.details) ? item.details : []),
-    ]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase();
-
-    let score = 0;
-    for (const tag of rawTags) {
-      if (primaryText.includes(tag)) score += 12;
-      else if (secondaryText.includes(tag)) score += 6;
-    }
-    for (const syn of expandedSynonyms) {
-      if (primaryText.includes(syn)) score += 4;
-      else if (secondaryText.includes(syn)) score += 2;
-    }
-
-    if (score > 0) {
-      const status = String(item.status || '').toUpperCase();
-      if (status === 'URGENT') score += 3;
-      else if (status === 'ACTIVE') score += 2;
-      else if (status === 'FIXED') score -= 2;
-
-      scored.push({
-        item,
-        score,
-        priority: Number(item.priority) || 0,
-      });
-    }
-  }
-
-  scored.sort((a, b) => {
-    if (b.score !== a.score) return b.score - a.score;
-    return b.priority - a.priority;
-  });
-
-  return scored.slice(0, limit).map((entry) => entry.item);
-}
-
-/* ==========================================================================
    Main Module Entry: initGuides
    ========================================================================== */
 
-export async function initGuides({
-  getIntelItems,
-  onOpenIntel,
-  onChange,
-  onToast,
-} = {}) {
+export async function initGuides({ onChange, onToast } = {}) {
   const panel = document.getElementById('guides-panel');
 
   const loaded = await loadGuidesData();
   const guides = loaded.guides;
+  const tracks = [...new Set(guides.map((guide) => guide.track).filter(Boolean))];
   const completedIds = readCompletedIds();
   const progressMap = readStepProgressMap();
 
   // '' means Course Hub view; non-empty string means active lesson walkthrough view
   let activeGuideId = '';
+  let activeTrack = '';
   let activeStepNumber = 1;
   let viewMode = 'step'; // 'step' (default Step-by-Step) | 'all' (Full Preview)
 
@@ -898,7 +807,8 @@ export async function initGuides({
   function scrollToGuideTop() {
     if (!panel) return;
     const rect = panel.getBoundingClientRect();
-    const targetTop = Math.max(0, window.scrollY + rect.top - 72);
+    const navHeight = document.querySelector('.editorial-nav')?.getBoundingClientRect().height || 0;
+    const targetTop = Math.max(0, window.scrollY + rect.top - navHeight - 12);
     window.scrollTo({ top: targetTop, behavior: 'smooth' });
   }
 
@@ -929,49 +839,12 @@ export async function initGuides({
     }
 
     const frag = document.createDocumentFragment();
-    const totalCourses = guides.length;
-    const doneCount = guides.filter((g) => completedIds.has(g.id)).length;
-    const pct = totalCourses > 0 ? Math.round((doneCount / totalCourses) * 100) : 0;
-
-    // 1. Overall Course Progress Strip
-    const hubHeader = el('section', 'guides-hub-header');
-    hubHeader.setAttribute('aria-label', '总学习进度');
-
-    const progressMeta = el('div', 'guides-hub-progress-row');
-    const summaryText = el('p', 'guides-hub-progress-text');
-    summaryText.append(
-      document.createTextNode('已完成 '),
-      el('span', 'guides-hub-progress-num', `${doneCount} / ${totalCourses}`),
-      document.createTextNode(' 门课程')
-    );
-
-    const hint = el(
-      'span',
-      'guides-hub-hint',
-      doneCount === totalCourses && totalCourses > 0
-        ? '全部课程已完成，可随时点击复习'
-        : '选择一门课程，按步骤边看边操作'
-    );
-    progressMeta.append(summaryText, hint);
-
-    const track = el('div', 'guide-progress-track');
-    track.setAttribute('role', 'progressbar');
-    track.setAttribute('aria-valuemin', '0');
-    track.setAttribute('aria-valuemax', String(totalCourses));
-    track.setAttribute('aria-valuenow', String(doneCount));
-    track.setAttribute('aria-label', `已完成 ${doneCount} / ${totalCourses} 门课程`);
-    const fill = el('div', 'guide-progress-fill');
-    fill.style.width = `${pct}%`;
-    track.appendChild(fill);
-
-    hubHeader.append(progressMeta, track);
-    frag.appendChild(hubHeader);
-
-    // 2. Minimalist Course Directory Grid
+    const visibleGuides = activeTrack ? guides.filter((guide) => guide.track === activeTrack) : guides;
     const grid = el('section', 'guides-hub-grid');
     grid.setAttribute('aria-label', '实战教程目录');
+    grid.dataset.visibleCount = String(visibleGuides.length);
 
-    for (const guide of guides) {
+    for (const guide of visibleGuides) {
       const isDone = completedIds.has(guide.id);
       const totalSteps = getStepCount(guide);
       const prog = getGuideProgress(guide);
@@ -1047,62 +920,6 @@ export async function initGuides({
 
     frag.appendChild(grid);
     panel.replaceChildren(frag);
-  }
-
-  /* ------------------------------------------------------------------------
-     Shared Related Radar Intel Section
-     ------------------------------------------------------------------------ */
-  function renderRelatedIntelSection(guide) {
-    const items = typeof getIntelItems === 'function' ? getIntelItems() : [];
-    const matched = matchRelatedIntelItems(guide, items, 3);
-    if (matched.length === 0) return null;
-
-    const section = el('section', 'guide-related');
-    section.setAttribute('aria-label', '相关最新动态与避坑');
-
-    const header = el('div', 'guide-related-header');
-    header.append(
-      el('h3', 'guide-related-heading', '相关最新动态与避坑'),
-      el('span', 'guide-related-sub', '实时雷达联动')
-    );
-    section.appendChild(header);
-
-    const list = el('div', 'guide-related-list');
-    for (const item of matched) {
-      const btn = el('button', 'guide-related-row');
-      btn.type = 'button';
-      btn.dataset.relatedIntelId = item.id || '';
-
-      const meta = el('div', 'guide-related-meta');
-      const left = el('div', 'guide-related-vendor-wrap');
-      if (String(item.status || '').toUpperCase() === 'URGENT') {
-        const dot = el('span', 'guide-urgent-dot');
-        dot.setAttribute('aria-hidden', 'true');
-        left.appendChild(dot);
-      }
-      left.appendChild(
-        el('span', 'font-editorial-vendor', item.vendor || item.type || 'RADAR')
-      );
-      meta.appendChild(left);
-
-      if (item.value_tag) {
-        meta.appendChild(el('span', 'guide-related-value', item.value_tag));
-      }
-
-      const title = el('p', 'guide-related-title', item.title || '未命名情报');
-      btn.append(meta, title);
-
-      btn.addEventListener('click', () => {
-        if (typeof onOpenIntel === 'function') {
-          onOpenIntel(item, btn);
-        }
-      });
-
-      list.appendChild(btn);
-    }
-
-    section.appendChild(list);
-    return section;
   }
 
   /* ------------------------------------------------------------------------
@@ -1221,6 +1038,7 @@ export async function initGuides({
         notify('已标记本课为已学完', 'success');
       }
       render();
+      if (typeof onChange === 'function') onChange();
     });
 
     actions.append(copyLinkBtn, completeToggleBtn);
@@ -1400,12 +1218,6 @@ export async function initGuides({
       wrapper.appendChild(fullFooter);
     }
 
-    // 4. Related Live Radar Intel
-    const relatedSection = renderRelatedIntelSection(guide);
-    if (relatedSection) {
-      wrapper.appendChild(relatedSection);
-    }
-
     frag.appendChild(wrapper);
     panel.replaceChildren(frag);
   }
@@ -1440,6 +1252,7 @@ export async function initGuides({
       returnToHub({ scrollTop, silent });
       return;
     }
+    if (activeTrack && guide.track !== activeTrack) activeTrack = '';
     activeGuideId = guide.id;
     viewMode = 'step';
 
@@ -1454,7 +1267,7 @@ export async function initGuides({
 
     render();
     if (scrollTop) scrollToGuideTop();
-    if (!silent && typeof onChange === 'function') onChange();
+    if (!silent && typeof onChange === 'function') onChange({ push: true });
   }
 
   function goToStep(stepNum, { scrollTop = true, silent = false } = {}) {
@@ -1496,7 +1309,7 @@ export async function initGuides({
     viewMode = 'step';
     render();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (typeof onChange === 'function') onChange();
+    if (typeof onChange === 'function') onChange({ push: true });
   }
 
   function returnToHub({ scrollTop = true, silent = false } = {}) {
@@ -1505,10 +1318,17 @@ export async function initGuides({
     viewMode = 'step';
     render();
     if (scrollTop) window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (!silent && typeof onChange === 'function') onChange();
+    if (!silent && typeof onChange === 'function') onChange({ push: true });
+  }
+
+  function setTrack(track, { scrollTop = true, silent = false } = {}) {
+    activeTrack = tracks.includes(track) ? track : '';
+    returnToHub({ scrollTop, silent });
   }
 
   function restore(params) {
+    const requestedTrack = params?.get?.('track') || '';
+    activeTrack = tracks.includes(requestedTrack) ? requestedTrack : '';
     const requestedId = params?.get?.('guide') || '';
     const requestedStep = params?.get?.('step');
     const guide = findGuide(requestedId);
@@ -1523,16 +1343,15 @@ export async function initGuides({
   }
 
   function parameters() {
-    if (!activeGuideId) return {};
-    const result = { guide: activeGuideId };
-    if (viewMode === 'step' && activeStepNumber > 1) {
-      result.step = String(activeStepNumber);
+    const result = {};
+    if (activeTrack) result.track = activeTrack;
+    if (activeGuideId) {
+      result.guide = activeGuideId;
+      if (viewMode === 'step' && activeStepNumber > 1) {
+        result.step = String(activeStepNumber);
+      }
     }
     return result;
-  }
-
-  function refreshRelated() {
-    render();
   }
 
   render();
@@ -1540,10 +1359,16 @@ export async function initGuides({
   return {
     restore,
     parameters,
-    refreshRelated,
     openGuide,
     returnToHub,
+    setTrack,
     goToStep,
+    getTracks: () => tracks.slice(),
+    getActiveTrack: () => activeTrack,
+    getProgress: () => ({
+      completed: guides.filter((guide) => completedIds.has(guide.id)).length,
+      total: guides.length,
+    }),
     getActiveGuideId: () => activeGuideId,
     getActiveStep: () => activeStepNumber,
     getViewMode: () => viewMode,

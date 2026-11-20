@@ -17,11 +17,11 @@ const DEFAULT_POSTER_STYLE = 'apple-light';
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 const FONT_DISPLAY =
-  '"DM Sans", "Noto Sans SC", "SF Pro Display", "PingFang SC", "Microsoft YaHei Light", "DengXian Light", "Helvetica Neue", sans-serif';
+  '"SF Pro Display", "PingFang SC", "Microsoft YaHei Light", "DengXian Light", "Segoe UI", "Microsoft YaHei", "Helvetica Neue", sans-serif';
 const FONT_SANS =
-  '-apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Google Sans", "Helvetica Neue", "Microsoft YaHei", sans-serif';
+  '-apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif';
 const FONT_MONO =
-  '"IBM Plex Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+  '"SF Mono", SFMono-Regular, Menlo, Monaco, "Cascadia Mono", Consolas, "Liberation Mono", monospace';
 
 const STATUS_WEIGHT = Object.freeze({
   URGENT: 3,
@@ -67,10 +67,10 @@ export const POSTER_STYLES = Object.freeze({
   'space-gray': Object.freeze({
     id: 'space-gray',
     name: '深空灰',
-    bg: '#0B0C0E',
-    panelBg: '#141519',
-    leadPanelBg: '#171921',
-    leadUrgentBg: '#1E1618',
+    bg: '#000000',
+    panelBg: '#111111',
+    leadPanelBg: '#151515',
+    leadUrgentBg: '#1A1112',
     ink: '#F5F5F7',
     bodyInk: '#C7C7CC',
     mutedInk: '#8E8E93',
@@ -83,7 +83,7 @@ export const POSTER_STYLES = Object.freeze({
     strongRule: 'rgba(255, 255, 255, 0.18)',
     artPrimary: 'rgba(41, 151, 255, 0.22)',
     artSecondary: 'rgba(255, 255, 255, 0.07)',
-    codeBg: '#0E1014',
+    codeBg: '#0A0A0A',
     codeBorder: 'rgba(255, 255, 255, 0.11)',
     codeInk: '#E5E5EA',
   }),
@@ -671,7 +671,7 @@ function drawEditorialPanel(ctx, item, index, bounds, totalCount, palette) {
 }
 
 
-const PUBLIC_ORIGIN = 'https://ai-intel-radar.teddyshen619.workers.dev';
+const PUBLIC_ORIGIN = 'https://radarqs.fyi';
 
 function posterAddress(item) {
   const location = globalThis.location;
@@ -842,8 +842,6 @@ export function drawPoster(canvas, selectedItems, meta = {}) {
    Modal UI (Apple Newsroom / Gallery Preview Studio)
    ========================================================================== */
 
-const DRAWER_STYLE_ID = 'ai-radar-poster-drawer-styles';
-
 function createCloseSvg() {
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('viewBox', '0 0 24 24');
@@ -869,207 +867,6 @@ function createCloseSvg() {
 
   svg.append(l1, l2);
   return svg;
-}
-
-function ensureDrawerStyles() {
-  if (typeof document === 'undefined') return;
-  if (document.getElementById(DRAWER_STYLE_ID)) return;
-
-  const style = document.createElement('style');
-  style.id = DRAWER_STYLE_ID;
-  style.textContent = `
-    .poster-backdrop {
-      --p-overlay: rgba(0, 0, 0, 0.34);
-      --p-bg: #FFFFFF;
-      --p-subtle: #F5F5F7;
-      --p-border: rgba(0, 0, 0, 0.09);
-      --p-ink: #1D1D1F;
-      --p-muted: #6E6E73;
-      --p-accent: #0066CC;
-      position: fixed;
-      inset: 0;
-      z-index: 46;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: transparent;
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-      transition: background-color 180ms ease, backdrop-filter 180ms ease;
-    }
-    html.dark .poster-backdrop,
-    html[data-theme="dark"] .poster-backdrop {
-      --p-overlay: rgba(0, 0, 0, 0.72);
-      --p-bg: #0E0F12;
-      --p-subtle: #15171C;
-      --p-border: rgba(255, 255, 255, 0.11);
-      --p-ink: #F5F5F7;
-      --p-muted: #8E8E93;
-      --p-accent: #2997FF;
-    }
-    .poster-backdrop[data-open="true"] {
-      background: var(--p-overlay);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .poster-backdrop[hidden] { display: none !important; }
-    .poster-dialog {
-      width: min(1080px, 100%);
-      height: min(860px, calc(100vh - 40px));
-      display: flex;
-      flex-direction: column;
-      background: var(--p-bg);
-      border: 1px solid var(--p-border);
-      border-radius: 2px;
-      color: var(--p-ink);
-      overflow: hidden;
-      min-width: 0;
-      transform: translate3d(0, 10px, 0);
-      transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .poster-backdrop[data-open="true"] .poster-dialog {
-      transform: translate3d(0, 0, 0);
-    }
-    .poster-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px 20px;
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--p-border);
-    }
-    .poster-header-left {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      min-width: 0;
-    }
-    .poster-style-tabs {
-      display: inline-flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .poster-style-btn {
-      border: 0;
-      border-bottom: 2px solid transparent;
-      background: transparent;
-      padding: 4px 0;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--p-muted);
-      cursor: pointer;
-      transition: color 150ms ease, border-color 150ms ease;
-    }
-    .poster-style-btn:hover { color: var(--p-ink); }
-    .poster-style-btn[data-active="true"] {
-      color: var(--p-ink);
-      font-weight: 600;
-      border-bottom-color: var(--p-ink);
-    }
-    .poster-body {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: grid;
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-      overflow: hidden;
-    }
-    .poster-list-pane {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      min-height: 0;
-      border-right: 1px solid var(--p-border);
-    }
-    .poster-list-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 12px 24px;
-      border-bottom: 1px solid var(--p-border);
-      font-size: 12.5px;
-      color: var(--p-muted);
-    }
-    .poster-list-scroll {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow-y: auto;
-    }
-    .poster-item-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 15px 24px;
-      border-bottom: 1px solid var(--p-border);
-      border-left: 2px solid transparent;
-      cursor: pointer;
-      transition: background-color 150ms ease, border-color 150ms ease;
-    }
-    .poster-item-row:hover { background: var(--p-subtle); }
-    .poster-item-row[data-selected="true"] {
-      background: var(--p-subtle);
-      border-left-color: var(--p-accent);
-    }
-    .poster-item-row[data-fixed="true"] { opacity: 0.6; }
-    .poster-preview-pane {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-width: 0;
-      min-height: 0;
-      padding: 28px 24px 20px;
-      background: var(--p-subtle);
-      overflow-y: auto;
-    }
-    .poster-canvas-frame {
-      flex: 1 1 0%;
-      width: 100%;
-      min-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .poster-canvas-el {
-      display: block;
-      aspect-ratio: 750 / 1334;
-      width: auto;
-      height: auto;
-      max-width: min(100%, 386px);
-      max-height: 100%;
-      border: 1px solid var(--p-border);
-      background: #FFFFFF;
-    }
-    .poster-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 24px;
-      border-top: 1px solid var(--p-border);
-    }
-    @media (max-width: 1023px) {
-      .poster-backdrop { padding: 0; }
-      .poster-dialog { width: 100%; height: 100dvh; max-height: 100vh; border-radius: 0; border: 0; }
-      .poster-header { padding: 14px 18px; }
-      .poster-header-left { order: 1; flex: 1 1 auto; }
-      .poster-header-right { order: 2; flex-shrink: 0; }
-      .poster-style-tabs { order: 3; flex: 0 0 100%; padding-top: 6px; border-top: 1px solid var(--p-border); }
-      .poster-list-header { padding: 11px 18px; }
-      .poster-item-row { padding: 14px 18px; }
-      .poster-body { display: flex; flex-direction: column; overflow-y: auto; }
-      .poster-list-pane { flex: 0 0 auto; border-right: 0; border-bottom: 1px solid var(--p-border); }
-      .poster-list-scroll { max-height: 250px; }
-      .poster-preview-pane { flex: 0 0 auto; overflow: visible; padding: 20px 18px; }
-      .poster-canvas-frame { flex: none; height: auto; }
-      .poster-canvas-el { width: min(100%, 320px); max-height: none; }
-      .poster-footer { padding: 12px 18px; flex-wrap: wrap; }
-      .poster-footer > span { display: none; }
-    }
-  `;
-  document.head.appendChild(style);
 }
 
 function computeDefaultSelectedIds(sortedItems) {
@@ -1193,7 +990,6 @@ export function initPosterGenerator({
   mountRoot,
   onToast,
 } = {}) {
-  ensureDrawerStyles();
 
   const safeGetSortedItems = () => {
     try {
@@ -1395,7 +1191,7 @@ export function initPosterGenerator({
       btn.dataset.active = active ? 'true' : 'false';
       btn.setAttribute('aria-pressed', active ? 'true' : 'false');
     }
-    canvasEl.style.backgroundColor = currentStyle === 'space-gray' ? '#0B0C0E' : '#FFFFFF';
+    canvasEl.style.backgroundColor = currentStyle === 'space-gray' ? '#000000' : '#FFFFFF';
   }
 
   function renderChecklist(sortedItems) {

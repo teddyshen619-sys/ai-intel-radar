@@ -1,14 +1,21 @@
 """在临时课程库中验收 Local Studio。运行 python scraper/test_studio.py。"""
 
 import base64
+import io
 import json
+import os
 import re
+import shutil
 import struct
+import subprocess
+import sys
 import tempfile
 import threading
 import unittest
 import zlib
+from contextlib import redirect_stderr, redirect_stdout
 from datetime import datetime, timedelta, timezone
+from html.parser import HTMLParser
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 from types import SimpleNamespace
@@ -18,10 +25,11 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 if __package__:
-    from . import guides_radar, studio
+    from . import guides_radar, studio, validate_data
 else:
     import guides_radar
     import studio
+    import validate_data
 
 
 EMPTY = {"schema_version": "4.0", "guides": []}
@@ -280,6 +288,108 @@ class StudioTest(unittest.TestCase):
         saved = self.snapshots()
         self.call("/create", {"title": "过期窗口", "revision": initial["revision"]}, 409)
         self.assertEqual(self.snapshots(), saved)
+
+    def test_save_without_tags_control_preserves_tags(self):
+        class EditorFields(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.editor = False
+                self.names = []
+
+            def handle_starttag(self, tag, attributes):
+                attributes = dict(attributes)
+                if tag == "form":
+                    self.editor = attributes.get("id") == "editor"
+                if self.editor and tag in {"input", "textarea"} and "name" in attributes:
+                    self.names.append(attributes["name"])
+
+            def handle_endtag(self, tag):
+                if tag == "form":
+                    self.editor = False
+
+        parser = EditorFields()
+        parser.feed((studio.ROOT / "studio/index.html").read_text(encoding="utf-8"))
+        self.assertNotIn("related_tags", parser.names)
+        self.seed(1)
+        old = self.call()["guides"][0]
+        created = self.call("/create", {"title": "无标签输入的新课程"})
+        new = next(g for g in created["guides"] if g["id"] == created["active_id"])
+        for guide in (old, new):
+            with self.subTest(tags=guide["related_tags"]):
+                draft = {**guide, "related_tags": ", ".join(guide["related_tags"])}
+                for key in parser.names:
+                    draft[key] = guide[key]
+                initial = self.snapshots()
+                saved = self.call("/save", draft)
+                actual = next(g for g in saved["guides"] if g["id"] == guide["id"])
+                self.assertEqual(actual["related_tags"], guide["related_tags"])
+                self.assertEqual(self.snapshots(), initial)
+
+    def test_javascript_without_tags_control(self):
+        node = os.environ.get("STUDIO_TEST_NODE") or shutil.which("node")
+        if not node:
+            self.skipTest("JavaScript 运行时不可用；设置 STUDIO_TEST_NODE 可执行真实 app.js 兼容测试")
+        self.seed(1)
+        old = self.call()["guides"][0]
+        created = self.call("/create", {"title": "无标签新课程"})
+        new = next(g for g in created["guides"] if g["id"] == created["active_id"])
+        script = r'''
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const input = JSON.parse(fs.readFileSync(0, "utf8"));
+class Element {
+  constructor(tag) {
+    this.tagName = tag; this.children = []; this.dataset = {}; this.elements = {};
+    this.listeners = {}; this.value = ""; this.open = false;
+  }
+  append(...items) { this.children.push(...items); }
+  replaceChildren(...items) { this.children = items; }
+  setAttribute() {}
+  addEventListener(name, handler) { this.listeners[name] = handler; }
+  querySelector() { return new Element("button"); }
+  reset() {}
+}
+const nodes = new Map();
+const document = {
+  getElementById(id) { if (!nodes.has(id)) nodes.set(id, new Element("div")); return nodes.get(id); },
+  querySelectorAll() { return []; },
+  querySelector() { return new Element("div"); }
+};
+const form = document.getElementById("editor");
+const html = input.html.match(/<form id="editor">([\s\S]*?)<\/form>/)[1];
+for (const match of html.matchAll(/name="([^"]+)"/g)) form.elements[match[1]] = new Element("input");
+assert.equal(form.elements.related_tags, undefined);
+const source = input.source.replace(/^import[^\n]*\n/, "").replace("pane(\"edit\"); load();", "pane(\"edit\"); await load();");
+const checks = `
+assert.ok(library, $("message").textContent);
+select(expected.id);
+assert.equal(draft.related_tags, expected.related_tags.join(", "));
+editor.elements.title.value = expected.title + "（兼容测试）";
+editor.elements.title.listeners.input({target: editor.elements.title});
+editor.onsubmit({preventDefault() {}});
+const deadline = Date.now() + 5000;
+while (busy && Date.now() < deadline) await new Promise(resolve => setImmediate(resolve));
+assert.equal(busy, false);
+assert.equal($("status").textContent, "已同步", $("message").textContent);
+assert.deepEqual(library.guides.find(g => g.id === expected.id).related_tags, expected.related_tags);
+`;
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction("document", "window", "fetch", "el", "renderMarkdown", "assert", "expected", source + checks);
+const window = {addEventListener() {}, confirm() { return true; }};
+run(document, window, (url, options) => fetch(input.base + url, options), tag => new Element(tag),
+  () => {}, assert, input.guide).catch(error => { console.error(error); process.exitCode = 1; });
+'''
+        for guide in (old, new):
+            with self.subTest(tags=guide["related_tags"]):
+                payload = {"html": (studio.ROOT / "studio/index.html").read_text(encoding="utf-8"),
+                           "source": (studio.ROOT / "studio/app.js").read_text(encoding="utf-8"),
+                           "base": self.url.removesuffix("/api/guides"), "guide": guide}
+                result = subprocess.run([node, "-e", script], input=json.dumps(payload), text=True,
+                                        encoding="utf-8", capture_output=True, cwd=self.root, timeout=15)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                actual = next(g for g in self.call()["guides"] if g["id"] == guide["id"])
+                self.assertEqual(actual["related_tags"], guide["related_tags"])
+                self.assertEqual(actual["title"], guide["title"] + "（兼容测试）")
 
     def test_clear_optional_fields_and_steps_round_trip(self):
         self.seed()
@@ -561,6 +671,189 @@ class StudioTest(unittest.TestCase):
         self.call("/upload-image", payload, 415, {"Content-Type": "text/plain"})
         self.call("/upload-image", {**payload, "revision": "stale"}, 409)
         self.assertEqual(self.snapshots(), initial)
+
+
+class GuidesValidationTest(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name).resolve()
+        for folder in ("data", "web/data", "web/guides-media/test-lesson"):
+            (self.root / folder).mkdir(parents=True, exist_ok=True)
+        (self.root / "data/guides_schema.json").write_bytes(
+            (studio.ROOT / "data/guides_schema.json").read_bytes())
+        self.bundle = studio.build_guides.compile_guides(
+            self.root, {self.root / "guides/test.md": FIXTURE.encode()})
+        self.write_bundle(self.bundle)
+
+    def write_bundle(self, data):
+        payload = (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode()
+        for folder in ("data", "web/data"):
+            (self.root / folder / "guides.json").write_bytes(payload)
+
+    def snapshots(self):
+        return {p: (p.read_bytes(), p.stat().st_mtime_ns)
+                for p in self.root.rglob("*") if p.is_file()}
+
+    def check_readonly(self):
+        initial = self.snapshots()
+        with patch.object(Path, "write_bytes", side_effect=AssertionError("校验不能写文件")), \
+             patch.object(Path, "write_text", side_effect=AssertionError("校验不能写文件")), \
+             patch.object(Path, "unlink", side_effect=AssertionError("校验不能删文件")):
+            errors = validate_data.validate_guides(self.root)
+        self.assertEqual(self.snapshots(), initial)
+        return errors
+
+    def test_valid_empty_and_optional_guides_are_readonly(self):
+        self.assertEqual(self.check_readonly(), [])
+        guide = self.bundle["guides"][0]
+        guide.update(track="", summary="", author_note="", related_tags=[], body_markdown="")
+        guide["steps"] = [{"number": 1, "title": "", "markdown": "", "code_blocks": [], "risk_notes": []}]
+        self.write_bundle(self.bundle)
+        self.assertEqual(self.check_readonly(), [])
+        self.write_bundle(EMPTY)
+        self.assertEqual(self.check_readonly(), [])
+
+    def test_reject_missing_mismatched_and_invalid_bundles(self):
+        for name in ("data/guides.json", "web/data/guides.json", "data/guides_schema.json"):
+            path = self.root / name
+            original = path.read_bytes()
+            path.unlink()
+            self.assertIn(name, "\n".join(self.check_readonly()))
+            path.write_bytes(original)
+        main = (self.root / "data/guides.json").read_bytes()
+        (self.root / "web/data/guides.json").write_bytes(main + b"\n")
+        self.assertIn("字节不一致", "\n".join(self.check_readonly()))
+        (self.root / "web/data/guides.json").write_bytes(EMPTY_BYTES)
+        self.assertIn("字节不一致", "\n".join(self.check_readonly()))
+        for folder in ("data", "web/data"):
+            (self.root / folder / "guides.json").write_bytes(b"{invalid")
+        self.assertIn("JSON", "\n".join(self.check_readonly()))
+
+    def test_reject_invalid_core_constraints_without_jsonschema(self):
+        cases = [(["schema_version"], "3.0"), (["guides"], {}), (["guides", 0, "id"], "BAD"),
+                 (["guides", 0, "order"], True), (["guides", 0, "order"], 0),
+                 (["guides", 0, "title"], ""), (["guides", 0, "source_file"], ""),
+                 (["guides", 0, "updated_at"], "2026-02-30"), (["guides", 0, "track"], None),
+                 (["guides", 0, "related_tags"], ["a", "a"]), (["guides", 0, "related_tags"], [""]),
+                 (["guides", 0, "body_markdown"], 1), (["guides", 0, "steps"], []),
+                 (["guides", 0, "steps", 0, "number"], True),
+                 (["guides", 0, "steps", 0, "markdown"], None),
+                 (["guides", 0, "steps", 0, "risk_notes"], [""]),
+                 (["guides", 0, "steps", 0, "code_blocks"], [{"language": "text", "code": 1}])]
+        with patch.dict(sys.modules, {"jsonschema": None}):
+            for keys, value in cases:
+                with self.subTest(keys=keys, value=value):
+                    data = json.loads(json.dumps(self.bundle))
+                    target = data
+                    for key in keys[:-1]:
+                        target = target[key]
+                    target[keys[-1]] = value
+                    self.write_bundle(data)
+                    self.assertTrue(self.check_readonly())
+            for key in self.bundle["guides"][0]:
+                data = json.loads(json.dumps(self.bundle))
+                del data["guides"][0][key]
+                self.write_bundle(data)
+                self.assertIn("缺少必填字段", "\n".join(self.check_readonly()))
+            data = json.loads(json.dumps(self.bundle))
+            data["guides"][0]["unexpected"] = "value"
+            self.write_bundle(data)
+            self.assertIn("未定义字段", "\n".join(self.check_readonly()))
+
+    def test_reject_duplicate_and_unsorted_courses(self):
+        first = self.bundle["guides"][0]
+        for second, expected in (({**first, "order": 2}, ".id 重复"),
+                                 ({**first, "id": "second"}, ".order 重复")):
+            self.write_bundle({"schema_version": "4.0", "guides": [first, second]})
+            self.assertIn(expected, "\n".join(self.check_readonly()))
+        self.write_bundle({"schema_version": "4.0", "guides": [{**first, "order": 2},
+                                                                               {**first, "id": "second"}]})
+        self.assertIn("升序", "\n".join(self.check_readonly()))
+
+    def test_local_images_must_exist_and_be_nonempty(self):
+        step = self.bundle["guides"][0]["steps"][0]
+        for syntax in ("![截图](guides-media/test-lesson/picture.png)",
+                       "文字 ![截\\]图](guides-media/test-lesson/picture.png) 说明",
+                       "![截图](<guides-media/test-lesson/picture.png>)"):
+            with self.subTest(syntax=syntax):
+                step["markdown"] = syntax
+                self.write_bundle(self.bundle)
+                self.assertIn("文件不存在", "\n".join(self.check_readonly()))
+                image = self.root / "web/guides-media/test-lesson/picture.png"
+                image.write_bytes(b"")
+                self.assertIn("文件为空", "\n".join(self.check_readonly()))
+                image.write_bytes(IMAGES[".png"])
+                self.assertEqual(self.check_readonly(), [])
+                image.unlink()
+
+    def test_ignore_image_examples_and_remote_sources(self):
+        self.bundle["guides"][0]["steps"][0]["markdown"] = (
+            "`![例子](guides-media/test-lesson/inline.png)`\n\n"
+            "`` 包含 ` 和 ![例子](guides-media/test-lesson/backtick.png) ``\n\n"
+            "```md\n![例子](guides-media/test-lesson/fence.png)\n```\n\n"
+            "~~~md\n![例子](guides-media/test-lesson/tilde.png)\n~~~\n\n"
+            "<!--\n![注释](guides-media/test-lesson/comment.png)\n-->\n\n"
+            "\\![转义](guides-media/test-lesson/escaped.png)\n\n"
+            "[不是图片](guides-media/test-lesson/link.png)\n\n"
+            "https://example.invalid/![](guides-media/test-lesson/inside-url.png)\n\n"
+            "![远程](https://example.invalid/guides-media/remote.png)")
+        self.write_bundle(self.bundle)
+        self.assertEqual(self.check_readonly(), [])
+
+    def test_unclosed_inline_code_does_not_hide_next_line_image(self):
+        self.bundle["guides"][0]["steps"][0]["markdown"] = (
+            "`未闭合的行内示例\n![截图](guides-media/test-lesson/missing.png)\n`")
+        self.write_bundle(self.bundle)
+        self.assertIn("文件不存在", "\n".join(self.check_readonly()))
+
+    def test_reject_unsafe_media_paths_and_symlink_escape(self):
+        step = self.bundle["guides"][0]["steps"][0]
+        for path in ("guides-media/../outside.png", "guides-media/test-lesson/%2e%2e/escape.png",
+                     "guides-media/test-lesson/a\\b.png", "guides-media/test-lesson/image.svg"):
+            step["markdown"] = f"![截图]({path})"
+            self.write_bundle(self.bundle)
+            self.assertIn("路径或格式不安全", "\n".join(self.check_readonly()))
+        step["markdown"] = "![截图](guides-media/test-lesson/picture.png)"
+        self.write_bundle(self.bundle)
+        path = self.root / "web/guides-media/test-lesson/picture.png"
+        path.write_bytes(IMAGES[".png"])
+        original_resolve = Path.resolve
+
+        def outside(value, *args, **kwargs):
+            return self.root / "outside.png" if value == path else original_resolve(value, *args, **kwargs)
+
+        with patch.object(Path, "resolve", outside):
+            self.assertIn("不能使用链接", "\n".join(self.check_readonly()))
+
+    def test_optional_full_schema_gate_is_used(self):
+        with patch.object(validate_data, "validate_with_jsonschema", return_value=["全量 Schema 拦截"]) as full:
+            self.assertIn("全量 Schema 拦截", self.check_readonly())
+        full.assert_called_once()
+        self.assertEqual(full.call_args.args[0], self.bundle)
+        self.assertEqual(full.call_args.args[1]["$defs"]["Guide"]["properties"]["steps"]["minItems"], 1)
+
+    def test_main_keeps_existing_gates_and_rejects_missing_media(self):
+        (self.root / "data/intel_data.json").write_text('{"items": []}', encoding="utf-8")
+        (self.root / "data/schema.json").write_text("{}", encoding="utf-8")
+        (self.root / "data/models_catalog.json").write_text('{"models": []}', encoding="utf-8")
+        (self.root / "data/catalog_changes.json").write_text("{}", encoding="utf-8")
+        self.bundle["guides"][0]["steps"][0]["markdown"] = "![截图](guides-media/test-lesson/missing.png)"
+        self.write_bundle(self.bundle)
+        before = self.snapshots()
+        output, errors = io.StringIO(), io.StringIO()
+        with patch.multiple(validate_data, ROOT_DIR=self.root, DATA_PATH=self.root / "data/intel_data.json",
+                            SCHEMA_PATH=self.root / "data/schema.json", CATALOG=self.root / "data/models_catalog.json"), \
+             patch.object(validate_data, "validate_stdlib", return_value=[]) as intel, \
+             patch.object(validate_data, "validate_catalog") as catalog, \
+             patch.object(validate_data, "validate_report") as report, \
+             redirect_stdout(output), redirect_stderr(errors):
+            self.assertEqual(validate_data.main(), 1)
+        intel.assert_called_once()
+        catalog.assert_called_once()
+        report.assert_called_once()
+        self.assertIn("文件不存在", errors.getvalue())
+        self.assertEqual(self.snapshots(), before)
 
 
 class GuidesRadarTest(unittest.TestCase):

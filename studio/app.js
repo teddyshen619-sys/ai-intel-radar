@@ -81,7 +81,9 @@ function select(id) {
     draft.steps = guide.steps.map(s => ({number: s.number, title: s.title,
       markdown: s.editor_markdown, risk_notes: [...s.risk_notes]}));
     draft.related_tags = guide.related_tags.join(", ");
-    for (const key of fields) editor.elements[key].value = draft[key];
+    for (const key of fields) {
+      if (editor.elements[key]) editor.elements[key].value = draft[key];
+    }
   }
   currentStep = 0; dirty = false; error(""); status("已同步");
   $("filelabel").textContent = guide ? guide.source_file.split("/").pop() : "";
@@ -385,7 +387,7 @@ $("updates-tab").onclick = () => referenceTab(true);
 $("prev").onclick = () => { if (currentStep > 0) { currentStep--; preview(); } };
 $("next").onclick = () => { if (currentStep < draft.steps.length - 1) { currentStep++; preview(); } };
 for (const key of fields) {
-  editor.elements[key].addEventListener("input", e => {
+  editor.elements[key]?.addEventListener("input", e => {
     draft[key] = key === "order" ? e.target.valueAsNumber : e.target.value;
     markDirty(key === "updated_at");
   });
