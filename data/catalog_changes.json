@@ -1,66 +1,29 @@
 {
-  "updated_at": "2026-11-20T12:01:53.699846+00:00",
-  "previous_updated_at": "2026-11-20T00:54:27.197041+00:00",
+  "updated_at": "2026-11-20T14:04:33.163311+00:00",
+  "previous_updated_at": "2026-11-20T12:01:53.699846+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
-  "new_free": [
-    "liquid/lfm-3-1.7b:free"
-  ],
+  "new_free": [],
   "price_changes": [
     {
-      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "id": "deepseek/deepseek-v4.1-flash",
       "field": "input_per_m",
-      "old": 0.036,
-      "new": 0.15,
-      "change_pct": 316.67
+      "old": 0.3,
+      "new": 0.0507,
+      "change_pct": -83.1
     },
     {
-      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "id": "deepseek/deepseek-v4.1-flash",
       "field": "output_per_m",
-      "old": 0.5,
-      "new": 0.6,
-      "change_pct": 20.0
+      "old": 1.2,
+      "new": 0.2028,
+      "change_pct": -83.1
     },
     {
-      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "id": "deepseek/deepseek-v4.1-flash",
       "field": "cache_read_per_m",
-      "old": 0.01,
-      "new": 0.003,
-      "change_pct": -70.0
-    },
-    {
-      "id": "deepseek/deepseek-v4-pro-0813",
-      "field": "input_per_m",
-      "old": 0.27,
-      "new": 1.32,
-      "change_pct": 388.89
-    },
-    {
-      "id": "deepseek/deepseek-v4-pro-0813",
-      "field": "output_per_m",
-      "old": 11.5,
-      "new": 3.96,
-      "change_pct": -65.57
-    },
-    {
-      "id": "deepseek/deepseek-v4-pro-0813",
-      "field": "cache_read_per_m",
-      "old": 0.21,
-      "new": 0.044,
-      "change_pct": -79.05
-    },
-    {
-      "id": "deepseek/deepseek-v4-flash-0731",
-      "field": "input_per_m",
-      "old": 0.1,
-      "new": 0.047,
-      "change_pct": -53.0
-    },
-    {
-      "id": "deepseek/deepseek-v4-flash-0731",
-      "field": "cache_read_per_m",
-      "old": 0.05,
-      "new": 0.035,
-      "change_pct": -30.0
+      "old": 0.006,
+      "new": 0.001014,
+      "change_pct": -83.1
     }
   ],
   "expiring": []

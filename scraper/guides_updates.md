@@ -1,15 +1,16 @@
 # 教程更新线索
 
-采集时间 2026-11-20 12:01 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-20 14:04 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
+
+本轮部分来源降级 · Import AI（降级 · https://importai.substack.com/feed：HTTP Error 403: Forbidden）
 
 ## 地区、支付与订阅
 
 关联教程 · [02-lesson-657ffec5712f](<../guides/02-lesson-657ffec5712f.md>)、[03-lesson-22ece7536789](<../guides/03-lesson-22ece7536789.md>)
 
 - [\[Billing\] Unable to cancel ClinePass or delete account; repeated payment retries and no support response](<https://github.com/cline/cline/issues/15786>) · GitHub · cline/cline · 2026-11-19 · 命中 Billing
-- [Telo](<https://www.producthunt.com/products/telo-2>) · Product Hunt · 2026-11-18 · 命中 country
 - [More paid Galaxy AI details emerge, starting with Now Brief limitations](<https://9to5google.com/2026/11/17/galaxy-ai-paywall-details-emerge-starting-with-now-brief/>) · 9to5Google · 2026-11-17 · 命中 subscriptions
 - [You can now assign Gemini ‘tasks’ for free in six countries](<https://9to5google.com/2026/11/17/gemini-tasks-free/>) · 9to5Google · 2026-11-17 · 命中 countries
 - [Put Gemini to work for you](<https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/>) · Google AI Blog · 2026-11-17 · 命中 countries
