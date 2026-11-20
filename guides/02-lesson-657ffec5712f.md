@@ -1,6 +1,6 @@
 ---
 id: lesson-657ffec5712f
-order: 2
+order: 3
 track: 通用课程
 title: 申请一张可在海外平台使用的Visa卡
 summary: 在解决网络问题后，解决支付难题
