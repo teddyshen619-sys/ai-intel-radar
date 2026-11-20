@@ -1,7 +1,7 @@
 /**
  * AI Intel Radar — Google DeepMind & Apple Newsroom Editorial Components
  * Front face: Radical stillness (only Vendor anchor + Light-weight Display Title + Regular Summary).
- * Reader: Full structured briefing, metrics, code snippet with one-click copy, and source link.
+ * Reader: Article lead, key points, optional story and command block, and source link.
  * Pure ES6 Module · Zero external dependencies · Strict textContent / createElementNS (XSS-safe) · Zero Emojis
  */
 
@@ -10,12 +10,6 @@ const TOAST_CONTAINER_ID = 'toast-container';
 const TOAST_DURATION_MS = 2400;
 const TOAST_FADE_MS = 220;
 const MAX_ACTIVE_TOASTS = 4;
-
-const CHANNEL_META = {
-  RADAR: '算力与避坑',
-  INTEL: '厂商情报站',
-  REVIEW: '测评与视频',
-};
 
 const TYPE_META = {
   BENCHMARK: { label: '深度评测' },
@@ -33,19 +27,11 @@ const STATUS_META = {
     label: '紧急',
     dotClass: 'bg-[#D93025] dark:bg-[#FF453A]',
     textClass: 'text-[#C5221F] dark:text-[#FF6961]',
-    strikethrough: false,
-  },
-  ACTIVE: {
-    label: '当前有效',
-    dotClass: 'bg-[#188038] dark:bg-[#30D158]',
-    textClass: 'text-[#188038] dark:text-[#30D158]',
-    strikethrough: false,
   },
   FIXED: {
     label: '已归档',
     dotClass: 'bg-[#86868B] dark:bg-[#636366]',
     textClass: 'text-[#6E6E73] dark:text-[#8E8E93]',
-    strikethrough: true,
   },
 };
 
@@ -393,7 +379,7 @@ export function showToast(message, type = 'info') {
 }
 
 /* ==========================================================================
-   Editorial Reader (Complete Details, Metrics, Code & Source)
+   Editorial Reader
    ========================================================================== */
 
 let readerActions = {};
@@ -499,13 +485,65 @@ function buildReaderGuideLink(item) {
   return link;
 }
 
+function isExecutableSnippet(snippet) {
+  const text = snippet.trim();
+  if (!text) return false;
+  if (text.startsWith('{') || text.startsWith('[')) {
+    try {
+      JSON.parse(text);
+      return true;
+    } catch {
+      // Bracketed prose and INI section names can also start this way.
+    }
+  }
+
+  if (/^#(?:!|\s)/.test(text)) return true;
+  if (/^[\w.-]+\/[\w.-]+(?::[\w.-]+)?$/.test(text)) return true;
+
+  // Ignore quoted arguments and inline comments when checking for prose.
+  const firstLine = text.split(/\r?\n/, 1)[0];
+  const syntax = firstLine.replace(/"(?:[^"\\]|\\.)*"|'[^']*'/g, '""').replace(/\s+#.*$/, '');
+  const command = /^(?:pip\d*|npm|npx|git|grep|codex|claude|curl|export|unset|python(?:\d+(?:\.\d+)?)?|Get-Process|docker|node|pwsh)(?:\s|$)/i;
+  if (command.test(syntax) && !/[\p{Script=Han}，。；：！？]/u.test(syntax)) return true;
+  const declaration = /^(?:from\s+[\w.]+\s+import\s+|import\s+[\w.]+(?:\s|$)|(?:const|let|var)\s+\w+\s*=)/;
+  if (declaration.test(syntax) || /^(?:[\w$.]+\s*=\s*)?[\w$.]+\([^)]*\);?$/.test(syntax)) return true;
+
+  const setting = /^(?:"[\w.-]+"|[\w.-]+)\s*[:=]\s*(?:"(?:[^"\\]|\\.)*"|'[^']*'|[\w./:+-]+),?$/;
+  const options = /^--[\w-]+(?:[= \t]+(?:"[^"]*"|'[^']*'|[\w./:+-]+))*$/;
+  return text.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+    .every(line => setting.test(line) || options.test(line) || /^\[[\w.-]+\]$/.test(line));
+}
+
+function readerContent(item) {
+  const points = Array.isArray(item.details)
+    ? item.details.filter(entry => typeof entry === 'string' && entry.trim()).map(entry => entry.trim())
+    : [];
+  const snippet = typeof item.action_snippet === 'string' ? item.action_snippet : '';
+  const command = isExecutableSnippet(snippet) ? snippet : '';
+  if (!command && snippet.trim()) points.push(snippet.trim());
+
+  const story = [];
+  if (Array.isArray(item.story)) {
+    for (const section of item.story) {
+      if (!Array.isArray(section?.paragraphs)) continue;
+      const heading = typeof section.heading === 'string' ? section.heading.trim() : '';
+      const paragraphs = section.paragraphs.filter(p => typeof p === 'string' && p.trim());
+      if (heading || paragraphs.length) story.push({ heading, paragraphs });
+    }
+  }
+  return { points, story, command };
+}
+
 export function itemMarkdown(item) {
   const source = readableSourceUrl(item.source_url);
+  const { points, story } = readerContent(item);
   return [
     '## ' + item.title,
     [item.date, item.vendor, item.metric_badge].filter(Boolean).join(' · '),
     item.tldr,
-    (item.details || []).map(detail => '- ' + detail).join('\n'),
+    points.length ? '### 关键要点' : '',
+    points.map(point => '- ' + point).join('\n'),
+    ...story.flatMap(({ heading, paragraphs }) => [heading && '### ' + heading, ...paragraphs]),
     source && '[原文 · ' + item.source_platform + '](<' + source + '>)'
   ].filter(Boolean).join('\n\n');
 }
@@ -525,7 +563,7 @@ function buildReaderSnippetBlock(snippet) {
   const label = el(
     'span',
     'text-[12px] text-[#6E6E73] dark:text-[#8E8E93]',
-    '可执行片段与配置'
+    '命令与配置'
   );
 
   const copyBtn = el(
@@ -585,44 +623,6 @@ function buildReaderSnippetBlock(snippet) {
   return outer;
 }
 
-function buildReaderDetailRow(text, idx, isFixed) {
-  const li = el('li', 'flex items-start gap-4 min-w-0 max-w-full');
-
-  const num = el(
-    'span',
-    'mt-[3px] font-mono text-[11.5px] tabular-nums text-[#86868B] dark:text-[#6E6E73] select-none shrink-0',
-    String(idx + 1).padStart(2, '0')
-  );
-
-  const content = el(
-    'p',
-    `min-w-0 flex-1 text-[15px] leading-[1.74] break-words [overflow-wrap:anywhere] ${
-      isFixed
-        ? 'text-[#86868B] dark:text-[#8E8E93]'
-        : 'text-[#424245] dark:text-[#D1D1D6]'
-    }`
-  );
-
-  const raw = String(text ?? '');
-  const prefixMatch = raw.match(/^([\u4e00-\u9fa5A-Za-z0-9\s/+-]{2,14}：)\s*(.+)$/);
-  if (prefixMatch) {
-    const leadSpan = el(
-      'span',
-      isFixed
-        ? 'font-medium text-[#6E6E73] dark:text-[#8E8E93]'
-        : 'font-medium text-[#1D1D1F] dark:text-[#F5F5F7]',
-      prefixMatch[1]
-    );
-    const bodySpan = el('span', '', prefixMatch[2]);
-    content.append(leadSpan, bodySpan);
-  } else {
-    content.textContent = raw;
-  }
-
-  li.append(num, content);
-  return li;
-}
-
 export function closeIntelReader(options = {}) {
   readerActions.onClose?.(options);
 }
@@ -632,29 +632,17 @@ export function openIntelReader(item, triggerEl = null) {
   const panel = document.getElementById('intel-detail-panel');
   if (!panel) return;
   const date = String(item.date ?? '').trim();
-  const channelKey = String(item.channel ?? '').trim().toUpperCase();
-  const channelLabel = CHANNEL_META[channelKey] || '';
-  const typeKey = String(item.type ?? '').trim().toUpperCase();
-  const typeMeta = TYPE_META[typeKey] || { label: typeKey || '动态' };
-  const statusKey = String(item.status ?? 'ACTIVE').trim().toUpperCase();
-  const statusMeta = STATUS_META[statusKey] || STATUS_META.ACTIVE;
-  const isUrgent = statusKey === 'URGENT';
-  const isFixed = statusKey === 'FIXED';
-
-  const vendor = String(item.vendor ?? '').trim();
-  const impact = String(item.impact ?? '').trim();
+  const statusKey = String(item.status ?? '').trim().toUpperCase();
   const title = String(item.title ?? '').trim() || '未命名情报';
-  const valueTag = String(item.value_tag ?? '').trim();
   const tldr = String(item.tldr ?? '').trim();
-  const details = Array.isArray(item.details)
-    ? item.details.filter((entry) => typeof entry === 'string' && entry.trim())
-    : [];
-  const rawSnippet = typeof item.action_snippet === 'string' ? item.action_snippet : '';
-  const hasSnippet = rawSnippet.trim().length > 0;
+  const { points, story, command } = readerContent(item);
   const sourcePlatform = String(item.source_platform ?? '').trim();
+  const byline = String(item.vendor ?? '').trim() || sourcePlatform;
   const safeSourceUrl = readableSourceUrl(item.source_url);
 
   const shell = el('article', 'guide-lesson-shell intel-reader');
+  shell.tabIndex = -1;
+  shell.setAttribute('aria-labelledby', 'intel-detail-title');
   const topbar = el('div', 'guide-lesson-topbar');
   const back = el('button', 'guide-back-btn', readerActions.backLabel?.() || '← 返回情报列表');
   back.type = 'button';
@@ -669,30 +657,23 @@ export function openIntelReader(item, triggerEl = null) {
 
   const frag = document.createDocumentFragment();
 
-  // 1. Quiet status & date metadata
-  const eyebrow = el(
-    'div',
-    'flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px]'
-  );
-  const statusBadge = el('span', `inline-flex items-center gap-1.5 ${statusMeta.textClass}`);
-  const dot = el('span', `h-1.5 w-1.5 rounded-full shrink-0 ${statusMeta.dotClass}`);
-  dot.setAttribute('aria-hidden', 'true');
-  statusBadge.append(dot, el('span', '', statusMeta.label));
-  eyebrow.appendChild(statusBadge);
-
-  for (const label of [channelLabel, typeMeta.label, vendor].filter(Boolean)) {
-    const value = el('span', 'reader-meta-part', label);
-    if (label === vendor) value.classList.add('font-editorial-vendor');
-    eyebrow.append(value);
+  const eyebrow = el('div', 'flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px]');
+  if (statusKey === 'URGENT' || statusKey === 'FIXED') {
+    const status = STATUS_META[statusKey];
+    const badge = el('span', 'inline-flex items-center gap-1.5 ' + status.textClass);
+    const dot = el('span', 'h-1.5 w-1.5 rounded-full shrink-0 ' + status.dotClass);
+    dot.setAttribute('aria-hidden', 'true');
+    badge.append(dot, el('span', '', status.label));
+    eyebrow.append(badge);
   }
+  if (byline) eyebrow.append(el('span', 'reader-meta-part', byline));
   if (date) {
     const time = el('time', 'reader-meta-part tabular-nums', formatEditorialDate(date, { includeYear: true }));
     time.dateTime = date;
     eyebrow.append(time);
   }
-  frag.appendChild(eyebrow);
+  if (eyebrow.childElementCount) frag.append(eyebrow);
 
-  // 2. Refined Light-Weight Display Article Title
   const heading = el(
     'h1',
     'font-editorial-display mt-4 text-[26px] sm:text-[31px] tracking-[-0.024em] leading-[1.24] text-[#1D1D1F] dark:text-[#F5F5F7] break-words [overflow-wrap:anywhere]',
@@ -700,97 +681,48 @@ export function openIntelReader(item, triggerEl = null) {
   );
   heading.id = 'intel-detail-title';
   frag.appendChild(heading);
-  if (item.metric_badge) frag.append(el('p', 'reader-metric', item.metric_badge));
   const preview = el('div', 'reader-preview');
   appendCover(preview, item);
   if (preview.childElementCount) frag.append(preview);
 
-  // 3. Flat Tonal Value & Audience Strip
-  if (valueTag || impact) {
-    const summaryBand = el(
-      'div',
-      'mt-6 grid grid-cols-1 gap-5 bg-[#F5F5F7] px-6 py-5 sm:grid-cols-2 dark:bg-[#111111]'
-    );
-
-    if (valueTag) {
-      const col = el('div', 'min-w-0');
-      col.append(
-        el('p', 'text-[11.5px] text-[#86868B] dark:text-[#8E8E93]', '核心价值'),
-        el(
-          'p',
-          `font-editorial-display mt-1.5 text-[22px] tracking-[-0.02em] ${
-            isFixed
-              ? 'text-[#6E6E73] line-through dark:text-[#8E8E93]'
-              : isUrgent
-                ? 'text-[#C5221F] dark:text-[#FF6961]'
-                : 'text-[#0066CC] dark:text-[#2997FF]'
-          }`,
-          valueTag
-        )
-      );
-      summaryBand.appendChild(col);
-    }
-
-    if (impact) {
-      const col = el('div', 'min-w-0');
-      col.append(
-        el('p', 'text-[11.5px] text-[#86868B] dark:text-[#8E8E93]', '适用对象'),
-        el(
-          'p',
-          'mt-1.5 text-[14.5px] leading-[1.58] text-[#1D1D1F] dark:text-[#F5F5F7] break-words',
-          impact
-        )
-      );
-      summaryBand.appendChild(col);
-    }
-
-    frag.appendChild(summaryBand);
-  }
-
-  // 4. Full Lead Summary
-  if (tldr) {
-    frag.appendChild(
-      el(
-        'p',
-        'mt-7 max-w-[60ch] text-[15.5px] leading-[1.78] text-[#1D1D1F] dark:text-[#E5E5EA] break-words [overflow-wrap:anywhere]',
-        tldr
-      )
-    );
-  }
-
-  // 5. Structured Key Details
-  if (details.length > 0) {
-    const detailsSection = el(
-      'section',
-      'mt-8 border-t border-black/[0.08] pt-7 dark:border-white/[0.10]'
-    );
-    detailsSection.appendChild(
-      el(
-        'h2',
-        'text-[12.5px] tracking-[0.04em] text-[#6E6E73] dark:text-[#8E8E93]',
-        '关键要点'
-      )
-    );
-
-    const list = el('ol', 'mt-5 space-y-4 min-w-0 max-w-full');
-    details.forEach((entry, idx) => {
-      list.appendChild(buildReaderDetailRow(entry, idx, isFixed));
+  if (tldr) frag.append(el('p', 'reader-standfirst', tldr));
+  if (points.length) {
+    const section = el('section', 'reader-key-points');
+    const list = el('ol');
+    points.forEach((point, index) => {
+      const row = el('li');
+      const number = el('span', 'reader-point-number', String(index + 1).padStart(2, '0'));
+      number.setAttribute('aria-hidden', 'true');
+      const content = el('p');
+      const prefix = point.match(/^([\p{L}\p{N} /+–-]{1,14}(?:：|:(?=\s)))\s*/u);
+      if (prefix) content.append(el('strong', '', prefix[1]), point.slice(prefix[0].length));
+      else content.textContent = point;
+      row.append(number, content);
+      list.append(row);
     });
-    detailsSection.appendChild(list);
-    frag.appendChild(detailsSection);
+    section.append(el('h2', '', '关键要点'), list);
+    frag.append(section);
   }
-
-  // 6. Executable Action Snippet + One-Click Copy
-  if (hasSnippet) {
+  if (story.length) {
+    const articleStory = el('section', 'reader-story');
+    articleStory.append(el('h2', '', '新闻详述'));
+    for (const { heading, paragraphs } of story) {
+      const section = el('div');
+      if (heading) section.append(el('h3', '', heading));
+      for (const paragraph of paragraphs) section.append(el('p', '', paragraph));
+      articleStory.append(section);
+    }
+    frag.append(articleStory);
+  }
+  if (command) {
     const snippetSection = el(
       'section',
       'mt-8 border-t border-black/[0.08] pt-7 dark:border-white/[0.10]'
     );
-    snippetSection.appendChild(buildReaderSnippetBlock(rawSnippet));
+    snippetSection.appendChild(buildReaderSnippetBlock(command));
     frag.appendChild(snippetSection);
   }
 
-  // 7. Clean Source Link Only (Zero archive ID / date micro-text clutter)
   if (safeSourceUrl) {
     const colophon = el(
       'footer',
@@ -849,7 +781,7 @@ export function openIntelReader(item, triggerEl = null) {
   body.append(frag);
   panel.replaceChildren(shell);
   readerActions.onOpen?.(item, triggerEl);
-  back.focus({ preventScroll: true });
+  shell.focus({ preventScroll: true });
 }
 
 /* ==========================================================================

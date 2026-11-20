@@ -673,6 +673,40 @@ run(document, window, (url, options) => fetch(input.base + url, options), tag =>
         self.assertEqual(self.snapshots(), initial)
 
 
+class IntelStoryValidationTest(unittest.TestCase):
+    def test_optional_story_sections(self):
+        item = {
+            "id": "ai-20261119-01", "date": "2026-11-19", "channel": "INTEL",
+            "type": "PRODUCT", "status": "ACTIVE", "vendor": "测试", "priority": 1,
+            "impact": "读者", "title": "测试报道", "value_tag": "更新", "tldr": "概述",
+            "details": ["要点"], "action_snippet": "", "source_platform": "官网",
+            "source_url": "https://example.org/news",
+        }
+        data = {"updated_at": "2026-11-19T00:00:00Z", "items": [item]}
+        self.assertEqual(validate_data.validate_stdlib(data), [])
+
+        section = {"paragraphs": ["第一段", "第二段"]}
+        item["story"] = [section, {**section, "heading": "题" * 80}]
+        self.assertEqual(validate_data.validate_stdlib(data), [])
+
+        for story, path in (
+            (None, "story"), ({}, "story"), ([], "story"),
+            ([section, "正文"], "story[1]"), ([{}], "story[0].paragraphs"),
+            ([{**section, "other": True}], "story[0]"),
+            ([{**section, "heading": ""}], "story[0].heading"),
+            ([{**section, "heading": None}], "story[0].heading"),
+            ([{**section, "heading": "题" * 81}], "story[0].heading"),
+            ([{"paragraphs": "正文"}], "story[0].paragraphs"),
+            ([{"paragraphs": []}], "story[0].paragraphs"),
+            ([{"paragraphs": ["正文", ""]}], "story[0].paragraphs[1]"),
+            ([{"paragraphs": [1]}], "story[0].paragraphs[0]"),
+        ):
+            with self.subTest(story=story):
+                item["story"] = story
+                errors = validate_data.validate_stdlib(data)
+                self.assertTrue(any(f"items[0].{path} " in error for error in errors), errors)
+
+
 class GuidesValidationTest(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()

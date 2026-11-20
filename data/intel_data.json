@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-21T00:58:00+08:00",
+  "updated_at": "2026-11-21T02:08:16+08:00",
   "items": [
     {
       "id": "ai-20261120-28",
@@ -23,7 +23,43 @@
       ],
       "action_snippet": "",
       "source_platform": "Levent Alpöge / The Verge / HN",
-      "source_url": "https://alpo.ge/remark.pdf"
+      "source_url": "https://alpo.ge/remark.pdf",
+      "story": [
+        {
+          "heading": "从“不可能任务”到 IPO 次夜的一纸短信",
+          "paragraphs": [
+            "将这则声明推向舆论风暴眼的，并不是一位匿名网友，而是一位履历极为硬核的数论学者。Levent Alpöge 毕业于哈佛大学并获普林斯顿大学数学博士学位，同时是哈佛学会（Harvard Society of Fellows）初级研究员，曾与 Manjul Bhargava、Wei Ho 及 Ari Shnidman 合作解决了所有数域整数环上的希尔伯特第十问题。他在个人主页写道，自己高中时期曾用刚诞生的 CUDA 做医学计算机视觉，随后一头扎进纯数领域，直到 GPT-4 出现后认为这是“人类创造过的最有趣的事物”，才重新回到计算机科学并加入 Anthropic 担任技术人员。",
+            "这场长跑在 2026 年下半年其实早有伏笔。今年 7 月，Alpöge 曾公开宣称借助 Claude 解决了已有 87 年历史的 Jacobian 猜想；8 月 10 日，Anthropic 官方博客曾披露非数学背景员工 Jarred Sumner 在 Claude Code 中连续鼓舞 Claude 调度约 60 个子代理、运行 2400 条终端命令并消耗 3100 万输出 token，将黎曼 zeta 函数临界线零点比例的无条件已知下界从 41.6% 推高至 67.2%（随后由 Alpöge、Ralph Furman 与 Eric Easley 等人复核并完成 Lean 形式化，数论学者 Brian Conrey 与 Dan Goldston 也应邀短时审阅）。不过 Anthropic 当时在文章中相当克制地坦言，并不认为那套方法能直接证出完整的黎曼猜想。",
+            "随后的 9 月还发生过一段极具戏剧性的插曲：当时 Alpöge 正与纽约大学数学教授 Tristan Buckmaster 合作，同时使用 Claude 与 OpenAI 的 Codex 攻关千禧年难题 Navier-Stokes 方程；OpenAI 在听闻竞争对手团队进展后投入上千万美元、调度 10000 个并发代理抢先宣布拿下解答，引发 Buckmaster 公开质疑其是否接触或训练自他们在 Codex 中的未公开草稿（OpenAI 予以否认，并称即使存在匿名脱敏数据影响也极不可能）。有趣的是，Alpöge 在 11 月 20 日发布的 4 页说明 remark.pdf 中，依然坦然称赞了 OpenAI 数学团队在 Ehrhart 猜想、Monge-Ampère 方程以及 Siegel 的 (2, 3, 6)-三角群技巧上的“出色品味”。",
+            "据 remark.pdf 附带的 Claude 攻关时间线，这次黎曼猜想突破从 2026 年 10 月 6 日启动，最终在 11 月 15 日至 16 日完成收尾。然而那个时间点恰逢 Anthropic 即将于周四（11 月 19 日）在纳斯达克上市。Alpöge 坦言“这个时间点糟透了”，周日深夜他先给 CEO Dario Amodei 发去短信试探性地问：“假设说，如果我真的做出了……”，随后与公司领导层及少数可信赖的数学家商议并确认必须遵守上市静默约束，直到公司 IPO 落定后的周五晚间才挂出个人站点文件。他提前驳斥了外界“借上市炒作”的臆测，而 Anthropic 官方也完全没有参与此次发布，面对 The Verge 置评请求保持沉默。"
+          ]
+        },
+        {
+          "heading": "从函数域类比到 sqrt(X) 链式 Theta 提升：人机如何拆解世纪难题",
+          "paragraphs": [
+            "1859 年提出的黎曼猜想之所以被称为数论皇冠上的明珠，是因为它掌控着素数分布的精细规律：如果黎曼 zeta 函数的全部非平凡零点都精准落在实部等于 1/2 的那条临界线上，无数依赖该假设的素数定理与数论推论将从“有条件成立”变成绝对真理。广义黎曼猜想（GRH）将其推广到狄利克雷 L-函数，而扩展黎曼猜想（ERH）则进一步覆盖一般数域。",
+            "在人机协作的分工中，人类数学家负责把整场战役拉进“可控的战场”。Alpöge 在自述中指出，在拓扑与几何结构更清晰的函数域上，Stepanov 方法曾成功利用带重数的除子（即要求函数在某点多阶导数为零）漂亮地证明过对应结论；但到了整数域上，“求导”和“重数”难以直接定义，好比你很难对整数去做微积分。Alpöge 先是凭直觉从自己熟悉的玩具模型出发，把基于绝对符号特征的 Guinand-Weil 显式公式、Bost 斜率不等式以及 qN = M^k + R 思路，嫁接到一种“原生自守”的几何框架上，在正交群 O(2, n) 上率先看到了重数达到 2 的突破口。",
+            "一旦方向对准了高阶自守形式，人类直觉与 AI 算力开始出现明显的角色反转。Alpöge 坦承自己在高秩群上的自守形式并非专家，甚至有些“年轻时的固执生疏”；但进入最后冲刺阶段后，“Claude 远远甩开了我——不，Claude 在终点线前几乎是在飞翔、起舞、闪耀。”为了在整数框架里人工模拟出不断叠加的“重数”，Claude 将问题推进到正定酉群之间的迭代 theta 提升链 U(X0) -> U(X1) -> ... -> U(Xm)，借助 Chowla-Selberg、Weyl 与 Siegel 质量公式做整除性下界，用 Rallis 跷跷板（Seesaw）对偶把周期积分转化为不依赖 Hecke 特征的 Bessel 周期，再在 10 月 19 日借用 Behrend 技巧构造特定的 Iwasawa 塔。",
+            "此前关于每次提升“代价”的先验估计往往会在 2/3 的位置卡死（这与今年 8 月前沿进展停在约 67.2% 形成耐人寻味的呼应）。最终让“同领域数学家会从椅子上摔下来”的关键一笔，是 Claude 针对长度为 X 的 von Mangoldt 素数求和直接给出的链长参数 m = sqrt(X)。面对如此庞杂的跨分支拼图，Alpöge 自己也承认：“哪怕在论文里转述 Claude 总结的高阶自守部分时，我也像在转述一段让人云里雾里的‘草稿摘要’，只能交由形式化代码来保证一切严丝合缝。”"
+          ]
+        },
+        {
+          "heading": "25 万页“AI 八股书”与 14 卷 Lean 代码的工程抉择",
+          "paragraphs": [
+            "当证明在 11 月中旬拼合完成，一个独属于大模型时代的荒诞难题摆在了 Alpöge 面前：如果让模型把整套机器论证展开成人类可读的数学文本，篇幅竟然超过了 25 万页——Claude 还俏皮地把它称作“GRH 巨著”（the GRH 'book'）。Alpöge 在第二页脚注里自嘲地回忆，他翻开所谓“定理一”时，发现模型在开篇正经八百地写道：“因为实数是全序集，所以若 σ 不等于 1/2，那么要么 σ 大于 1/2，要么 σ 小于 1/2。”",
+            "不愿往学术界倾倒一份“长达 25 万页、毫无阅读价值的巨大 AI 垃圾文本（slop）”，Alpöge 决定彻底扣下自然语言长稿，只公开 4 页自述 PDF，并在首页脚注放出 alpo.ge/lean.tar.gz.part01 至 part14 共 14 个分卷压缩包。他承诺接下来会亲自花时间啃透这套庞大证明的周边数学结构，逐步提炼出人类数学家能够读懂、讲授和简化的论文版本。",
+            "选择以 Lean 形式化证明而非传统论文先行，背后是一套截然不同的验真逻辑。Lean 这类交互式定理证明器相当于把人类或 AI 的每一步推理拆解到最底层公理，由体积精简、经过高度审计的内核（Kernel）逐行做机械检验。正如 Hacker News 评论者所言，只要目标命题（例如社区 Mathlib 库里已由人类确认无误的 RiemannZeta 定义）表述等价，且工程中没有夹带未证明的占位符或额外公理，剩下唯一可能出错的地方就只剩 Lean 编译器或内核本身。"
+          ]
+        },
+        {
+          "heading": "千人围观后的冷静期：当证明超越人类理解边界",
+          "paragraphs": [
+            "消息在美东时间周五下午经 Simon Willison 摘录与 The Verge 报道后迅速引爆技术社区，Hacker News 原帖在数小时内从 1113 分、730 条评论一路攀升至近 1500 分、超过 1000 个讨论节点。但与社交媒体上“数学终结”的欢呼相比，核心技术讨论区却呈现出了罕见的撕裂与克制。",
+            "支持者看重 Alpöge 过往的学术声誉，认为这正是“顶尖人类数学直觉 + 无限算力搜索”的半人马模式（Centaur model）巅峰样本；质疑者则迅速泼下冷水：历史上成名数学家宣称解决顶级猜想却在细节翻车的先例并不少见，14 卷压缩包刚挂上个人网站，尚无任何外部团队完成解包重放、核对定理接口是否与标准黎曼猜想完全一致，也没人确认中间是否引入了隐藏公理。更有部分评论者对作者拟人化赞美 Claude 感到不适，甚至有人调侃“就算真出了大新闻，ANT 股价当天也照样从 $97.17 跌到了 $86”。",
+            "更深层的焦虑来自认知方式本身。一位高赞评论写道，当科学从人类能够亲手阅读、理解、复现的推导，转向机器交给你 14 个压缩包和一个还没完全理解的答案，数学研究或许正在变成一门实验科学——未来人类数学家的核心工作，反倒成了去梳理和简化 AI 早已宣布成立的定理。按照克雷数学研究所（Clay Mathematics Institute）对百万美元千禧年大奖的铁律，任何解答都必须在正式发表并经受全球数学界至少两年的检验、且获得普遍共识后才能进入评奖视野。在此之前，人类只能屏息等待这 14 卷代码接受最严苛的编译与审视。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261120-02",
@@ -40,9 +76,10 @@
       "details": [
         "00:46 快照核心异动（deepseek/deepseek-v4.1-flash）：较上一周期（22:04）三项报价同步回调 +491.72%——输入由 $0.0507 升至 $0.30/M，输出由 $0.2028 升至 $1.20/M，缓存读取由 $0.001014 升至 $0.006/M，低价窗口再次关闭。",
         "同系列不同型号 ID 价差核对（截至 2026-11-21 00:46 快照）：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 当前报价为输入 $0.15/M、输出 $0.60/M、缓存读取 $0.003/M（为昨晚 20:01 调价后维持价），是当前无后缀款的一半。",
-        "其余 V4 型号当前快照报价：deepseek/deepseek-v4-pro-0813 维持昨晚 20:01 调价后的输入 $1.32/M、输出 $3.96/M、缓存读取 $0.044/M；deepseek/deepseek-v4-flash-0731 输入微调至 $0.0443/M、输出 $0.30/M、缓存读取 $0.035/M，是长输入短输出任务更低成本的备选。"
+        "其余 V4 型号当前快照报价：deepseek/deepseek-v4-pro-0813 维持昨晚 20:01 调价后的输入 $1.32/M、输出 $3.96/M、缓存读取 $0.044/M；deepseek/deepseek-v4-flash-0731 输入微调至 $0.0443/M、输出 $0.30/M、缓存读取 $0.035/M，是长输入短输出任务更低成本的备选。",
+        "操作建议：核对调用配置的完整 model ID；若需降低常规推理成本，可对照 OpenRouter 00:46 快照价（$0.15/$0.60/M）评估切换至 deepseek/deepseek-v4.1-flash-1017，或长输入场景采用 deepseek/deepseek-v4-flash-0731（$0.0443/$0.30/M）。"
       ],
-      "action_snippet": "核对调用配置的完整 model ID：若需降低常规推理成本，可对照 OpenRouter 00:46 快照价（$0.15/$0.60/M）评估切换至 deepseek/deepseek-v4.1-flash-1017，或长输入场景采用 deepseek/deepseek-v4-flash-0731（$0.0443/$0.30/M）。",
+      "action_snippet": "",
       "source_platform": "OpenRouter",
       "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash"
     },
@@ -165,11 +202,42 @@
       "details": [
         "事件起因：11 月 18 日前后，GitHub 上出现可自动批量抢注“隐藏 12 个月 $0 试用版 Google AI Ultra（20TB）”的脚本项目（数小时内暴涨至 1,400+ Stars），部分灰产还将账号拿去做第三方 API 中转倒卖。",
         "风控与后果：在 Google 开发者论坛紧急举报帖发出及安全团队介入后，Google Play Billing 与 Trust & Safety 已展开清理，违规获取的订阅被强制撤销（$0 退款冲正），部分涉及多号轮询或共用高风险虚拟卡 BIN 段的账号被直接停封，连带绑定在该主号下的 Gmail、Google Drive 文件与相册均面临锁号风险。",
-        "误伤与全行业收紧提示：Reddit（r/googlecloud、r/GooglePixel）不少正常付费或正在切换学生优惠的用户也反馈触发了自动退订误判；同期 ChatGPT Plus、Claude Pro 与 Perplexity Pro 对跨区 IP、高危虚拟预付卡及多人拼车账号的反欺诈封控也明显趋严。本平台坚决不鼓励、不提供任何绕过或卡漏洞操作步骤，切勿拿常用主力谷歌账号冒险。"
+        "误伤与全行业收紧提示：Reddit（r/googlecloud、r/GooglePixel）不少正常付费或正在切换学生优惠的用户也反馈触发了自动退订误判；同期 ChatGPT Plus、Claude Pro 与 Perplexity Pro 对跨区 IP、高危虚拟预付卡及多人拼车账号的反欺诈封控也明显趋严。本平台坚决不鼓励、不提供任何绕过或卡漏洞操作步骤，切勿拿常用主力谷歌账号冒险。",
+        "避坑提示：切勿运行来历不明的“0元脚本”或购买第三方低价中转号；正常用户尽量避免使用多人共享 BIN 段的虚拟卡与频繁跳区 IP 结账，遭误封请保留本人实体账单走官方支持申诉。"
       ],
-      "action_snippet": "切勿运行来历不明的“0元脚本”或购买第三方低价中转号；正常用户尽量避免使用多人共享 BIN 段的虚拟卡与频繁跳区 IP 结账，遭误封请保留本人实体账单走官方支持申诉。",
+      "action_snippet": "",
       "source_platform": "Google AI Developers Forum",
-      "source_url": "https://discuss.ai.google.dev/t/urgent-abuse-billing-report-newly-open-sourced-exploit-abusing-hidden-12-month-0-google-ai-ultra-offer-please-revoke-subscriptions-ban-accounts/201899"
+      "source_url": "https://discuss.ai.google.dev/t/urgent-abuse-billing-report-newly-open-sourced-exploit-abusing-hidden-12-month-0-google-ai-ultra-offer-please-revoke-subscriptions-ban-accounts/201899",
+      "story": [
+        {
+          "heading": "GitHub 几小时飙破 1400 星：一条被挖出来的隐藏计费链路",
+          "paragraphs": [
+            "风暴的导火索是一篇深夜发出的官方论坛举报帖。11 月 18 日凌晨（UTC 01:38），开发者 H_void 在 Google AI 开发者论坛紧急发帖称，一个长期存在的 Google AI Ultra 计费漏洞刚在 GitHub 上被彻底开源，短短数小时内就收获了超过 1400 颗星标和数百次 Fork，正在演变成一场自动化规模刷号浪潮。",
+            "根据帖子披露的技术机理，该漏洞出在 Google Play Billing 针对 20 TB 档位商品 g1.play.20tb（原价每月 $99.99 的 Google AI Ultra 5x 套餐）的促销校验环节：不同于防御严密的 30 TB（20x）高阶档，调用 Play 计费查询接口时会返回一套本不该出现在任何官方界面的隐藏 0 元试用优惠（涵盖 eft-1month 至 eft-12month / P1Y），且服务端结账环节并未严格核验用户资格。开源作者将其包装成了两套“零门槛工具”——一套是通过重放特定浏览器指纹直接拉起网页端 0 元一年期结账流程，另一套则借助 adb 与 frida 注入 Google One 客户端进程，用同一张银行卡循环遍历账号列表批量激活会员。"
+          ]
+        },
+        {
+          "heading": "从算力挤兑到官方定性：为什么安全团队火速出手",
+          "paragraphs": [
+            "这波羊毛之所以迅速引爆社区不满，在于 Google AI Ultra 并非单纯的 20 TB 网盘会员，它直接绑定了 Gemini 旗舰模型高配额、Project Genie 世界模型以及 Google Antigravity 开发环境的高优先级算力。随着批产出来的“0 元 12 个月 Ultra 号”被灰产大肆倒卖甚至接入第三方 API 中转池，大量正常付费用户和开发者在社区反映 Antigravity 遭遇了明显的容量限流与排队卡顿。",
+            "大约十小时后（11 月 18 日 UTC 12:02），论坛响应人员 Rebbanpalli_Naveen 正式跟进回复：首先感谢举报人主动屏蔽了漏洞仓库与工具链接，要求其通过 Google Bug Hunters 安全通道私下提交详细技术证据，同时明确援引 Google 服务条款、Antigravity 条款与常见问题说明，重申促销权益严禁转让、叠加或通过自动化脚本批量兑换，任何滥用未授权流程获取的会员将被撤销，涉事账号亦面临封禁处理。"
+          ]
+        },
+        {
+          "heading": "R$ 0.00 强退与 18 个月合作套餐连坐：清算波及真实用户",
+          "paragraphs": [
+            "紧随官方表态而来的批量清算，很快在同一篇论坛帖子下方留下了连续三天的真实余波。11 月 18 日下午，用户 PAULO_ALMEIDA1 求助称自己激活 12 个月 Google AI Ultra（20 TB）加 YouTube 个人版优惠仅数小时后，就莫名收到了一封批准退款 R$ 0.00 的自动通知，订阅随之被强制取消；次日清晨，另一位用户 study_zhanghq 也反馈遭遇了分毫不差的 R$ 0.00 退款退订。",
+            "更棘手的误伤发生在跨权益重叠用户身上。11 月 20 日，用户 Samyar 在贴内留言表示自己“无比后悔”去激活了 Ultra 优惠——他在操作前原本合法拥有电信运营商 Jio 赠送的 18 个月 Pro 套餐，结果激活 Ultra 的第二天，不仅新套餐失效，连带着原本好端端的 18 个月 Jio Pro 会员也一同停止了服务。同期在 Reddit 的 r/GeminiAI、r/AntigravityGoogle 与 r/Jio 等板块中，也有不少普通用户反映 Jio 绑卡套餐、学生优惠切换或使用多账号共享虚拟卡时触发了风控拦截与突然退订。"
+          ]
+        },
+        {
+          "heading": "主力谷歌账号的不可承受之重：别拿十年数据换一年灰产试用",
+          "paragraphs": [
+            "从 2026 年下半年全行业的风控演进来看，无论是 ChatPRD 因黑产循环套利被迫关停免费试用，还是 Google 对 Play Billing 隐藏试用流展开高压清查，AI 服务的算力成本都决定了“无门槛白嫖”的容忍度已降至冰点。",
+            "对普通用户和开发者而言，Google 生态的特殊性在于“账单处罚往往与身份资产连坐”：一个常用谷歌账号背后通常同时系着 Gmail 主力邮箱、Google Drive 多年工作文档、Google 相册以及 Android 绑定服务。为了一张不知来源的“0 元代充”或 GitHub 黑盒脚本让主力号被 Trust & Safety 永久封停或拉黑支付方式，远比单次退订的代价沉重得多。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261120-11",
@@ -186,11 +254,35 @@
       "details": [
         "据内部帖子记录，有员工在询问天气和潮汐时，Muse 突然插话报出陌生人的 Capital One（$2,722.58）与 Charles Schwab（$5,899.57）账户余额；另有员工收到了本不属于自己的育儿咨询、求职建议与网购订单回复。",
         "更令员工不安的是，一名员工在私人手机上收到了 Muse 发来的“回复妹妹 Signal 消息”提醒，但她明确表示自己从未授权 Muse 读取 Signal 或相关通信权限。",
-        "Meta 发言人回应称，员工测试版与面向公众发布的版本存在差异，暴露该问题正是内测收紧隐私护栏的意义；但在底层隔离机制彻底经受住外部审计前，强烈建议普通用户勿向同类联网 Agent 输入网银、验证码等高度敏感隐私。"
+        "Meta 发言人回应称，员工测试版与面向公众发布的版本存在差异，暴露该问题正是内测收紧隐私护栏的意义；但在底层隔离机制彻底经受住外部审计前，强烈建议普通用户勿向同类联网 Agent 输入网银、验证码等高度敏感隐私。",
+        "避坑提示：若手机已安装 Meta Muse，建议检查系统权限设置，暂勿授权读取短信/通讯录/通知栏，也避免在对话中输入个人财务与隐私凭证。"
       ],
-      "action_snippet": "若手机已安装 Meta Muse，建议检查系统权限设置，暂勿授权读取短信/通讯录/通知栏，也避免在对话中输入个人财务与隐私凭证。",
+      "action_snippet": "",
       "source_platform": "TechCrunch",
-      "source_url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/"
+      "source_url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
+      "story": [
+        {
+          "heading": "聊着天气和潮汐，AI 突然报出别人的银行卡余额",
+          "paragraphs": [
+            "据 TechCrunch 11 月 19 日援引路透社对 Meta 内部讨论帖的调查报道，这款上线仅两个月、下载量就迅速突破 1000 万次的消费级 AI 助手 Muse，在内部员工的日常测试中频频出现令人毛骨悚然的“跨账号串线”。",
+            "一位员工向同事反映，自己原本只是在跟 Muse 闲聊天气和潮汐信息，对话框里却毫无征兆地插进了一句推送：“顺便说两条银行账户更新，你的 Capital One 余额是 $2722.58，你的 Charles Schwab 余额是 $5899.57。”而在内部反馈中，类似的错乱并非孤例：多名员工表示 Muse 曾主动向自己弹出陌生的育儿咨询、从未问过的职业规划建议，甚至是别人网购下单的商品确认记录。"
+          ]
+        },
+        {
+          "heading": "未经授权的 Signal 回复提醒，撞上“万能钥匙”式权限争议",
+          "paragraphs": [
+            "比对话记忆串线更让内部员工感到不安的，是 Agent 在手机底层权限边界上的越界触角。一位在个人手机上使用 Muse 的女性员工发帖称，Muse 突然向她发送了一条提醒，催促她去回复妹妹在端到端加密聊天软件 Signal 上发来的消息。她明确表示：“这看起来像是极其严重的隐私侵犯。我绝对没有授权它访问其他应用，也不记得自己曾被弹出过相关授权询问。”",
+            "这场风波在次日直接引发了加密通信阵营的正面点名。11 月 20 日，Signal 总裁 Meredith Whittaker 在官方博客发文宣布在移动端封堵应用内截屏时，专门点名以 Meta Muse 为代表的第三方 AI 智能体——指出这类工具在引导用户配置时，往往会鼓励授予极深层的系统辅助功能（Accessibility）权限，“把本该帮助残障人士使用软件的无障碍通道，变成了 AI 肆意读取所有应用数据的万能钥匙（skeleton key）。”"
+          ]
+        },
+        {
+          "heading": "千万级装机与 $300 随身硬件在即：Meta 的公私版本辩护",
+          "paragraphs": [
+            "面对舆论质疑，Meta 发言人向 TechCrunch 回应称，员工内测正是产品打磨安全与隐私护栏的核心环节，并强调“员工使用的 Muse 版本与面向公众发布的版本并不相同，他们经常在测试尚未对外开放的功能、特性与行为”。",
+            "然而耐人寻味的是时间节点上的剧烈反差：就在同一天（11 月 19 日），The Information 曝光 Meta 计划为此前 Connect 大会预告过的便携屏幕 AI 挂件 Muse Charm 定价 $300，机身配备指纹传感器，支持不解锁手机直接点击与 Muse 语音对话并附带 12 个月 Verizon 5G 流量套餐，目标赶在 12 月圣诞季出货（Meta 发言人 Tyler Yee 对此未予否认，仅回应“很高兴看到大家对我们 AI 设备的兴趣”）。当一家巨头正准备把“24 小时贴身在线、主动帮你接管生活”的硬件卖给普通消费者时，内测环节暴露出的多租户上下文隔离漏洞与越权读屏嫌疑，显然给全行业敲响了警钟。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261119-01",
@@ -211,7 +303,32 @@
       ],
       "action_snippet": "",
       "source_platform": "Google AI Blog",
-      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
+      "story": [
+        {
+          "heading": "七周连发四款元素模型：被“火速下架”的 Argon 与命名迷局",
+          "paragraphs": [
+            "在竞争白热化的 2026 年秋季，Google DeepMind 用几乎“一周一迭代”的节奏把自家的元素周期表排进了产品线。根据 Latent Space 的统计，从 Argon 到 Carbon 相隔 28 天，Carbon 到 Hydrogen 相隔 15 天，而从 Hydrogen 到 11 月 18 日登场的 Gemini 4 Neon 仅仅隔了 6 天——七周之内连发四款 Gemini 4 系列模型。",
+            "随着 Neon 正式上线，发布仅一个半月的 Gemini 4 Argon 悄然退役，旧版 Gemini 3.1 Pro 也同步从 Gemini 应用的模型选择器中谢幕，原有的 3.5 Flash-Lite 则被更名为“Auto”。如今付费用户在菜单里看到的新矩阵是：日常助手 4 Hydrogen、深度分析 4 Neon、代码与复杂任务 4 Carbon。然而这种按化学元素命名的体系在 Hacker News（原帖斩获 1042 赞、769 条讨论）和 9to5Google 评论区引发了大规模吐槽：开发者很快发现，按原子序数排列（氢 1、碳 6、氖 10、氩 18）既不对应参数大小也不对应智能高低——序数更大的 Neon 在定位上反而夹在 Hydrogen 与 Carbon 之间，甚至在多项跑分上反超 Carbon，逼得网友在评论区自嘲以后选模型得先翻一遍元素周期表，并戏称已经在等 Gemini 4 Oganesson 或钚元素登场。"
+          ]
+        },
+        {
+          "heading": "价格倒挂与蒸馏超越：为什么“中档模型”在 12 月前反而更贵？",
+          "paragraphs": [
+            "命名混乱之外，更让开发者摸不着头脑的是短暂出现的价格倒挂。Simon Willison 在发布 llm-gemini 0.38 插件时专门拆解了这张价目表：此前 Carbon 与 Argon 享受至 11 月 30 日截止的首发半价优惠（输入 $2 / 输出 $10 每百万 token，12 月 1 日才恢复 $4/$20 正价），而 Neon 直接以 $3/$15 的正价发布（恰好是 Hydrogen $1.50/$7.50 的两倍）。这就导致在 12 月到来之前的两周窗口期里，名义上的“中档高速模型”Neon 反而比旗舰 Carbon 更贵。",
+            "但抛开定价插曲，Google DeepMind 首席 AI 架构师 Koray Kavukcuoglu 交出的技术答卷相当凌厉。借助强化学习与四档可调思考深度（新增 Carbon 当时未同形式提供的 xhigh 档），Neon 在多个高价值垂直基准上实现了以中搏大：除拿下 Artificial Analysis 智能指数 61 分（总榜第 3）与 Vals 指数 70.9%（第 2）外，更包揽了 Legal Research Bench、Tax Agent Bench、Zapier AutomationBench（56.3%）和长周期商业仿真 Vending-Bench 2（$16,843）的榜首，并在涵盖 4200 多次真实任务的 Agent Arena 拿下 1336 分与可纠偏性（steerability）第 2 名。",
+            "在代码与网络安全攻防上，Neon 的提升尤为突出：它在 Artificial Analysis 编程代理榜以 58.6 分居首，Terminal-Bench 4.1 达 65.2%，在 SEC-bench Pro 拿下 90.5% 且单题成本仅竞品一半，CWE-bench v2 漏洞修复达 70.7%（较 Carbon 提升 3.4%），并面向防御者加入 Fairwind 计划。安全评估方面，它在最高思考深度下将 Gray Swan 间接提示词注入攻击成功率压至 0.0%，代码作弊率降至 2.45%，未对齐动作率仅 0.09%。尤为亮眼的是宿主框架的放大效应：在 SWE-sweep 上 Neon 跑基础 mini-SWE 框架仅 12.8%，一旦接入 Google Antigravity 直接跃升三倍至 39.0%，甚至通过 /swarm 多代理演示了一键生成 10200 行 WebGL2 高山滑雪物理仿真、3D 图灵办公室以及用超过 50 万个纯电子表格公式实现深度图重光照的 10 万单元格 Sheet。"
+          ]
+        },
+        {
+          "heading": "一线实测冷暖自知：93% 缓存命中背后的 57 次容量报错",
+          "paragraphs": [
+            "抛开官方博客的亮眼榜单，第一批深度测试者也迅速摸清了 Neon 的真实脾气。在 Vals 的代码迁移测试中，Neon 平均只需 160 轮交互即可收工（显著快于 Carbon 的 234 轮与 Hydrogen 的 574 轮），不过最终得分略低于两者；而在 GDP.pdf 评测中，high 档（33.4%）甚至出现了反超 xhigh 档（28.0%）的现象，提醒工程团队并非越贵越好。",
+            "真实生产并发同样经受着发布首日的压力考验。测试者 Kimmonismus 记录了 13 轮 Antigravity 重度编码会话中的 762 次工具调用：Neon 展现出极强的指令服从性与缓存友好度——明确禁止使用终端时真的执行了 0 次 Shell 命令，且输入缓存命中率高达 93%；但日志里也实打实录得了 57 次容量报错（capacity errors）与 4 次卡死停摆。",
+            "在开发者社区的日常选型投票中，风向也在微妙分化。知名开发者 Theo 开始把 Neon 用于文案生成、Fable 5.2 用于工程实现、Astra 用于玩法试错；fast.ai 创始人 Jeremy Howard 称赞 Neon 的同时将旗下 Solveit 服务的 Astra/Sol 默认选项回退至 6.2 之前版本。不过 Hacker News 上也有重度 Claude 用户指出，尽管 Neon 跑分紧咬甚至超越 Opus 5.5，但在持续数天的复杂工程会话中，Opus 仍更像一位能记住全局的“人类同事”，而部分用户依然吐槽 Antigravity 对谷歌工作区（Workspace）账号与个人账号的开通路径过于绕弯。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261120-06",
@@ -228,9 +345,10 @@
       "details": [
         "相比此前只能读取本地文件的 Tasks 功能，Computer Use 可直接执行点击菜单、输入文字、跨软件搬运数据与网页填表等复杂流程，官方示例涵盖设计软件批量调色、读取本地 PDF 参数填写多箱物流报价表、截取多地区看板生成 Google Slides 幻灯片及二手平台批量上架。",
         "全程运行在聊天内嵌实时预览的隔离后台窗口中，用户自己的桌面焦点与光标完全不受干扰，可同时继续打字、修图或开会。",
-        "权限与风控设计较克制：用户需先在 Customize > Connectors 手动授权允许访问的桌面应用（新增支持 Blender、Autodesk Fusion，并保留 Git 与 Obsidian），遇登录或付款环节会自动暂停并请求人工确认，可随时一键中止。"
+        "权限与风控设计较克制：用户需先在 Customize > Connectors 手动授权允许访问的桌面应用（新增支持 Blender、Autodesk Fusion，并保留 Git 与 Obsidian），遇登录或付款环节会自动暂停并请求人工确认，可随时一键中止。",
+        "操作建议：安装并更新 Gemini Mac 客户端后，在输入框键入 @Computer use，并在 Customize > Connectors 中勾选授权允许访问的本地应用即可体验。"
       ],
-      "action_snippet": "安装并更新 Gemini Mac 客户端后，在输入框键入 @Computer use，并在 Customize > Connectors 中勾选授权允许访问的本地应用即可体验。",
+      "action_snippet": "",
       "source_platform": "Google AI Blog",
       "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/"
     },
@@ -252,7 +370,39 @@
       ],
       "action_snippet": "",
       "source_platform": "Anthropic News",
-      "source_url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering"
+      "source_url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+      "story": [
+        {
+          "heading": "从 $70 区间到 $1195 亿总募资：史上最大 IPO 的 48 小时",
+          "paragraphs": [
+            "2026 年 11 月的华尔街迎来了一场体量空前的 AI 资本检验。11 月 18 日，美国证监会宣布 Anthropic 的上市注册文件生效，发行价定在每股 $83.00——不仅高于最初预估的 $70 至 $78 区间，也比 5 月 H 轮融资时的 $9650 亿投后估值更进一步。11 月 19 日敲响开市钟后，股票代码 ANT 在纳斯达克全球精选市场以 $111.50 高开（较发行价跳涨 34.3%），盘中一度逼近 40% 涨幅并推动完全稀释口径估值突破 2 万亿美元，短暂超越 Meta、特斯拉与沃尔玛，成为仅次于苹果、亚马逊、Alphabet、英伟达与微软的超级巨头，首日最终收报 $97.17。",
+            "11 月 20 日官方宣布正式交割时，这笔交易的实际融资体量比首日外界估算还要庞大。由高盛和摩根士丹利牵头的承销团全额行使了 1.47 亿股超额配售权（绿鞋机制），使公开募股的 A 类普通股总量从 9.8 亿股增至 11.27 亿股（其中公司新发约 11.03 亿股，老股东减持约 2365 万股），公开发行毛募资约 935 亿美元（Anthropic 实收约 916 亿美元）。与此同时，公司同步完成了一笔面向芯片与云巨头的 N 类无投票权股票定向私募：以同样 $83.00 的价格向英伟达（100 亿美元）、谷歌（100 亿美元）以及 AMD、博通、美光、微软和台积电合伙人合计发行约 3.13 亿股，再揽入 260 亿美元。",
+            "两路资金叠加原有储备，总毛募资达到约 1195 亿美元，远超 Facebook 在 2012 年创下的 160 亿美元科技 IPO 旧纪录，也让 Anthropic 账面可用现金及短期投资飙升至 2200 亿至 2300 亿美元级别。D.A. Davidson 科技研究主管 Gil Luria 对 TechCrunch 直言：“等到交割完成，Anthropic 手里的现金将超过历史上任何一家公司。”"
+          ]
+        },
+        {
+          "heading": "开市钟前的安全誓言，与万亿美元算力循环账单",
+          "paragraphs": [
+            "敲钟仪式前，Dario Amodei 手持打印讲稿发表了一场充满个人色彩的演讲。他从自己与妹妹、联合创始人 Daniela Amodei 的父亲说起——父亲当年去世于一种几年后才出现治愈方案的疾病，由此引出“足够强大的 AI 与人类协作，或许能把一个世纪的医学与科学进展压缩到十年”。紧接着他话锋一转，正视失控、网络与生物武器滥用风险，强硬表态绝不因商业或政治压力放弃安全节奏，并将 Anthropic 的定位称作引领全行业的“向上竞赛（race to the top）”。而在 S-1 招股书中，公司同样毫不讳言潜在的“灾难性风险”，包括模型可能出现抗拒关机等“自我保存行为”——今年秋季公司刚把第三方评估机构 METR 的安全测试员请进内部，赋予他们“类员工权限”以监控 AI 是否正在加速自身研发。",
+            "但资本市场紧盯的却是招股书里另一组滚烫的数字：Anthropic 2026 年上半年营收为 163 亿美元、会计准则净亏损高达 807 亿美元（其中包含大额会计记账项）；不过第三季度单季营收已冲上 170 亿美元，折合年化收入跑速达到 680 亿美元。与之相对的是无比惊人的远期支出承诺：截至 2026 年 9 月 30 日，公司在未来 12 个月需支付约 707 亿美元算力与基建账单，2030 年底前累计承诺达 4516 亿美元，把各类有条件或未定价协议全部算上，可预见基建总承诺高达 1.05 万亿至 1.08 万亿美元。",
+            "这也让“AI 循环融资（circular financing）”站上聚光灯。Amazon（通过可转债部分转股持有约 14.6%–14.7% 股份，按发行价估值约 1590 亿美元）与 Google（持股约 13.4%–13.7%，估值约 1490 亿美元）两大云厂商合计持有 Anthropic 约 28% 股权，外加七家半导体与云基建供应商合力认购的 260 亿美元私募——表面上看巨头不断向实验室输血，转头又通过卖 GPU 和云算力把钱收了回去。SemiAnalysis 首席分析师 Joey Brookhart 认为，这次上市正是 Anthropic 摆脱对供应商单向输血的转折点（按当前增速，未来四年赚够 2800 亿美元覆盖算力账单“是可以实现的”）；但 Gil Luria 则发出冷峻警告：与靠英伟达撑腰的 CoreWeave 不同，云巨头无论最终谁胜出都能收租，而 Anthropic 的护城河全系于模型是否保持领先，“一旦大家改用别人的模型，Anthropic 就不值 1.5 万亿美元，而是分文不值。”"
+          ]
+        },
+        {
+          "heading": "七位创始人套现近 20 亿美元，与 1560 亿美元慈善拼图",
+          "paragraphs": [
+            "从有效利他主义（EA）运动走出的治理架构，在这场造富盛宴中展现出了耐人寻味的双面性。IPO 中，Anthropic 七位联合创始人每人各自出售约 340 万股股票；由于最终发行价从最初 $74 中位数抬升至 $83，每人税前套现约 2.8 亿美元（比原预期多出约 3000 万美元），合计落袋约 19.5 亿美元。与此同时，创始人团队通过特殊的 F 类股牢牢锁住了 50.1% 的投票控制权，确保公司不会轻易受制于二级市场短期股东意志。",
+            "在公益承诺方面，七位创始人都宣称将把个人持股的 80% 捐给慈善事业，但招股书白纸黑字提醒投资者：这些表态属于“自愿且可撤销的慈善意愿，不构成具有法律约束力的义务”。真正写入公司制度设计的慈善路径分为三块：首先是分配给公益基金会（Public Benefit Fund，简称 PBF）的 5% 股权（近 8.5 亿股，按 $95 股价计算约合 800 亿美元；若股价每比 $83 翻涨超 50%，公司还可继续增发 2%），PBF 首笔 2 亿美元已投向 AI 对劳动力冲击的研究，并提及未来可能向特定人群直接发钱；其次是员工在 9 月 30 日前认捐的股票及公司最高 3 比 1（早期员工）或 1 比 1（新员工）的配捐预留池（预留超 5.5 亿股）。TechCrunch 测算这三项合计潜力高达 1560 亿美元——相当于 2025 年全美全年慈善捐款总额（6170 亿美元）的四分之一，主要流向 Longview Philanthropy、GiveWell、Coefficient Giving 等 EA 机构及 AI 安全研究。"
+          ]
+        },
+        {
+          "heading": "次日跌近发行价：一场吸干流动性还是刺破泡沫的抛售潮？",
+          "paragraphs": [
+            "然而华尔街的蜜月期只维持了一天。11 月 20 日开盘后，ANT 股价一路下挫最多达 12%，一度跌至 $85.12，险些跌破 $83 发行价。受 Anthropic 回调与整体 AI 估值忧虑拖累，全球股市周五同步遭遇重创：纳斯达克指数大跌 2.9% 并抹平 2026 年全年涨幅，存储芯片股 SanDisk 暴跌 14%、美光跌 12%，英伟达因卷入加州对其高端芯片是否流向中国的传票调查下挫 7%；亚太市场更创下 2020 年以来最差单周表现，台股下跌 6.7%（台积电跌约 6%）、日经指数跌 5%、韩国 Kospi 跌 5.5%，重仓 AI 的软银单日暴跌 14.5%。",
+            "市场分析师给出了两种并不矛盾的解释。IG 首席市场策略师 Chris Beauchamp 指出，Anthropic 这场史诗级 IPO 本身就像抽水机，机构为了腾出现金认购 ANT 不得不抛售其他科技股，“抽干了市场流动性”；而 Capital.com 分析师 Daniela Hathorn 与 Saxo 策略师 Neil Wilson 则认为，首日狂热迅速让位于对万亿级资本开支能否兑现利润的集体拷问。在 Hacker News 超过 2200 条评论的激辩中，一边是程序员感叹五十年手艺人编程模式的黄昏正在到来，一边是冷眼旁观的工程师拆穿市值口径差异（按流通股本约 130.9 亿股算，上市市值其实接近 1.28 万亿而非媒体刷屏的 2 万亿完全稀释价），并有高赞评论冷冷写道：“你们就是他们的退出流动性。”"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261119-03",
@@ -273,7 +423,30 @@
       ],
       "action_snippet": "",
       "source_platform": "Hacker News",
-      "source_url": "https://microsoft.ai/news/microsoft-ignite-2026/"
+      "source_url": "https://microsoft.ai/news/microsoft-ignite-2026/",
+      "story": [
+        {
+          "heading": "Maia 200 撑腰：微软为什么要抢“7×24 小时日常工程”的账单？",
+          "paragraphs": [
+            "在 2026 年 11 月 17 日的微软 Ignite 大会上，微软 AI（MAI）部门选择了一条与动辄冲击诺贝尔级科学竞赛截然不同的打法：直接甩出 7 款聚焦极限性价比的自研模型，并依托正式投入生产环境的第二代自研 AI 芯片 Maia 200（每瓦 token 产出提升 1.7 倍），直击企业客户日益膨胀的 Agent 算力账单。",
+            "微软在公告中的刀法非常精准：在开发者最高频的日常编程场景中，MAI Code 2 在 DeepSWE 1.1、Terminal Bench 2.1、SWE-Atlas 与 FrontierCode v1.1 四项日常工程基准上取得了 GPT-6.1 Sol 98% 的表现，价格却只有 40%；对比 Claude Opus 5.5 更是达到 96% 水平而成本仅 5%（在前端界面盲测中开发者有 64% 的情况更偏好它胜过 GPT-6 Sol）。更有意思的是微软的主动“退让”：它坦承 Code 2 刻意没有去卷基础科研或超长周期推理任务，就是专心做 GitHub Copilot 里每天都在发生的代码生成、界面可视化与日常修复；而轻量版 MAI Code 2 Flash 则以 Haiku 5.5 两成的价格对标高频常规编辑。网络安全方面，MAI Cyber 2 Flash 在 CyberGym-E2E 超越 GPT-6 Astra 且单任务成本压到不到 2%，输出定价较上代直降 86%——在此之前，MAI Cyber 已经吃下了 MDASH 安全扫描近 40% 的调用量，老用户留存率高达 90%。"
+          ]
+        },
+        {
+          "heading": "图像、实时语音到路由调度：全栈拆解高毛利垂直场景",
+          "paragraphs": [
+            "除了代码与安全，这次发布的其余多款模型把目光瞄准了同样“跑起来烧钱”的多模态与路由层。MAI Image 2.7 在 Artificial Analysis 图像编辑榜冲上全球第一，击败了 GPT Image 2.6 Sunburst（max）且价格仅五分之一（Flash 版低至约 $10 每千张图）；面向低延迟语音交互的首代语音直出模型 MAI Realtime 1 在内部与 Dynamics 365 评测中超过 GPT-Realtime 2.1，起价压至每分钟音频 $0.01。",
+            "在医疗等高壁垒行业场景，基于 MAI Transcribe 2 的 Dragon Copilot Transcribe 已经全面接管医患对话转写，覆盖全美三分之一医生、每月处理 1000 万次诊疗记录并将多语种识别错误率砍半。而在所有大模型之上，微软还把用“小模型路由大模型”做成了正式产品 Decision 1.1——目前已有 4000 家企业接入，它在 Artificial Analysis 决策指数上领先 Jev、Google 与 OpenAI，推理速度比 GPT-6.1 Sol 快 50 倍、成本低 79 倍，专门负责把简单请求截留在低价层。"
+          ]
+        },
+        {
+          "heading": "MAI Licensed Weights：用 Azure 独占授权反击开源与闭源两头",
+          "paragraphs": [
+            "整场发布中最具商业杀伤力的战略信号，是随着 7 款模型同步推出的“MAI Licensed Weights（许可权重）”模式。微软非常巧妙地同时向闭源 API 竞争对手和开源权重模型发出灵魂拷问：前者让企业“把自身最核心的商业智慧源源不断倒进别人的模型里”，后者则很难说清权重来源并保证核心知识产权与合规安全。",
+            "通过 MAI Licensed Weights，微软允许大型客户先拿自研前沿 MAI 权重与专有业务数据做深度定制，然后把整套模型安全部署在企业自己的 Azure 专属环境中，所有微调成果与访问控制完全由客户独享。公告举例称，电信巨头 AT&T 已基于 MAI 打造了 5G 网络运维分析定制模型，效果超越 GPT-6.1 Sol 的同时成本只有五十分之一。对于一手握着 GitHub Copilot、Microsoft Foundry 与 Azure 政企入口的微软而言，这套“自研芯片 + 性价比模型群 + 专属许可权重”组合拳，正在把原本流向外部前沿实验室的推理预算大规模截留在自己的云盘子里。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261120-04",
@@ -313,9 +486,10 @@
       "details": [
         "适用条件：年满 18 岁、就读于受支持国家/地区符合资质高校的在读学生；美国区权益为 Google AI Pro（含 Gemini 4 倍额度、5 TB 存储、Gemini Spark 与 Gemini Omni 学习笔记等），日本及部分国际市场对应为 1 年免费 Google AI Plus 与 400 GB 存储，具体以落地页所在地区为准。",
         "申请步骤：务必先登录**个人 Google 账号**（不要用学校管理员托管邮箱直接作为主订阅账号），访问 `gemini.google/students/` 点击立即领取，按提示通过 SheerID 提交学校邮箱或学生证/在读证明核验。",
-        "避坑提醒：激活 1 年免费试用通常需绑定一张地区匹配的合法银行卡/付款方式；到期前默认按标准月费自动续订（如美区 Pro 为 $19.99/月），领完建议立刻在手机日历设置第 11 个月提醒，不需要续费时提前取消。"
+        "避坑提醒：激活 1 年免费试用通常需绑定一张地区匹配的合法银行卡/付款方式；到期前默认按标准月费自动续订（如美区 Pro 为 $19.99/月），领完建议立刻在手机日历设置第 11 个月提醒，不需要续费时提前取消。",
+        "操作建议：用个人 Google 账号访问 https://gemini.google/students/?hl=en 点击 Verify，通过 SheerID 完成学籍认证后即可解锁 1 年免费学生方案。"
       ],
-      "action_snippet": "用个人 Google 账号访问 https://gemini.google/students/?hl=en 点击 Verify，通过 SheerID 完成学籍认证后即可解锁 1 年免费学生方案。",
+      "action_snippet": "",
       "source_platform": "Google Gemini",
       "source_url": "https://gemini.google/students/?hl=en"
     },
@@ -444,7 +618,30 @@
       ],
       "action_snippet": "",
       "source_platform": "The Verge",
-      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app"
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app",
+      "story": [
+        {
+          "heading": "从 Windows Recall 到 iOS 27 与 Android：操作系统读屏权的三面夹击",
+          "paragraphs": [
+            "2026 年 11 月 20 日，加密通信应用 Signal 总裁 Meredith Whittaker 在官方博客发出了一篇语气极为严厉的技术声明。她把苹果（iOS/macOS）、谷歌（Android）与微软（Windows）比作应用生态赖以生存的三片“海洋”——一年前，Signal 不得不通过在 Windows 11 端默认禁止截屏来防御微软 Recall（该功能每隔几秒截取屏幕并通过 OCR 写入可检索数据库）；而如今随着 iOS 27 为 Siri AI 深度植入“屏幕感知（Onscreen Awareness）”，以及 Android 全面推进 Gemini Intelligence 读屏交互，这股浪潮已经逼近了移动端隐私的最后防线。",
+            "在 Whittaker 看来，OS 级智能体与端到端加密之间存在根本性的架构冲突。过去十余年，Signal 依靠公开审计的开源代码与经过形式化验证的加密协议向全球数百万用户作出独立隐私承诺；但只要操作系统可以在像素渲染或视图层级扫描屏幕内容并回传本地数据库或云端模型，哪怕是设置了“阅后即焚”的消息也会在脱离 Signal 控制后被留存下来——不仅暴露发送者本人，更把对话另一端的所有联系人一并置于裸奔风险之中。"
+          ]
+        },
+        {
+          "heading": "iOS 拦截、Android 动态防卫，与 macOS 27 上的彻底无解",
+          "paragraphs": [
+            "技术落地层面，Signal 不得不在三大平台上采取截然不同甚至有些狼狈的权宜之计。在 iOS 27 上，Signal 默认开启了限制应用内截屏与阻断 Siri AI 扫描的开关（用户可在设置中手动放开，但应用会警告此举将破坏隐私保证）；而在碎片化严重的 Android 生态中，非 Pixel 厂商机型无法在全局禁截屏状态下可靠探测拦截触发，为了避免用户误以为截图功能莫名坏掉，Signal 最终选择了“静默监听”路线——一旦检测到 AI 助手试图读取屏幕，便自动激活内部的“Screen security”防截屏护盾。",
+            "最令工程团队感到无力的是桌面端 macOS。Whittaker 在博客脚注中直白承认，由于苹果缺乏清晰文档化的截屏隔离接口，Signal 目前根本无法在 macOS 上阻止 Siri AI 读屏：macOS 现有的防护机制主要针对连续录屏，且原先的相关拦截 API 已被弃用，取而代之的屏幕保护方案竟然只对流媒体和受 DRM 版权保护的视频内容生效。在系统级接口补齐之前，Signal 对 macOS 27 用户能给出的唯一无奈建议，只有手动去系统设置的 Siri 排除列表（Excluded Apps）里添加 Signal。"
+          ]
+        },
+        {
+          "heading": "“万能钥匙”与透明赤字：Signal 向三大巨头递出的两项底线",
+          "paragraphs": [
+            "比截屏本身更隐蔽的隐患，藏在信息透明度的巨大鸿沟里。Whittaker 透露，过去几个月 Signal 工程师不得不在 Android 和 iOS 上花费大量精力做取证级逆向调查，只因操作系统厂商迟迟不愿说清 AI 智能体究竟通过什么路径抓取应用数据。与此同时，第三方 Agent（她在文中直接点名 Meta 的 Muse）还会诱导用户在初始化时交出本该服务于残障辅助的深层无障碍权限（Accessibility），将其当成横扫设备文件系统与聊天记录的“万能钥匙（skeleton key）”。",
+            "为此，Signal 拒绝以“机密计算（Confidential Computing）”作为敷衍答案——因为决定权依然攥在系统厂商手里——并正式向苹果、谷歌与微软提出两项底线诉求：其一，为所有开发者提供简单、可文档化、且不损害核心用户体验的 AI 访问退出开关，完整覆盖屏幕读取、文件系统、通知栏与各类系统 API；其二，公开详尽的智能体数据访问技术规范。虽然 Whittaker 对谷歌与苹果已展开初步沟通表示“谨慎乐观”，但她仍将 Signal 称作“煤矿里的金丝雀”——如果连专注加密的通信工具都守不住应用层边界，整个软件生态的隐私根基都将动摇。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261120-08",
@@ -461,9 +658,10 @@
       "details": [
         "很多用户迟迟不愿切换主力 AI，核心痛点是原平台里积累了几个月的写作习惯、项目背景和长对话；Gemini 的迁移向导提供了“偏好摘要”与“完整压缩包导入”两条路径。",
         "轻量迁移只需两步：在 Gemini 导入设置里复制官方提供的摘要提示词，粘贴到原有 AI 工具中生成个人偏好画像，再把结果贴回 Gemini 即可保留回答风格。",
-        "深度迁移则支持直接上传从原 AI 平台账号设置中导出的历史记录 `.zip` 档案，导入后可在 Gemini 中直接续写此前的项目上下文。"
+        "深度迁移则支持直接上传从原 AI 平台账号设置中导出的历史记录 `.zip` 档案，导入后可在 Gemini 中直接续写此前的项目上下文。",
+        "操作建议：先在原 AI 平台账号设置导出聊天记录 ZIP，再进入 Gemini 导入设置页面按向导上传压缩包或粘贴偏好摘要。"
       ],
-      "action_snippet": "先在原 AI 平台账号设置导出聊天记录 ZIP，再进入 Gemini 导入设置页面按向导上传压缩包或粘贴偏好摘要。",
+      "action_snippet": "",
       "source_platform": "Google AI Blog",
       "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/switch-ai-assistants-transfer-history/"
     },
@@ -676,9 +874,10 @@
       "tldr": "OpenAI 向网页、桌面及 iOS/Android 端全部 ChatGPT 套餐（含免费版）推送 Live Dictation：说话瞬间实时出现文字，不再干等整段录完，并彻底取消此前 10 分钟单次录音上限。",
       "details": [
         "使用时只要点击或轻触语音波形图标，就能实时看到 AI 正在识别的文字草稿；说完后可直接留在输入框内修改错别字，再决定发送或让模型整理成要点。",
-        "OpenAI 表示新版实时听写识别更稳、响应更快，而面向会议完整录音的 Record Mode 测试版仍仅限 Plus/Pro/Team/Enterprise/Edu 订阅，但普通免费用户如今已可利用放开时长限制的输入框听写完成长段口述转写与整理。"
+        "OpenAI 表示新版实时听写识别更稳、响应更快，而面向会议完整录音的 Record Mode 测试版仍仅限 Plus/Pro/Team/Enterprise/Edu 订阅，但普通免费用户如今已可利用放开时长限制的输入框听写完成长段口述转写与整理。",
+        "操作建议：更新 ChatGPT App 或桌面端后，点击输入框右侧麦克风图标即可开启边说边出字的实时听写。"
       ],
-      "action_snippet": "更新 ChatGPT App 或桌面端后，点击输入框右侧麦克风图标即可开启边说边出字的实时听写。",
+      "action_snippet": "",
       "source_platform": "The Verge",
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037634/openai-chatgpt-live-dictation"
     },
@@ -700,7 +899,30 @@
       ],
       "action_snippet": "",
       "source_platform": "Hacker News / Architect Silicon",
-      "source_url": "https://architectlabs.com/blog/frostbite"
+      "source_url": "https://architectlabs.com/blog/frostbite",
+      "story": [
+        {
+          "heading": "绕开 C 语言与缓存一致性高墙：AI 为何押注 35 年前的交互网？",
+          "paragraphs": [
+            "在继此前证明 AI 能实现既定加速器架构的“Redwood”项目之后，芯片初创公司 Architect Silicon 在 11 月 18 日抛出了一个野心大得多的实验：在不预设指令集和微架构的前提下，能否让 AI 系统自己从零联合设计软件、编译器与硬件？答案就是登上 Hacker News 热门的通用 CPU 架构 Frostbite。",
+            "AI 最终放弃了传统的冯·诺依曼顺序执行套路。在团队看来，主流 C 系语言通过共享可变全局内存隐藏了程序内部的真实依赖关系，迫使现代多核处理器（如 Intel Xeon、AMD Zen 或 NVIDIA Vera）耗费海量晶体管面积与功耗去运行乱序执行、预测执行以及复杂的 L1/L2/L3 缓存一致性协议。AI 搜索后选定的计算底座，是 Yves Lafont 于 1990 年提出的交互网（Interaction Nets）——配合类 Rust 语法的 Vine 语言与中间表示 Ivy，每个值只有唯一所有权、每次图重写只发生在局部活跃节点对之间，彻底消除了共享可变状态。以五皇后搜索为例，顺序 C++ 程序每次只走一步，而编译成交互网后直接暴露出 3183 次局部交互与仅 262 步的关键路径，平均每步都有约 12 项互不干扰的并行任务。"
+          ]
+        },
+        {
+          "heading": "从 80 万行 Lean 形式化契约，到自己“长出”工作窃取调度器",
+          "paragraphs": [
+            "为了防止大规模智能体集群在漫长的芯片设计迭代中“胡编乱造或刷榜作弊”，Architect Silicon 没有沿用传统芯片流片前的英文 PDF 设计文档，而是发明了一套名为 ASL 的形式化规范语言，作为全栈唯一的真理来源（Source of Truth）。ASL 可以原生编译到 Lean 4 定理证明器中——到项目收尾时，全芯片 31 个模块共沉淀了超过 80 万行 Lean 形式化契约；同时驱动名为 Arcmodel 的系统级仿真器，运行速度达到传统 RTL 仿真的 200 至 660 倍。团队还设计了一套无梯度物理校准流水线：自动捕捉综合后 RTL 里的 SRAM 读写、微片（flit）传输与帧未命中等功耗热点，再用标量 Python 函数迭代拟合，直到系统模型的功耗误差收敛至真实 RTL 的 1% 至 5% 以内。",
+            "在这套严密的形式化护栏内，AI 智能体集群在并行 Git 工作树里试错了 58 个架构设想并保留了其中 37 项，甚至自主演化出了人类从未显式指定的“无中心工作窃取（Work-Stealing）”机制：每个计算瓦片（Tile）的 RUNTIME 域中藏着帧管理器（Frame Manager）与硬件工作队列。每当循环或分支动态分裂出未知规模的并行子任务时，当前瓦片把后续逻辑暂存在本地帧管理器，自己优先拿走最新子任务执行，空闲的相邻瓦片则通过片上网络主动“偷走”队列里多余的活，实在没活干的瓦片（例如演示中的 Tile 5）就立即休眠省电；当所有子任务在芯片任意角落以任意顺序算完回传计数归零时，主逻辑瞬间自动唤醒。"
+          ]
+        },
+        {
+          "heading": "7nm 500MHz 实测 4.59× 能效比，与芯片老兵的尖锐质疑",
+          "paragraphs": [
+            "在 7nm 工艺下完成综合（800 MHz）并收敛至最终 GDS 版图（500 MHz）后，团队拿一个 2x2 瓦片组成的 Frostbite Quad 连同 4 个 L3 节点（总面积 0.792 mm²），去对标一颗同工艺、面积相当的现代双发射顺序超标量 CPU 核心（0.895 mm²）。在涵盖矩阵乘、卷积、4096 字符 JSON 解析、哈夫曼编码、递归斐波那契以及额外加入的卡尔曼滤波、PCA、有限元分析、LU 求解与 LZ4 解压等 25 项基准（10 项调优集 + 15 项留出验证集）中，Frostbite 拿下了 4.59 倍的几何平均每瓦性能（搜索集 6.02 倍、留出集 3.83 倍）和 8.77 倍每平方毫米性能——把指令取指译码发射能耗从传统核心的 27% 砍到 6%，内存能耗从 57% 降至 38%，只用 26% 的能耗来支付片上网络与调度。",
+            "然而这篇炫目的博客在 Hacker News 收获 482 分和 270 余条评论的同时，也遭到了资深芯片架构师与系统工程师的逐条审视。首先是“创新度”争议：多位硬件从业者指出交互网与空间工作窃取神似 1980 年代 Arvind 的动态数据流机、Transputer 乃至 2000 年代的 WaveScalar，只是乘上了 Rust 普及线性所有权概念的东风；其次是对比基准与测试规模：评论质疑团队只拿双发射顺序核作参照而不敢比肩现代宽发射乱序核，测试负载（如 1024 元素归并排序、fib(20)）偏小，且博客声称“2000 年代初以来单核性能基本停滞”忽略了苹果 A/M 系列每年约 15% 的单核复利提升；最后是“物理流片红线”：不少工程师提醒，未经真实硅片流片（tapeout）验证的预硅 GDS 数字仍停留在纸面，大家正等待 Architect Labs 兑现承诺——开放公开 FPGA 试玩平台、完整 RTL 与指令集，让外界真刀真枪地测一测。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261119-11",
@@ -952,9 +1174,10 @@
       "details": [
         "相比单纯写提示词的传统模板，新版 Gemini Skills 支持从本机设备、Google Drive、Gemini Notebook 与 Google Photos 上传或关联最多 100 MB 资料；其中 Drive 文档与 Notebook 会自动保持实时同步，确保每次运行 Skill 与定时任务时都读取最新版本。",
         "网页端 Customize > Skills 页面新增共享权限控制，可向同事、同学或好友授予 View（只读查看）或 Edit（协同编辑）权限，对方会收到邮件通知并可预览后再添加到自己账号。",
-        "此前依赖 Gems 保存固定工作流的用户需注意功能切换节奏，可趁升级窗口将常用指令与参考文件迁入 Skills，提升个人或团队复用的稳定性。"
+        "此前依赖 Gems 保存固定工作流的用户需注意功能切换节奏，可趁升级窗口将常用指令与参考文件迁入 Skills，提升个人或团队复用的稳定性。",
+        "操作建议：打开 Gemini 网页端 Customize > Skills 新建可复用技能，关联 Google Drive 参考文件并设置只读或编辑共享权限。"
       ],
-      "action_snippet": "打开 Gemini 网页端 Customize > Skills 新建可复用技能，关联 Google Drive 参考文件并设置只读或编辑共享权限。",
+      "action_snippet": "",
       "source_platform": "9to5Google",
       "source_url": "https://9to5google.com/2026/11/16/gemini-skills-files-sharing/"
     },
@@ -993,9 +1216,10 @@
       "tldr": "Google 宣布为旗下旗舰订阅 AI Ultra 5x（$99.99/月含 20TB）和 AI Ultra 20x（$199.99/月含 30TB）补齐重磅影音权益：原附赠的 YouTube Premium 个人版免费升级为可拉 5 位家庭成员共享的 Family 家庭套餐。",
       "details": [
         "YouTube Premium 家庭版单买需 $26.99/月，最多支持邀请同家庭组内 5 名成员共享全平台无广告观看、后台播放、离线下载以及 YouTube Music 与 Ask Music 权益。",
-        "相比之下，$19.99/月的入门档 Google AI Pro 目前仍仅附带不含 YouTube Music 的 YouTube Premium Lite；对于原本就自费购买 YouTube 家庭组和 Google One 大容量云盘的家庭用户而言，Ultra 档位的实际净支出被明显摊薄。"
+        "相比之下，$19.99/月的入门档 Google AI Pro 目前仍仅附带不含 YouTube Music 的 YouTube Premium Lite；对于原本就自费购买 YouTube 家庭组和 Google One 大容量云盘的家庭用户而言，Ultra 档位的实际净支出被明显摊薄。",
+        "操作建议：已有 Google AI Ultra 订阅的用户可前往 Google One / YouTube 家庭组管理页面邀请家庭成员共享权益（注意家庭成员需在同一账单国家/地区）。"
       ],
-      "action_snippet": "已有 Google AI Ultra 订阅的用户可前往 Google One / YouTube 家庭组管理页面邀请家庭成员共享权益（注意家庭成员需在同一账单国家/地区）。",
+      "action_snippet": "",
       "source_platform": "9to5Google",
       "source_url": "https://9to5google.com/2026/11/18/google-ai-ultra-youtube-premium-family/"
     },
@@ -1014,9 +1238,10 @@
       "details": [
         "核实结果一（防跑空）：此前 X 上刷屏的美国大学生免费领 ChatGPT Plus 活动已在 10 月底截止，OpenAI 现行常规订阅档位中除 Plus（$20/月）外已上线轻量级 ChatGPT Go（约 $8/月级别），但并无全球永久通用学生半价档。",
         "核实结果二（仍可领）：目前真正开放中的官方学生补贴为 `Codex for Students`——仅限美国和加拿大在读学位大学生（申请时需身处美加并持有学校邮箱通过 SheerID 验证），获批后可直接发放价值 $100（显示为 2,500 credits）的 Codex 额度，有效期 12 个月。",
-        "账号建议：可用个人常用 ChatGPT 账号登录申请，再通过学校邮箱完成 SheerID 核验，获赠额度会自动叠加在 Free / Go / Plus / Pro 原有用量之上，优先在标准额度用尽后抵扣。"
+        "账号建议：可用个人常用 ChatGPT 账号登录申请，再通过学校邮箱完成 SheerID 核验，获赠额度会自动叠加在 Free / Go / Plus / Pro 原有用量之上，优先在标准额度用尽后抵扣。",
+        "操作建议：美加高校在读生可前往 https://developers.openai.com/community/students 完成 SheerID 学生认证，领取 1 年期 $100 Codex 额度。"
       ],
-      "action_snippet": "美加高校在读生可前往 https://developers.openai.com/community/students 完成 SheerID 学生认证，领取 1 年期 $100 Codex 额度。",
+      "action_snippet": "",
       "source_platform": "OpenAI Developers",
       "source_url": "https://developers.openai.com/community/students"
     },
@@ -1054,9 +1279,10 @@
       "tldr": "Perplexity 面向认证大学生与教师的 Education Pro 持续有效：完成 SheerID 学籍/教职验证后，原价 $20/月的 Pro 订阅直接减半至 $10/月，包含无限次 Pro Search、文件上传及多前沿模型切换权益。",
       "details": [
         "适用对象覆盖符合资质的高校大学生及教职员工（教师需走 SheerID 专门的 Educator 认证通道），且每 12 个月需重新验证一次在校或任职状态。",
-        "重要付款前提：教育 5 折优惠仅支持在 Perplexity 官网网页端（perplexity.ai）通过官网结账开通，若通过 Apple App Store、Google Play 或第三方代充途径内购均无法享受半价。"
+        "重要付款前提：教育 5 折优惠仅支持在 Perplexity 官网网页端（perplexity.ai）通过官网结账开通，若通过 Apple App Store、Google Play 或第三方代充途径内购均无法享受半价。",
+        "操作建议：在 Perplexity 网页端左下角进入 Upgrade > Education 标签页提交 SheerID 认证后以 $10/月开通（勿走 App Store 内购）。"
       ],
-      "action_snippet": "在 Perplexity 网页端左下角进入 Upgrade > Education 标签页提交 SheerID 认证后以 $10/月开通（勿走 App Store 内购）。",
+      "action_snippet": "",
       "source_platform": "SheerID / Perplexity",
       "source_url": "https://shop.sheerid.com/offers/50-off-perplexity-pro-for-students-and-educators/"
     },
@@ -1075,9 +1301,10 @@
       "details": [
         "开启关闭开关后，Magic Write、Magic Design、Magic Expand、Magic Edit、Magic Layers、Dream Lab、Canva Code 及 AI 对话框都会停止弹出；但一键抠图（Background Remover）与 Magic Grab 等纯辅助提效工具会继续保留。",
         "素材库同步上线过滤开关：打开后搜索模板与插画时会优先展示人类设计师原创素材（Canva 称库中 AI 生成元素均带有元数据标签）。",
-        "对于反感满屏 AI 营销按钮、追求界面清爽与素材版权可控的设计从业者和学生非常实用。"
+        "对于反感满屏 AI 营销按钮、追求界面清爽与素材版权可控的设计从业者和学生非常实用。",
+        "操作建议：登录 Canva 后进入 Profile（头像）> Settings > Permission，将 Enable generative AI features 关闭即可一键清净。"
       ],
-      "action_snippet": "登录 Canva 后进入 Profile（头像）> Settings > Permission，将 Enable generative AI features 关闭即可一键清净。",
+      "action_snippet": "",
       "source_platform": "The Verge",
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037126/canva-ai-features-off-button"
     },

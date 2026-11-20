@@ -36,7 +36,7 @@ REQUIRED_ITEM_KEYS = {
     "source_platform",
     "source_url",
 }
-ALLOWED_ITEM_KEYS = REQUIRED_ITEM_KEYS | {"media_url", "metric_badge"}
+ALLOWED_ITEM_KEYS = REQUIRED_ITEM_KEYS | {"media_url", "metric_badge", "story"}
 CHANNEL_TYPE_MAP = {
     "RADAR": {"DEAL", "BUG", "HACK"},
     "INTEL": {"MODEL", "PRODUCT", "POLICY"},
@@ -49,6 +49,34 @@ DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 ISO_DT_PATTERN = re.compile(
     r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
 )
+
+
+def _validate_story(story: object, prefix: str) -> list[str]:
+    if not isinstance(story, list) or not story:
+        return [f"{prefix} 必须为至少包含 1 个小节的数组"]
+
+    errors = []
+    for index, section in enumerate(story):
+        path = f"{prefix}[{index}]"
+        if not isinstance(section, dict):
+            errors.append(f"{path} 必须为 JSON Object")
+            continue
+        extra = section.keys() - {"heading", "paragraphs"}
+        if extra:
+            errors.append(f"{path} 包含未定义字段: {sorted(extra)}")
+        if "heading" in section:
+            heading = section["heading"]
+            if not isinstance(heading, str) or not 1 <= len(heading) <= 80:
+                errors.append(f"{path}.heading 必须为 1~80 字符的非空字符串")
+
+        paragraphs = section.get("paragraphs")
+        if not isinstance(paragraphs, list) or not paragraphs:
+            errors.append(f"{path}.paragraphs 为必填字段，必须为非空数组")
+            continue
+        for j, paragraph in enumerate(paragraphs):
+            if not isinstance(paragraph, str) or not paragraph:
+                errors.append(f"{path}.paragraphs[{j}] 必须为非空字符串")
+    return errors
 
 
 def validate_stdlib(data: object) -> list[str]:
@@ -151,6 +179,9 @@ def validate_stdlib(data: object) -> list[str]:
             or not all(isinstance(d, str) and len(d) >= 1 for d in details)
         ):
             errors.append(f"{prefix}.details 必须为至少包含 1 条非空字符串的数组")
+
+        if "story" in item:
+            errors.extend(_validate_story(item["story"], f"{prefix}.story"))
 
         if not isinstance(item.get("action_snippet"), str):
             errors.append(f"{prefix}.action_snippet 必须为字符串（无则为空字符串）")
