@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-20T16:46:19.178902+00:00",
+  "updated_at": "2026-11-21T13:47:23.288243+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
   "models": [
     {
@@ -113,11 +113,11 @@
       "vendor": "DeepSeek",
       "created_at": "2026-09-10T06:21:25+00:00",
       "context_length": 1048576,
-      "input_per_m": 0.3,
-      "output_per_m": 1.2,
+      "input_per_m": 0.0498,
+      "output_per_m": 0.1992,
       "is_free": false,
-      "cache_read_per_m": 0.006,
-      "max_completion_tokens": 943718,
+      "cache_read_per_m": 0.000996,
+      "max_completion_tokens": 393216,
       "supports_tools": true,
       "expiration_date": null,
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on..."
@@ -128,11 +128,11 @@
       "vendor": "DeepSeek",
       "created_at": "2026-08-21T11:26:03+00:00",
       "context_length": 1048576,
-      "input_per_m": 0.44,
-      "output_per_m": 1.32,
+      "input_per_m": 0.2156,
+      "output_per_m": 0.6468,
       "is_free": false,
-      "cache_read_per_m": 0.014,
-      "max_completion_tokens": 943717,
+      "cache_read_per_m": 0.00686,
+      "max_completion_tokens": 262144,
       "supports_tools": true,
       "expiration_date": null,
       "description": "DeepSeek V4 Flash Vision Exp is an experimental vision-enabled version of [DeepSeek V4 Flash 0731](https://openrouter.ai/deepseek/deepseek-v4-flash-0731) from DeepSeek, adding image understanding while matching the base model on text capabilities including agents,..."
@@ -166,21 +166,6 @@
       "supports_tools": true,
       "expiration_date": null,
       "description": "DeepSeek V4 Flash 0731 is a sparse mixture-of-experts model from DeepSeek, with 13B active parameters out of 284B total. This re-post-trained revision is suited for coding, reasoning, and agent workflows...."
-    },
-    {
-      "id": "dots-studio/dots-3-note-preview:free",
-      "name": "Dots Studio: Dots3-Note Preview (free)",
-      "vendor": "Dots Studio",
-      "created_at": "2026-08-14T04:06:01+00:00",
-      "context_length": 512000,
-      "input_per_m": 0.0,
-      "output_per_m": 0.0,
-      "is_free": true,
-      "cache_read_per_m": null,
-      "max_completion_tokens": 460800,
-      "supports_tools": true,
-      "expiration_date": "2026-12-31",
-      "description": "Dots3-Note Preview is an open-weight mixture-of-experts model from Dots Studio, with 16B active parameters out of 280B total. It is the lightest model in the Dots 3 family and is..."
     },
     {
       "id": "google/gemini-4-neon",
@@ -256,6 +241,21 @@
       "supports_tools": false,
       "expiration_date": null,
       "description": "Gemini Omni 1.1 Flash is Google's native multimodal video generation and editing model, the generally available successor to Gemini Omni Flash Preview. It is suited for text-to-video, image-to-video, first and..."
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it:free",
+      "name": "Google: Gemma 4 26B A4B  (free)",
+      "vendor": "Google",
+      "created_at": "2026-04-03T14:53:09+00:00",
+      "context_length": 262144,
+      "input_per_m": 0.0,
+      "output_per_m": 0.0,
+      "is_free": true,
+      "cache_read_per_m": null,
+      "max_completion_tokens": 32768,
+      "supports_tools": true,
+      "expiration_date": null,
+      "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at..."
     },
     {
       "id": "inclusionai/ling-3.2-flash:free",

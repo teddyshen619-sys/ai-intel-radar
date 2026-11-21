@@ -1,29 +1,52 @@
 {
-  "updated_at": "2026-11-20T16:46:19.178902+00:00",
-  "previous_updated_at": "2026-11-20T14:04:33.163311+00:00",
+  "updated_at": "2026-11-21T13:47:23.288243+00:00",
+  "previous_updated_at": "2026-11-20T16:46:19.178902+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
-  "new_free": [],
+  "new_free": [
+    "google/gemma-4-26b-a4b-it:free"
+  ],
   "price_changes": [
     {
       "id": "deepseek/deepseek-v4.1-flash",
       "field": "input_per_m",
-      "old": 0.0507,
-      "new": 0.3,
-      "change_pct": 491.72
+      "old": 0.3,
+      "new": 0.0498,
+      "change_pct": -83.4
     },
     {
       "id": "deepseek/deepseek-v4.1-flash",
       "field": "output_per_m",
-      "old": 0.2028,
-      "new": 1.2,
-      "change_pct": 491.72
+      "old": 1.2,
+      "new": 0.1992,
+      "change_pct": -83.4
     },
     {
       "id": "deepseek/deepseek-v4.1-flash",
       "field": "cache_read_per_m",
-      "old": 0.001014,
-      "new": 0.006,
-      "change_pct": 491.72
+      "old": 0.006,
+      "new": 0.000996,
+      "change_pct": -83.4
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "field": "input_per_m",
+      "old": 0.44,
+      "new": 0.2156,
+      "change_pct": -51.0
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "field": "output_per_m",
+      "old": 1.32,
+      "new": 0.6468,
+      "change_pct": -51.0
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "field": "cache_read_per_m",
+      "old": 0.014,
+      "new": 0.00686,
+      "change_pct": -51.0
     }
   ],
   "expiring": []
