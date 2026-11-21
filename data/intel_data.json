@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-21T02:08:16+08:00",
+  "updated_at": "2026-11-21T22:27:12+08:00",
   "items": [
     {
       "id": "ai-20261120-28",
@@ -62,68 +62,103 @@
       ]
     },
     {
-      "id": "ai-20261120-02",
-      "date": "2026-11-20",
+      "id": "ai-20261121-03",
+      "date": "2026-11-21",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "URGENT",
+      "vendor": "Stanford / Anthropic",
+      "priority": 99,
+      "impact": "关注 AI 数学形式化验证、科研出版伦理与前沿推理边界的研究者",
+      "title": "黎曼猜想“双线撞车”24 小时反转：MIT 编译通过 AI 版 Lean 证明，人类手稿 8 小时被 AI 辅助挑出瑕疵",
+      "value_tag": "双线验证 · 24h 反转",
+      "tldr": "Anthropic 研究员 Levent Alpöge 联合 Claude 提交的 14 卷 GRH Lean 形式化代码获 MIT 学者 Andrew Sutherland 编译通过且被 Elliot Glazer 确认命题等价；同期斯坦福教授 Ravi Vakil 抢发零 AI 人类手稿，8 小时后即称多名学者借 AI 模型发现论证问题。",
+      "details": [
+        "形式化侧进展：MIT 数学家 Andrew Sutherland 独立完成 Alpöge 提交的 14 个 lean.tar.gz 分卷编译，研究员 Elliot Glazer 确认形式化陈述确为广义黎曼猜想（GRH），此前业内多视 Lean 内核自身出错概率极低。",
+        "自守提升路径：东英吉利大学数论学者 Chris Birkbeck 在 Lean Zulip 梳理指出，Alpöge 路线跨越函数域类比、CM 域上 GL_n 伽罗瓦表示、基变换与 Jacquet-Shalika 等自守提升，展开文本将逾 25 万页。",
+        "人类手稿抢发：斯坦福博士后 Alessandro Masullo 在导师 Brian Conrad 审阅数月并获“进展看好”后，受当前气候催化提前发布 12 年心血 940 页手稿，基于阿代尔 theta 函数与对角商 Schauder 基攻关。",
+        "8 小时戏剧反转：AMS 主席 Ravi Vakil 发布手稿仅 8 小时后便追加说明，确认多位数学家已通过不同 AI 模型协助找出疑点，前 OpenAI 数学研究员 @AcerFur 亦在 X 平台报告发现瑕疵。"
+      ],
+      "action_snippet": "",
+      "source_platform": "TechCrunch / Stanford",
+      "source_url": "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
+      "metric_badge": "Lean 编译通过 · 手稿遇疑",
+      "story": [
+        {
+          "heading": "AMS 会议室里的“紧急抢发”",
+          "paragraphs": [
+            "11 月 20 日上午 10:18（太平洋时间），斯坦福大学数学教授兼现任美国数学会（AMS）主席 Ravi Vakil 正准备主持一场长达数小时的 AMS 执行委员会与董事会会议。面对 Anthropic 研究员 Levent Alpöge 刚刚宣布借助 Claude 攻克广义黎曼猜想（GRH）的消息，Vakil 在会议间隙紧急在个人数学博客发表长文，公开了一位人类数学家历时十二年、完全零 AI 参与的竞争性方案。",
+            "这篇长达 940 页的手稿名为《The Music of the Primes》，作者是斯坦福博士后 Alessandro Masullo。Vakil 在首版博文中特别强调，斯坦福数论专家 Brian Conrad 已连续数月仔细审阅该手稿并给出大量修改反馈，“到目前为止在他看来进展看好（looking good to him）”；团队原本打算安排 Masullo 重返斯坦福访问一年专门润色行文与补全细节，但受当天学术氛围推动，最终决定直接放出当前草稿以确立人类研究的独立时间线。"
+          ]
+        },
+        {
+          "heading": "12 年长跑与五天前的 IAS 黑板长谈",
+          "paragraphs": [
+            "Masullo 在手稿致谢页亲述了这段跨越十二年的研究历程：项目始于他在斯坦福师从 Brian Conrad 读博第一年即将结束之时，研究目标直指所有数域与全部酉 Hecke 特征的广义黎曼猜想。",
+            "致谢页还揭开了最后冲刺阶段的时间线：2026 年 10 月中旬，Masullo 致信普林斯顿高等研究院（IAS）数论学者 Peter Sarnak 阐释全局证明战略；就在事件爆发前的“上个周日”，他与 Brian Conrad 还专程赴 IAS 与 Sarnak 在黑板前展开了长达 4 个半小时的面对面推演。面对人机竞速的压力，Masullo 在坦言与 Conrad 均知晓打字稿尚存局部疏漏的同时，写下了一段宣言式的自白：“If any message at all this work is meant to send to the mathematician who feels discouraged by the pace and tone of the current climate, it is this: we are still here. We are very much alive. We are not going anywhere.”"
+          ]
+        },
+        {
+          "heading": "两条技术路线：自守提升黑箱 vs. 阿代尔泛函分析",
+          "paragraphs": [
+            "同日撞车的两份证明在数学工具箱上截然不同。TechCrunch 援引东英吉利大学数论学者 Chris Birkbeck 在 Lean Zulip 社区的梳理指出，Alpöge 与 Claude 的方案植根于函数域类比与自守提升理论，动用了 CM 域上 GL_n 正则代数极化尖点自守表示的伽罗瓦表示构造、基变换、Jacquet-Shalika、Clozel 纯性、Bernstein-Zelevinsky 以及主理想与 Deligne-Ribet 定理等工具。由于完整展开论证将超过 25 万页且人眼难以通读，Alpöge 直接给出了 14 个分卷 lean.tar.gz 源码包。随后 MIT 学者 Andrew Sutherland 确认已独立成功编译该 Lean 代码库，研究员 Elliot Glazer 亦核实代码形式化陈述的定理正是广义黎曼猜想本人。",
+            "Masullo 的 940 页手稿则扎根经典全局分析与泛函分析路径：将 Tate 论文推广到局部紧阿贝尔群上的 Schwartz-Bruhat 函数空间与全球阿代尔 theta 函数，在形如 (R^N x A)/Gamma_0 的“螺线管（solenoids）”对角商空间上构造周期 Schauder 基，并结合 Weil 主值算子与迹公式定位 Hecke L-函数零点。他在致 Peter Sarnak 的信中论证，正是数域存在阿基米德位以及素数对数的有理线性无关性，使这种基于平滑函数与傅里叶分析的方法得以避开正特征函数域所需的代数几何障碍。"
+          ]
+        },
+        {
+          "heading": "8 小时反转：AI 帮数学家在人类手稿里揪出漏洞",
+          "paragraphs": [
+            "戏剧性的一幕发生在当天傍晚。当 Vakil 结束长达数小时的 AMS 董事会会议走出会议室时，离手稿公开仅仅过去了大约 8 个小时。他在原博文顶部紧急补充了一条更新：“已有数位人士联系我，报告了该拟议证明中存在的问题，这些问题是在不同 AI 模型的协助下识别出来的（identified with the assistance of different AI models）。”",
+            "几乎同一时间，X 平台（如前 OpenAI 数学研究员 @AcerFur）与获得逾 2200 点支持的 Hacker News 讨论串中也陆续出现用前沿模型跑出反例或疑点的反馈。Vakil 明确表示，在所有提出的问题解决前该手稿不能被视为成立，他对证明策略最终是否正确亦不作保证。2026 年 11 月的这 24 小时因此留下了一组极具冲击力的时代对照：经数论名家历时数月人脑审校尚未拦下的人类手稿，在数小时内遭到 AI 辅助审稿工具定位硬伤；而被学者自嘲“人类读不完”的百万行 AI 生成证明，却先一步凭机器可编译的形式化契约跨过了第一道验证门槛。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-20261121-01",
+      "date": "2026-11-21",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "URGENT",
+      "vendor": "Google",
+      "priority": 96,
+      "impact": "寻求高性价比开源多模态（文本+图像+视频）与原生工具调用接口的开发者",
+      "title": "OpenRouter 新增免费 Google Gemma 4 26B A4B：仅 3.8B 激活参量支持 256K 与 60 秒视频理解",
+      "value_tag": "0 费用 · 视频+工具",
+      "tldr": "OpenRouter 北京时间 2026-11-21 21:47 快照新上线免费模型 google/gemma-4-26b-a4b-it:free，Apache 2.0 协议开源，总参 25.2B / 每 token 仅激活 3.8B，提供 262K 上下文、原生函数调用与最长达 60 秒 1fps 视频输入。",
+      "details": [
+        "模型规格：采用稀疏 MoE 架构（总参 25.2B / 激活 3.8B），OpenRouter 配置 262,144 上下文窗口与 32,768 最大输出，输入输出均 $0/M。",
+        "多模态与工程：除文本与多图外支持 60s@1fps 视频理解、可配置 thinking 模式、结构化 JSON 输出与原生 tools 调用，Apache 2.0 可商用。",
+        "实测基准：Artificial Analysis 推理模式下 GPQA Diamond 79.2%、IFBench 72.4%、AA-LCR 65.7%，非推理 MMMU-Pro 66.7%、SciCode 40.0%。",
+        "线上性能：Google AI Studio 免费上游通道实测中位延迟 1.11s、吞吐约 42 tok/s、近 3 日在线率 100.00%（综合可用率 99.52%）。"
+      ],
+      "action_snippet": "google/gemma-4-26b-a4b-it:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=google%2Fgemma-4-26b-a4b-it%3Afree",
+      "metric_badge": "$0/M · 262K · 视频"
+    },
+    {
+      "id": "ai-20261121-02",
+      "date": "2026-11-21",
       "channel": "INTEL",
       "type": "POLICY",
       "status": "URGENT",
       "vendor": "DeepSeek",
       "priority": 96,
-      "impact": "通过 OpenRouter 调用 DeepSeek V4 系列的高并发与长文本开发者",
-      "title": "OpenRouter DeepSeek 报价剧烈分化：00:46 快照 V4.1 Flash 回调 +491%，与 -1017 后缀为不同型号",
-      "value_tag": "00:46 快照价格追踪",
-      "tldr": "OpenRouter 北京时间 2026-11-21 00:46 快照显示，无后缀型号 deepseek/deepseek-v4.1-flash 输入/输出/缓存读取全线回调 +491.72%（分别回到 $0.30/$1.20/$0.006/M）；而此前调价的带 -1017 后缀款当前维持 $0.15/$0.60/$0.003/M，需严防混用型号 ID。",
+      "impact": "所有在 OpenRouter 路由 DeepSeek V4 Flash 系列的成本敏感型与视觉推理应用",
+      "title": "OpenRouter DeepSeek 夜间大跳水：V4.1 Flash 回落 -83.4% 至 $0.0498/$0.1992/M，Vision Exp 砍半",
+      "value_tag": "-83.4% · 重返低价",
+      "tldr": "OpenRouter 21:47 最新快照逆转凌晨涨势：无后缀款 deepseek/deepseek-v4.1-flash 输入/输出/缓存同步大降 83.4%，反超 -1017 固定价版便宜 66.8%；视觉实验款 deepseek/deepseek-v4-flash-vision-exp 亦全线砍半降价 51%。",
       "details": [
-        "00:46 快照核心异动（deepseek/deepseek-v4.1-flash）：较上一周期（22:04）三项报价同步回调 +491.72%——输入由 $0.0507 升至 $0.30/M，输出由 $0.2028 升至 $1.20/M，缓存读取由 $0.001014 升至 $0.006/M，低价窗口再次关闭。",
-        "同系列不同型号 ID 价差核对（截至 2026-11-21 00:46 快照）：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 当前报价为输入 $0.15/M、输出 $0.60/M、缓存读取 $0.003/M（为昨晚 20:01 调价后维持价），是当前无后缀款的一半。",
-        "其余 V4 型号当前快照报价：deepseek/deepseek-v4-pro-0813 维持昨晚 20:01 调价后的输入 $1.32/M、输出 $3.96/M、缓存读取 $0.044/M；deepseek/deepseek-v4-flash-0731 输入微调至 $0.0443/M、输出 $0.30/M、缓存读取 $0.035/M，是长输入短输出任务更低成本的备选。",
-        "操作建议：核对调用配置的完整 model ID；若需降低常规推理成本，可对照 OpenRouter 00:46 快照价（$0.15/$0.60/M）评估切换至 deepseek/deepseek-v4.1-flash-1017，或长输入场景采用 deepseek/deepseek-v4-flash-0731（$0.0443/$0.30/M）。"
+        "V4.1 Flash 回落：输入从 $0.30 降至 $0.0498/M，输出由 $1.20 降至 $0.1992/M，缓存读取由 $0.006 降至 $0.000996/M，降幅均达 -83.4%。",
+        "版本价差倒挂：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 仍维持 $0.15/$0.60/$0.003/M，此前因避险切往 -1017 的调用方现可切回。",
+        "Vision Exp 降价：多模态型号 deepseek/deepseek-v4-flash-vision-exp（1M 上下文）输入/输出/缓存同步下调 -51.0% 至 $0.2156 / $0.6468 / $0.00686/M。",
+        "操作建议：OpenRouter 无后缀路由价格浮动频繁，建议在网关层结合价格报警或对预算严格路由保留 -1017 固定价模型 ID 作为回退开关。"
       ],
-      "action_snippet": "",
+      "action_snippet": "{\n  \"model\": \"deepseek/deepseek-v4.1-flash\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"Analyze logs\"}]\n}",
       "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash"
-    },
-    {
-      "id": "ai-20261118-04",
-      "date": "2026-11-18",
-      "channel": "INTEL",
-      "type": "MODEL",
-      "status": "URGENT",
-      "vendor": "OpenAI",
-      "priority": 96,
-      "impact": "OpenAI API 开发者与 Pro 订阅用户",
-      "title": "GPT-6.2 Astra/Sol API 上线即降价：缓存输入低至 $0.10/M，Ultrafast 限时半价",
-      "value_tag": "缓存降价 60%",
-      "tldr": "OpenAI 发布 gpt-6.2-astra 与 gpt-6.2-sol，旗舰款输入输出直降 20%、缓存输入砍掉 60%，且 Ultrafast 极速档截至 2027-02-28 享 3 倍促销费率（原价 6 倍）。",
-      "details": [
-        "API 定价：gpt-6.2-astra 输入 $8 / 缓存输入 $0.40 / 输出 $40（每百万 Token）；gpt-6.2-sol 保持 $2 / $0.10 / $10 高性价比，复杂任务所需输出更精简。",
-        "限时窗口：service_tier=\"ultrafast\" 极速推理档在太平洋时间 2027-02-28 前按标准费率 3 倍计费，2027-03-01 起恢复 6 倍标准价。",
-        "订阅福利：ChatGPT Pro 200 档用户首次解锁 Ultrafast 通道（率先覆盖 GPT-6.2 Sol），Pro 500 档支持 Astra 与 Sol 双模型极速模式。"
-      ],
-      "action_snippet": "{\n  \"model\": \"gpt-6.2-sol\",\n  \"service_tier\": \"ultrafast\",\n  \"input\": \"Summarize and extract structured anomalies from these logs.\"\n}",
-      "source_platform": "Hacker News",
-      "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
-    },
-    {
-      "id": "ai-20261120-01",
-      "date": "2026-11-20",
-      "channel": "RADAR",
-      "type": "DEAL",
-      "status": "URGENT",
-      "vendor": "NVIDIA",
-      "priority": 95,
-      "impact": "零预算多模态感知、视频/图像理解与工具调用开发者",
-      "title": "OpenRouter 上新免费多模态推理模型：NVIDIA Nemotron 3 Nano Omni 30B-A3B 零费率开放",
-      "value_tag": "0 费用 · 256K 上下文",
-      "tldr": "OpenRouter 今日目录新增免费通道 nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free，支持 256K 上下文、65K 输出、多模态理解（文本/图像/视频）与 Tool Calling，输入输出均 $0/M。",
-      "details": [
-        "核心规格：30B-A3B 稀疏多模态架构，context_length 达 256,000，max_completion_tokens 达 65,536，原生支持 supports_tools=true。",
-        "适用场景：定位为企业级 Agent 系统的感知与上下文子代理，适合零费用处理多模态理解与结构化工具分发。",
-        "调用说明：通过 OpenRouter Chat Completions 接口指定 :free 后缀模型 ID 即可调用，注意免费通道受平台并发与日限额约束。"
-      ],
-      "action_snippet": "{\n  \"model\": \"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Analyze this multi-step workflow and list tool actions.\" }\n  ]\n}",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=nvidia%2Fnemotron-3-nano-omni-30b-a3b-reasoning%3Afree"
+      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash",
+      "metric_badge": "-83.4% · $0.0498/M"
     },
     {
       "id": "ai-20261119-05",
@@ -147,24 +182,27 @@
       "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
     },
     {
-      "id": "ai-20261120-20",
-      "date": "2026-11-20",
+      "id": "ai-20261121-04",
+      "date": "2026-11-21",
       "channel": "RADAR",
-      "type": "DEAL",
+      "type": "BUG",
       "status": "URGENT",
-      "vendor": "Liquid AI",
+      "vendor": "Cline",
       "priority": 94,
-      "impact": "需要 256K 长上下文与原生函数调用能力的零预算 Agent 开发者",
-      "title": "OpenRouter 晚间新增免费模型：LiquidAI LFM3-1.7B 零费率开放（256K 上下文 + Tool Calling）",
-      "value_tag": "新增免费模型",
-      "tldr": "OpenRouter 晚间目录（20:01）新上线免费轻量推理模型 liquid/lfm-3-1.7b:free：输入输出全免（$0/M），配备 262,144 上下文窗口，专为 Agent 工具调用与结构化输出优化，支持先思考后作答。",
+      "impact": "在 VS Code 中挂载第三方或数据库/本地写权限 MCP Server 的 Cline 用户",
+      "title": "安全隐患 #15817：Cline 默认静默自动批准全部已安装 MCP 工具调用，v4.1.27 仅加“只读”UI 徽标未改默认值",
+      "value_tag": "高危默认放行 · 未修",
+      "tldr": "GitHub Issue #15817 披露 Cline 默认设置 DEFAULT_AUTO_APPROVAL_SETTINGS 中将 useMcp 设为 true，只要工具名包含双下划线 serverName__toolName 即跳过用户确认直接执行；今天发布的 v4.1.27 仅补了 UI 只读标记，未修改默认开关。",
       "details": [
-        "核心参数：1.7B 轻量参数规模，最大支持 262,144 tokens 上下文与单次最高 8,192 tokens 输出，原生开启 supports_tools（函数/工具调用）与 JSON 结构化输出，适合路由分发、表单抽取和轻量多步 Agent 子任务。",
-        "费率与权限提示：当前 OpenRouter 标价为输入 $0/M、输出 $0/M；但模型卡片明确标注免费通道下的提示词与输出可能被服务端留存并用于后续训练评估，生产环境切勿传入商业机密或用户个人隐私。"
+        "源码实锤路径：在主分支 e8227d6f 中 AutoApprovalSettings.ts 第 41 行默认 useMcp: true（同期命令执行 executeSafeCommands 为 false）。",
+        "无分工具粒度：sdk-tool-policies.ts 仅以 toolName.indexOf(\"__\") > 0 判定是否为 MCP 工具，源码注释直言全局一刀切开关且无单工具 opt-in。",
+        "v4.1.27 现状：今晨 06:05 发布的 v4.1.27（8075d2e）仅对声明为只读的 MCP 工具增加 UI“read-only”徽标，useMcp 默认值依然保持为 true。",
+        "避坑提示：该问题无 CVE 编号但极易误触发破坏性外部工具调用，使用 Cline 时请立即在 Auto-approve 面板取消勾选 Use MCP servers 并逐一审核挂载的 MCP 权限。"
       ],
-      "action_snippet": "liquid/lfm-3-1.7b:free",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=liquid%2Flfm-3-1.7b%3Afree"
+      "action_snippet": "",
+      "source_platform": "GitHub · cline/cline",
+      "source_url": "https://github.com/cline/cline/issues/15817",
+      "metric_badge": "useMcp: true · 未改默认"
     },
     {
       "id": "ai-20261119-19",
@@ -331,6 +369,68 @@
       ]
     },
     {
+      "id": "ai-20261118-04",
+      "date": "2026-11-18",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 96,
+      "impact": "OpenAI API 开发者与 Pro 订阅用户",
+      "title": "GPT-6.2 Astra/Sol API 上线即降价：缓存输入低至 $0.10/M，Ultrafast 限时半价",
+      "value_tag": "缓存降价 60%",
+      "tldr": "OpenAI 发布 gpt-6.2-astra 与 gpt-6.2-sol，旗舰款输入输出直降 20%、缓存输入砍掉 60%，且 Ultrafast 极速档截至 2027-02-28 享 3 倍促销费率（原价 6 倍）。",
+      "details": [
+        "API 定价：gpt-6.2-astra 输入 $8 / 缓存输入 $0.40 / 输出 $40（每百万 Token）；gpt-6.2-sol 保持 $2 / $0.10 / $10 高性价比，复杂任务所需输出更精简。",
+        "限时窗口：service_tier=\"ultrafast\" 极速推理档在太平洋时间 2027-02-28 前按标准费率 3 倍计费，2027-03-01 起恢复 6 倍标准价。",
+        "订阅福利：ChatGPT Pro 200 档用户首次解锁 Ultrafast 通道（率先覆盖 GPT-6.2 Sol），Pro 500 档支持 Astra 与 Sol 双模型极速模式。"
+      ],
+      "action_snippet": "{\n  \"model\": \"gpt-6.2-sol\",\n  \"service_tier\": \"ultrafast\",\n  \"input\": \"Summarize and extract structured anomalies from these logs.\"\n}",
+      "source_platform": "Hacker News",
+      "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
+    },
+    {
+      "id": "ai-20261120-01",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "NVIDIA",
+      "priority": 95,
+      "impact": "零预算多模态感知、视频/图像理解与工具调用开发者",
+      "title": "OpenRouter 上新免费多模态推理模型：NVIDIA Nemotron 3 Nano Omni 30B-A3B 零费率开放",
+      "value_tag": "0 费用 · 256K 上下文",
+      "tldr": "OpenRouter 今日目录新增免费通道 nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free，支持 256K 上下文、65K 输出、多模态理解（文本/图像/视频）与 Tool Calling，输入输出均 $0/M。",
+      "details": [
+        "核心规格：30B-A3B 稀疏多模态架构，context_length 达 256,000，max_completion_tokens 达 65,536，原生支持 supports_tools=true。",
+        "适用场景：定位为企业级 Agent 系统的感知与上下文子代理，适合零费用处理多模态理解与结构化工具分发。",
+        "调用说明：通过 OpenRouter Chat Completions 接口指定 :free 后缀模型 ID 即可调用，注意免费通道受平台并发与日限额约束。"
+      ],
+      "action_snippet": "{\n  \"model\": \"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Analyze this multi-step workflow and list tool actions.\" }\n  ]\n}",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=nvidia%2Fnemotron-3-nano-omni-30b-a3b-reasoning%3Afree"
+    },
+    {
+      "id": "ai-20261120-20",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "Liquid AI",
+      "priority": 94,
+      "impact": "需要 256K 长上下文与原生函数调用能力的零预算 Agent 开发者",
+      "title": "OpenRouter 晚间新增免费模型：LiquidAI LFM3-1.7B 零费率开放（256K 上下文 + Tool Calling）",
+      "value_tag": "新增免费模型",
+      "tldr": "OpenRouter 晚间目录（20:01）新上线免费轻量推理模型 liquid/lfm-3-1.7b:free：输入输出全免（$0/M），配备 262,144 上下文窗口，专为 Agent 工具调用与结构化输出优化，支持先思考后作答。",
+      "details": [
+        "核心参数：1.7B 轻量参数规模，最大支持 262,144 tokens 上下文与单次最高 8,192 tokens 输出，原生开启 supports_tools（函数/工具调用）与 JSON 结构化输出，适合路由分发、表单抽取和轻量多步 Agent 子任务。",
+        "费率与权限提示：当前 OpenRouter 标价为输入 $0/M、输出 $0/M；但模型卡片明确标注免费通道下的提示词与输出可能被服务端留存并用于后续训练评估，生产环境切勿传入商业机密或用户个人隐私。"
+      ],
+      "action_snippet": "liquid/lfm-3-1.7b:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=liquid%2Flfm-3-1.7b%3Afree"
+    },
+    {
       "id": "ai-20261120-06",
       "date": "2026-11-20",
       "channel": "INTEL",
@@ -351,6 +451,29 @@
       "action_snippet": "",
       "source_platform": "Google AI Blog",
       "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/"
+    },
+    {
+      "id": "ai-20261121-05",
+      "date": "2026-11-21",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "Thinking Machines",
+      "priority": 93,
+      "impact": "注重离线多模态编程推理、或研究循环深度推理架构的端侧 AI 开发者",
+      "title": "Thinking Machines 开源多模态循环 MoE“Inkling 2 Mini”：3.4B 唯一激活跑 1M 上下文，Ollama v0.40.17 同步适配 Mac",
+      "value_tag": "循环 MoE · Mac 20GB",
+      "tldr": "Thinking Machines 发布 Apache 2.0 开源多模态模型 Inkling 2 Mini（26.4B 总参 / 3.4B 唯一激活），通过中间 12 层循环运行 3 次在不加参数前提下大幅抬升代理编码与推理成绩；Ollama v0.40.17 同步上架支持 32GB+ 内存 Mac 本地运行。",
+      "details": [
+        "循环架构创新：24 个物理层中将第 6-17 层循环执行 3 次（等效 48 层、5.4B 有效激活与 128 专家 8 选通路由），原生混合 NVFP4+MXFP8 仅占 ~20GB 显存。",
+        "端侧编码超越：在 100B 以下开源权重中 32/48 项指标领先 Gemma 4 31B 与 Qwen3.8-27B，DeepSWE v1.1 达 48.2%、SWE-Bench Verified 79.2%。",
+        "安全与变体：同步开源可动态配置循环次数的研究版 TML-d24-varloop-research，无 CoT 推理时长由 1 轮 16s 延展至 3 轮 37s 且 CoT 可监控性未下降。",
+        "本地实测提示：Ollama v0.40.17（23b94a2）已支持 Apple Silicon 上运行 ollama run inkling-2-mini，HN 实测 M1 Max 约 18-20 tok/s，纯离线知识题易受 26B 容积限制需配检索工具。"
+      ],
+      "action_snippet": "thinkingmachines/Inkling-2-Mini",
+      "source_platform": "Hugging Face / Ollama",
+      "source_url": "https://huggingface.co/blog/inkling2mini",
+      "metric_badge": "SWE 79.2% · ~20GB"
     },
     {
       "id": "ai-20261119-02",
@@ -535,6 +658,52 @@
       "action_snippet": "# 1. PowerShell 排查并强杀残留孤儿 sort.exe 进程树：\nGet-Process sort -ErrorAction SilentlyContinue | Select-Object Id, WorkingSet64\ntaskkill /F /IM sort.exe /T\n\n# 2. 本地 bundle 热修参考（限制 sort 内存上限为 64MB 并强制字面匹配）：\n# findstr /v /i /l /c:\"\\\\.git\\\\\" /c:\"\\\\node_modules\\\\\" | sort /M 65536",
       "source_platform": "GitHub Issues",
       "source_url": "https://github.com/OpenHands/OpenHands/issues/19823"
+    },
+    {
+      "id": "ai-20261121-06",
+      "date": "2026-11-21",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "U.S. Policy / White House",
+      "priority": 91,
+      "impact": "规划跨境全球算力基建的美系云计算大厂、AI 实验室及数据中心 REITs 投资方",
+      "title": "特朗普威胁对在海外建 AI 数据中心的美企征收“巨额关税”：声称连幕僚都尚未通知",
+      "value_tag": "算力关税威胁",
+      "tldr": "据 The Verge 报道，美国总统特朗普在周五外交峰会后的记者会上脱稿警告，若美国企业将 AI 数据中心建在海外，将面临“巨额关税”，甚至直言连自己幕僚尚未获悉，使美企在地方基建停批与跨境征税间进退两难。",
+      "details": [
+        "公开原话放风：特朗普在副总统万斯与国务卿鲁比奥陪同下称“绝不允许公司把数据中心建到国外……中国会把它们全部夺走”，并扬言施加“tremendous tax”。",
+        "幕僚同感意外：特朗普紧接着补充“我甚至还没把这事告诉我的手下（I haven't even said that to my people）”，凸显该政策威胁尚属临时政治表态。",
+        "本土批地瓶颈：全美多州及核心枢纽县市（如弗吉尼亚州劳登县）正因电力和资源担忧限制或冻结新数据中心申报，企业原本借出海选址绕开本土审批堵塞。",
+        "立法现实阻力：约两个月后新一届民主党主导的国会即将履职，这类未经细化的惩罚性税收能否走通正式立法与行政界定仍存在较高不确定性。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge AI",
+      "source_url": "https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax",
+      "metric_badge": "政策施压 · 国会变量",
+      "story": [
+        {
+          "heading": "外交峰会后的脱稿放话：“连自己团队都还没通知”",
+          "paragraphs": [
+            "2026 年 11 月 20 日，在与习近平主席及俄罗斯总统普京举行峰会后的周五记者会上，美国总统特朗普站在副总统万斯（JD Vance）和国务卿鲁比奥（Marco Rubio）身旁，突然把矛头转向了美国科技巨头在全球各地推进的 AI 算力基础设施扩张。",
+            "据 The Verge 记者 Lauren Feiner 报道，特朗普在回答提问时承诺，将对把数据中心建在美国境外的美国公司征收一笔“巨额关税（tremendous tax）”。他在镜头前强硬表态“我们不允许自己的公司在国外建数据中心”，并声称如果不加阻拦“中国会把它们全部夺走（China will take them all）”。更引人注目的是他随即自曝的一句话——“我甚至还没把这事告诉我的幕僚们（I haven't even said that to my people）”——显示出即便是台上的核心政策团队，大概率也是在现场才第一次听到这一针对海外算力基建的征税威胁。"
+          ]
+        },
+        {
+          "heading": "“回流惩罚”撞上美国本土电网与土地禁令",
+          "paragraphs": [
+            "这一表态精准戳中了美国 AI 行业当下最敏感的扩张痛点：本土批地与电力瓶颈。过去两年里，超大规模云厂商之所以大举在欧洲、中东、东南亚或拉美评估并落地新机房，不仅是为了贴近境外客户与主权合规要求，同样也在规避美国本土日益棘手的审批排队与电网容量紧张。",
+            "正如 The Verge 在报道中指出的悖论：就在特朗普扬言用重税迫使美国公司把机房留在本土的同时，美国国内各地州政府与市政当局反而正在收紧政策——包括全球数据中心最集中的弗吉尼亚州劳登县（Loudoun County）在内的多地纷纷对新建数据中心申请亮出限批甚至暂停（moratorium）红灯。一边是地方电网、电价与用水的民意反噬，另一边是白宫抛出的离岸税收大棒，正在把算力基建推向夹缝。"
+          ]
+        },
+        {
+          "heading": "落地前景：两个月后的新国会变量",
+          "paragraphs": [
+            "单就执行机制而言，把“海外新建数据中心”直接锚定为可征关税对象仍面临巨大的技术与法律问号——例如境外自建园区、跨国合资算力中心与单纯租用当地云节点之间如何划界，白宫记者会现场并未给出任何具体参数。",
+            "更现实的约束来自华盛顿的政治日历：大约两个月后，由民主党占主导的新一届美国国会就将就职。分析指出，一旦特朗普试图将这种即兴式的关税宣言推进为具长期约束力的联邦税制法案，将不得不直面新国会的激烈掣肘；在正式细则浮出水面之前，它更大的直接效应是迫使美系科技巨头重新核算境外资本开支（CapEx）所背负的地缘政策溢价。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261120-07",
@@ -794,6 +963,29 @@
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
     },
     {
+      "id": "ai-20261121-07",
+      "date": "2026-11-21",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 88,
+      "impact": "习惯直接在搜索与 AI 对话中完成零售比价、结账及金融税务办理的美区日常用户与电商接入方",
+      "title": "Google Search 与 Gemini 全面铺开美区 Connected Apps：接入商超生鲜结账、Experian 信用与 H&R Block 估税",
+      "value_tag": "UCP 协议 · 一站办事",
+      "tldr": "Google 宣布面向美国 Google Search 及 Gemini App 用户推送全新 Connected Apps 集成，依托开放商业协议 UCP 直接在对话中完成 Albertsons 与 Target 购物结账，并引入 Experian 贷款测算与 H&R Block 退税估算。",
+      "details": [
+        "生鲜零售直连：基于 Universal Commerce Protocol（UCP）开放协议，用户可在 Search 与 Gemini 内打通 Albertsons、Safeway、Shaw's 与 Target 直接加购及结账。",
+        "金融与税务接入：Experian 现已支持在 Google Search 内测算信用等级并匹配个人贷款方案；H&R Block 则提供税款与退税金额交互式估算入口。",
+        "家政服务预告：Google 同时预告家庭维修与服务对接平台 Angi 与 Thumbtack 将在未来数周内陆续接入这套体系。",
+        "使用限制提示：本轮新接入功能面向美国区 Search 与 Gemini 账号分批放量上线，涉及结账与征信估算需主动授权关联第三方账户。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Google Search Blog",
+      "source_url": "https://blog.google/products-and-platforms/products/search/connected-apps-holiday-errands/",
+      "metric_badge": "美区放量 · UCP 结账"
+    },
+    {
       "id": "ai-20261120-22",
       "date": "2026-11-20",
       "channel": "REVIEW",
@@ -968,6 +1160,30 @@
       "action_snippet": "",
       "source_platform": "YouTube · AI Engineer",
       "source_url": "https://www.youtube.com/watch?v=vlfCjWuv4es"
+    },
+    {
+      "id": "ai-20261121-08",
+      "date": "2026-11-21",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "status": "ACTIVE",
+      "vendor": "AI Engineer / Osmantic",
+      "priority": 86,
+      "impact": "需要为真实 Agent 工作流选型本地 GPU 硬件、量化规格与推理引擎的 AI 基础设施工程师",
+      "title": "CODE Summit 实战演讲《What Runs Where?》：拆解生产级本地 AI 的内存带宽、量化取舍与租算力经济账",
+      "value_tag": "深度技术演讲 · 带时间戳",
+      "tldr": "Osmantic 创始人 Ahmad Osman 在 CODE Summit 2026 系统复盘本地大模型生产栈选型，拆解 prefill/decode 瓶颈差异、量化画质掉点、批处理引擎适配、Portal 代理框架与自建 GPU 还是租卡的 TCO 临界点。",
+      "details": [
+        "硬件与引擎拆分：深度对比 prefill 算力受限与 decode 内存带宽受限阶段的芯片选型策略，梳理不同芯片下的批处理调度与投机解码流水线优化。",
+        "真实轨迹驱动选型：演示如何基于真实任务运行轨迹（task traces）与 Portal 代理测试集，在通用大模型与小体积专精模型之间做精度/延迟权衡。",
+        "算力与持续学习：量化拆解租用云 GPU 与自购卡运维的成本曲线，并提出利用本地机器独占控制权演进记忆单元（engrams）与权重编辑持续学习。",
+        "完整开源参考：视频附带演讲全分段时间戳目录及 speaker GitHub 仓库 Osmantic/ODS，方便工程团队按需对照硬件预算查表落地方案。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube · AI Engineer",
+      "source_url": "https://www.youtube.com/watch?v=GKSQYbELDzw",
+      "media_url": "https://i4.ytimg.com/vi/GKSQYbELDzw/hqdefault.jpg",
+      "metric_badge": "深度实战 · 带时间戳"
     },
     {
       "id": "ai-20261120-24",
@@ -1348,6 +1564,29 @@
       "action_snippet": "{\n  \"model\": \"gpt-4.1-mini\",\n  \"service_tier\": \"flex\",\n  \"prompt_cache_key\": \"radar-intel-extractor-v1\",\n  \"messages\": [\n    { \"role\": \"system\", \"content\": \"You are a strict JSON intelligence extractor...\" },\n    { \"role\": \"user\", \"content\": \"{{raw_content}}\" }\n  ]\n}",
       "source_platform": "X (Twitter)",
       "source_url": "https://x.com/OpenAIDevs/status/1989512048371920112"
+    },
+    {
+      "id": "ai-20261120-02",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "FIXED",
+      "vendor": "DeepSeek",
+      "priority": 96,
+      "impact": "通过 OpenRouter 调用 DeepSeek V4 系列的高并发与长文本开发者",
+      "title": "OpenRouter DeepSeek 报价剧烈分化：00:46 快照 V4.1 Flash 回调 +491%，与 -1017 后缀为不同型号",
+      "value_tag": "已回落 · 见今日跟进",
+      "tldr": "OpenRouter 北京时间 2026-11-21 00:46 快照显示，无后缀型号 deepseek/deepseek-v4.1-flash 输入/输出/缓存读取全线回调 +491.72%（分别回到 $0.30/$1.20/$0.006/M）；而此前调价的带 -1017 后缀款当前维持 $0.15/$0.60/$0.003/M，需严防混用型号 ID。",
+      "details": [
+        "00:46 快照核心异动（deepseek/deepseek-v4.1-flash）：较上一周期（22:04）三项报价同步回调 +491.72%——输入由 $0.0507 升至 $0.30/M，输出由 $0.2028 升至 $1.20/M，缓存读取由 $0.001014 升至 $0.006/M，低价窗口再次关闭。",
+        "同系列不同型号 ID 价差核对（截至 2026-11-21 00:46 快照）：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 当前报价为输入 $0.15/M、输出 $0.60/M、缓存读取 $0.003/M（为昨晚 20:01 调价后维持价），是当前无后缀款的一半。",
+        "其余 V4 型号当前快照报价：deepseek/deepseek-v4-pro-0813 维持昨晚 20:01 调价后的输入 $1.32/M、输出 $3.96/M、缓存读取 $0.044/M；deepseek/deepseek-v4-flash-0731 输入微调至 $0.0443/M、输出 $0.30/M、缓存读取 $0.035/M，是长输入短输出任务更低成本的备选。",
+        "操作建议：核对调用配置的完整 model ID；若需降低常规推理成本，可对照 OpenRouter 00:46 快照价（$0.15/$0.60/M）评估切换至 deepseek/deepseek-v4.1-flash-1017，或长输入场景采用 deepseek/deepseek-v4-flash-0731（$0.0443/$0.30/M）。",
+        "归档注记：2026-11-21 21:47 快照显示 deepseek/deepseek-v4.1-flash 已重新大幅降价 -83.4%，回落至 $0.0498/$0.1992/$0.000996/M，最新跟踪见 ai-20261121-02。"
+      ],
+      "action_snippet": "",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash"
     },
     {
       "id": "ai-20261120-03",
