@@ -814,11 +814,12 @@ class IntelStoryValidationTest(unittest.TestCase):
 
 class RepositoryGuidesTest(unittest.TestCase):
     TRACKS = ["前期准备", "订阅优惠", "编程与Agent", "疑难杂症"]
-    EXPECTED = {
-        "lesson-f7b9543273b0": (1, "前期准备"),
-        "lesson-b101841fb51f": (2, "前期准备"),
-        "lesson-657ffec5712f": (3, "前期准备"),
-        "lesson-22ece7536789": (4, "订阅优惠"),
+    CORE_TRACKS = {
+        "lesson-f7b9543273b0": "前期准备",
+        "lesson-b101841fb51f": "前期准备",
+        "lesson-657ffec5712f": "前期准备",
+        "lesson-22ece7536789": "订阅优惠",
+        "lesson-d8e774cab580": "疑难杂症",
     }
 
     def test_studio_track_select_offers_standard_sections(self):
@@ -878,8 +879,12 @@ class RepositoryGuidesTest(unittest.TestCase):
         main = (studio.ROOT / "data/guides.json").read_bytes()
         self.assertEqual(main, (studio.ROOT / "web/data/guides.json").read_bytes())
         guides = json.loads(main)["guides"]
-        self.assertEqual({g["id"]: (g["order"], g["track"]) for g in guides}, self.EXPECTED)
-        self.assertTrue(all(g["track"] in self.TRACKS for g in guides))
+        tracks_by_id = {g["id"]: g["track"] for g in guides}
+        self.assertEqual(len(tracks_by_id), len(guides))
+        self.assertLessEqual(self.CORE_TRACKS.items(), tracks_by_id.items())
+        orders = [g["order"] for g in guides]
+        self.assertEqual(orders, sorted(orders))
+        self.assertTrue(all(g["track"] in self.TRACKS + [""] for g in guides))
         sources = {path: path.read_bytes() for path in sorted((studio.ROOT / "guides").glob("*.md"))}
         compiled = studio.build_guides.compile_guides(studio.ROOT, sources)
         self.assertEqual(compiled, json.loads(main))

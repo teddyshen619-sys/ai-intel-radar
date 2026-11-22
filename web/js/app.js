@@ -219,14 +219,14 @@ function leaveReaderForChannel(dom) {
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
-function openGuides(guideId = '') {
+function openGuides(guideId = '', step = null) {
   const wasReading = Boolean(readerItem);
   leaveReaderForChannel(domRefs);
   state.channel = 'GUIDES';
   state.vendor = 'ALL';
   state.type = 'ALL';
   guidesController.setTrack('', { scrollTop: false, silent: true });
-  if (guideId) guidesController.openGuide(guideId, { scrollTop: false, silent: true });
+  if (guideId) guidesController.openGuide(guideId, { step, scrollTop: false, silent: true });
   render(domRefs, { push: !wasReading });
   window.scrollTo({ top: 0, behavior: 'instant' });
   const heading = domRefs.guidesPanel.querySelector('.guide-doc-title') || domRefs.mastheadTitle;
@@ -387,6 +387,7 @@ function getDomRefs() {
     guideTrackTabs: document.getElementById('guide-track-tabs'),
     guideDirectoryProgress: document.getElementById('guide-directory-progress'),
     mastheadTitle: document.getElementById('masthead-title'),
+    homeGuidesStrip: document.getElementById('home-guides-strip'),
     footerUpdatedAt: document.getElementById('footer-updated-at'),
     subTypeBar: document.getElementById('sub-type-bar'),
     subTypeTabs: document.getElementById('sub-type-tabs'),
@@ -543,6 +544,139 @@ function updateNavigation(dom) {
   dom.guideDirectoryProgress.textContent = trackTotal ? `已完成 ${trackCompleted} / ${trackTotal} 门` : '';
 }
 
+/* ---------------- Homepage guides strip (实战教程编辑部导览横条) ---------------- */
+const HOME_STRIP_TITLE_MAX = 14;
+
+function clipTitle(title, max = HOME_STRIP_TITLE_MAX) {
+  const chars = Array.from(String(title || '').trim());
+  return chars.length > max ? `${chars.slice(0, max - 1).join('')}…` : chars.join('');
+}
+
+function homeStripButton(className, text, dataset = {}, ariaLabel = '') {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = className;
+  button.textContent = text;
+  for (const [key, value] of Object.entries(dataset)) {
+    if (value != null) button.dataset[key] = String(value);
+  }
+  if (ariaLabel) button.setAttribute('aria-label', ariaLabel);
+  return button;
+}
+
+function shouldShowHomeGuidesStrip() {
+  return (
+    state.channel === 'ALL' &&
+    !readerItem &&
+    !state.onlySaved &&
+    !state.query.trim() &&
+    Boolean(guidesController)
+  );
+}
+
+function renderHomeGuidesStrip(dom) {
+  const strip = dom.homeGuidesStrip;
+  if (!strip) return;
+  const snapshot = shouldShowHomeGuidesStrip() ? guidesController.getLearningSnapshot?.() : null;
+  const visible = Boolean(snapshot && snapshot.total > 0);
+  strip.hidden = !visible;
+  dom.header?.toggleAttribute('data-guides-strip', visible);
+  if (!visible) {
+    if (strip.childElementCount) strip.replaceChildren();
+    return;
+  }
+
+  const { state: phase, total, completed, resume, next, featured } = snapshot;
+  const signature = JSON.stringify(snapshot);
+  if (strip.dataset.signature === signature && strip.childElementCount) return;
+  strip.dataset.signature = signature;
+  strip.dataset.phase = phase;
+
+  const status =
+    phase === 'done'
+      ? `全部 ${total} 门已学完`
+      : completed > 0
+        ? `已完成 ${completed} / ${total} 门`
+        : `共 ${total} 门手把手实操课`;
+
+  let lede = '从网络环境、账号注册、海外支付卡到不到 110 元直开官方 GPT Plus，分步带你从零跑通。';
+  if (phase === 'resume' && resume) {
+    lede = `上次学到《${resume.title}》第 ${resume.currentStep} / ${resume.totalSteps} 步，点击右侧可接着往下走。`;
+  } else if (phase === 'next' && next) {
+    lede = `已完成 ${completed} 门基础准备，下一课推荐：《${next.title}》。`;
+  } else if (phase === 'done') {
+    lede = `你已学完当前全部 ${total} 门实战教程，可随时查阅命令细节或分享给朋友。`;
+  }
+
+  const copy = document.createElement('div');
+  copy.className = 'home-guides-copy';
+  const kicker = document.createElement('p');
+  kicker.className = 'home-guides-kicker';
+  const label = document.createElement('span');
+  label.className = 'home-guides-label';
+  label.textContent = 'PRACTICAL GUIDES · 实战教程';
+  const statusEl = document.createElement('span');
+  statusEl.className = 'home-guides-status';
+  statusEl.textContent = status;
+  kicker.append(label, statusEl);
+  const ledeEl = document.createElement('p');
+  ledeEl.className = 'home-guides-lede';
+  ledeEl.textContent = lede;
+  copy.append(kicker, ledeEl);
+
+  const links = document.createElement('div');
+  links.className = 'home-guides-links';
+  links.setAttribute('role', 'group');
+  links.setAttribute('aria-label', '实战教程直达入口');
+
+  const pad = (n) => String(n).padStart(2, '0');
+  if (phase === 'resume' && resume) {
+    links.append(
+      homeStripButton(
+        'home-guides-link home-guides-primary',
+        `继续《${clipTitle(resume.title, 12)}》第 ${resume.currentStep} 步 →`,
+        { homeGuide: resume.id, homeGuideStep: resume.currentStep },
+        `继续学习《${resume.title}》第 ${resume.currentStep} 步`
+      )
+    );
+  } else if (phase === 'next' && next) {
+    links.append(
+      homeStripButton(
+        'home-guides-link home-guides-primary',
+        `开始《${clipTitle(next.title, 12)}》 →`,
+        { homeGuide: next.id },
+        `开始学习《${next.title}》`
+      )
+    );
+  } else {
+    for (const guide of featured) {
+      const button = homeStripButton(
+        'home-guides-link home-guides-featured',
+        '',
+        { homeGuide: guide.id },
+        `打开课程：${guide.title}`
+      );
+      const num = document.createElement('span');
+      num.className = 'home-guides-num';
+      num.textContent = pad(guide.order || featured.indexOf(guide) + 1);
+      const name = document.createElement('span');
+      name.className = 'home-guides-name';
+      name.textContent = clipTitle(guide.title);
+      button.append(num, name);
+      links.appendChild(button);
+    }
+  }
+  links.appendChild(
+    homeStripButton(
+      'home-guides-link home-guides-all',
+      phase === 'resume' || phase === 'next' ? `全部 ${total} 门教程 →` : '全部教程 →',
+      { homeGuidesAll: '' }
+    )
+  );
+
+  strip.replaceChildren(copy, links);
+}
+
 function updateSubTypeBar(dom) {
   if (!dom.subTypeBar || !dom.subTypeTabs) return;
 
@@ -663,6 +797,7 @@ function updatePanels(dom) {
   dom.guidesPanel.hidden = reading || !isGuides;
   dom.footerUpdatedAt.hidden = !reading && (isModels || isGuides);
   updateNavigation(dom);
+  renderHomeGuidesStrip(dom);
   if (reading) {
     const bookmark = dom.detail.querySelector('[data-bookmark]');
     const active = saved.has(readerItem.id);
@@ -788,6 +923,16 @@ function bindEvents(dom) {
     const button = event.target.closest('[data-guide-track]');
     if (!button || !dom.guideTrackTabs.contains(button)) return;
     guidesController.setTrack(button.dataset.guideTrack);
+  });
+  dom.homeGuidesStrip?.addEventListener('click', event => {
+    const button = event.target.closest('[data-home-guide], [data-home-guides-all]');
+    if (!button || !dom.homeGuidesStrip.contains(button)) return;
+    if (button.hasAttribute('data-home-guides-all')) {
+      openGuides();
+      return;
+    }
+    const step = Number.parseInt(button.dataset.homeGuideStep || '', 10);
+    openGuides(button.dataset.homeGuide, Number.isFinite(step) ? step : null);
   });
   document.getElementById('visit-mark-read').addEventListener('click', acknowledgeVisit);
   document.querySelector('nav a[href="#top"]').addEventListener('click', event => {
@@ -972,6 +1117,7 @@ async function bootstrap() {
         onChange: options => {
           updateNavigation(dom);
           updateMasthead(dom, statsCache);
+          renderHomeGuidesStrip(dom);
           syncUrl(options);
         },
         onToast: showToast,

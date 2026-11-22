@@ -5,6 +5,7 @@
  */
 
 import { copyTextToClipboard } from './card.js';
+import { initGuideShare, buildGuideShareLink } from './guide_share.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const COMPLETED_STORAGE_KEY = 'ai-intel-guides-done-v1';
@@ -87,6 +88,11 @@ function createSvgIcon(kind, className = 'w-3.5 h-3.5 shrink-0') {
     case 'arrow-right':
       add('line', { x1: '5', y1: '12', x2: '19', y2: '12' });
       add('polyline', { points: '12 5 19 12 12 19' });
+      break;
+    case 'share':
+      add('path', { d: 'M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7' });
+      add('polyline', { points: '16 6 12 2 8 6' });
+      add('line', { x1: '12', y1: '2', x2: '12', y2: '15' });
       break;
     default:
       add('circle', { cx: '12', cy: '12', r: '9' });
@@ -769,6 +775,16 @@ export async function initGuides({ onChange, onToast } = {}) {
     if (typeof onToast === 'function') onToast(msg, type);
   };
 
+  const shareController = initGuideShare({
+    mountRoot: document.getElementById('guide-share-root'),
+    onToast: notify,
+  });
+
+  function openShare(guide, { step = null, trigger = null } = {}) {
+    if (!guide) return;
+    shareController.open(guide, { step, trigger });
+  }
+
   function findGuide(guideId) {
     if (!guideId) return null;
     return guides.find((g) => g.id === guideId) || null;
@@ -804,22 +820,14 @@ export async function initGuides({ onChange, onToast } = {}) {
     progressMap[guideId] = {
       currentStep,
       completedSteps: [...completedStepsSet].sort((a, b) => a - b),
+      touchedAt: Date.now(),
     };
     writeStepProgressMap(progressMap);
   }
 
   function buildGuideShareUrl(guideId, stepNum = null) {
-    const url = new URL(window.location.href);
-    url.search = '';
-    url.hash = '';
-    url.searchParams.set('channel', 'GUIDES');
-    if (guideId) {
-      url.searchParams.set('guide', guideId);
-      if (stepNum && stepNum > 1 && viewMode === 'step') {
-        url.searchParams.set('step', String(stepNum));
-      }
-    }
-    return url.href;
+    const step = guideId && stepNum && stepNum > 1 && viewMode === 'step' ? stepNum : null;
+    return buildGuideShareLink(guideId, step);
   }
 
   function scrollToGuideTop() {
@@ -952,7 +960,21 @@ export async function initGuides({ onChange, onToast } = {}) {
           : '开始学习';
       const cta = el('span', 'guide-hub-card-cta');
       cta.append(el('span', '', ctaLabel), createSvgIcon('arrow-right', 'w-3.5 h-3.5 shrink-0'));
-      footer.append(metaLeft, cta);
+
+      const shareBtn = el('button', 'guide-hub-share-btn');
+      shareBtn.type = 'button';
+      shareBtn.dataset.guideShare = guide.id;
+      shareBtn.setAttribute('aria-label', `分享课程：${guide.title}`);
+      shareBtn.append(createSvgIcon('share', 'w-3.5 h-3.5 shrink-0'), el('span', '', '分享'));
+      shareBtn.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        openShare(guide, { trigger: shareBtn });
+      });
+      shareBtn.addEventListener('keydown', (evt) => evt.stopPropagation());
+
+      const actionGroup = el('span', 'guide-hub-card-actions');
+      actionGroup.append(shareBtn, cta);
+      footer.append(metaLeft, actionGroup);
 
       card.append(topRow, titleEl);
       if (guide.summary) card.appendChild(el('p', 'guide-hub-card-summary', guide.summary));
@@ -1056,12 +1078,26 @@ export async function initGuides({ onChange, onToast } = {}) {
 
     const actions = el('div', 'guide-doc-actions');
 
+    const shareLessonBtn = el('button', 'guide-action-link guide-action-primary');
+    shareLessonBtn.type = 'button';
+    shareLessonBtn.setAttribute('data-guide-share-lesson', '');
+    shareLessonBtn.append(
+      createSvgIcon('share', 'w-3.5 h-3.5 shrink-0'),
+      el('span', '', '分享本课')
+    );
+    shareLessonBtn.addEventListener('click', () => {
+      openShare(guide, {
+        step: viewMode === 'step' ? activeStepNumber : null,
+        trigger: shareLessonBtn,
+      });
+    });
+
     const copyLinkBtn = el('button', 'guide-action-link');
     copyLinkBtn.type = 'button';
     copyLinkBtn.setAttribute('data-guide-copy-link', '');
     copyLinkBtn.append(
       createSvgIcon('link', 'w-3.5 h-3.5 shrink-0'),
-      el('span', '', '复制本课链接')
+      el('span', '', '复制链接')
     );
     copyLinkBtn.addEventListener('click', async () => {
       const ok = await copyTextToClipboard(
@@ -1093,7 +1129,7 @@ export async function initGuides({ onChange, onToast } = {}) {
       if (typeof onChange === 'function') onChange();
     });
 
-    actions.append(copyLinkBtn, completeToggleBtn);
+    actions.append(shareLessonBtn, copyLinkBtn, completeToggleBtn);
     header.appendChild(actions);
     wrapper.appendChild(header);
 
@@ -1406,6 +1442,63 @@ export async function initGuides({ onChange, onToast } = {}) {
     return result;
   }
 
+  // Real-time learning snapshot for the homepage guides strip.
+  function getLearningSnapshot() {
+    const ordered = guides.slice();
+    const total = ordered.length;
+    const completed = ordered.filter((guide) => completedIds.has(guide.id)).length;
+    const pack = (guide, currentStep = 1) => ({
+      id: guide.id,
+      title: guide.title,
+      order: Number(guide.order) || 0,
+      track: guide.track,
+      totalSteps: getStepCount(guide),
+      currentStep,
+    });
+
+    const inProgress = ordered
+      .filter((guide) => !completedIds.has(guide.id))
+      .map((guide) => ({ guide, prog: getGuideProgress(guide), touchedAt: Number(progressMap[guide.id]?.touchedAt) || 0 }))
+      .filter(({ prog }) => prog.currentStep > 1 || prog.completedSteps.size > 0)
+      .sort((a, b) => b.touchedAt - a.touchedAt);
+    const resumeEntry = inProgress[0] || null;
+    const nextGuide = ordered.find((guide) => !completedIds.has(guide.id)) || null;
+
+    const featured = ordered.slice(0, 2);
+    const savingsGuide = ordered.find((guide) => guide.track === '订阅优惠' && !featured.includes(guide));
+    if (savingsGuide) featured.push(savingsGuide);
+    for (const guide of ordered) {
+      if (featured.length >= 3) break;
+      if (!featured.includes(guide)) featured.push(guide);
+    }
+    featured.sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
+
+    let stateKey = 'new';
+    if (total > 0 && completed === total) stateKey = 'done';
+    else if (resumeEntry) stateKey = 'resume';
+    else if (completed > 0) stateKey = 'next';
+
+    return {
+      state: stateKey,
+      total,
+      completed,
+      resume: resumeEntry ? pack(resumeEntry.guide, resumeEntry.prog.currentStep) : null,
+      next: nextGuide ? pack(nextGuide) : null,
+      featured: featured.slice(0, 3).map((guide) => pack(guide)),
+    };
+  }
+
+  // Keep progress in sync when another tab updates localStorage.
+  window.addEventListener('storage', (event) => {
+    if (event.key !== null && event.key !== COMPLETED_STORAGE_KEY && event.key !== STEP_PROGRESS_STORAGE_KEY) return;
+    completedIds.clear();
+    for (const id of readCompletedIds()) completedIds.add(id);
+    for (const key of Object.keys(progressMap)) delete progressMap[key];
+    Object.assign(progressMap, readStepProgressMap());
+    if (!shareController.isOpen()) render();
+    if (typeof onChange === 'function') onChange();
+  });
+
   render();
 
   return {
@@ -1433,5 +1526,7 @@ export async function initGuides({ onChange, onToast } = {}) {
     getViewMode: () => viewMode,
     getGuides: () => guides.slice(),
     getSource: () => loaded.source,
+    getLearningSnapshot,
+    openShare: (guideId, options = {}) => openShare(findGuide(guideId), options),
   };
 }
