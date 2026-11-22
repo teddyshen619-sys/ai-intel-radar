@@ -259,7 +259,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .primary-pillar-btn[data-active="true"]::after { height: 2px; background: var(--accent-blue); }
 .primary-pillar-btn:focus-visible, .nav-channel-btn:focus-visible { outline: 1px solid var(--accent-blue); outline-offset: -3px; }
 .subdirectory { min-width: 0; border-bottom: 1px solid var(--border-hairline); }
-.subdirectory-tabs { display: flex; align-items: center; gap: clamp(20px, 3vw, 32px); min-width: 0; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.subdirectory-tabs { display: flex; align-items: center; gap: clamp(20px, 3vw, 32px); min-width: 0; max-width: 100%; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; overscroll-behavior-x: contain; }
 .nav-channel-btn { flex: 0 0 auto; min-height: 50px; padding-block: .75rem; font-size: 14px; }
 .nav-channel-btn[data-active="true"]::after { height: 1.5px; }
 .guide-directory { display: flex; align-items: center; gap: 1.5rem; min-width: 0; }
@@ -837,6 +837,23 @@ html[data-theme="dark"] .toolbar-bookmark-btn[aria-pressed="true"]:hover {
 
 .guides-hub-empty .guide-doc-summary {
   max-width: 36rem;
+}
+
+/* 单个子版块暂无已发布教程：编辑部筹备提示（纯文字动作，无胶囊） */
+.guides-track-empty .guide-doc-title {
+  overflow-wrap: anywhere;
+}
+
+.guides-track-empty .guide-doc-actions {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-hairline);
+  max-width: 36rem;
+}
+
+.guides-track-empty-action:focus-visible {
+  outline: 1px solid var(--accent-blue);
+  outline-offset: 3px;
 }
 
 .guides-hub-grid {

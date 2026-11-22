@@ -28,7 +28,13 @@
       <div class="heading-row"><h1>基础信息</h1><span id="filelabel" class="file"></span></div>
       <div class="fields">
         <label class="wide">课程标题<input name="title" required autocomplete="off"></label>
-        <label>赛道分类<input name="track" placeholder="可选，如：通用课程"></label>
+        <label>版块分类<select name="track">
+          <option value="前期准备">前期准备</option>
+          <option value="订阅优惠">订阅优惠</option>
+          <option value="编程与Agent">编程与Agent</option>
+          <option value="疑难杂症">疑难杂症</option>
+          <option value="">未分类（仅在全部中显示）</option>
+        </select></label>
         <label>排序序号<input name="order" type="number" min="1" step="1" required></label>
         <label class="wide">课程简介<textarea name="summary" rows="2" placeholder="可选，简要介绍课程内容"></textarea></label>
         <label class="wide">编者注<textarea name="author_note" rows="2" placeholder="可选，补充背景或阅读建议"></textarea></label>
@@ -53,7 +59,13 @@
 <dialog id="create-dialog">
   <form id="create-form"><h2>新建课程</h2>
     <label>课程标题<input name="title" required autocomplete="off" autofocus></label>
-    <label>赛道分类<input name="track" placeholder="可选，如：通用课程"></label>
+    <label>版块分类<select name="track">
+      <option value="前期准备" selected>前期准备</option>
+      <option value="订阅优惠">订阅优惠</option>
+      <option value="编程与Agent">编程与Agent</option>
+      <option value="疑难杂症">疑难杂症</option>
+      <option value="">未分类（仅在全部中显示）</option>
+    </select></label>
     <div class="dialog-actions"><button type="button" id="cancel">取消</button><button class="primary">创建课程</button></div>
   </form>
 </dialog>

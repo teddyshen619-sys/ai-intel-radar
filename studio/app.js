@@ -4,6 +4,22 @@ const $ = id => document.getElementById(id);
 const editor = $("editor");
 const fields = ["title", "track", "summary", "author_note", "related_tags", "order", "updated_at"];
 let library, draft = null, currentStep = 0, dirty = false, busy = false;
+const TRACKS = ["前期准备", "订阅优惠", "编程与Agent", "疑难杂症"];
+const DEFAULT_TRACK = TRACKS[0];
+
+// 历史或接口创建的自定义版块不在预设中时，临时补一个选项，避免载入或保存时被清空。
+function syncTrackOptions(value) {
+  const control = editor.elements.track;
+  if (!control || !control.options) return;
+  for (const option of Array.from(control.options)) {
+    if (option.dataset.custom) option.remove();
+  }
+  if (value && !TRACKS.includes(value)) {
+    const option = el("option", value + "（自定义）");
+    option.value = value; option.dataset.custom = "true";
+    control.append(option);
+  }
+}
 
 function status(text, kind = "") {
   $("status").textContent = text;
@@ -77,6 +93,7 @@ function select(id) {
   const guide = library.guides.find(g => g.id === id) || library.guides[0];
   draft = guide ? structuredClone(guide) : null;
   editor.reset();
+  syncTrackOptions(draft?.track || "");
   if (guide) {
     draft.steps = guide.steps.map(s => ({number: s.number, title: s.title,
       markdown: s.editor_markdown, risk_notes: [...s.risk_notes]}));
@@ -387,10 +404,17 @@ $("updates-tab").onclick = () => referenceTab(true);
 $("prev").onclick = () => { if (currentStep > 0) { currentStep--; preview(); } };
 $("next").onclick = () => { if (currentStep < draft.steps.length - 1) { currentStep++; preview(); } };
 for (const key of fields) {
-  editor.elements[key]?.addEventListener("input", e => {
-    draft[key] = key === "order" ? e.target.valueAsNumber : e.target.value;
+  const control = editor.elements[key];
+  if (!control) continue;
+  const update = e => {
+    const value = key === "order" ? e.target.valueAsNumber : e.target.value;
+    // 下拉框会先后触发 input 与 change，值未变化时忽略 change，避免重复标记。
+    if (e.type === "change" && Object.is(draft?.[key], value)) return;
+    draft[key] = value;
     markDirty(key === "updated_at");
-  });
+  };
+  control.addEventListener("input", update);
+  if (key === "track") control.addEventListener("change", update);
 }
 $("add").onclick = () => {
   draft.steps.push({title: "", markdown: "", risk_notes: []}); currentStep = draft.steps.length - 1;
@@ -420,7 +444,9 @@ editor.onsubmit = e => {
 };
 $("new").onclick = () => {
   if (busy || !mayLeave()) return;
-  $("create-form").reset(); $("create-dialog").showModal();
+  $("create-form").reset();
+  if ($("create-form").elements?.track) $("create-form").elements.track.value = DEFAULT_TRACK;
+  $("create-dialog").showModal();
 };
 $("cancel").onclick = () => $("create-dialog").close();
 $("create-form").onsubmit = e => {

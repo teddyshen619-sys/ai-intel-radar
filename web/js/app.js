@@ -484,10 +484,23 @@ function toggleTheme(explicitTheme) {
   return applyTheme(next, { persist: true, dispatch: true });
 }
 
+const GUIDE_TRACK_TITLES = {
+  '': '实战教程',
+  前期准备: '前期准备与账号基建',
+  订阅优惠: '正版订阅与省钱方案',
+  编程与Agent: '编程工具与 Agent 实战',
+  疑难杂症: '常见报错与风控排障',
+};
+
+function guideMastheadTitle() {
+  const track = guidesController?.getActiveTrack?.() || '';
+  return GUIDE_TRACK_TITLES[track] || track;
+}
+
 function updateMasthead(dom, stats) {
   const copy = CHANNEL_COPY[state.channel] || CHANNEL_COPY.ALL;
   if (dom.mastheadTitle) {
-    dom.mastheadTitle.textContent = copy.title;
+    dom.mastheadTitle.textContent = state.channel === 'GUIDES' ? guideMastheadTitle() : copy.title;
   }
   if (dom.footerUpdatedAt) {
     dom.footerUpdatedAt.textContent = formatFooterDate(stats?.updatedAtRaw);
@@ -525,9 +538,9 @@ function updateNavigation(dom) {
       dom.guideTrackTabs.scrollLeft += selected.left - viewport.left;
     }
   }
-  const { completed, total } = guidesController.getProgress();
-  dom.guideDirectoryProgress.hidden = !total;
-  dom.guideDirectoryProgress.textContent = total ? `已完成 ${completed} / ${total} 门` : '';
+  const { trackCompleted, trackTotal } = guidesController.getProgress();
+  dom.guideDirectoryProgress.hidden = !trackTotal;
+  dom.guideDirectoryProgress.textContent = trackTotal ? `已完成 ${trackCompleted} / ${trackTotal} 门` : '';
 }
 
 function updateSubTypeBar(dom) {
@@ -756,7 +769,7 @@ function bindEvents(dom) {
     button.type = 'button';
     button.className = 'nav-channel-btn';
     button.dataset.guideTrack = track;
-    button.textContent = track || '全部课程';
+    button.textContent = track || '全部';
     dom.guideTrackTabs.appendChild(button);
   }
   dom.primaryPillars.addEventListener('click', event => {
@@ -958,6 +971,7 @@ async function bootstrap() {
       initGuides({
         onChange: options => {
           updateNavigation(dom);
+          updateMasthead(dom, statsCache);
           syncUrl(options);
         },
         onToast: showToast,

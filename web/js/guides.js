@@ -15,6 +15,24 @@ const GUIDE_DATA_CANDIDATES = [
   { url: '../data/guides.json', source: 'root-data' },
 ];
 
+// 固定子版块（顺序即导航顺序）；即使某版块暂无课程也常驻导航并允许选中
+export const PRESET_GUIDE_TRACKS = ['前期准备', '订阅优惠', '编程与Agent', '疑难杂症'];
+
+const TRACK_PENDING_COPY = {
+  前期准备: '站主正在整理海外邮箱、手机号、支付方式与网络环境等账号基建的分步准备清单，敬请期待。',
+  订阅优惠: '站主正在核对主流 AI 工具的正版订阅渠道、区域定价与合规省钱方案，敬请期待。',
+  编程与Agent: '站主正在整理 Codex、Claude Code 与 MCP 工作流的分步实操指南，敬请期待。',
+  疑难杂症: '站主正在汇总海外账号风控、支付拒付、网络连不通与常见报错的排障手册，敬请期待。',
+};
+const TRACK_PENDING_FALLBACK = '站主正在整理该板块的分步实操教程，完成后将在此按步发布，敬请期待。';
+
+function buildTrackList(guides) {
+  const extras = guides
+    .map((guide) => guide.track)
+    .filter((track) => track && !PRESET_GUIDE_TRACKS.includes(track));
+  return [...PRESET_GUIDE_TRACKS, ...new Set(extras)];
+}
+
 const OFFLINE_GUIDES_PAYLOAD = {
   schema_version: '4.0',
   guides: [],
@@ -737,7 +755,7 @@ export async function initGuides({ onChange, onToast } = {}) {
 
   const loaded = await loadGuidesData();
   const guides = loaded.guides;
-  const tracks = [...new Set(guides.map((guide) => guide.track).filter(Boolean))];
+  const tracks = buildTrackList(guides);
   const completedIds = readCompletedIds();
   const progressMap = readStepProgressMap();
 
@@ -815,6 +833,34 @@ export async function initGuides({ onChange, onToast } = {}) {
   /* ------------------------------------------------------------------------
      View 1: Course Hub (教学主页)
      ------------------------------------------------------------------------ */
+  function buildTrackPendingState(track) {
+    const empty = el('section', 'guides-hub-empty guides-track-empty');
+    empty.setAttribute('aria-labelledby', 'guides-empty-title');
+    empty.dataset.guideTrackEmpty = track;
+    const title = el(
+      'h2',
+      'font-editorial-display guide-doc-title',
+      `「${track}」板块教程正在编写中`
+    );
+    title.id = 'guides-empty-title';
+
+    const backAll = el('button', 'guide-action-link guides-track-empty-action', '← 查看全部已发布教程');
+    backAll.type = 'button';
+    backAll.setAttribute('data-guide-show-all', '');
+    backAll.addEventListener('click', () => setTrack(''));
+
+    const actions = el('div', 'guide-doc-actions');
+    actions.appendChild(backAll);
+
+    empty.append(
+      el('p', 'guide-toc-track', `GUIDES · ${track}`),
+      title,
+      el('p', 'guide-doc-summary', TRACK_PENDING_COPY[track] || TRACK_PENDING_FALLBACK),
+      actions
+    );
+    return empty;
+  }
+
   function renderHub() {
     if (guides.length === 0) {
       const empty = el('section', 'guides-hub-empty');
@@ -840,6 +886,12 @@ export async function initGuides({ onChange, onToast } = {}) {
 
     const frag = document.createDocumentFragment();
     const visibleGuides = activeTrack ? guides.filter((guide) => guide.track === activeTrack) : guides;
+
+    if (visibleGuides.length === 0) {
+      panel.replaceChildren(buildTrackPendingState(activeTrack));
+      return;
+    }
+
     const grid = el('section', 'guides-hub-grid');
     grid.setAttribute('aria-label', '实战教程目录');
     grid.dataset.visibleCount = String(visibleGuides.length);
@@ -1365,10 +1417,17 @@ export async function initGuides({ onChange, onToast } = {}) {
     goToStep,
     getTracks: () => tracks.slice(),
     getActiveTrack: () => activeTrack,
-    getProgress: () => ({
-      completed: guides.filter((guide) => completedIds.has(guide.id)).length,
-      total: guides.length,
-    }),
+    getProgress: () => {
+      const countDone = (list) => list.filter((guide) => completedIds.has(guide.id)).length;
+      const trackGuides = activeTrack ? guides.filter((guide) => guide.track === activeTrack) : guides;
+      return {
+        completed: countDone(guides),
+        total: guides.length,
+        activeTrack,
+        trackCompleted: countDone(trackGuides),
+        trackTotal: trackGuides.length,
+      };
+    },
     getActiveGuideId: () => activeGuideId,
     getActiveStep: () => activeStepNumber,
     getViewMode: () => viewMode,

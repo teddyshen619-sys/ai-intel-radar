@@ -301,7 +301,7 @@ class StudioTest(unittest.TestCase):
                 attributes = dict(attributes)
                 if tag == "form":
                     self.editor = attributes.get("id") == "editor"
-                if self.editor and tag in {"input", "textarea"} and "name" in attributes:
+                if self.editor and tag in {"input", "select", "textarea"} and "name" in attributes:
                     self.names.append(attributes["name"])
 
             def handle_endtag(self, tag):
@@ -391,6 +391,110 @@ run(document, window, (url, options) => fetch(input.base + url, options), tag =>
                 actual = next(g for g in self.call()["guides"] if g["id"] == guide["id"])
                 self.assertEqual(actual["related_tags"], guide["related_tags"])
                 self.assertEqual(actual["title"], guide["title"] + "（兼容测试）")
+
+    def test_javascript_track_select_preserves_custom_tracks(self):
+        node = os.environ.get("STUDIO_TEST_NODE") or shutil.which("node")
+        if not node:
+            self.skipTest("JavaScript 运行时不可用；设置 STUDIO_TEST_NODE 可执行真实 app.js 版块下拉框测试")
+        self.seed(1)
+        guide = self.call()["guides"][0]
+        self.assertEqual(guide["track"], "临时测试")
+        script = r'''
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const input = JSON.parse(fs.readFileSync(0, "utf8"));
+class Element {
+  constructor(tag) {
+    this.tagName = tag; this.children = []; this.dataset = {}; this.elements = {};
+    this.listeners = {}; this.value = ""; this.open = false; this.textContent = "";
+  }
+  append(...items) { this.children.push(...items); }
+  replaceChildren(...items) { this.children = items; }
+  setAttribute() {}
+  addEventListener(name, handler) { this.listeners[name] = handler; }
+  querySelector() { return new Element("button"); }
+  reset() {}
+  remove() { this.parent?.removeOption(this); }
+}
+class Select extends Element {
+  constructor() { super("select"); this.options = []; this.selected = ""; }
+  append(...items) { for (const item of items) { item.parent = this; this.options.push(item); } }
+  removeOption(item) { this.options = this.options.filter(o => o !== item); item.parent = null; }
+  get value() { return this.selected; }
+  set value(v) { this.selected = (this.options || []).some(o => o.value === v) ? v : ""; }
+  reset() { this.selected = this.options[0].value; }
+}
+const nodes = new Map();
+const document = {
+  getElementById(id) { if (!nodes.has(id)) nodes.set(id, new Element("div")); return nodes.get(id); },
+  querySelectorAll() { return []; },
+  querySelector() { return new Element("div"); }
+};
+const form = document.getElementById("editor");
+const html = input.html.match(/<form id="editor">([\s\S]*?)<\/form>/)[1];
+for (const match of html.matchAll(/name="([^"]+)"/g)) form.elements[match[1]] = new Element("input");
+const track = new Select();
+const block = html.match(/<select name="track">([\s\S]*?)<\/select>/)[1];
+for (const m of block.matchAll(/<option value="([^"]*)"[^>]*>([^<]*)<\/option>/g)) {
+  const option = new Element("option"); option.value = m[1]; option.textContent = m[2]; track.append(option);
+}
+form.elements.track = track;
+const source = input.source.replace(/^import[^\n]*\n/, "").replace("pane(\"edit\"); load();", "pane(\"edit\"); await load();");
+const checks = `
+assert.ok(library, $("message").textContent);
+const control = editor.elements.track;
+const custom = () => control.options.filter(o => o.dataset.custom);
+const stored = () => library.guides.find(g => g.id === expected.id).track;
+async function save() {
+  editor.onsubmit({preventDefault() {}});
+  const deadline = Date.now() + 5000;
+  while (busy && Date.now() < deadline) await new Promise(resolve => setImmediate(resolve));
+  assert.equal(busy, false);
+  assert.equal($("status").textContent, "已同步", $("message").textContent);
+}
+const presets = ["前期准备", "订阅优惠", "编程与Agent", "疑难杂症", ""];
+assert.deepEqual(control.options.map(o => o.value), [...presets, expected.track]);
+select(expected.id);
+assert.deepEqual(control.options.map(o => o.value), [...presets, expected.track]);
+assert.equal(draft.track, expected.track);
+assert.equal(control.value, expected.track);
+assert.equal(custom().length, 1);
+editor.elements.title.value = expected.title + "（版块测试）";
+editor.elements.title.listeners.input({type: "input", target: editor.elements.title});
+await save();
+assert.equal(stored(), expected.track);
+assert.equal(control.value, expected.track);
+assert.equal(custom().length, 1);
+control.value = "疑难杂症";
+control.listeners.change({type: "change", target: control});
+assert.equal(draft.track, "疑难杂症");
+assert.equal(dirty, true);
+control.value = "订阅优惠";
+control.listeners.input({type: "input", target: control});
+control.listeners.change({type: "change", target: control});
+assert.equal(draft.track, "订阅优惠");
+await save();
+assert.equal(stored(), "订阅优惠");
+assert.equal(control.value, "订阅优惠");
+assert.equal(custom().length, 0);
+assert.deepEqual(control.options.map(o => o.value), presets);
+`;
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction("document", "window", "fetch", "el", "renderMarkdown", "assert", "expected", source + checks);
+const window = {addEventListener() {}, confirm() { return true; }};
+const el = (tag, text) => { const node = new Element(tag); if (text !== undefined) node.textContent = text; return node; };
+run(document, window, (url, options) => fetch(input.base + url, options), el,
+  () => {}, assert, input.guide).catch(error => { console.error(error); process.exitCode = 1; });
+'''
+        payload = {"html": (studio.ROOT / "studio/index.html").read_text(encoding="utf-8"),
+                   "source": (studio.ROOT / "studio/app.js").read_text(encoding="utf-8"),
+                   "base": self.url.removesuffix("/api/guides"), "guide": guide}
+        result = subprocess.run([node, "-e", script], input=json.dumps(payload), text=True,
+                                encoding="utf-8", capture_output=True, cwd=self.root, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        actual = next(g for g in self.call()["guides"] if g["id"] == guide["id"])
+        self.assertEqual(actual["track"], "订阅优惠")
+        self.assertEqual(actual["title"], guide["title"] + "（版块测试）")
 
     def test_clear_optional_fields_and_steps_round_trip(self):
         self.seed()
@@ -706,6 +810,79 @@ class IntelStoryValidationTest(unittest.TestCase):
                 item["story"] = story
                 errors = validate_data.validate_stdlib(data)
                 self.assertTrue(any(f"items[0].{path} " in error for error in errors), errors)
+
+
+class RepositoryGuidesTest(unittest.TestCase):
+    TRACKS = ["前期准备", "订阅优惠", "编程与Agent", "疑难杂症"]
+    EXPECTED = {
+        "lesson-f7b9543273b0": (1, "前期准备"),
+        "lesson-b101841fb51f": (2, "前期准备"),
+        "lesson-657ffec5712f": (3, "前期准备"),
+        "lesson-22ece7536789": (4, "订阅优惠"),
+    }
+
+    def test_studio_track_select_offers_standard_sections(self):
+        class TrackControls(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.form = None
+                self.in_track = False
+                self.inputs = []
+                self.options = {}
+
+            def handle_starttag(self, tag, attributes):
+                attributes = dict(attributes)
+                if tag == "form":
+                    self.form = attributes.get("id")
+                elif tag == "input" and attributes.get("name") == "track":
+                    self.inputs.append(self.form)
+                elif tag == "select" and attributes.get("name") == "track":
+                    self.in_track = True
+                    self.options[self.form] = []
+                elif tag == "option" and self.in_track:
+                    self.options[self.form].append((attributes.get("value"), "selected" in attributes))
+
+            def handle_endtag(self, tag):
+                if tag == "select":
+                    self.in_track = False
+                elif tag == "form":
+                    self.form = None
+
+        text = (studio.ROOT / "studio/index.html").read_text(encoding="utf-8")
+        parser = TrackControls()
+        parser.feed(text)
+        self.assertEqual(parser.inputs, [])
+        self.assertNotIn("赛道分类", text)
+        self.assertEqual(text.count("版块分类<select name=\"track\">"), 2)
+        self.assertIn("未分类（仅在全部中显示）", text)
+        for form, default in (("editor", None), ("create-form", "前期准备")):
+            with self.subTest(form=form):
+                options = parser.options[form]
+                self.assertEqual([value for value, _ in options], self.TRACKS + [""])
+                self.assertEqual([value for value, chosen in options if chosen], [default] if default else [])
+
+    def test_studio_sources_have_no_emoji(self):
+        emoji = re.compile("[\U0001F000-\U0001FAFF\u2600-\u27BF\uFE0F\u200D]")
+        for name in ("index.html", "app.js", "studio.css"):
+            with self.subTest(file=name):
+                text = (studio.ROOT / "studio" / name).read_text(encoding="utf-8")
+                self.assertIsNone(emoji.search(text))
+
+    def test_studio_css_styles_select_like_inputs(self):
+        css = (studio.ROOT / "studio/studio.css").read_text(encoding="utf-8")
+        for selector in ("button,input,select,textarea{", "input,select,textarea{",
+                         "input:focus,select:focus,textarea:focus{"):
+            self.assertIn(selector, css)
+
+    def test_repository_guides_compile_to_standard_tracks(self):
+        main = (studio.ROOT / "data/guides.json").read_bytes()
+        self.assertEqual(main, (studio.ROOT / "web/data/guides.json").read_bytes())
+        guides = json.loads(main)["guides"]
+        self.assertEqual({g["id"]: (g["order"], g["track"]) for g in guides}, self.EXPECTED)
+        self.assertTrue(all(g["track"] in self.TRACKS for g in guides))
+        sources = {path: path.read_bytes() for path in sorted((studio.ROOT / "guides").glob("*.md"))}
+        compiled = studio.build_guides.compile_guides(studio.ROOT, sources)
+        self.assertEqual(compiled, json.loads(main))
 
 
 class GuidesValidationTest(unittest.TestCase):
