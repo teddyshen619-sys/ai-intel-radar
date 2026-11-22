@@ -18,6 +18,9 @@ web/data/*
 # Secrets & Local Env
 .env
 .env.local
+.dev.vars
+.dev.vars*
+.wrangler/
 
 # OS
 .DS_Store
