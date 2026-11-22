@@ -545,7 +545,7 @@ function updateNavigation(dom) {
 }
 
 /* ---------------- Homepage guides strip (实战教程编辑部导览横条) ---------------- */
-const HOME_STRIP_TITLE_MAX = 14;
+const HOME_STRIP_TITLE_MAX = 20;
 
 function clipTitle(title, max = HOME_STRIP_TITLE_MAX) {
   const chars = Array.from(String(title || '').trim());
@@ -582,47 +582,26 @@ function renderHomeGuidesStrip(dom) {
   strip.hidden = !visible;
   dom.header?.toggleAttribute('data-guides-strip', visible);
   if (!visible) {
+    delete strip.dataset.signature;
     if (strip.childElementCount) strip.replaceChildren();
     return;
   }
 
-  const { state: phase, total, completed, resume, next, featured } = snapshot;
-  const signature = JSON.stringify(snapshot);
+  const featured = Array.isArray(snapshot.featured) ? snapshot.featured : [];
+  const signature = JSON.stringify(featured.map((g) => [g.id, g.order, g.title]));
   if (strip.dataset.signature === signature && strip.childElementCount) return;
   strip.dataset.signature = signature;
-  strip.dataset.phase = phase;
-
-  const status =
-    phase === 'done'
-      ? `全部 ${total} 门已学完`
-      : completed > 0
-        ? `已完成 ${completed} / ${total} 门`
-        : `共 ${total} 门手把手实操课`;
-
-  let lede = '从网络环境、账号注册、海外支付卡到不到 110 元直开官方 GPT Plus，分步带你从零跑通。';
-  if (phase === 'resume' && resume) {
-    lede = `上次学到《${resume.title}》第 ${resume.currentStep} / ${resume.totalSteps} 步，点击右侧可接着往下走。`;
-  } else if (phase === 'next' && next) {
-    lede = `已完成 ${completed} 门基础准备，下一课推荐：《${next.title}》。`;
-  } else if (phase === 'done') {
-    lede = `你已学完当前全部 ${total} 门实战教程，可随时查阅命令细节或分享给朋友。`;
-  }
 
   const copy = document.createElement('div');
   copy.className = 'home-guides-copy';
-  const kicker = document.createElement('p');
-  kicker.className = 'home-guides-kicker';
-  const label = document.createElement('span');
-  label.className = 'home-guides-label';
-  label.textContent = 'PRACTICAL GUIDES · 实战教程';
-  const statusEl = document.createElement('span');
-  statusEl.className = 'home-guides-status';
-  statusEl.textContent = status;
-  kicker.append(label, statusEl);
-  const ledeEl = document.createElement('p');
-  ledeEl.className = 'home-guides-lede';
-  ledeEl.textContent = lede;
-  copy.append(kicker, ledeEl);
+  const headline = document.createElement('p');
+  headline.className = 'font-editorial-display home-guides-headline';
+  const leadText = document.createTextNode('刚接触 AI 不知从何下手？');
+  const tailSpan = document.createElement('span');
+  tailSpan.className = 'home-guides-headline-tail';
+  tailSpan.textContent = '先看手把手实战教程';
+  headline.append(leadText, tailSpan);
+  copy.appendChild(headline);
 
   const links = document.createElement('div');
   links.className = 'home-guides-links';
@@ -630,48 +609,24 @@ function renderHomeGuidesStrip(dom) {
   links.setAttribute('aria-label', '实战教程直达入口');
 
   const pad = (n) => String(n).padStart(2, '0');
-  if (phase === 'resume' && resume) {
-    links.append(
-      homeStripButton(
-        'home-guides-link home-guides-primary',
-        `继续《${clipTitle(resume.title, 12)}》第 ${resume.currentStep} 步 →`,
-        { homeGuide: resume.id, homeGuideStep: resume.currentStep },
-        `继续学习《${resume.title}》第 ${resume.currentStep} 步`
-      )
+  for (const guide of featured) {
+    const button = homeStripButton(
+      'home-guides-link home-guides-featured',
+      '',
+      { homeGuide: guide.id },
+      `打开课程：${guide.title}`
     );
-  } else if (phase === 'next' && next) {
-    links.append(
-      homeStripButton(
-        'home-guides-link home-guides-primary',
-        `开始《${clipTitle(next.title, 12)}》 →`,
-        { homeGuide: next.id },
-        `开始学习《${next.title}》`
-      )
-    );
-  } else {
-    for (const guide of featured) {
-      const button = homeStripButton(
-        'home-guides-link home-guides-featured',
-        '',
-        { homeGuide: guide.id },
-        `打开课程：${guide.title}`
-      );
-      const num = document.createElement('span');
-      num.className = 'home-guides-num';
-      num.textContent = pad(guide.order || featured.indexOf(guide) + 1);
-      const name = document.createElement('span');
-      name.className = 'home-guides-name';
-      name.textContent = clipTitle(guide.title);
-      button.append(num, name);
-      links.appendChild(button);
-    }
+    const num = document.createElement('span');
+    num.className = 'home-guides-num';
+    num.textContent = pad(guide.order || featured.indexOf(guide) + 1);
+    const name = document.createElement('span');
+    name.className = 'home-guides-name';
+    name.textContent = clipTitle(guide.title);
+    button.append(num, name);
+    links.appendChild(button);
   }
   links.appendChild(
-    homeStripButton(
-      'home-guides-link home-guides-all',
-      phase === 'resume' || phase === 'next' ? `全部 ${total} 门教程 →` : '全部教程 →',
-      { homeGuidesAll: '' }
-    )
+    homeStripButton('home-guides-link home-guides-all', '全部教程 →', { homeGuidesAll: '' })
   );
 
   strip.replaceChildren(copy, links);
