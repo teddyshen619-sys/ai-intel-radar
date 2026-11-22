@@ -178,6 +178,12 @@ def with_notes(body, notes):
 
 
 def serialize(path, fields, originals=()):
+    raw_status = fields.get("status", "published")
+    if raw_status is None or raw_status == "":
+        raw_status = "published"
+    status = single_line(raw_status, "发布状态")
+    if status not in build_guides.VALID_STATUSES:
+        raise Problem("发布状态须为 published 或 revising。")
     header = ["---"]
     for key in build_guides.FIELDS:
         value = fields.get(key)
@@ -189,6 +195,8 @@ def serialize(path, fields, originals=()):
             value = ", ".join(single_line(tag, "标签") for tag in value)
         value = single_line(value, key, allow_empty=key in {"track", "summary", "author_note", "related_tags"})
         header.append(f"{key}: {value}" if value else f"{key}:")
+        if key == "track" and status == "revising":
+            header.append("status: revising")
     items = fields.get("steps")
     if not isinstance(items, list) or not items:
         raise Problem("每门课程至少保留一个步骤。")

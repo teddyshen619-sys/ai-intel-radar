@@ -884,6 +884,19 @@ html[data-theme="dark"] .toolbar-bookmark-btn[aria-pressed="true"]:hover {
   border-top-color: var(--accent-active);
 }
 
+.guide-hub-card[data-revising="true"] {
+  cursor: default;
+}
+
+.guide-hub-card[data-revising="true"]:hover {
+  background: var(--bg-surface);
+  border-top-color: var(--border-hairline);
+}
+
+.guide-hub-card[data-revising="true"] .guide-hub-card-title {
+  color: var(--text-muted);
+}
+
 .guide-hub-card-top {
   display: flex;
   align-items: center;
@@ -895,6 +908,12 @@ html[data-theme="dark"] .toolbar-bookmark-btn[aria-pressed="true"]:hover {
   font-size: 12px;
   font-weight: 500;
   color: var(--accent-blue);
+}
+
+.guide-hub-status-revising {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 .guide-hub-status-muted {

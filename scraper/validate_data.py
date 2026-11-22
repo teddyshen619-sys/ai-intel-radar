@@ -230,11 +230,11 @@ def validate_with_jsonschema(data: object, schema: dict) -> list[str]:
 def validate_guides_stdlib(data: object) -> list[str]:
     errors = []
 
-    def shape(value, keys, prefix):
+    def shape(value, keys, prefix, optional=frozenset()):
         if not isinstance(value, dict):
             errors.append(f"{prefix} 必须为 JSON Object")
             return False
-        missing, extra = keys - value.keys(), value.keys() - keys
+        missing, extra = keys - value.keys(), value.keys() - (keys | optional)
         if missing:
             errors.append(f"{prefix} 缺少必填字段: {sorted(missing)}")
         if extra:
@@ -264,8 +264,10 @@ def validate_guides_stdlib(data: object) -> list[str]:
                   "related_tags", "source_file", "body_markdown", "steps"}
     for i, guide in enumerate(guides):
         prefix = f"guides[{i}]"
-        if not shape(guide, guide_keys, prefix):
+        if not shape(guide, guide_keys, prefix, optional={"status"}):
             continue
+        if "status" in guide and guide.get("status") not in {"published", "revising"}:
+            errors.append(f"{prefix}.status 枚举非法")
         guide_id = guide.get("id")
         if not isinstance(guide_id, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", guide_id):
             errors.append(f"{prefix}.id 格式非法")

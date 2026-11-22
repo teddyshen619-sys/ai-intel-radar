@@ -14,6 +14,18 @@ else:
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = ("id", "order", "track", "title", "summary", "updated_at", "author_note", "related_tags")
+OPTIONAL_FIELDS = ("status",)
+VALID_STATUSES = ("published", "revising")
+REVISING_SUFFIXES = ("（改进中）", "(改进中)")
+REVISING_PLACEHOLDER_STEPS = [
+    {
+        "number": 1,
+        "title": "课程内容改进中",
+        "markdown": "本课教程正在重新梳理与验证最新可用方案，更新完成后将恢复开放。",
+        "code_blocks": [],
+        "risk_notes": [],
+    }
+]
 FENCE = re.compile(r" {0,3}(`{3,}|~{3,})([^\r\n]*)")
 HEADING = re.compile(r" {0,3}##(?:[ \t]+(.*))?")
 RISK = re.compile(r" {0,3}>[ \t]*风险提示[：:][ \t]*(.*)")
@@ -34,17 +46,22 @@ def metadata(path, lines):
             missing = [key for key in FIELDS if key not in values]
             if missing:
                 raise GuideError(path, i, "缺少必填字段 " + ", ".join(missing))
+            values.setdefault("status", "published")
             return values, locations, i
         if not line.strip():
             continue
         key, colon, value = line.partition(":")
-        if not colon or key not in FIELDS:
+        if not colon or (key not in FIELDS and key not in OPTIONAL_FIELDS):
             raise GuideError(path, i, f"无法识别字段 {key!r}，请使用规定的英文键和半角冒号")
         if key in values:
             raise GuideError(path, i, f"{key} 重复，首次位于第 {locations[key]} 行")
         value = value.strip()
         if not value and key in {"id", "order", "title", "updated_at"}:
             raise GuideError(path, i, f"{key} 不能为空")
+        if key == "status":
+            value = value or "published"
+            if value not in VALID_STATUSES:
+                raise GuideError(path, i, "status 只能为 published 或 revising")
         if key == "id" and not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", value):
             raise GuideError(path, i, "id 只能使用小写字母、数字和分隔用的短横线")
         if key == "order":
@@ -143,15 +160,43 @@ def compile_guides(root, sources, *, editor=False):
         except UnicodeDecodeError as exc:
             raise GuideError(path, data[:exc.start].count(b"\n") + 1, "请保存为 UTF-8") from None
         values, locations, start = metadata(path, lines)
+        status = values.pop("status", "published")
         for key, used in seen.items():
             value = values[key]
             if value in used:
                 raise GuideError(path, locations[key], f"{key}={value} 重复，首次位于 {used[value]}")
             used[value] = f"{path.name} 第 {locations[key]} 行"
-        guides.append({
-            **values, "source_file": path.relative_to(root).as_posix(),
-            "body_markdown": "".join(lines[start:]), "steps": sections(path, lines, start, editor=editor),
-        })
+        parsed_steps = sections(path, lines, start, editor=editor)
+        source_rel = path.relative_to(root).as_posix()
+        if editor:
+            guides.append({
+                **values,
+                "status": status,
+                "source_file": source_rel,
+                "body_markdown": "".join(lines[start:]),
+                "steps": parsed_steps,
+            })
+        elif status == "revising":
+            pub_title = (
+                values["title"]
+                if values["title"].endswith(REVISING_SUFFIXES)
+                else f"{values['title']}（改进中）"
+            )
+            guides.append({
+                **values,
+                "title": pub_title,
+                "status": "revising",
+                "source_file": source_rel,
+                "body_markdown": "",
+                "steps": [dict(step, code_blocks=[], risk_notes=[]) for step in REVISING_PLACEHOLDER_STEPS],
+            })
+        else:
+            guides.append({
+                **values,
+                "source_file": source_rel,
+                "body_markdown": "".join(lines[start:]),
+                "steps": parsed_steps,
+            })
     guides.sort(key=lambda guide: guide["order"])
     return {"schema_version": "4.0", "guides": guides}
 

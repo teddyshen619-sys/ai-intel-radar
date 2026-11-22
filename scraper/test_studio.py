@@ -889,6 +889,62 @@ class RepositoryGuidesTest(unittest.TestCase):
         compiled = studio.build_guides.compile_guides(studio.ROOT, sources)
         self.assertEqual(compiled, json.loads(main))
 
+    def test_revising_status_hides_public_body_while_keeping_local_editor_steps(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            for folder in ("guides", "data", "web/data", "scraper"):
+                (root / folder).mkdir(parents=True, exist_ok=True)
+            (root / "data/guides_schema.json").write_bytes(
+                (studio.ROOT / "data/guides_schema.json").read_bytes()
+            )
+            revising_md = FIXTURE.replace("track: 临时测试\n", "track: 临时测试\nstatus: revising\n")
+            source_path = root / "guides/01-test.md"
+            source_path.write_bytes(revising_md.encode("utf-8"))
+            studio.build_guides.build(root)
+
+            # 1. Public guides.json hides all step text/body and appends（改进中）
+            public_bundle = json.loads((root / "web/data/guides.json").read_text(encoding="utf-8"))
+            pub_guide = public_bundle["guides"][0]
+            self.assertEqual(pub_guide["status"], "revising")
+            self.assertEqual(pub_guide["title"], "测试课程（改进中）")
+            self.assertEqual(pub_guide["body_markdown"], "")
+            self.assertEqual(len(pub_guide["steps"]), 1)
+            self.assertNotIn("Python", json.dumps(public_bundle, ensure_ascii=False))
+            self.assertEqual(validate_data.validate_guides(root), [])
+
+            # 2. Local Studio library(editor=True) retains 100% of original steps & title
+            editor_bundle = studio.library(root, studio.sources_at(root))
+            ed_guide = editor_bundle["guides"][0]
+            self.assertEqual(ed_guide["status"], "revising")
+            self.assertEqual(ed_guide["title"], "测试课程")
+            self.assertEqual(len(ed_guide["steps"]), 2)
+            self.assertIn("Python", ed_guide["steps"][0]["editor_markdown"])
+
+            # 3. Switching status back to published restores public steps cleanly
+            restored = studio.transact(
+                root,
+                "save",
+                {
+                    **ed_guide,
+                    "status": "published",
+                    "revision": editor_bundle["revision"],
+                    "steps": [
+                        {
+                            "number": s["number"],
+                            "title": s["title"],
+                            "markdown": s["editor_markdown"],
+                            "risk_notes": s["risk_notes"],
+                        }
+                        for s in ed_guide["steps"]
+                    ],
+                },
+            )
+            self.assertEqual(restored["guides"][0]["status"], "published")
+            reopened_public = json.loads((root / "web/data/guides.json").read_text(encoding="utf-8"))
+            self.assertNotIn("status", reopened_public["guides"][0])
+            self.assertEqual(reopened_public["guides"][0]["title"], "测试课程")
+            self.assertEqual(len(reopened_public["guides"][0]["steps"]), 2)
+
 
 class GuidesValidationTest(unittest.TestCase):
     def setUp(self):

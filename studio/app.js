@@ -2,7 +2,7 @@ import {el, escapeMarkdownText, imageSource, normalizeLinkUrl, renderMarkdown} f
 
 const $ = id => document.getElementById(id);
 const editor = $("editor");
-const fields = ["title", "track", "summary", "author_note", "related_tags", "order", "updated_at"];
+const fields = ["title", "track", "status", "summary", "author_note", "related_tags", "order", "updated_at"];
 let library, draft = null, currentStep = 0, dirty = false, busy = false;
 const TRACKS = ["前期准备", "订阅优惠", "编程与Agent", "疑难杂症"];
 const DEFAULT_TRACK = TRACKS[0];
@@ -76,7 +76,8 @@ function courseNav() {
     b.setAttribute("aria-current", String(draft?.id === g.id));
     const num = el("span", String(g.order).padStart(2, "0")); num.className = "ord";
     const info = el("span");
-    info.append(el("small", [g.track, g.steps.length + " 步"].filter(Boolean).join(" · ")), el("strong", g.title));
+    const badge = g.status === "revising" ? "改进中" : "";
+    info.append(el("small", [badge, g.track, g.steps.length + " 步"].filter(Boolean).join(" · ")), el("strong", g.title));
     b.append(num, info);
     b.onclick = () => {
       if (busy) return;
@@ -95,6 +96,7 @@ function select(id) {
   editor.reset();
   syncTrackOptions(draft?.track || "");
   if (guide) {
+    draft.status = guide.status || "published";
     draft.steps = guide.steps.map(s => ({number: s.number, title: s.title,
       markdown: s.editor_markdown, risk_notes: [...s.risk_notes]}));
     draft.related_tags = guide.related_tags.join(", ");
@@ -378,7 +380,7 @@ function preview() {
     return;
   }
   const s = draft.steps[currentStep];
-  $("preview-track").textContent = draft.track.trim();
+  $("preview-track").textContent = [draft.track.trim(), draft.status === "revising" ? "网页已隐藏正文（改进中）" : ""].filter(Boolean).join(" · ");
   $("preview-title").textContent = draft.title.trim();
   $("preview-summary").textContent = draft.summary.trim();
   $("position").textContent = "第 " + (currentStep + 1) + " / " + draft.steps.length + " 步";
@@ -414,7 +416,7 @@ for (const key of fields) {
     markDirty(key === "updated_at");
   };
   control.addEventListener("input", update);
-  if (key === "track") control.addEventListener("change", update);
+  if (key === "track" || key === "status") control.addEventListener("change", update);
 }
 $("add").onclick = () => {
   draft.steps.push({title: "", markdown: "", risk_notes: []}); currentStep = draft.steps.length - 1;

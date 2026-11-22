@@ -35,10 +35,14 @@
           <option value="疑难杂症">疑难杂症</option>
           <option value="">未分类（仅在全部中显示）</option>
         </select></label>
+        <label>发布状态<select name="status">
+          <option value="published">正常公开</option>
+          <option value="revising">改进中（网页隐藏正文）</option>
+        </select></label>
         <label>排序序号<input name="order" type="number" min="1" step="1" required></label>
+        <label>更新日期<input name="updated_at" type="date" required></label>
         <label class="wide">课程简介<textarea name="summary" rows="2" placeholder="可选，简要介绍课程内容"></textarea></label>
         <label class="wide">编者注<textarea name="author_note" rows="2" placeholder="可选，补充背景或阅读建议"></textarea></label>
-        <label>更新日期<input name="updated_at" type="date" required></label>
       </div>
       <div class="step-heading heading-row"><h2>分步教学</h2><span id="step-count" class="count">0 步</span></div>
       <div id="steps"></div>

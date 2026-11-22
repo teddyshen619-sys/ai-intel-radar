@@ -2,6 +2,7 @@
 id: lesson-657ffec5712f
 order: 3
 track: 前期准备
+status: revising
 title: 申请一张可在海外平台使用的Visa卡
 summary: 在解决网络问题后，解决支付难题
 updated_at: 2026-11-20

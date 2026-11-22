@@ -209,6 +209,7 @@ function normalizeGuides(payload) {
     .filter((g) => g && typeof g === 'object' && typeof g.id === 'string')
     .map((g) => ({
       ...g,
+      status: g.status === 'revising' ? 'revising' : 'published',
       track: optionalText(g.track),
       summary: optionalText(g.summary),
       author_note: optionalText(g.author_note),
@@ -780,8 +781,10 @@ export async function initGuides({ onChange, onToast } = {}) {
     onToast: notify,
   });
 
+  const isRevising = (guide) => guide?.status === 'revising';
+
   function openShare(guide, { step = null, trigger = null } = {}) {
-    if (!guide) return;
+    if (!guide || isRevising(guide)) return;
     shareController.open(guide, { step, trigger });
   }
 
@@ -905,17 +908,24 @@ export async function initGuides({ onChange, onToast } = {}) {
     grid.dataset.visibleCount = String(visibleGuides.length);
 
     for (const guide of visibleGuides) {
-      const isDone = completedIds.has(guide.id);
+      const revising = isRevising(guide);
+      const isDone = !revising && completedIds.has(guide.id);
       const totalSteps = getStepCount(guide);
       const prog = getGuideProgress(guide);
-      const hasInProgress = !isDone && (prog.currentStep > 1 || prog.completedSteps.size > 0);
+      const hasInProgress = !revising && !isDone && (prog.currentStep > 1 || prog.completedSteps.size > 0);
 
       const card = el('article', 'guide-hub-card');
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
       card.dataset.guideCard = guide.id;
       card.dataset.completed = isDone ? 'true' : 'false';
-      card.setAttribute('aria-label', `进入课程：${guide.title}`);
+      if (revising) {
+        card.dataset.revising = 'true';
+        card.setAttribute('aria-disabled', 'true');
+        card.setAttribute('aria-label', `${guide.title}，当前正在改进更新中`);
+      } else {
+        card.setAttribute('aria-label', `进入课程：${guide.title}`);
+      }
 
       // Top eyebrow: Order + Track on left | Progress / Completed status on right
       const topRow = el('div', 'guide-hub-card-top');
@@ -927,7 +937,9 @@ export async function initGuides({ onChange, onToast } = {}) {
         )
       );
 
-      if (isDone) {
+      if (revising) {
+        topRow.appendChild(el('span', 'guide-hub-status-revising', '改进中'));
+      } else if (isDone) {
         const doneEl = el('span', 'guide-done-indicator');
         doneEl.append(createSvgIcon('check', 'w-3.5 h-3.5 shrink-0'), el('span', '', '已完成'));
         topRow.appendChild(doneEl);
@@ -948,39 +960,55 @@ export async function initGuides({ onChange, onToast } = {}) {
 
       // Quiet bottom action row
       const footer = el('div', 'guide-hub-card-footer');
-      const metaLeft = el(
-        'span',
-        'guide-hub-card-meta',
-        `共 ${totalSteps} 个步骤 · 更新于 ${guide.updated_at}`
-      );
-      const ctaLabel = isDone
-        ? '再次复习'
-        : hasInProgress
-          ? `继续第 ${prog.currentStep} 步`
-          : '开始学习';
-      const cta = el('span', 'guide-hub-card-cta');
-      cta.append(el('span', '', ctaLabel), createSvgIcon('arrow-right', 'w-3.5 h-3.5 shrink-0'));
+      if (revising) {
+        const metaLeft = el(
+          'span',
+          'guide-hub-card-meta',
+          `课程内容改进更新中 · 更新于 ${guide.updated_at}`
+        );
+        const statusRight = el('span', 'guide-hub-status-muted', '暂缓开放');
+        footer.append(metaLeft, statusRight);
+      } else {
+        const metaLeft = el(
+          'span',
+          'guide-hub-card-meta',
+          `共 ${totalSteps} 个步骤 · 更新于 ${guide.updated_at}`
+        );
+        const ctaLabel = isDone
+          ? '再次复习'
+          : hasInProgress
+            ? `继续第 ${prog.currentStep} 步`
+            : '开始学习';
+        const cta = el('span', 'guide-hub-card-cta');
+        cta.append(el('span', '', ctaLabel), createSvgIcon('arrow-right', 'w-3.5 h-3.5 shrink-0'));
 
-      const shareBtn = el('button', 'guide-hub-share-btn');
-      shareBtn.type = 'button';
-      shareBtn.dataset.guideShare = guide.id;
-      shareBtn.setAttribute('aria-label', `分享课程：${guide.title}`);
-      shareBtn.append(createSvgIcon('share', 'w-3.5 h-3.5 shrink-0'), el('span', '', '分享'));
-      shareBtn.addEventListener('click', (evt) => {
-        evt.stopPropagation();
-        openShare(guide, { trigger: shareBtn });
-      });
-      shareBtn.addEventListener('keydown', (evt) => evt.stopPropagation());
+        const shareBtn = el('button', 'guide-hub-share-btn');
+        shareBtn.type = 'button';
+        shareBtn.dataset.guideShare = guide.id;
+        shareBtn.setAttribute('aria-label', `分享课程：${guide.title}`);
+        shareBtn.append(createSvgIcon('share', 'w-3.5 h-3.5 shrink-0'), el('span', '', '分享'));
+        shareBtn.addEventListener('click', (evt) => {
+          evt.stopPropagation();
+          openShare(guide, { trigger: shareBtn });
+        });
+        shareBtn.addEventListener('keydown', (evt) => evt.stopPropagation());
 
-      const actionGroup = el('span', 'guide-hub-card-actions');
-      actionGroup.append(shareBtn, cta);
-      footer.append(metaLeft, actionGroup);
+        const actionGroup = el('span', 'guide-hub-card-actions');
+        actionGroup.append(shareBtn, cta);
+        footer.append(metaLeft, actionGroup);
+      }
 
       card.append(topRow, titleEl);
       if (guide.summary) card.appendChild(el('p', 'guide-hub-card-summary', guide.summary));
       card.appendChild(footer);
 
-      const enterLesson = () => openGuide(guide.id);
+      const enterLesson = () => {
+        if (revising) {
+          notify('该课程正在改进更新中，完成后恢复开放', 'info');
+          return;
+        }
+        openGuide(guide.id);
+      };
       card.addEventListener('click', enterLesson);
       card.addEventListener('keydown', (evt) => {
         if (evt.key === 'Enter' || evt.key === ' ') {
@@ -1000,6 +1028,26 @@ export async function initGuides({ onChange, onToast } = {}) {
      View 2: Lesson Walkthrough (单步引导默认 + 全文预览切换)
      ------------------------------------------------------------------------ */
   function renderLesson(guide) {
+    if (isRevising(guide)) {
+      const pending = el('section', 'guides-hub-empty guides-revising-empty');
+      pending.setAttribute('aria-labelledby', 'guides-revising-title');
+      const title = el('h2', 'font-editorial-display guide-doc-title', guide.title);
+      title.id = 'guides-revising-title';
+      const backBtn = el('button', 'guide-action-link guides-track-empty-action', '← 返回教学主页');
+      backBtn.type = 'button';
+      backBtn.addEventListener('click', () => returnToHub({ scrollTop: true }));
+      const actions = el('div', 'guide-doc-actions');
+      actions.appendChild(backBtn);
+      pending.append(
+        el('p', 'guide-toc-track', [guide.track, '内容改进中'].filter(Boolean).join(' · ')),
+        title,
+        el('p', 'guide-doc-summary', '本课教程正在重新梳理与验证最新可用方案，更新完成后将恢复开放。'),
+        actions
+      );
+      panel.replaceChildren(pending);
+      return;
+    }
+
     const frag = document.createDocumentFragment();
     const steps = Array.isArray(guide.steps) ? guide.steps : [];
     const totalSteps = Math.max(1, steps.length);
@@ -1444,7 +1492,7 @@ export async function initGuides({ onChange, onToast } = {}) {
 
   // Real-time learning snapshot for the homepage guides strip.
   function getLearningSnapshot() {
-    const ordered = guides.slice();
+    const ordered = guides.filter((guide) => !isRevising(guide));
     const total = ordered.length;
     const completed = ordered.filter((guide) => completedIds.has(guide.id)).length;
     const pack = (guide, currentStep = 1) => ({
@@ -1511,11 +1559,12 @@ export async function initGuides({ onChange, onToast } = {}) {
     getTracks: () => tracks.slice(),
     getActiveTrack: () => activeTrack,
     getProgress: () => {
+      const available = guides.filter((guide) => !isRevising(guide));
       const countDone = (list) => list.filter((guide) => completedIds.has(guide.id)).length;
-      const trackGuides = activeTrack ? guides.filter((guide) => guide.track === activeTrack) : guides;
+      const trackGuides = activeTrack ? available.filter((guide) => guide.track === activeTrack) : available;
       return {
-        completed: countDone(guides),
-        total: guides.length,
+        completed: countDone(available),
+        total: available.length,
         activeTrack,
         trackCompleted: countDone(trackGuides),
         trackTotal: trackGuides.length,
