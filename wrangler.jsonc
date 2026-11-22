@@ -1,13 +1,42 @@
 {
   "name": "ai-intel-radar",
+  "main": "worker/index.js",
   "compatibility_date": "2026-11-20",
   "assets": {
-    "directory": "./web"
+    "directory": "./web",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "traces": {
+      "enabled": true
+    }
   },
   "routes": [
     {
       "pattern": "radarqs.fyi",
       "custom_domain": true
+    }
+  ],
+  // 敏感密钥严禁写入本文件，请通过 `wrangler secret put` 注入：
+  // - RESEND_API_KEY
+  // - TURNSTILE_SECRET
+  // - SESSION_SECRET
+  "vars": {
+    "ADMIN_EMAIL": "a92869511@gmail.com",
+    "MAIL_FROM": "前哨 Radar <noreply@radarqs.fyi>",
+    "TURNSTILE_HOSTNAMES": "radarqs.fyi",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAGMhtWA3vAV5Hwd8"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ai-intel-radar-db",
+      "database_id": "c5dd9188-f4e6-48c9-90bc-31e097edec80",
+      "migrations_dir": "migrations"
     }
   ]
 }

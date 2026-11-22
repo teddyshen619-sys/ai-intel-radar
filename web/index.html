@@ -91,12 +91,12 @@
           <button
             type="button"
             id="open-poster-btn"
-            class="inline-flex items-center text-[13px] font-normal text-[#0066CC] hover:opacity-70 dark:text-[#2997FF] transition-opacity cursor-pointer focus:outline-none"
+            class="inline-flex shrink-0 items-center whitespace-nowrap text-[13px] font-normal text-[#0066CC] hover:opacity-70 dark:text-[#2997FF] transition-opacity cursor-pointer focus:outline-none"
           >
             生成速报
           </button>
 
-          <span class="h-3 w-px bg-black/[0.12] dark:bg-white/[0.15]" aria-hidden="true"></span>
+          <span class="nav-tools-divider h-3 w-px shrink-0 bg-black/[0.12] dark:bg-white/[0.15]" aria-hidden="true"></span>
 
           <button
             type="button"
@@ -104,7 +104,7 @@
             data-theme-current="light"
             aria-label="切换浅色或深色外观"
             aria-pressed="false"
-            class="inline-flex items-center gap-1.5 text-[13px] font-normal text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#A1A1A6] dark:hover:text-[#F5F5F7] transition-colors cursor-pointer focus:outline-none"
+            class="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-normal text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#A1A1A6] dark:hover:text-[#F5F5F7] transition-colors cursor-pointer focus:outline-none"
           >
             <svg
               data-theme-icon="moon"
@@ -142,6 +142,36 @@
             </svg>
             <span data-theme-label class="whitespace-nowrap">深色</span>
           </button>
+
+          <div class="nav-account">
+            <button
+              type="button"
+              id="account-trigger-btn"
+              class="account-trigger-btn"
+              data-authenticated="false"
+              aria-label="登录账号"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+            >
+              <span class="account-avatar-clip" data-account-avatar-clip>
+                <svg
+                  class="account-trigger-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="8.25" r="3.6"></circle>
+                  <path d="M5.2 19.5c1.35-3.1 3.85-4.7 6.8-4.7s5.45 1.6 6.8 4.7"></path>
+                </svg>
+              </span>
+              <span class="account-unread-dot" data-account-unread-dot hidden></span>
+            </button>
+            <div id="account-menu-root" class="account-menu-anchor"></div>
+          </div>
         </div>
       </div>
     </nav>
@@ -277,24 +307,91 @@
             </button>
           </div>
 
-          <div class="feed-tools" role="group" aria-label="显示与导出">
-            <button type="button" data-density="magazine" aria-pressed="true">杂志</button>
-            <button type="button" data-density="brief" aria-pressed="false">快讯</button>
-            <button type="button" id="saved-filter" aria-pressed="false">仅看收藏 (0)</button>
-            <button type="button" id="export-md">导出 Markdown</button>
+          <div class="feed-toolbar-actions" role="group" aria-label="视图与筛选">
+            <div class="density-segmented" role="group" aria-label="列表视图切换">
+              <button
+                type="button"
+                class="density-segment-btn"
+                data-density="magazine"
+                aria-pressed="true"
+              >
+                <svg
+                  class="toolbar-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.85"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="4" width="7.5" height="16" rx="1"></rect>
+                  <rect x="13.5" y="4" width="7.5" height="16" rx="1"></rect>
+                </svg>
+                <span>杂志</span>
+              </button>
+              <button
+                type="button"
+                class="density-segment-btn"
+                data-density="brief"
+                aria-pressed="false"
+              >
+                <svg
+                  class="toolbar-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.85"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="3.5" y1="6" x2="20.5" y2="6"></line>
+                  <line x1="3.5" y1="12" x2="20.5" y2="12"></line>
+                  <line x1="3.5" y1="18" x2="20.5" y2="18"></line>
+                </svg>
+                <span>快讯</span>
+              </button>
+            </div>
+
+            <button
+              type="button"
+              id="saved-filter"
+              class="toolbar-bookmark-btn"
+              aria-pressed="false"
+              aria-label="仅看收藏（当前 0 条）"
+            >
+              <svg
+                class="toolbar-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.85"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 3h12v18l-6-4-6 4z"></path>
+              </svg>
+              <span>收藏</span>
+              <span id="saved-filter-count" class="saved-filter-count" hidden></span>
+            </button>
+
+            <label
+              for="toggle-hide-fixed"
+              class="toolbar-active-toggle"
+            >
+              <input
+                type="checkbox"
+                id="toggle-hide-fixed"
+                checked
+                aria-label="仅看当前有效情报"
+                class="sr-only"
+              />
+              <span class="toolbar-active-dot" aria-hidden="true"></span>
+              <span>仅看有效</span>
+            </label>
           </div>
-          <label
-            for="toggle-hide-fixed"
-            class="inline-flex shrink-0 cursor-pointer select-none items-center gap-2 text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] dark:text-[#A1A1A6] dark:hover:text-[#F5F5F7] transition-colors"
-          >
-            <input
-              type="checkbox"
-              id="toggle-hide-fixed"
-              checked
-              class="h-3.5 w-3.5 accent-[#0066CC] dark:accent-[#2997FF] cursor-pointer"
-            />
-            <span>仅看当前有效</span>
-          </label>
         </div>
       </section>
 
@@ -425,6 +522,9 @@
 
     <!-- Poster Generator Modal Mount -->
     <div id="poster-drawer-root"></div>
+
+    <!-- Account Login & Profile/Messages Modal Mount -->
+    <div id="account-modal-root"></div>
 
     <script type="module" src="./js/app.js"></script>
 

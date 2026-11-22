@@ -8,7 +8,6 @@ import {
 import {
   configureReader,
   bilibiliSearchUrl,
-  itemMarkdown,
   renderIntelCards,
   renderHeadlineCards,
   openIntelReader,
@@ -20,6 +19,7 @@ import { initPosterGenerator } from './poster.js';
 
 import { initCatalog } from './catalog.js';
 import { initGuides } from './guides.js';
+import { initAccount } from './account.js';
 
 const THEME_STORAGE_KEY = 'ai-intel-theme';
 
@@ -87,6 +87,7 @@ let intelData = { updated_at: '', items: [] };
 let dataSource = 'fallback';
 let statsCache = null;
 let posterController = null;
+let accountController = null;
 let domRefs = null;
 
 
@@ -293,12 +294,67 @@ function filteredItems() {
   return filterItems(items, state);
 }
 
+function mergeSyncedBookmarks(cloudIds, dom) {
+  if (!Array.isArray(cloudIds)) return;
+  const freshStored = readSaved();
+  const catalogById = new Map(intelData.items.map(item => [item.id, item]));
+  const merged = new Map();
+
+  for (const [id, item] of freshStored.entries()) {
+    merged.set(id, catalogById.get(id) || item);
+  }
+  for (const [id, item] of saved.entries()) {
+    merged.set(id, catalogById.get(id) || item);
+  }
+  for (const rawId of cloudIds) {
+    const id = typeof rawId === 'string' ? rawId.trim() : '';
+    if (!id || merged.has(id)) continue;
+    const matched = catalogById.get(id);
+    if (matched) {
+      merged.set(id, matched);
+    } else {
+      merged.set(id, {
+        id,
+        date: '',
+        channel: 'INTEL',
+        type: 'MODEL',
+        status: 'ACTIVE',
+        vendor: 'CLOUD',
+        priority: 1,
+        title: `云端收藏简报（${id}）`,
+        tldr: '该条目同步自云端账号收藏，原始简报已归档。',
+        details: [],
+      });
+    }
+  }
+
+  saved = merged;
+  try {
+    localStorage.setItem(SAVED_KEY, JSON.stringify([...saved.values()]));
+  } catch {
+    // Ignore storage unavailability
+  }
+  if (dom.savedFilterCount) {
+    const count = saved.size;
+    dom.savedFilterCount.textContent = count > 0 ? String(count) : '';
+    dom.savedFilterCount.hidden = count === 0;
+  }
+  if (dom.savedFilter) {
+    dom.savedFilter.setAttribute('aria-label', `仅看收藏（当前 ${saved.size} 条）`);
+  }
+  render(dom);
+}
+
 function toggleBookmark(id, dom) {
-  if (saved.has(id)) saved.delete(id);
-  else {
+  let nowSaved = false;
+  if (saved.has(id)) {
+    saved.delete(id);
+    nowSaved = false;
+  } else {
     const item = readerItem?.id === id ? readerItem : intelData.items.find(entry => entry.id === id);
     if (!item) return;
     saved.set(id, item);
+    nowSaved = true;
   }
   try {
     localStorage.setItem(SAVED_KEY, JSON.stringify([...saved.values()]));
@@ -306,18 +362,10 @@ function toggleBookmark(id, dom) {
     showToast('浏览器存储不可用，收藏仅保留在本次浏览', 'info');
   }
   render(dom);
+  accountController?.syncBookmarkChange(id, nowSaved);
   if (readerItem) return;
   const next = [...dom.main.querySelectorAll('[data-bookmark]')].find(button => button.dataset.bookmark === id);
   (next || dom.savedFilter).focus({ preventScroll: true });
-}
-
-async function exportMarkdown() {
-  const items = filteredItems();
-  if (!items.length) return;
-  const sections = items.map(itemMarkdown);
-  const heading = state.onlySaved ? '# 收藏简报' : '# 情报简报';
-  const copied = await copyTextToClipboard([heading, ...sections].join('\n\n'));
-  showToast(copied ? '已复制 ' + items.length + ' 条简报为 Markdown' : '复制失败，请检查剪贴板权限', copied ? 'success' : 'error');
 }
 
 function getDomRefs() {
@@ -330,7 +378,7 @@ function getDomRefs() {
     catalog: document.getElementById('model-panel'),
     guidesPanel: document.getElementById('guides-panel'),
     savedFilter: document.getElementById('saved-filter'),
-    exportButton: document.getElementById('export-md'),
+    savedFilterCount: document.getElementById('saved-filter-count'),
     themeToggleBtn: document.getElementById('theme-toggle-btn'),
     primaryPillars: document.getElementById('primary-pillars'),
     subdirectory: document.getElementById('subdirectory'),
@@ -355,6 +403,9 @@ function getDomRefs() {
     resetFiltersBtn: document.getElementById('reset-filters-btn'),
     openPosterBtn: document.getElementById('open-poster-btn'),
     posterDrawerRoot: document.getElementById('poster-drawer-root'),
+    accountTriggerBtn: document.getElementById('account-trigger-btn'),
+    accountMenuRoot: document.getElementById('account-menu-root'),
+    accountModalRoot: document.getElementById('account-modal-root'),
   };
 }
 
@@ -617,9 +668,13 @@ function render(dom, options) {
   if (!dom.reviewSearch.hidden) dom.reviewSearch.href = bilibiliSearchUrl(state.query);
 
   const filtered = filteredItems();
-  dom.savedFilter.textContent = '仅看收藏 (' + saved.size + ')';
+  const savedCount = saved.size;
+  if (dom.savedFilterCount) {
+    dom.savedFilterCount.textContent = savedCount > 0 ? String(savedCount) : '';
+    dom.savedFilterCount.hidden = savedCount === 0;
+  }
   dom.savedFilter.setAttribute('aria-pressed', String(state.onlySaved));
-  dom.exportButton.disabled = !filtered.length;
+  dom.savedFilter.setAttribute('aria-label', `仅看收藏（当前 ${savedCount} 条）`);
   dom.feedEl.dataset.density = state.density;
   dom.controls.querySelectorAll('[data-density]').forEach(button => {
     button.setAttribute('aria-pressed', String(button.dataset.density === state.density));
@@ -767,7 +822,7 @@ function bindEvents(dom) {
   }, true);
   dom.controls.addEventListener('click', event => {
     const button = event.target.closest('[data-density]');
-    if (!button) return;
+    if (!button || state.density === button.dataset.density) return;
     state.density = button.dataset.density;
     render(dom);
   });
@@ -775,7 +830,6 @@ function bindEvents(dom) {
     state.onlySaved = !state.onlySaved;
     render(dom);
   });
-  dom.exportButton.addEventListener('click', exportMarkdown);
   dom.main.addEventListener('click', event => {
     const button = event.target.closest('[data-bookmark]');
     if (button) toggleBookmark(button.dataset.bookmark, dom);
@@ -966,10 +1020,25 @@ async function bootstrap() {
   restoreUrl(dom);
   window.addEventListener('popstate', () => restoreUrl(dom));
 
+  try {
+    accountController = initAccount({
+      triggerButton: dom.accountTriggerBtn,
+      menuRoot: dom.accountMenuRoot,
+      modalRoot: dom.accountModalRoot,
+      getLocalBookmarkIds: () => [...new Set([...readSaved().keys(), ...saved.keys()])],
+      onSyncBookmarks: (ids) => mergeSyncedBookmarks(ids, dom),
+      onToast: showToast,
+      getTheme: () => currentTheme,
+    });
+  } catch (err) {
+    console.error('[AI Intel Radar] Account module initialization skipped:', err);
+  }
+
   window.__RADAR_APP__ = {
     getState,
     getData,
     getPosterController,
+    getAccountController: () => accountController,
     getGuidesController: () => guidesController,
     getGuides: () => guidesController.getGuides(),
     openGuides,
