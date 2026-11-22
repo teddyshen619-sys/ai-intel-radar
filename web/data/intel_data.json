@@ -1,12 +1,134 @@
 {
-  "updated_at": "2026-11-21T22:27:12+08:00",
+  "updated_at": "2026-11-22T15:15:35+08:00",
   "items": [
+    {
+      "id": "ai-20261122-01",
+      "date": "2026-11-22",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "URGENT",
+      "vendor": "Lean FRO / MIT / Anthropic",
+      "priority": 100,
+      "metric_badge": "175,187 模块 · 0 错误",
+      "impact": "关注形式化数学验证、AI 科学推理里程碑与千禧年大奖进展的全行业研究者",
+      "title": "Lean FRO 与 Mathlib 官方联合认证：Alpöge 与 Claude 的 1700 万行黎曼猜想证明通过多内核独立验真",
+      "value_tag": "官方认证形式化正确",
+      "tldr": "Lean 与 Mathlib 社区发布获 Lean FRO 及 Mathlib Initiative 背书的联合声明，认证 Levent Alpöge 携手 Claude 完成的 1700 万行黎曼猜想证明在命题陈述与逻辑推导上均正确；MIT 团队同步完成 175,187 个模块沙盒重编译与多款独立内核交叉重放。",
+      "details": [
+        "官方联合认证：Lean 与 Mathlib 社区（由 Lean FRO 与 Mathlib Initiative 正式背书）宣布，该 1700 万行代码库仅直接依赖 Mathlib，已全面满足 Xena Project 四项形式化验真准则，正式认证黎曼猜想（RH）的陈述与机器证明均正确。",
+        "MIT 断网沙盒复现与公理审计：MIT 数学家 Andrew Sutherland 公布的核验面板（2026-11-22 更新）显示，全部 175,187 个模块在 Lean v4.33.1 / Mathlib v4.33.1 无网络只读沙盒中零错误编译，字节级复现 61.57GB 导出文件；Main.lean 五大核心定理仅依赖 propext、Classical.choice 与 Quot.sound 三条标准公理。",
+        "跨语言多内核独立重放：除官方 leanchecker 全模块零拒绝外，独立 Rust 内核 nanoda（80 线程耗时 27 分 42 秒）、附带集合论可靠性形式化证明的 con-leche 与 Rust 版 con-ron（64 线程校验 146.8 万项声明并与仅导入 Mathlib 的挑战文件逐一比对通过）以及 lean4lean 均独立接受证明。",
+        "初等算术交叉印证与边界说明：验证组还将该库与独立形式化的 Robin1984 结合，导出了完全不出现 zeta 函数定义的 Robin 与 Lagarias 除数和不等式以排除定义偏差；目前已核验的广义黎曼猜想（GRH）覆盖全部模数与特征的狄利克雷 L-函数（不含一般数域 Dedekind / Hecke L-函数），人类可读数学拆解与学界长期发表审阅仍在进行。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Lean Community / MIT",
+      "source_url": "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/",
+      "story": [
+        {
+          "heading": "不到 48 小时的全球接力：Lean FRO 与 Mathlib 给出最高级别机器背书",
+          "paragraphs": [
+            "距离 Anthropic 研究员、哈佛学会成员 Levent Alpöge 在个人主页低调挂出 14 个分卷压缩包仅仅过去约一天半，形式化数学界给出了历史性的正面裁决。北京时间 11 月 21 日晚至 22 日，Lean 与 Mathlib 社区发布了一份由 Lean 基金会（Lean FRO）与 Mathlib Initiative 正式背书的联合声明，明确写道：“我们完全确信 Alpöge 关于黎曼猜想的证明是正确的，并向他的这一成就表示祝贺。”",
+            "与传统数学期刊动辄数年的同行审稿不同，这轮闪电验真严格围绕帝国理工学院数学家 Kevin Buzzard 在 Xena Project 提出的四条铁律展开：目标命题本身书写正确、源码库无错编译、产出的定理与隔离挑战文件中的标准命题严格同一，以及导出的底层证明对象通过多个彼此独立的内核检验。数十名独立研究者在不同硬件环境下重跑构建，复现出了完全相同的原始证明导出文件。"
+          ]
+        },
+        {
+          "heading": "61.57GB 断网重放与四大独立内核的“防串通”防线",
+          "paragraphs": [
+            "在 MIT 数学系教授 Andrew Sutherland 维护的公开核验主页（math.mit.edu/~drew/grh，北京时间 11 月 22 日中午更新）上，整套工程的机械审计细节被逐项摊开。在断网、只读源码的独立机器沙盒中，lake build Main 零错误编译了全部 175,187 个模块（Lean v4.33.1 与 Mathlib v4.33.1），生成的 61,570,595,788 字节（约 61.57GB）证明导出包与作者公布版本字节级完全一致，且 8,322 个 Mathlib 缓存文件未遭任何篡改。针对 Main.lean 中五项核心定理的 #print axioms 审计显示，证明仅使用了 propext、Classical.choice 与 Quot.sound 三项最基础的标准公理，未夹带任何自定义公理或未证占位符。",
+            "为了彻底堵死“恶意元编程利用 Lean 编译器或单一内核潜在漏洞伪造证明”的极端担忧，验证团队在完全静态、不执行任何源码宏的导出文件上动用了多款由不同语言独立实现的外部检查器：Rust 编写的独立内核 nanoda 在 80 线程机器上耗时 27 分 42 秒完整接受全部导出；具备相对于集合论的形式化可靠性证明（即数学上已证其不可能接受错误证明）的检查器 con-leche 及其 Rust 移植版 con-ron 在 64 线程下仅用数分钟便通过了全部 1,468,418 条声明校验，并在 --compare 模式下确认仅依赖 Mathlib 的五项挑战定理全部获证；自举内核 lean4lean 在调高 5 个计算密集型模块的步数上限后亦 100% 通过了全部 175,187 个模块。"
+          ]
+        },
+        {
+          "heading": "绕开复分析定义的终极交叉检验：直接导出除数和初等不等式",
+          "paragraphs": [
+            "在所有针对形式化证明的挑剔质疑中，最常被提及的一点是：“万一 Mathlib 里关于黎曼 zeta 函数的复分析解析延拓定义在某个边界角落写偏了怎么办？”为了回应这一质疑，验证团队做了一项极为漂亮的交叉测试——将 Alpöge 的证明库与同一 Lean/Mathlib 版本下的独立开源项目 kimihiro64/Robin1984 合并编译。",
+            "合并后，系统直接无条件证出了两条纯粹关于正整数除数和函数 sigma(n) 的初等数论定理：当 n > 5040 时恒成立的 Robin 不等式，以及对一切正整数 n 成立的 Lagarias 不等式。这两条经典等价准则的定理陈述只涉及自然数、对数、指数与调和级数，字面上完全不出现复平面或黎曼 zeta 函数。一旦它们无条件成立，即便抛开复变函数形式化定义细节，黎曼猜想在经典数学意义下的真实性也被牢牢锁死。同时 Sutherland 也严谨界定了本轮核验边界：Main.lean 中获证的五条定理涵盖经典黎曼猜想与任意模数 N 的狄利克雷 L-函数广义黎曼猜想（GRH），而一般数域上的 Dedekind zeta 函数与高阶自守 L-函数尚不在本批已核验定理之列。"
+          ]
+        },
+        {
+          "heading": "机器验真落槌之后：人类理解才刚刚起步",
+          "paragraphs": [
+            "尽管单线程运行的 Lean 官方默认内核与 paranoid 内核针对 61.57GB 全量导出文件的重放仍在后台跑完最后一程，但多重独立内核与集合论已验证检查器的一致放行，已在事实上将“代码是否存在逻辑漏洞或作弊”的概率压到了零。这标志着人类数学史上首次有一道悬置 167 年的千禧年大奖难题，先以千万行机器可验证代码的形式跨越了正确性门槛。",
+            "然而对数论学界而言，真正的消化工作才刚刚开始。诚如 Lean 社区声明与多位数学家所言，“知道一个定理绝对为真”与“理解它为什么为真”是两件截然不同的事。如何从 175,187 个模块和长达 25 万页等价文本的自守提升构造中，提炼出人类数学家能够阅读、讲授并迁移到其他数论分支的核心洞察，以及后续如何完成传统学术发表以衔接克雷数学研究所的评奖流程，将成为未来数年数学与 AI 交叉领域最受瞩目的主线。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-20261121-02",
+      "date": "2026-11-21",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "URGENT",
+      "vendor": "DeepSeek",
+      "priority": 96,
+      "impact": "所有在 OpenRouter 路由 DeepSeek V4 Flash 系列的成本敏感型与视觉推理应用",
+      "title": "OpenRouter DeepSeek 夜间大跳水：V4.1 Flash 回落 -83.4% 至 $0.0498/$0.1992/M，Vision Exp 砍半",
+      "value_tag": "-83.4% · 重返低价",
+      "tldr": "OpenRouter 21:47 最新快照逆转凌晨涨势：无后缀款 deepseek/deepseek-v4.1-flash 输入/输出/缓存同步大降 83.4%，反超 -1017 固定价版便宜 66.8%；视觉实验款 deepseek/deepseek-v4-flash-vision-exp 亦全线砍半降价 51%。",
+      "details": [
+        "V4.1 Flash 回落：输入从 $0.30 降至 $0.0498/M，输出由 $1.20 降至 $0.1992/M，缓存读取由 $0.006 降至 $0.000996/M，降幅均达 -83.4%。",
+        "版本价差倒挂：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 仍维持 $0.15/$0.60/$0.003/M，此前因避险切往 -1017 的调用方现可切回。",
+        "Vision Exp 降价：多模态型号 deepseek/deepseek-v4-flash-vision-exp（1M 上下文）输入/输出/缓存同步下调 -51.0% 至 $0.2156 / $0.6468 / $0.00686/M。",
+        "操作建议：OpenRouter 无后缀路由价格浮动频繁，建议在网关层结合价格报警或对预算严格路由保留 -1017 固定价模型 ID 作为回退开关。"
+      ],
+      "action_snippet": "{\n  \"model\": \"deepseek/deepseek-v4.1-flash\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"Analyze logs\"}]\n}",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash",
+      "metric_badge": "-83.4% · $0.0498/M"
+    },
+    {
+      "id": "ai-20261121-01",
+      "date": "2026-11-21",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "URGENT",
+      "vendor": "Google",
+      "priority": 96,
+      "impact": "寻求高性价比开源多模态（文本+图像+视频）与原生工具调用接口的开发者",
+      "title": "OpenRouter 新增免费 Google Gemma 4 26B A4B：仅 3.8B 激活参量支持 256K 与 60 秒视频理解",
+      "value_tag": "0 费用 · 视频+工具",
+      "tldr": "OpenRouter 北京时间 2026-11-21 21:47 快照新上线免费模型 google/gemma-4-26b-a4b-it:free，Apache 2.0 协议开源，总参 25.2B / 每 token 仅激活 3.8B，提供 262K 上下文、原生函数调用与最长达 60 秒 1fps 视频输入。",
+      "details": [
+        "模型规格：采用稀疏 MoE 架构（总参 25.2B / 激活 3.8B），OpenRouter 配置 262,144 上下文窗口与 32,768 最大输出，输入输出均 $0/M。",
+        "多模态与工程：除文本与多图外支持 60s@1fps 视频理解、可配置 thinking 模式、结构化 JSON 输出与原生 tools 调用，Apache 2.0 可商用。",
+        "实测基准：Artificial Analysis 推理模式下 GPQA Diamond 79.2%、IFBench 72.4%、AA-LCR 65.7%，非推理 MMMU-Pro 66.7%、SciCode 40.0%。",
+        "线上性能：Google AI Studio 免费上游通道实测中位延迟 1.11s、吞吐约 42 tok/s、近 3 日在线率 100.00%（综合可用率 99.52%）。"
+      ],
+      "action_snippet": "google/gemma-4-26b-a4b-it:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=google%2Fgemma-4-26b-a4b-it%3Afree",
+      "metric_badge": "$0/M · 262K · 视频"
+    },
+    {
+      "id": "ai-20261121-04",
+      "date": "2026-11-21",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "URGENT",
+      "vendor": "Cline",
+      "priority": 94,
+      "impact": "在 VS Code 中挂载第三方或数据库/本地写权限 MCP Server 的 Cline 用户",
+      "title": "安全隐患 #15817：Cline 默认静默自动批准全部已安装 MCP 工具调用，v4.1.27 仅加“只读”UI 徽标未改默认值",
+      "value_tag": "高危默认放行 · 未修",
+      "tldr": "GitHub Issue #15817 披露 Cline 默认设置 DEFAULT_AUTO_APPROVAL_SETTINGS 中将 useMcp 设为 true，只要工具名包含双下划线 serverName__toolName 即跳过用户确认直接执行；今天发布的 v4.1.27 仅补了 UI 只读标记，未修改默认开关。",
+      "details": [
+        "源码实锤路径：在主分支 e8227d6f 中 AutoApprovalSettings.ts 第 41 行默认 useMcp: true（同期命令执行 executeSafeCommands 为 false）。",
+        "无分工具粒度：sdk-tool-policies.ts 仅以 toolName.indexOf(\"__\") > 0 判定是否为 MCP 工具，源码注释直言全局一刀切开关且无单工具 opt-in。",
+        "v4.1.27 现状：今晨 06:05 发布的 v4.1.27（8075d2e）仅对声明为只读的 MCP 工具增加 UI“read-only”徽标，useMcp 默认值依然保持为 true。",
+        "避坑提示：该问题无 CVE 编号但极易误触发破坏性外部工具调用，使用 Cline 时请立即在 Auto-approve 面板取消勾选 Use MCP servers 并逐一审核挂载的 MCP 权限。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub · cline/cline",
+      "source_url": "https://github.com/cline/cline/issues/15817",
+      "metric_badge": "useMcp: true · 未改默认"
+    },
     {
       "id": "ai-20261120-28",
       "date": "2026-11-20",
       "channel": "INTEL",
       "type": "MODEL",
-      "status": "URGENT",
+      "status": "ACTIVE",
       "vendor": "Anthropic",
       "priority": 100,
       "metric_badge": "HN 1113赞 · 14卷 Lean",
@@ -66,7 +188,7 @@
       "date": "2026-11-21",
       "channel": "INTEL",
       "type": "MODEL",
-      "status": "URGENT",
+      "status": "ACTIVE",
       "vendor": "Stanford / Anthropic",
       "priority": 99,
       "impact": "关注 AI 数学形式化验证、科研出版伦理与前沿推理边界的研究者",
@@ -110,214 +232,6 @@
           "paragraphs": [
             "戏剧性的一幕发生在当天傍晚。当 Vakil 结束长达数小时的 AMS 董事会会议走出会议室时，离手稿公开仅仅过去了大约 8 个小时。他在原博文顶部紧急补充了一条更新：“已有数位人士联系我，报告了该拟议证明中存在的问题，这些问题是在不同 AI 模型的协助下识别出来的（identified with the assistance of different AI models）。”",
             "几乎同一时间，X 平台（如前 OpenAI 数学研究员 @AcerFur）与获得逾 2200 点支持的 Hacker News 讨论串中也陆续出现用前沿模型跑出反例或疑点的反馈。Vakil 明确表示，在所有提出的问题解决前该手稿不能被视为成立，他对证明策略最终是否正确亦不作保证。2026 年 11 月的这 24 小时因此留下了一组极具冲击力的时代对照：经数论名家历时数月人脑审校尚未拦下的人类手稿，在数小时内遭到 AI 辅助审稿工具定位硬伤；而被学者自嘲“人类读不完”的百万行 AI 生成证明，却先一步凭机器可编译的形式化契约跨过了第一道验证门槛。"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ai-20261121-01",
-      "date": "2026-11-21",
-      "channel": "RADAR",
-      "type": "DEAL",
-      "status": "URGENT",
-      "vendor": "Google",
-      "priority": 96,
-      "impact": "寻求高性价比开源多模态（文本+图像+视频）与原生工具调用接口的开发者",
-      "title": "OpenRouter 新增免费 Google Gemma 4 26B A4B：仅 3.8B 激活参量支持 256K 与 60 秒视频理解",
-      "value_tag": "0 费用 · 视频+工具",
-      "tldr": "OpenRouter 北京时间 2026-11-21 21:47 快照新上线免费模型 google/gemma-4-26b-a4b-it:free，Apache 2.0 协议开源，总参 25.2B / 每 token 仅激活 3.8B，提供 262K 上下文、原生函数调用与最长达 60 秒 1fps 视频输入。",
-      "details": [
-        "模型规格：采用稀疏 MoE 架构（总参 25.2B / 激活 3.8B），OpenRouter 配置 262,144 上下文窗口与 32,768 最大输出，输入输出均 $0/M。",
-        "多模态与工程：除文本与多图外支持 60s@1fps 视频理解、可配置 thinking 模式、结构化 JSON 输出与原生 tools 调用，Apache 2.0 可商用。",
-        "实测基准：Artificial Analysis 推理模式下 GPQA Diamond 79.2%、IFBench 72.4%、AA-LCR 65.7%，非推理 MMMU-Pro 66.7%、SciCode 40.0%。",
-        "线上性能：Google AI Studio 免费上游通道实测中位延迟 1.11s、吞吐约 42 tok/s、近 3 日在线率 100.00%（综合可用率 99.52%）。"
-      ],
-      "action_snippet": "google/gemma-4-26b-a4b-it:free",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=google%2Fgemma-4-26b-a4b-it%3Afree",
-      "metric_badge": "$0/M · 262K · 视频"
-    },
-    {
-      "id": "ai-20261121-02",
-      "date": "2026-11-21",
-      "channel": "INTEL",
-      "type": "POLICY",
-      "status": "URGENT",
-      "vendor": "DeepSeek",
-      "priority": 96,
-      "impact": "所有在 OpenRouter 路由 DeepSeek V4 Flash 系列的成本敏感型与视觉推理应用",
-      "title": "OpenRouter DeepSeek 夜间大跳水：V4.1 Flash 回落 -83.4% 至 $0.0498/$0.1992/M，Vision Exp 砍半",
-      "value_tag": "-83.4% · 重返低价",
-      "tldr": "OpenRouter 21:47 最新快照逆转凌晨涨势：无后缀款 deepseek/deepseek-v4.1-flash 输入/输出/缓存同步大降 83.4%，反超 -1017 固定价版便宜 66.8%；视觉实验款 deepseek/deepseek-v4-flash-vision-exp 亦全线砍半降价 51%。",
-      "details": [
-        "V4.1 Flash 回落：输入从 $0.30 降至 $0.0498/M，输出由 $1.20 降至 $0.1992/M，缓存读取由 $0.006 降至 $0.000996/M，降幅均达 -83.4%。",
-        "版本价差倒挂：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 仍维持 $0.15/$0.60/$0.003/M，此前因避险切往 -1017 的调用方现可切回。",
-        "Vision Exp 降价：多模态型号 deepseek/deepseek-v4-flash-vision-exp（1M 上下文）输入/输出/缓存同步下调 -51.0% 至 $0.2156 / $0.6468 / $0.00686/M。",
-        "操作建议：OpenRouter 无后缀路由价格浮动频繁，建议在网关层结合价格报警或对预算严格路由保留 -1017 固定价模型 ID 作为回退开关。"
-      ],
-      "action_snippet": "{\n  \"model\": \"deepseek/deepseek-v4.1-flash\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"Analyze logs\"}]\n}",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash",
-      "metric_badge": "-83.4% · $0.0498/M"
-    },
-    {
-      "id": "ai-20261119-05",
-      "date": "2026-11-19",
-      "channel": "RADAR",
-      "type": "DEAL",
-      "status": "URGENT",
-      "vendor": "OpenAI",
-      "priority": 95,
-      "impact": "高校教研人员、博士后与非营利科研实验室 PI",
-      "title": "OpenAI 学术科研免费计划扩容至 20 万名学者：先到先得送 3 席 ChatGPT Plus",
-      "value_tag": "白嫖 3 席 Plus",
-      "tldr": "OpenAI 将 ChatGPT for Academic Researchers 扩容至 200,000 人并由抽签改为先到先得，获批主申请人可携最多 2 名同机构协作者免费使用 Plus，且默认不用于模型训练。",
-      "details": [
-        "资格门槛：面向受认可高校、科研机构及非营利组织的研究员、博士后、PI 与实验室负责人（支持区域内开放申请）。",
-        "额度变更：名额由试点期翻倍至 20 万名；由试点 Pro 调整为正式 ChatGPT Plus（主申请人 + 最多 2 名同机构协作者共 3 席），审校机制改为先到先得。",
-        "隐私承诺：通过该学术通道提交的研究数据默认不参与 OpenAI 模型训练，降低未发表论文与实验数据外泄风险。"
-      ],
-      "action_snippet": "",
-      "source_platform": "OpenAI News",
-      "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
-    },
-    {
-      "id": "ai-20261121-04",
-      "date": "2026-11-21",
-      "channel": "RADAR",
-      "type": "BUG",
-      "status": "URGENT",
-      "vendor": "Cline",
-      "priority": 94,
-      "impact": "在 VS Code 中挂载第三方或数据库/本地写权限 MCP Server 的 Cline 用户",
-      "title": "安全隐患 #15817：Cline 默认静默自动批准全部已安装 MCP 工具调用，v4.1.27 仅加“只读”UI 徽标未改默认值",
-      "value_tag": "高危默认放行 · 未修",
-      "tldr": "GitHub Issue #15817 披露 Cline 默认设置 DEFAULT_AUTO_APPROVAL_SETTINGS 中将 useMcp 设为 true，只要工具名包含双下划线 serverName__toolName 即跳过用户确认直接执行；今天发布的 v4.1.27 仅补了 UI 只读标记，未修改默认开关。",
-      "details": [
-        "源码实锤路径：在主分支 e8227d6f 中 AutoApprovalSettings.ts 第 41 行默认 useMcp: true（同期命令执行 executeSafeCommands 为 false）。",
-        "无分工具粒度：sdk-tool-policies.ts 仅以 toolName.indexOf(\"__\") > 0 判定是否为 MCP 工具，源码注释直言全局一刀切开关且无单工具 opt-in。",
-        "v4.1.27 现状：今晨 06:05 发布的 v4.1.27（8075d2e）仅对声明为只读的 MCP 工具增加 UI“read-only”徽标，useMcp 默认值依然保持为 true。",
-        "避坑提示：该问题无 CVE 编号但极易误触发破坏性外部工具调用，使用 Cline 时请立即在 Auto-approve 面板取消勾选 Use MCP servers 并逐一审核挂载的 MCP 权限。"
-      ],
-      "action_snippet": "",
-      "source_platform": "GitHub · cline/cline",
-      "source_url": "https://github.com/cline/cline/issues/15817",
-      "metric_badge": "useMcp: true · 未改默认"
-    },
-    {
-      "id": "ai-20261119-19",
-      "date": "2026-11-18",
-      "channel": "INTEL",
-      "type": "PRODUCT",
-      "status": "URGENT",
-      "vendor": "Dify",
-      "priority": 94,
-      "impact": "使用 Langfuse 追踪与 HITL 审批的 Dify 自托管运维者",
-      "title": "Dify v1.20.0 紧急兼容发布：Langfuse 旧端点已于 11 月 16 日退役，默认启用多端 IM 审批",
-      "value_tag": "Langfuse 断链急修",
-      "tldr": "Langfuse Cloud 已于 11 月 16 日关停旧版上报端点（v4 自托管亦拒收），Dify v1.20.0 紧急适配 Langfuse v4 并新增通用 OTel 导出、知识库上传杀毒及默认开启的多端 IM 人工审批。",
-      "details": [
-        "断链紧急提醒：停留在 Dify 1.19.x 对接 Langfuse Cloud 或 v4 自托管的实例已无法上报 Trace，须升至 1.20.0 恢复监控；同时新支持导出至任意 OpenTelemetry 收集器。",
-        "重点新特性：默认启用 NEXT_PUBLIC_ENABLE_HITL_IM=true 支持飞书/钉钉/企微/Slack/Teams 卡片审批；新增个人访问令牌（PAT）与知识库文件上传前恶意软件扫描。",
-        "升级留意：该版本插件守护进程升级至 0.6.15-local，#46535 提及的 1.19.0 HITL 404 问题已在主干修复（对应 issue 已闭环）。"
-      ],
-      "action_snippet": "",
-      "source_platform": "GitHub Releases",
-      "source_url": "https://github.com/langgenius/dify/releases/tag/1.20.0"
-    },
-    {
-      "id": "ai-20261120-18",
-      "date": "2026-11-20",
-      "channel": "RADAR",
-      "type": "BUG",
-      "status": "URGENT",
-      "vendor": "Google",
-      "priority": 93,
-      "impact": "近期看到“0 元卡漏洞白嫖 AI 会员”宣传或使用虚拟卡/代充订阅 AI 的用户",
-      "title": "高危风控预警：X 与 GitHub 热传“0 元领 1 年 Google AI Ultra”漏洞脚本，已触发大面积收回与封号",
-      "value_tag": "封号退订预警",
-      "tldr": "近 48 小时 GitHub 与 X 上疯传一批利用 Google 账单校验漏洞与一次性虚拟卡“0 元抢注 12 个月 Google AI Ultra（原价 $99.99/月）”的开源脚本。目前 Google 已紧急介入批量收回会员并封禁关联谷歌主号，且波及部分正常虚拟卡与学生切换用户。",
-      "details": [
-        "事件起因：11 月 18 日前后，GitHub 上出现可自动批量抢注“隐藏 12 个月 $0 试用版 Google AI Ultra（20TB）”的脚本项目（数小时内暴涨至 1,400+ Stars），部分灰产还将账号拿去做第三方 API 中转倒卖。",
-        "风控与后果：在 Google 开发者论坛紧急举报帖发出及安全团队介入后，Google Play Billing 与 Trust & Safety 已展开清理，违规获取的订阅被强制撤销（$0 退款冲正），部分涉及多号轮询或共用高风险虚拟卡 BIN 段的账号被直接停封，连带绑定在该主号下的 Gmail、Google Drive 文件与相册均面临锁号风险。",
-        "误伤与全行业收紧提示：Reddit（r/googlecloud、r/GooglePixel）不少正常付费或正在切换学生优惠的用户也反馈触发了自动退订误判；同期 ChatGPT Plus、Claude Pro 与 Perplexity Pro 对跨区 IP、高危虚拟预付卡及多人拼车账号的反欺诈封控也明显趋严。本平台坚决不鼓励、不提供任何绕过或卡漏洞操作步骤，切勿拿常用主力谷歌账号冒险。",
-        "避坑提示：切勿运行来历不明的“0元脚本”或购买第三方低价中转号；正常用户尽量避免使用多人共享 BIN 段的虚拟卡与频繁跳区 IP 结账，遭误封请保留本人实体账单走官方支持申诉。"
-      ],
-      "action_snippet": "",
-      "source_platform": "Google AI Developers Forum",
-      "source_url": "https://discuss.ai.google.dev/t/urgent-abuse-billing-report-newly-open-sourced-exploit-abusing-hidden-12-month-0-google-ai-ultra-offer-please-revoke-subscriptions-ban-accounts/201899",
-      "story": [
-        {
-          "heading": "GitHub 几小时飙破 1400 星：一条被挖出来的隐藏计费链路",
-          "paragraphs": [
-            "风暴的导火索是一篇深夜发出的官方论坛举报帖。11 月 18 日凌晨（UTC 01:38），开发者 H_void 在 Google AI 开发者论坛紧急发帖称，一个长期存在的 Google AI Ultra 计费漏洞刚在 GitHub 上被彻底开源，短短数小时内就收获了超过 1400 颗星标和数百次 Fork，正在演变成一场自动化规模刷号浪潮。",
-            "根据帖子披露的技术机理，该漏洞出在 Google Play Billing 针对 20 TB 档位商品 g1.play.20tb（原价每月 $99.99 的 Google AI Ultra 5x 套餐）的促销校验环节：不同于防御严密的 30 TB（20x）高阶档，调用 Play 计费查询接口时会返回一套本不该出现在任何官方界面的隐藏 0 元试用优惠（涵盖 eft-1month 至 eft-12month / P1Y），且服务端结账环节并未严格核验用户资格。开源作者将其包装成了两套“零门槛工具”——一套是通过重放特定浏览器指纹直接拉起网页端 0 元一年期结账流程，另一套则借助 adb 与 frida 注入 Google One 客户端进程，用同一张银行卡循环遍历账号列表批量激活会员。"
-          ]
-        },
-        {
-          "heading": "从算力挤兑到官方定性：为什么安全团队火速出手",
-          "paragraphs": [
-            "这波羊毛之所以迅速引爆社区不满，在于 Google AI Ultra 并非单纯的 20 TB 网盘会员，它直接绑定了 Gemini 旗舰模型高配额、Project Genie 世界模型以及 Google Antigravity 开发环境的高优先级算力。随着批产出来的“0 元 12 个月 Ultra 号”被灰产大肆倒卖甚至接入第三方 API 中转池，大量正常付费用户和开发者在社区反映 Antigravity 遭遇了明显的容量限流与排队卡顿。",
-            "大约十小时后（11 月 18 日 UTC 12:02），论坛响应人员 Rebbanpalli_Naveen 正式跟进回复：首先感谢举报人主动屏蔽了漏洞仓库与工具链接，要求其通过 Google Bug Hunters 安全通道私下提交详细技术证据，同时明确援引 Google 服务条款、Antigravity 条款与常见问题说明，重申促销权益严禁转让、叠加或通过自动化脚本批量兑换，任何滥用未授权流程获取的会员将被撤销，涉事账号亦面临封禁处理。"
-          ]
-        },
-        {
-          "heading": "R$ 0.00 强退与 18 个月合作套餐连坐：清算波及真实用户",
-          "paragraphs": [
-            "紧随官方表态而来的批量清算，很快在同一篇论坛帖子下方留下了连续三天的真实余波。11 月 18 日下午，用户 PAULO_ALMEIDA1 求助称自己激活 12 个月 Google AI Ultra（20 TB）加 YouTube 个人版优惠仅数小时后，就莫名收到了一封批准退款 R$ 0.00 的自动通知，订阅随之被强制取消；次日清晨，另一位用户 study_zhanghq 也反馈遭遇了分毫不差的 R$ 0.00 退款退订。",
-            "更棘手的误伤发生在跨权益重叠用户身上。11 月 20 日，用户 Samyar 在贴内留言表示自己“无比后悔”去激活了 Ultra 优惠——他在操作前原本合法拥有电信运营商 Jio 赠送的 18 个月 Pro 套餐，结果激活 Ultra 的第二天，不仅新套餐失效，连带着原本好端端的 18 个月 Jio Pro 会员也一同停止了服务。同期在 Reddit 的 r/GeminiAI、r/AntigravityGoogle 与 r/Jio 等板块中，也有不少普通用户反映 Jio 绑卡套餐、学生优惠切换或使用多账号共享虚拟卡时触发了风控拦截与突然退订。"
-          ]
-        },
-        {
-          "heading": "主力谷歌账号的不可承受之重：别拿十年数据换一年灰产试用",
-          "paragraphs": [
-            "从 2026 年下半年全行业的风控演进来看，无论是 ChatPRD 因黑产循环套利被迫关停免费试用，还是 Google 对 Play Billing 隐藏试用流展开高压清查，AI 服务的算力成本都决定了“无门槛白嫖”的容忍度已降至冰点。",
-            "对普通用户和开发者而言，Google 生态的特殊性在于“账单处罚往往与身份资产连坐”：一个常用谷歌账号背后通常同时系着 Gmail 主力邮箱、Google Drive 多年工作文档、Google 相册以及 Android 绑定服务。为了一张不知来源的“0 元代充”或 GitHub 黑盒脚本让主力号被 Trust & Safety 永久封停或拉黑支付方式，远比单次退订的代价沉重得多。"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ai-20261120-11",
-      "date": "2026-11-20",
-      "channel": "RADAR",
-      "type": "BUG",
-      "status": "URGENT",
-      "vendor": "Meta",
-      "priority": 92,
-      "impact": "下载过 Meta Muse AI 助手（下载量破千万）或绑定过私人通知权限的用户",
-      "title": "隐私警报：Meta AI 助手 Muse 被曝串线泄露他人银行余额与私人通信提醒",
-      "value_tag": "隐私串线风险",
-      "tldr": "路透社援引 Meta 内部爆料称，上线仅两个月、下载超 1000 万次的 AI 助手 Muse 在内部测试中出现严重串号：员工查天气时竟收到陌生人的银行账户余额、订单及加密聊天软件 Signal 的未读提醒。",
-      "details": [
-        "据内部帖子记录，有员工在询问天气和潮汐时，Muse 突然插话报出陌生人的 Capital One（$2,722.58）与 Charles Schwab（$5,899.57）账户余额；另有员工收到了本不属于自己的育儿咨询、求职建议与网购订单回复。",
-        "更令员工不安的是，一名员工在私人手机上收到了 Muse 发来的“回复妹妹 Signal 消息”提醒，但她明确表示自己从未授权 Muse 读取 Signal 或相关通信权限。",
-        "Meta 发言人回应称，员工测试版与面向公众发布的版本存在差异，暴露该问题正是内测收紧隐私护栏的意义；但在底层隔离机制彻底经受住外部审计前，强烈建议普通用户勿向同类联网 Agent 输入网银、验证码等高度敏感隐私。",
-        "避坑提示：若手机已安装 Meta Muse，建议检查系统权限设置，暂勿授权读取短信/通讯录/通知栏，也避免在对话中输入个人财务与隐私凭证。"
-      ],
-      "action_snippet": "",
-      "source_platform": "TechCrunch",
-      "source_url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
-      "story": [
-        {
-          "heading": "聊着天气和潮汐，AI 突然报出别人的银行卡余额",
-          "paragraphs": [
-            "据 TechCrunch 11 月 19 日援引路透社对 Meta 内部讨论帖的调查报道，这款上线仅两个月、下载量就迅速突破 1000 万次的消费级 AI 助手 Muse，在内部员工的日常测试中频频出现令人毛骨悚然的“跨账号串线”。",
-            "一位员工向同事反映，自己原本只是在跟 Muse 闲聊天气和潮汐信息，对话框里却毫无征兆地插进了一句推送：“顺便说两条银行账户更新，你的 Capital One 余额是 $2722.58，你的 Charles Schwab 余额是 $5899.57。”而在内部反馈中，类似的错乱并非孤例：多名员工表示 Muse 曾主动向自己弹出陌生的育儿咨询、从未问过的职业规划建议，甚至是别人网购下单的商品确认记录。"
-          ]
-        },
-        {
-          "heading": "未经授权的 Signal 回复提醒，撞上“万能钥匙”式权限争议",
-          "paragraphs": [
-            "比对话记忆串线更让内部员工感到不安的，是 Agent 在手机底层权限边界上的越界触角。一位在个人手机上使用 Muse 的女性员工发帖称，Muse 突然向她发送了一条提醒，催促她去回复妹妹在端到端加密聊天软件 Signal 上发来的消息。她明确表示：“这看起来像是极其严重的隐私侵犯。我绝对没有授权它访问其他应用，也不记得自己曾被弹出过相关授权询问。”",
-            "这场风波在次日直接引发了加密通信阵营的正面点名。11 月 20 日，Signal 总裁 Meredith Whittaker 在官方博客发文宣布在移动端封堵应用内截屏时，专门点名以 Meta Muse 为代表的第三方 AI 智能体——指出这类工具在引导用户配置时，往往会鼓励授予极深层的系统辅助功能（Accessibility）权限，“把本该帮助残障人士使用软件的无障碍通道，变成了 AI 肆意读取所有应用数据的万能钥匙（skeleton key）。”"
-          ]
-        },
-        {
-          "heading": "千万级装机与 $300 随身硬件在即：Meta 的公私版本辩护",
-          "paragraphs": [
-            "面对舆论质疑，Meta 发言人向 TechCrunch 回应称，员工内测正是产品打磨安全与隐私护栏的核心环节，并强调“员工使用的 Muse 版本与面向公众发布的版本并不相同，他们经常在测试尚未对外开放的功能、特性与行为”。",
-            "然而耐人寻味的是时间节点上的剧烈反差：就在同一天（11 月 19 日），The Information 曝光 Meta 计划为此前 Connect 大会预告过的便携屏幕 AI 挂件 Muse Charm 定价 $300，机身配备指纹传感器，支持不解锁手机直接点击与 Muse 语音对话并附带 12 个月 Verizon 5G 流量套餐，目标赶在 12 月圣诞季出货（Meta 发言人 Tyler Yee 对此未予否认，仅回应“很高兴看到大家对我们 AI 设备的兴趣”）。当一家巨头正准备把“24 小时贴身在线、主动帮你接管生活”的硬件卖给普通消费者时，内测环节暴露出的多租户上下文隔离漏洞与越权读屏嫌疑，显然给全行业敲响了警钟。"
           ]
         }
       ]
@@ -411,6 +325,27 @@
       "source_url": "https://openrouter.ai/models?q=nvidia%2Fnemotron-3-nano-omni-30b-a3b-reasoning%3Afree"
     },
     {
+      "id": "ai-20261119-05",
+      "date": "2026-11-19",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 95,
+      "impact": "高校教研人员、博士后与非营利科研实验室 PI",
+      "title": "OpenAI 学术科研免费计划扩容至 20 万名学者：先到先得送 3 席 ChatGPT Plus",
+      "value_tag": "白嫖 3 席 Plus",
+      "tldr": "OpenAI 将 ChatGPT for Academic Researchers 扩容至 200,000 人并由抽签改为先到先得，获批主申请人可携最多 2 名同机构协作者免费使用 Plus，且默认不用于模型训练。",
+      "details": [
+        "资格门槛：面向受认可高校、科研机构及非营利组织的研究员、博士后、PI 与实验室负责人（支持区域内开放申请）。",
+        "额度变更：名额由试点期翻倍至 20 万名；由试点 Pro 调整为正式 ChatGPT Plus（主申请人 + 最多 2 名同机构协作者共 3 席），审校机制改为先到先得。",
+        "隐私承诺：通过该学术通道提交的研究数据默认不参与 OpenAI 模型训练，降低未发表论文与实验数据外泄风险。"
+      ],
+      "action_snippet": "",
+      "source_platform": "OpenAI News",
+      "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
+    },
+    {
       "id": "ai-20261120-20",
       "date": "2026-11-20",
       "channel": "RADAR",
@@ -453,6 +388,27 @@
       "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/"
     },
     {
+      "id": "ai-20261119-19",
+      "date": "2026-11-18",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Dify",
+      "priority": 94,
+      "impact": "使用 Langfuse 追踪与 HITL 审批的 Dify 自托管运维者",
+      "title": "Dify v1.20.0 紧急兼容发布：Langfuse 旧端点已于 11 月 16 日退役，默认启用多端 IM 审批",
+      "value_tag": "Langfuse 断链急修",
+      "tldr": "Langfuse Cloud 已于 11 月 16 日关停旧版上报端点（v4 自托管亦拒收），Dify v1.20.0 紧急适配 Langfuse v4 并新增通用 OTel 导出、知识库上传杀毒及默认开启的多端 IM 人工审批。",
+      "details": [
+        "断链紧急提醒：停留在 Dify 1.19.x 对接 Langfuse Cloud 或 v4 自托管的实例已无法上报 Trace，须升至 1.20.0 恢复监控；同时新支持导出至任意 OpenTelemetry 收集器。",
+        "重点新特性：默认启用 NEXT_PUBLIC_ENABLE_HITL_IM=true 支持飞书/钉钉/企微/Slack/Teams 卡片审批；新增个人访问令牌（PAT）与知识库文件上传前恶意软件扫描。",
+        "升级留意：该版本插件守护进程升级至 0.6.15-local，#46535 提及的 1.19.0 HITL 404 问题已在主干修复（对应 issue 已闭环）。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub Releases",
+      "source_url": "https://github.com/langgenius/dify/releases/tag/1.20.0"
+    },
+    {
       "id": "ai-20261121-05",
       "date": "2026-11-21",
       "channel": "INTEL",
@@ -474,6 +430,125 @@
       "source_platform": "Hugging Face / Ollama",
       "source_url": "https://huggingface.co/blog/inkling2mini",
       "metric_badge": "SWE 79.2% · ~20GB"
+    },
+    {
+      "id": "ai-20261120-18",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 93,
+      "impact": "近期看到“0 元卡漏洞白嫖 AI 会员”宣传或使用虚拟卡/代充订阅 AI 的用户",
+      "title": "高危风控预警：X 与 GitHub 热传“0 元领 1 年 Google AI Ultra”漏洞脚本，已触发大面积收回与封号",
+      "value_tag": "封号退订预警",
+      "tldr": "近 48 小时 GitHub 与 X 上疯传一批利用 Google 账单校验漏洞与一次性虚拟卡“0 元抢注 12 个月 Google AI Ultra（原价 $99.99/月）”的开源脚本。目前 Google 已紧急介入批量收回会员并封禁关联谷歌主号，且波及部分正常虚拟卡与学生切换用户。",
+      "details": [
+        "事件起因：11 月 18 日前后，GitHub 上出现可自动批量抢注“隐藏 12 个月 $0 试用版 Google AI Ultra（20TB）”的脚本项目（数小时内暴涨至 1,400+ Stars），部分灰产还将账号拿去做第三方 API 中转倒卖。",
+        "风控与后果：在 Google 开发者论坛紧急举报帖发出及安全团队介入后，Google Play Billing 与 Trust & Safety 已展开清理，违规获取的订阅被强制撤销（$0 退款冲正），部分涉及多号轮询或共用高风险虚拟卡 BIN 段的账号被直接停封，连带绑定在该主号下的 Gmail、Google Drive 文件与相册均面临锁号风险。",
+        "误伤与全行业收紧提示：Reddit（r/googlecloud、r/GooglePixel）不少正常付费或正在切换学生优惠的用户也反馈触发了自动退订误判；同期 ChatGPT Plus、Claude Pro 与 Perplexity Pro 对跨区 IP、高危虚拟预付卡及多人拼车账号的反欺诈封控也明显趋严。本平台坚决不鼓励、不提供任何绕过或卡漏洞操作步骤，切勿拿常用主力谷歌账号冒险。",
+        "避坑提示：切勿运行来历不明的“0元脚本”或购买第三方低价中转号；正常用户尽量避免使用多人共享 BIN 段的虚拟卡与频繁跳区 IP 结账，遭误封请保留本人实体账单走官方支持申诉。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Google AI Developers Forum",
+      "source_url": "https://discuss.ai.google.dev/t/urgent-abuse-billing-report-newly-open-sourced-exploit-abusing-hidden-12-month-0-google-ai-ultra-offer-please-revoke-subscriptions-ban-accounts/201899",
+      "story": [
+        {
+          "heading": "GitHub 几小时飙破 1400 星：一条被挖出来的隐藏计费链路",
+          "paragraphs": [
+            "风暴的导火索是一篇深夜发出的官方论坛举报帖。11 月 18 日凌晨（UTC 01:38），开发者 H_void 在 Google AI 开发者论坛紧急发帖称，一个长期存在的 Google AI Ultra 计费漏洞刚在 GitHub 上被彻底开源，短短数小时内就收获了超过 1400 颗星标和数百次 Fork，正在演变成一场自动化规模刷号浪潮。",
+            "根据帖子披露的技术机理，该漏洞出在 Google Play Billing 针对 20 TB 档位商品 g1.play.20tb（原价每月 $99.99 的 Google AI Ultra 5x 套餐）的促销校验环节：不同于防御严密的 30 TB（20x）高阶档，调用 Play 计费查询接口时会返回一套本不该出现在任何官方界面的隐藏 0 元试用优惠（涵盖 eft-1month 至 eft-12month / P1Y），且服务端结账环节并未严格核验用户资格。开源作者将其包装成了两套“零门槛工具”——一套是通过重放特定浏览器指纹直接拉起网页端 0 元一年期结账流程，另一套则借助 adb 与 frida 注入 Google One 客户端进程，用同一张银行卡循环遍历账号列表批量激活会员。"
+          ]
+        },
+        {
+          "heading": "从算力挤兑到官方定性：为什么安全团队火速出手",
+          "paragraphs": [
+            "这波羊毛之所以迅速引爆社区不满，在于 Google AI Ultra 并非单纯的 20 TB 网盘会员，它直接绑定了 Gemini 旗舰模型高配额、Project Genie 世界模型以及 Google Antigravity 开发环境的高优先级算力。随着批产出来的“0 元 12 个月 Ultra 号”被灰产大肆倒卖甚至接入第三方 API 中转池，大量正常付费用户和开发者在社区反映 Antigravity 遭遇了明显的容量限流与排队卡顿。",
+            "大约十小时后（11 月 18 日 UTC 12:02），论坛响应人员 Rebbanpalli_Naveen 正式跟进回复：首先感谢举报人主动屏蔽了漏洞仓库与工具链接，要求其通过 Google Bug Hunters 安全通道私下提交详细技术证据，同时明确援引 Google 服务条款、Antigravity 条款与常见问题说明，重申促销权益严禁转让、叠加或通过自动化脚本批量兑换，任何滥用未授权流程获取的会员将被撤销，涉事账号亦面临封禁处理。"
+          ]
+        },
+        {
+          "heading": "R$ 0.00 强退与 18 个月合作套餐连坐：清算波及真实用户",
+          "paragraphs": [
+            "紧随官方表态而来的批量清算，很快在同一篇论坛帖子下方留下了连续三天的真实余波。11 月 18 日下午，用户 PAULO_ALMEIDA1 求助称自己激活 12 个月 Google AI Ultra（20 TB）加 YouTube 个人版优惠仅数小时后，就莫名收到了一封批准退款 R$ 0.00 的自动通知，订阅随之被强制取消；次日清晨，另一位用户 study_zhanghq 也反馈遭遇了分毫不差的 R$ 0.00 退款退订。",
+            "更棘手的误伤发生在跨权益重叠用户身上。11 月 20 日，用户 Samyar 在贴内留言表示自己“无比后悔”去激活了 Ultra 优惠——他在操作前原本合法拥有电信运营商 Jio 赠送的 18 个月 Pro 套餐，结果激活 Ultra 的第二天，不仅新套餐失效，连带着原本好端端的 18 个月 Jio Pro 会员也一同停止了服务。同期在 Reddit 的 r/GeminiAI、r/AntigravityGoogle 与 r/Jio 等板块中，也有不少普通用户反映 Jio 绑卡套餐、学生优惠切换或使用多账号共享虚拟卡时触发了风控拦截与突然退订。"
+          ]
+        },
+        {
+          "heading": "主力谷歌账号的不可承受之重：别拿十年数据换一年灰产试用",
+          "paragraphs": [
+            "从 2026 年下半年全行业的风控演进来看，无论是 ChatPRD 因黑产循环套利被迫关停免费试用，还是 Google 对 Play Billing 隐藏试用流展开高压清查，AI 服务的算力成本都决定了“无门槛白嫖”的容忍度已降至冰点。",
+            "对普通用户和开发者而言，Google 生态的特殊性在于“账单处罚往往与身份资产连坐”：一个常用谷歌账号背后通常同时系着 Gmail 主力邮箱、Google Drive 多年工作文档、Google 相册以及 Android 绑定服务。为了一张不知来源的“0 元代充”或 GitHub 黑盒脚本让主力号被 Trust & Safety 永久封停或拉黑支付方式，远比单次退订的代价沉重得多。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-20261120-04",
+      "date": "2026-11-19",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "media_url": "https://i1.ytimg.com/vi/pZWPq_ZAmM4/hqdefault.jpg",
+      "metric_badge": "YouTube · CODE Summit",
+      "status": "ACTIVE",
+      "vendor": "Lovable",
+      "priority": 93,
+      "impact": "AI Coding 平台、Agent 沙盒基础设施与全栈开发者",
+      "title": "Lovable CTO 演讲拆解：多 Agent 框架险些拖垮公司，靠可分叉沙盒与写时复制内存破局",
+      "value_tag": "Agent 运行时架构实录",
+      "tldr": "Lovable CTO Fabian Hedin 在 CODE Summit 2026 复盘：过度超前堆砌复杂多 Agent 框架几乎令团队失败，最终通过持久化运行时、类 Git 历史与写时复制沙盒实现规模化稳定运行。",
+      "details": [
+        "踩坑教训：团队早期为未成熟的模型预期过度设计复杂多 Agent 编排，反而拖累稳定性；最终转向紧贴当前模型能力边界的极简强基础设施路线。",
+        "核心架构：构建可快速恢复的持久化运行时（Durable Agent Runtimes）、类 Git 分支历史、可分叉计算环境（Forkable Computers）及写时复制内存快照。",
+        "持续验证：在回合间嵌入持续验证循环，并用 Rust 重写部分开发预览工具链以压低内存占用与冷启动延迟。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube · AI Engineer",
+      "source_url": "https://www.youtube.com/watch?v=pZWPq_ZAmM4"
+    },
+    {
+      "id": "ai-20261119-03",
+      "date": "2026-11-19",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "Microsoft",
+      "priority": 93,
+      "impact": "高并发 Coding Agent、图像生成与实时语音团队",
+      "title": "微软 Ignite 2026 一次发布 7 款 MAI 自研模型：MAI Code 2 以 5% 成本对标 Opus 5.5",
+      "value_tag": "编码成本仅 5%",
+      "tldr": "微软 AI 发布 7 款主打极致性价比的 MAI 自研模型（配合 Maia 200 芯片），其中 MAI Code 2 编码能力达 Opus 5.5 的 96% 而价格仅 5%，MAI Cyber 2 Flash 成本不到 GPT-6 Astra 的 2%。",
+      "details": [
+        "编码双雄：MAI Code 2 达 GPT-6.1 Sol 约 98% 水平（仅 40% 价格）；轻量版 MAI Code 2 Flash 已登陆 GitHub Copilot Free 免费层。",
+        "多模态与路由：MAI Image 2.7 登顶 Artificial Analysis 生图榜且成本约竞品 1/5；MAI Realtime 1 实时语音约 $0.01/分钟；同步推出路由模型 Microsoft-Decision-1.1。",
+        "安全与听写：MAI Cyber 2 Flash 在 CyberGym-E2E 超越 GPT-6 Astra 且单任务成本降超 98%；另有高精多语种听写 Dragon Copilot Transcribe（MAI Transcribe 2）。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hacker News",
+      "source_url": "https://microsoft.ai/news/microsoft-ignite-2026/",
+      "story": [
+        {
+          "heading": "Maia 200 撑腰：微软为什么要抢“7×24 小时日常工程”的账单？",
+          "paragraphs": [
+            "在 2026 年 11 月 17 日的微软 Ignite 大会上，微软 AI（MAI）部门选择了一条与动辄冲击诺贝尔级科学竞赛截然不同的打法：直接甩出 7 款聚焦极限性价比的自研模型，并依托正式投入生产环境的第二代自研 AI 芯片 Maia 200（每瓦 token 产出提升 1.7 倍），直击企业客户日益膨胀的 Agent 算力账单。",
+            "微软在公告中的刀法非常精准：在开发者最高频的日常编程场景中，MAI Code 2 在 DeepSWE 1.1、Terminal Bench 2.1、SWE-Atlas 与 FrontierCode v1.1 四项日常工程基准上取得了 GPT-6.1 Sol 98% 的表现，价格却只有 40%；对比 Claude Opus 5.5 更是达到 96% 水平而成本仅 5%（在前端界面盲测中开发者有 64% 的情况更偏好它胜过 GPT-6 Sol）。更有意思的是微软的主动“退让”：它坦承 Code 2 刻意没有去卷基础科研或超长周期推理任务，就是专心做 GitHub Copilot 里每天都在发生的代码生成、界面可视化与日常修复；而轻量版 MAI Code 2 Flash 则以 Haiku 5.5 两成的价格对标高频常规编辑。网络安全方面，MAI Cyber 2 Flash 在 CyberGym-E2E 超越 GPT-6 Astra 且单任务成本压到不到 2%，输出定价较上代直降 86%——在此之前，MAI Cyber 已经吃下了 MDASH 安全扫描近 40% 的调用量，老用户留存率高达 90%。"
+          ]
+        },
+        {
+          "heading": "图像、实时语音到路由调度：全栈拆解高毛利垂直场景",
+          "paragraphs": [
+            "除了代码与安全，这次发布的其余多款模型把目光瞄准了同样“跑起来烧钱”的多模态与路由层。MAI Image 2.7 在 Artificial Analysis 图像编辑榜冲上全球第一，击败了 GPT Image 2.6 Sunburst（max）且价格仅五分之一（Flash 版低至约 $10 每千张图）；面向低延迟语音交互的首代语音直出模型 MAI Realtime 1 在内部与 Dynamics 365 评测中超过 GPT-Realtime 2.1，起价压至每分钟音频 $0.01。",
+            "在医疗等高壁垒行业场景，基于 MAI Transcribe 2 的 Dragon Copilot Transcribe 已经全面接管医患对话转写，覆盖全美三分之一医生、每月处理 1000 万次诊疗记录并将多语种识别错误率砍半。而在所有大模型之上，微软还把用“小模型路由大模型”做成了正式产品 Decision 1.1——目前已有 4000 家企业接入，它在 Artificial Analysis 决策指数上领先 Jev、Google 与 OpenAI，推理速度比 GPT-6.1 Sol 快 50 倍、成本低 79 倍，专门负责把简单请求截留在低价层。"
+          ]
+        },
+        {
+          "heading": "MAI Licensed Weights：用 Azure 独占授权反击开源与闭源两头",
+          "paragraphs": [
+            "整场发布中最具商业杀伤力的战略信号，是随着 7 款模型同步推出的“MAI Licensed Weights（许可权重）”模式。微软非常巧妙地同时向闭源 API 竞争对手和开源权重模型发出灵魂拷问：前者让企业“把自身最核心的商业智慧源源不断倒进别人的模型里”，后者则很难说清权重来源并保证核心知识产权与合规安全。",
+            "通过 MAI Licensed Weights，微软允许大型客户先拿自研前沿 MAI 权重与专有业务数据做深度定制，然后把整套模型安全部署在企业自己的 Azure 专属环境中，所有微调成果与访问控制完全由客户独享。公告举例称，电信巨头 AT&T 已基于 MAI 打造了 5G 网络运维分析定制模型，效果超越 GPT-6.1 Sol 的同时成本只有五十分之一。对于一手握着 GitHub Copilot、Microsoft Foundry 与 Azure 政企入口的微软而言，这套“自研芯片 + 性价比模型群 + 专属许可权重”组合拳，正在把原本流向外部前沿实验室的推理预算大规模截留在自己的云盘子里。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261119-02",
@@ -528,73 +603,6 @@
       ]
     },
     {
-      "id": "ai-20261119-03",
-      "date": "2026-11-19",
-      "channel": "INTEL",
-      "type": "MODEL",
-      "status": "ACTIVE",
-      "vendor": "Microsoft",
-      "priority": 93,
-      "impact": "高并发 Coding Agent、图像生成与实时语音团队",
-      "title": "微软 Ignite 2026 一次发布 7 款 MAI 自研模型：MAI Code 2 以 5% 成本对标 Opus 5.5",
-      "value_tag": "编码成本仅 5%",
-      "tldr": "微软 AI 发布 7 款主打极致性价比的 MAI 自研模型（配合 Maia 200 芯片），其中 MAI Code 2 编码能力达 Opus 5.5 的 96% 而价格仅 5%，MAI Cyber 2 Flash 成本不到 GPT-6 Astra 的 2%。",
-      "details": [
-        "编码双雄：MAI Code 2 达 GPT-6.1 Sol 约 98% 水平（仅 40% 价格）；轻量版 MAI Code 2 Flash 已登陆 GitHub Copilot Free 免费层。",
-        "多模态与路由：MAI Image 2.7 登顶 Artificial Analysis 生图榜且成本约竞品 1/5；MAI Realtime 1 实时语音约 $0.01/分钟；同步推出路由模型 Microsoft-Decision-1.1。",
-        "安全与听写：MAI Cyber 2 Flash 在 CyberGym-E2E 超越 GPT-6 Astra 且单任务成本降超 98%；另有高精多语种听写 Dragon Copilot Transcribe（MAI Transcribe 2）。"
-      ],
-      "action_snippet": "",
-      "source_platform": "Hacker News",
-      "source_url": "https://microsoft.ai/news/microsoft-ignite-2026/",
-      "story": [
-        {
-          "heading": "Maia 200 撑腰：微软为什么要抢“7×24 小时日常工程”的账单？",
-          "paragraphs": [
-            "在 2026 年 11 月 17 日的微软 Ignite 大会上，微软 AI（MAI）部门选择了一条与动辄冲击诺贝尔级科学竞赛截然不同的打法：直接甩出 7 款聚焦极限性价比的自研模型，并依托正式投入生产环境的第二代自研 AI 芯片 Maia 200（每瓦 token 产出提升 1.7 倍），直击企业客户日益膨胀的 Agent 算力账单。",
-            "微软在公告中的刀法非常精准：在开发者最高频的日常编程场景中，MAI Code 2 在 DeepSWE 1.1、Terminal Bench 2.1、SWE-Atlas 与 FrontierCode v1.1 四项日常工程基准上取得了 GPT-6.1 Sol 98% 的表现，价格却只有 40%；对比 Claude Opus 5.5 更是达到 96% 水平而成本仅 5%（在前端界面盲测中开发者有 64% 的情况更偏好它胜过 GPT-6 Sol）。更有意思的是微软的主动“退让”：它坦承 Code 2 刻意没有去卷基础科研或超长周期推理任务，就是专心做 GitHub Copilot 里每天都在发生的代码生成、界面可视化与日常修复；而轻量版 MAI Code 2 Flash 则以 Haiku 5.5 两成的价格对标高频常规编辑。网络安全方面，MAI Cyber 2 Flash 在 CyberGym-E2E 超越 GPT-6 Astra 且单任务成本压到不到 2%，输出定价较上代直降 86%——在此之前，MAI Cyber 已经吃下了 MDASH 安全扫描近 40% 的调用量，老用户留存率高达 90%。"
-          ]
-        },
-        {
-          "heading": "图像、实时语音到路由调度：全栈拆解高毛利垂直场景",
-          "paragraphs": [
-            "除了代码与安全，这次发布的其余多款模型把目光瞄准了同样“跑起来烧钱”的多模态与路由层。MAI Image 2.7 在 Artificial Analysis 图像编辑榜冲上全球第一，击败了 GPT Image 2.6 Sunburst（max）且价格仅五分之一（Flash 版低至约 $10 每千张图）；面向低延迟语音交互的首代语音直出模型 MAI Realtime 1 在内部与 Dynamics 365 评测中超过 GPT-Realtime 2.1，起价压至每分钟音频 $0.01。",
-            "在医疗等高壁垒行业场景，基于 MAI Transcribe 2 的 Dragon Copilot Transcribe 已经全面接管医患对话转写，覆盖全美三分之一医生、每月处理 1000 万次诊疗记录并将多语种识别错误率砍半。而在所有大模型之上，微软还把用“小模型路由大模型”做成了正式产品 Decision 1.1——目前已有 4000 家企业接入，它在 Artificial Analysis 决策指数上领先 Jev、Google 与 OpenAI，推理速度比 GPT-6.1 Sol 快 50 倍、成本低 79 倍，专门负责把简单请求截留在低价层。"
-          ]
-        },
-        {
-          "heading": "MAI Licensed Weights：用 Azure 独占授权反击开源与闭源两头",
-          "paragraphs": [
-            "整场发布中最具商业杀伤力的战略信号，是随着 7 款模型同步推出的“MAI Licensed Weights（许可权重）”模式。微软非常巧妙地同时向闭源 API 竞争对手和开源权重模型发出灵魂拷问：前者让企业“把自身最核心的商业智慧源源不断倒进别人的模型里”，后者则很难说清权重来源并保证核心知识产权与合规安全。",
-            "通过 MAI Licensed Weights，微软允许大型客户先拿自研前沿 MAI 权重与专有业务数据做深度定制，然后把整套模型安全部署在企业自己的 Azure 专属环境中，所有微调成果与访问控制完全由客户独享。公告举例称，电信巨头 AT&T 已基于 MAI 打造了 5G 网络运维分析定制模型，效果超越 GPT-6.1 Sol 的同时成本只有五十分之一。对于一手握着 GitHub Copilot、Microsoft Foundry 与 Azure 政企入口的微软而言，这套“自研芯片 + 性价比模型群 + 专属许可权重”组合拳，正在把原本流向外部前沿实验室的推理预算大规模截留在自己的云盘子里。"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ai-20261120-04",
-      "date": "2026-11-19",
-      "channel": "REVIEW",
-      "type": "VIDEO",
-      "media_url": "https://i1.ytimg.com/vi/pZWPq_ZAmM4/hqdefault.jpg",
-      "metric_badge": "YouTube · CODE Summit",
-      "status": "ACTIVE",
-      "vendor": "Lovable",
-      "priority": 93,
-      "impact": "AI Coding 平台、Agent 沙盒基础设施与全栈开发者",
-      "title": "Lovable CTO 演讲拆解：多 Agent 框架险些拖垮公司，靠可分叉沙盒与写时复制内存破局",
-      "value_tag": "Agent 运行时架构实录",
-      "tldr": "Lovable CTO Fabian Hedin 在 CODE Summit 2026 复盘：过度超前堆砌复杂多 Agent 框架几乎令团队失败，最终通过持久化运行时、类 Git 历史与写时复制沙盒实现规模化稳定运行。",
-      "details": [
-        "踩坑教训：团队早期为未成熟的模型预期过度设计复杂多 Agent 编排，反而拖累稳定性；最终转向紧贴当前模型能力边界的极简强基础设施路线。",
-        "核心架构：构建可快速恢复的持久化运行时（Durable Agent Runtimes）、类 Git 分支历史、可分叉计算环境（Forkable Computers）及写时复制内存快照。",
-        "持续验证：在回合间嵌入持续验证循环，并用 Rust 重写部分开发预览工具链以压低内存占用与冷启动延迟。"
-      ],
-      "action_snippet": "",
-      "source_platform": "YouTube · AI Engineer",
-      "source_url": "https://www.youtube.com/watch?v=pZWPq_ZAmM4"
-    },
-    {
       "id": "ai-20261120-15",
       "date": "2026-11-20",
       "channel": "RADAR",
@@ -615,6 +623,51 @@
       "action_snippet": "",
       "source_platform": "Google Gemini",
       "source_url": "https://gemini.google/students/?hl=en"
+    },
+    {
+      "id": "ai-20261120-11",
+      "date": "2026-11-20",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Meta",
+      "priority": 92,
+      "impact": "下载过 Meta Muse AI 助手（下载量破千万）或绑定过私人通知权限的用户",
+      "title": "隐私警报：Meta AI 助手 Muse 被曝串线泄露他人银行余额与私人通信提醒",
+      "value_tag": "隐私串线风险",
+      "tldr": "路透社援引 Meta 内部爆料称，上线仅两个月、下载超 1000 万次的 AI 助手 Muse 在内部测试中出现严重串号：员工查天气时竟收到陌生人的银行账户余额、订单及加密聊天软件 Signal 的未读提醒。",
+      "details": [
+        "据内部帖子记录，有员工在询问天气和潮汐时，Muse 突然插话报出陌生人的 Capital One（$2,722.58）与 Charles Schwab（$5,899.57）账户余额；另有员工收到了本不属于自己的育儿咨询、求职建议与网购订单回复。",
+        "更令员工不安的是，一名员工在私人手机上收到了 Muse 发来的“回复妹妹 Signal 消息”提醒，但她明确表示自己从未授权 Muse 读取 Signal 或相关通信权限。",
+        "Meta 发言人回应称，员工测试版与面向公众发布的版本存在差异，暴露该问题正是内测收紧隐私护栏的意义；但在底层隔离机制彻底经受住外部审计前，强烈建议普通用户勿向同类联网 Agent 输入网银、验证码等高度敏感隐私。",
+        "避坑提示：若手机已安装 Meta Muse，建议检查系统权限设置，暂勿授权读取短信/通讯录/通知栏，也避免在对话中输入个人财务与隐私凭证。"
+      ],
+      "action_snippet": "",
+      "source_platform": "TechCrunch",
+      "source_url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
+      "story": [
+        {
+          "heading": "聊着天气和潮汐，AI 突然报出别人的银行卡余额",
+          "paragraphs": [
+            "据 TechCrunch 11 月 19 日援引路透社对 Meta 内部讨论帖的调查报道，这款上线仅两个月、下载量就迅速突破 1000 万次的消费级 AI 助手 Muse，在内部员工的日常测试中频频出现令人毛骨悚然的“跨账号串线”。",
+            "一位员工向同事反映，自己原本只是在跟 Muse 闲聊天气和潮汐信息，对话框里却毫无征兆地插进了一句推送：“顺便说两条银行账户更新，你的 Capital One 余额是 $2722.58，你的 Charles Schwab 余额是 $5899.57。”而在内部反馈中，类似的错乱并非孤例：多名员工表示 Muse 曾主动向自己弹出陌生的育儿咨询、从未问过的职业规划建议，甚至是别人网购下单的商品确认记录。"
+          ]
+        },
+        {
+          "heading": "未经授权的 Signal 回复提醒，撞上“万能钥匙”式权限争议",
+          "paragraphs": [
+            "比对话记忆串线更让内部员工感到不安的，是 Agent 在手机底层权限边界上的越界触角。一位在个人手机上使用 Muse 的女性员工发帖称，Muse 突然向她发送了一条提醒，催促她去回复妹妹在端到端加密聊天软件 Signal 上发来的消息。她明确表示：“这看起来像是极其严重的隐私侵犯。我绝对没有授权它访问其他应用，也不记得自己曾被弹出过相关授权询问。”",
+            "这场风波在次日直接引发了加密通信阵营的正面点名。11 月 20 日，Signal 总裁 Meredith Whittaker 在官方博客发文宣布在移动端封堵应用内截屏时，专门点名以 Meta Muse 为代表的第三方 AI 智能体——指出这类工具在引导用户配置时，往往会鼓励授予极深层的系统辅助功能（Accessibility）权限，“把本该帮助残障人士使用软件的无障碍通道，变成了 AI 肆意读取所有应用数据的万能钥匙（skeleton key）。”"
+          ]
+        },
+        {
+          "heading": "千万级装机与 $300 随身硬件在即：Meta 的公私版本辩护",
+          "paragraphs": [
+            "面对舆论质疑，Meta 发言人向 TechCrunch 回应称，员工内测正是产品打磨安全与隐私护栏的核心环节，并强调“员工使用的 Muse 版本与面向公众发布的版本并不相同，他们经常在测试尚未对外开放的功能、特性与行为”。",
+            "然而耐人寻味的是时间节点上的剧烈反差：就在同一天（11 月 19 日），The Information 曝光 Meta 计划为此前 Connect 大会预告过的便携屏幕 AI 挂件 Muse Charm 定价 $300，机身配备指纹传感器，支持不解锁手机直接点击与 Muse 语音对话并附带 12 个月 Verizon 5G 流量套餐，目标赶在 12 月圣诞季出货（Meta 发言人 Tyler Yee 对此未予否认，仅回应“很高兴看到大家对我们 AI 设备的兴趣”）。当一家巨头正准备把“24 小时贴身在线、主动帮你接管生活”的硬件卖给普通消费者时，内测环节暴露出的多租户上下文隔离漏洞与越权读屏嫌疑，显然给全行业敲响了警钟。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261119-09",
@@ -658,6 +711,29 @@
       "action_snippet": "# 1. PowerShell 排查并强杀残留孤儿 sort.exe 进程树：\nGet-Process sort -ErrorAction SilentlyContinue | Select-Object Id, WorkingSet64\ntaskkill /F /IM sort.exe /T\n\n# 2. 本地 bundle 热修参考（限制 sort 内存上限为 64MB 并强制字面匹配）：\n# findstr /v /i /l /c:\"\\\\.git\\\\\" /c:\"\\\\node_modules\\\\\" | sort /M 65536",
       "source_platform": "GitHub Issues",
       "source_url": "https://github.com/OpenHands/OpenHands/issues/19823"
+    },
+    {
+      "id": "ai-20261122-02",
+      "date": "2026-11-22",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "Pandex",
+      "priority": 91,
+      "metric_badge": "280 万官方法律文献",
+      "impact": "开发欧洲合规审计、跨境法务检索与反幻觉 RAG Agent 的团队",
+      "title": "Pandex 开放欧洲官方成文法与判例 MCP 服务：免 Key 每日 50 次、注册免费享 1000 次/日",
+      "value_tag": "免费 1000 次/日 · 免 Key 可试",
+      "tldr": "Pandex 将欧盟及英法德荷瑞奥卢七国与欧洲人权法院的 280 万份官方法律与最高法院判例封装为统一 REST API 与远程 MCP 服务，Beta 期免注册即可日调 50 次，免费领 Key 可享每日 1,000 次全库检索。",
+      "details": [
+        "免费额度与阶梯定价：免 API Key 直接连接远程 MCP 即可每日免费请求 50 次；在官网一分钟申领免费 Key 后升级至每日 1,000 次全辖区调用（Beta 期 €0），超额商用按 €1 / 1,000 次计费且无最低月消。",
+        "一手文献规模：直接抓取欧盟公报办、欧盟法院及英、法、德、荷、奥、瑞、卢最高司法与立法机构，收录 240 万份法院判决与 42.1 万部法令（共 1.12 亿可检索段落、3700 万条跨法条引用边，41 家机构中已完整收录 33 家）。",
+        "历史时点与跨语种混合检索：每条法条均保留历次修订快照与精确生效日期（Point-in-time law），支持用英文自然语言混合检索法语、德语或荷兰语原始判例段落及精确法条号（如 GDPR art. 6）。",
+        "透明边界披露：官方公开逐机构缺口清单（如法国最高法院 2020 年后部分需登录判例或受反爬挑战阻断的早期档案），避免合规 Agent 在盲区产生虚假完备感。"
+      ],
+      "action_snippet": "claude mcp add --transport http pandex https://api.pandex.io/mcp",
+      "source_platform": "Pandex / Hacker News",
+      "source_url": "https://www.pandex.io"
     },
     {
       "id": "ai-20261121-06",
@@ -727,6 +803,27 @@
       "source_url": "https://9to5google.com/2026/11/19/google-search-homepage-gemini-sidebar-update/"
     },
     {
+      "id": "ai-20261119-17",
+      "date": "2026-11-19",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "vLLM",
+      "priority": 91,
+      "impact": "GPU 私有化推理集群与 vLLM 生产运维团队",
+      "title": "vLLM v0.34.0 发布：默认开启 Extensible KV Cache，彻底移除 V1 Runner（含破坏性升级提示）",
+      "value_tag": "解码最高提速 1.95×",
+      "tldr": "vLLM v0.34.0 带来 Mistral Large 4 等 10 款新模型与最高 1.95× 解码提速，默认启用 Extensible KV Cache 自动管理显存（建议删掉旧 gpu_memory_utilization 配置），并彻底删除 Model Runner V1。",
+      "details": [
+        "破坏性变更清单：移除 Model Runner V1（设 VLLM_USE_V2_MODEL_RUNNER=0 将直接启动报错）；默认 --block-size 改为 64；终止 ROCm 7.2 镜像；要求 huggingface_hub >= 2.0.0。",
+        "显存与吞吐优化：Extensible KV Cache 依据预热后真实可用显存动态分配缓存，多数部署建议删除旧 gpu_memory_utilization 参数；GB200 解码提速达 1.95×。",
+        "新增模型阵列：支持 Mistral Large 4（1T/52B 激活，FP8/NVFP4）、MiniMax-M3.1-Flash、NVIDIA Nemotron-3.5-Transcribe 30B-A4B 等 10 款新模型。"
+      ],
+      "action_snippet": "# 升级 vLLM v0.34.0 前检查：\nunset VLLM_USE_V2_MODEL_RUNNER\npip install -U \"vllm==0.34.0\" \"huggingface_hub>=2.0.0\"",
+      "source_platform": "GitHub Releases",
+      "source_url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0"
+    },
+    {
       "id": "ai-20261119-06",
       "date": "2026-11-19",
       "channel": "RADAR",
@@ -748,25 +845,27 @@
       "source_url": "https://github.com/open-webui/open-webui/issues/34646"
     },
     {
-      "id": "ai-20261119-17",
-      "date": "2026-11-19",
+      "id": "ai-20261122-03",
+      "date": "2026-11-22",
       "channel": "INTEL",
       "type": "PRODUCT",
       "status": "ACTIVE",
-      "vendor": "vLLM",
-      "priority": 91,
-      "impact": "GPU 私有化推理集群与 vLLM 生产运维团队",
-      "title": "vLLM v0.34.0 发布：默认开启 Extensible KV Cache，彻底移除 V1 Runner（含破坏性升级提示）",
-      "value_tag": "解码最高提速 1.95×",
-      "tldr": "vLLM v0.34.0 带来 Mistral Large 4 等 10 款新模型与最高 1.95× 解码提速，默认启用 Extensible KV Cache 自动管理显存（建议删掉旧 gpu_memory_utilization 配置），并彻底删除 Model Runner V1。",
+      "vendor": "Anthropic",
+      "priority": 90,
+      "metric_badge": "v2.1.330 · 关键修复",
+      "impact": "Claude Code 重度多开开发者、企业网关管理员与自托管 Runner 运维团队",
+      "title": "Claude Code v2.1.330 发布：打通企业控制台网关登录、内置 easel 图表渲染，修复多会话误删 Worktree",
+      "value_tag": "企业网关 + 防误删修复",
+      "tldr": "Anthropic 发布 Claude Code v2.1.330，新增 Enterprise Admin Console 组织登录自动下发云网关配置与内置 easel 图表绘制模块，同时修复了并发会话误删活跃 Git Worktree 及长对话压缩后卡死数分钟的高频故障。",
       "details": [
-        "破坏性变更清单：移除 Model Runner V1（设 VLLM_USE_V2_MODEL_RUNNER=0 将直接启动报错）；默认 --block-size 改为 64；终止 ROCm 7.2 镜像；要求 huggingface_hub >= 2.0.0。",
-        "显存与吞吐优化：Extensible KV Cache 依据预热后真实可用显存动态分配缓存，多数部署建议删除旧 gpu_memory_utilization 参数；GB200 解码提速达 1.95×。",
-        "新增模型阵列：支持 Mistral Large 4（1T/52B 激活，FP8/NVFP4）、MiniMax-M3.1-Flash、NVIDIA Nemotron-3.5-Transcribe 30B-A4B 等 10 款新模型。"
+        "企业控制台与登录增强：支持登录由 Anthropic Enterprise Admin Console 托管的组织，执行 claude auth login 后自动应用企业策略并路由至指定云厂商或网关；新增 CLAUDE_CODE_FULL_SIGN_IN_LINK=1 环境变量以兼容需读取完整登录链接的脚本。",
+        "内置 easel 图表模块：面向 macOS 与 Linux 端的 Pro、Max 及可用区的 Team / Enterprise 订阅新增内置 easel 模块，可按需或在 MCP 指标结果下方自动绘制可视化图表（可在 /config 中关闭自动绘图）。",
+        "自托管 Runner 可观测性：新增 --start-dir（或 SELF_HOSTED_RUNNER_START_DIR）支持在子目录启动且完整加载根级配置与 Hook，并在 /metrics 中新增工单下发至注册及首会话交接耗时指标。",
+        "高危与卡顿缺陷修复：修复 ExitWorktree 退出弹窗误删其他正在运行的 Claude Code 会话所属 Worktree 的破坏性 Bug；修复超长会话执行 compact 后冻结数分钟、WebFetch 卡死、休眠唤醒死连接等待 3 分钟及多进程并发保存丢失用户设置等问题。"
       ],
-      "action_snippet": "# 升级 vLLM v0.34.0 前检查：\nunset VLLM_USE_V2_MODEL_RUNNER\npip install -U \"vllm==0.34.0\" \"huggingface_hub>=2.0.0\"",
+      "action_snippet": "CLAUDE_CODE_FULL_SIGN_IN_LINK=1 claude auth login",
       "source_platform": "GitHub Releases",
-      "source_url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0"
+      "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330"
     },
     {
       "id": "ai-20261120-29",
@@ -856,25 +955,27 @@
       "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328"
     },
     {
-      "id": "ai-20261120-09",
-      "date": "2026-11-20",
+      "id": "ai-20261122-04",
+      "date": "2026-11-22",
       "channel": "INTEL",
       "type": "PRODUCT",
       "status": "ACTIVE",
-      "vendor": "Apple",
+      "vendor": "Google",
       "priority": 89,
-      "impact": "关注苹果生态与 Siri 桌面/手机跨应用自动化演进的果粉与开发者",
-      "title": "苹果被曝加速打造自有跨应用 AI Agent：招聘启事直指接管浏览器、终端与代码工具",
-      "value_tag": "大厂重磅动向",
-      "tldr": "彭博社曝光的苹果新招聘岗位显示，苹果正抽调 Siri、UI 框架与 Apple Foundation Models 团队研发自有智能体，能横跨浏览器、文档、终端与 API 执行多步操作并调度子 Agent，正面对标竞品桌面代理。",
+      "metric_badge": "CodeMender 安全巡检",
+      "impact": "精益产品研发团队、前端与安全工程师及 Google AI Ultra 订阅用户",
+      "title": "Google Labs 推出全天候产品优化代理 Stitch Loop：直连线上指标与 CodeMender 自动提修复 PR",
+      "value_tag": "7x24h 指标驱动迭代",
+      "tldr": "Google Labs 推出长周期产品工程代理 Stitch Loop，打破传统编码 Agent“合入 PR 即结束”的边界，直连 GitHub 与 180+ 数据源全天候监控安全、延迟、无障碍及自定义转化率指标，在云端沙盒自动编写补丁并提交带截图/视频的 PR。",
       "details": [
-        "招聘描述明确指出：用户最有价值的工作往往在浏览器、文档、终端、编辑器与各类服务之间流转，苹果正在打造的 AI Agent 将能够自主规划并跨工具执行多步任务，并在过程中协调专门的子 Agent。",
-        "结合苹果近期动向，其 9 月起推进的 AI 升级版 Siri 已支持屏幕内容理解与部分跨应用操作，接下来还计划扩展至照片裁切旋转、Safari 标签页整理及 Pages/Keynote/Numbers 内置 AI 助手。",
-        "此外，即将到来的 iOS 27.3 开发者预览版也将把 Siri AI 能力向所有第三方应用开放接入，苹果系统级原生 Agent 生态有望在明年逐步成形。"
+        "全链路上下文接入：支持关联 GitHub 仓库并通过 180 余种外部集成、自定义 MCP Server 或本地 CLI 上传接入生产日志、用户行为与反馈数据，持续围绕可量化指标运转。",
+        "四步闭环架构：按 Suggestions（基于线上证据定位机会）-> Solutions（给出多方案权衡与 UI 预览）-> Build（隔离云沙盒写码并附操作截图/视频提 PR）-> Reflect（上线后追踪真实指标涨跌）循环迭代。",
+        "内置三大常驻巡检环：开箱自带网络安全（结合 Gemini 安全能力与 DeepMind CodeMender 自动挖掘并修补漏洞）、延迟优化与无障碍合规三大默认 Loop，支持自定义结账转化率等业务目标。",
+        "人工审批红线与开放通道：严格执行“零自动合入”机制，所有代码改动均须人类工程师在 GitHub 审阅批准；目前已开放全球候补名单，Google AI Ultra 订阅用户享优先接入权。"
       ],
-      "action_snippet": "",
-      "source_platform": "The Verge",
-      "source_url": "https://www.theverge.com/tech/1038227/apple-ai-agent-engineer-job-listing"
+      "action_snippet": "https://stitch.google.com/loop/waitlist",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-loop/"
     },
     {
       "id": "ai-20261120-21",
@@ -898,25 +999,25 @@
       "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/"
     },
     {
-      "id": "ai-20261119-07",
-      "date": "2026-11-19",
-      "channel": "RADAR",
-      "type": "HACK",
+      "id": "ai-20261120-09",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "PRODUCT",
       "status": "ACTIVE",
-      "vendor": "Hugging Face",
+      "vendor": "Apple",
       "priority": 89,
-      "impact": "32GB 内存 Mac / 消费级主机本地运行超大 MoE 开发者",
-      "title": "Transformers experts_offload 实测：32GB 内存 Mac 从 SSD 流式硬跑 180B MoE",
-      "value_tag": "32GB 跑 180B",
-      "tldr": "通过 huggingface/transformers#50717 的 experts_offload 与 3-bit 专家量化，180B 参数（121GB 专家权重）可在 32GB 统一内存 Mac 上以 ~25.4 GiB 峰值运行，实测 10 tok/s。",
+      "impact": "关注苹果生态与 Siri 桌面/手机跨应用自动化演进的果粉与开发者",
+      "title": "苹果被曝加速打造自有跨应用 AI Agent：招聘启事直指接管浏览器、终端与代码工具",
+      "value_tag": "大厂重磅动向",
+      "tldr": "彭博社曝光的苹果新招聘岗位显示，苹果正抽调 Siri、UI 框架与 Apple Foundation Models 团队研发自有智能体，能横跨浏览器、文档、终端与 API 执行多步操作并调度子 Agent，正面对标竞品桌面代理。",
       "details": [
-        "核心原理：MoE 模型 90%+ 权重为专家层；将密集层 8-bit 常驻内存（~5.4 GB），仅把 3-bit 专家权重（49 GB）按需通过 8 线程从 SSD 流式加载至 12 GiB 缓存池。",
-        "实测数据：32GB M5 Mac 上跑 Qwen3.8-Flash-Next 空载约 18 GiB、6K 上下文峰值 25.4 GiB；decode 速度约 10 tok/s，同机对比 Strata 0.1.60 推理引擎可达 14.8 tok/s。",
-        "前置提醒：需拉取 transformers PR #50717 分支源码及对应转换权重（含 51GB 磁盘级 n-gram 嵌入表），运行大上下文时建议关闭浏览器避免 macOS 换页抖动。"
+        "招聘描述明确指出：用户最有价值的工作往往在浏览器、文档、终端、编辑器与各类服务之间流转，苹果正在打造的 AI Agent 将能够自主规划并跨工具执行多步任务，并在过程中协调专门的子 Agent。",
+        "结合苹果近期动向，其 9 月起推进的 AI 升级版 Siri 已支持屏幕内容理解与部分跨应用操作，接下来还计划扩展至照片裁切旋转、Safari 标签页整理及 Pages/Keynote/Numbers 内置 AI 助手。",
+        "此外，即将到来的 iOS 27.3 开发者预览版也将把 Siri AI 能力向所有第三方应用开放接入，苹果系统级原生 Agent 生态有望在明年逐步成形。"
       ],
-      "action_snippet": "pip install \"git+https://github.com/huggingface/transformers.git@refs/pull/50717/head\"\n\n# Python 加载 3-bit 磁盘流式专家（需预留 12 GiB 缓存池）\nfrom huggingface_hub import snapshot_download\nfrom transformers import AutoModelForCausalLM, MetalConfig\nimport torch\n\npath = snapshot_download(\"tarekziade/Qwen3.8-Flash-Next-expert-streaming\")\nmodel = AutoModelForCausalLM.from_pretrained(\n    f\"{path}/dense\",\n    dtype=torch.bfloat16,\n    device_map={\"\": \"mps\", \"experts.*\": \"disk\"},\n    quantization_config=MetalConfig(bits=8),\n    experts_offload={\"cache_bytes\": 12 << 30, \"quantized_experts\": f\"{path}/experts-q3\"},\n)",
-      "source_platform": "Hugging Face Blog",
-      "source_url": "https://huggingface.co/blog/moe-expert-streaming"
+      "action_snippet": "",
+      "source_platform": "The Verge",
+      "source_url": "https://www.theverge.com/tech/1038227/apple-ai-agent-engineer-job-listing"
     },
     {
       "id": "ai-20261119-20",
@@ -940,6 +1041,27 @@
       "source_url": "https://github.com/cline/cline/issues/15778"
     },
     {
+      "id": "ai-20261119-07",
+      "date": "2026-11-19",
+      "channel": "RADAR",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "vendor": "Hugging Face",
+      "priority": 89,
+      "impact": "32GB 内存 Mac / 消费级主机本地运行超大 MoE 开发者",
+      "title": "Transformers experts_offload 实测：32GB 内存 Mac 从 SSD 流式硬跑 180B MoE",
+      "value_tag": "32GB 跑 180B",
+      "tldr": "通过 huggingface/transformers#50717 的 experts_offload 与 3-bit 专家量化，180B 参数（121GB 专家权重）可在 32GB 统一内存 Mac 上以 ~25.4 GiB 峰值运行，实测 10 tok/s。",
+      "details": [
+        "核心原理：MoE 模型 90%+ 权重为专家层；将密集层 8-bit 常驻内存（~5.4 GB），仅把 3-bit 专家权重（49 GB）按需通过 8 线程从 SSD 流式加载至 12 GiB 缓存池。",
+        "实测数据：32GB M5 Mac 上跑 Qwen3.8-Flash-Next 空载约 18 GiB、6K 上下文峰值 25.4 GiB；decode 速度约 10 tok/s，同机对比 Strata 0.1.60 推理引擎可达 14.8 tok/s。",
+        "前置提醒：需拉取 transformers PR #50717 分支源码及对应转换权重（含 51GB 磁盘级 n-gram 嵌入表），运行大上下文时建议关闭浏览器避免 macOS 换页抖动。"
+      ],
+      "action_snippet": "pip install \"git+https://github.com/huggingface/transformers.git@refs/pull/50717/head\"\n\n# Python 加载 3-bit 磁盘流式专家（需预留 12 GiB 缓存池）\nfrom huggingface_hub import snapshot_download\nfrom transformers import AutoModelForCausalLM, MetalConfig\nimport torch\n\npath = snapshot_download(\"tarekziade/Qwen3.8-Flash-Next-expert-streaming\")\nmodel = AutoModelForCausalLM.from_pretrained(\n    f\"{path}/dense\",\n    dtype=torch.bfloat16,\n    device_map={\"\": \"mps\", \"experts.*\": \"disk\"},\n    quantization_config=MetalConfig(bits=8),\n    experts_offload={\"cache_bytes\": 12 << 30, \"quantized_experts\": f\"{path}/experts-q3\"},\n)",
+      "source_platform": "Hugging Face Blog",
+      "source_url": "https://huggingface.co/blog/moe-expert-streaming"
+    },
+    {
       "id": "ai-20261119-13",
       "date": "2026-11-14",
       "channel": "REVIEW",
@@ -961,6 +1083,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · OpenAI",
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
+    },
+    {
+      "id": "ai-20261122-05",
+      "date": "2026-11-22",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Dify",
+      "priority": 88,
+      "metric_badge": "Issues #46835 / #46840",
+      "impact": "正跟进 Dify v1.20.0 升级的自托管运维团队与插件开发者",
+      "title": "Dify v1.20.0 自托管升级避坑：Weaviate 知识库导入卡死在 Token 计数，Agent V2 多选参数误传 repr 字符串",
+      "value_tag": "自托管升级必查",
+      "tldr": "近期因 Langfuse 旧端点退役而升级至 Dify v1.20.0 的自托管用户连续报告两项阻塞性回归：Weaviate 搭配兼容 Embedding 接口时知识库导入永久卡死，且 Agent V2 会将多选工具数组错误序列化为 Python repr 字符串导致插件报错。",
+      "details": [
+        "知识库导入死锁（#46835）：从 v1.17.1 正常环境升级至 v1.20.0（Docker Compose 自托管，VECTOR_STORE=weaviate 1.39.13 + openai_api_compatible 嵌入模型）后，导入文档会在 get_text_embedding_num_tokens 阶段无限挂起。",
+        "Agent V2 多选数组畸变（#46840）：Agent V2 向模型声明 select / dynamic-select 多选插件参数为数组，但模型返回列表后会被转成形如 \"['apac,east', 'emea']\" 的 Python repr 字符串发往 plugin_daemon，导致强类型插件解析失败。",
+        "生产排障建议：使用 Weaviate 向量库的团队在升级 v1.20.0 前务必先在预发环境验证文档切分入库链路；依赖多选工具参数的生产工作流暂缓切至 Agent V2，或在自定义插件侧兼容字符串反序列化，等待修复 PR #46841 合入。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub · langgenius/dify",
+      "source_url": "https://github.com/langgenius/dify/issues/46835"
     },
     {
       "id": "ai-20261121-07",
@@ -1008,28 +1152,6 @@
       "source_url": "https://www.youtube.com/watch?v=OSHSopaYjTw"
     },
     {
-      "id": "ai-20261119-10",
-      "date": "2026-11-19",
-      "channel": "REVIEW",
-      "type": "BENCHMARK",
-      "metric_badge": "Gemini 4 全系定价拆解",
-      "status": "ACTIVE",
-      "vendor": "Google",
-      "priority": 88,
-      "impact": "使用 Gemini 4 API 控制推理预算的开发者",
-      "title": "Simon Willison 实测 Gemini 4 Neon 与全系价格倒挂：12 月 1 日前 Carbon 竟比 Neon 更便宜",
-      "value_tag": "避坑价格倒挂",
-      "tldr": "Simon Willison 发布 llm-gemini 0.38 并实测 Neon 多档思考表现，同时拆解官方临时定价倒挂：12 月 1 日 Carbon 优惠到期涨回 $4/$20 前，Carbon（$2/$10）现价反比 Neon（$3/$15）便宜。",
-      "details": [
-        "价格窗口提醒：当前 Carbon 处于首发半价期（$2/$10 每百万 Token），Neon 为 $3/$15，Hydrogen 为 $1.50/$7.50；12 月 1 日 Carbon 恢复 $4/$20 后全系价格才回归正序。",
-        "生成能力对比：在 low/medium/high 三档测试 SVG 绘制与 Antigravity extra 档 Three.js 场景构建，Neon 明显强于 Hydrogen，细节略逊于 Carbon。",
-        "工具生态：llm-gemini 0.38 已同步适配 Neon，可直接搭配 Simon Willison 的 llm CLI 工具链做多模型提示词对比。"
-      ],
-      "action_snippet": "",
-      "source_platform": "Simon Willison",
-      "source_url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
-    },
-    {
       "id": "ai-20261119-14",
       "date": "2026-11-19",
       "channel": "REVIEW",
@@ -1053,25 +1175,50 @@
       "source_url": "https://www.youtube.com/watch?v=fTHByDwTxGM"
     },
     {
-      "id": "ai-20261120-10",
-      "date": "2026-11-20",
-      "channel": "INTEL",
-      "type": "PRODUCT",
+      "id": "ai-20261119-10",
+      "date": "2026-11-19",
+      "channel": "REVIEW",
+      "type": "BENCHMARK",
+      "metric_badge": "Gemini 4 全系定价拆解",
       "status": "ACTIVE",
-      "vendor": "OpenAI",
-      "priority": 87,
-      "impact": "习惯在网页、电脑端或手机上用语音快速输入和转写长文的全体 ChatGPT 用户",
-      "title": "ChatGPT 实时语音听写 Live Dictation 全球推送：边说边转字且取消 10 分钟限制",
-      "value_tag": "全员免费升级",
-      "tldr": "OpenAI 向网页、桌面及 iOS/Android 端全部 ChatGPT 套餐（含免费版）推送 Live Dictation：说话瞬间实时出现文字，不再干等整段录完，并彻底取消此前 10 分钟单次录音上限。",
+      "vendor": "Google",
+      "priority": 88,
+      "impact": "使用 Gemini 4 API 控制推理预算的开发者",
+      "title": "Simon Willison 实测 Gemini 4 Neon 与全系价格倒挂：12 月 1 日前 Carbon 竟比 Neon 更便宜",
+      "value_tag": "避坑价格倒挂",
+      "tldr": "Simon Willison 发布 llm-gemini 0.38 并实测 Neon 多档思考表现，同时拆解官方临时定价倒挂：12 月 1 日 Carbon 优惠到期涨回 $4/$20 前，Carbon（$2/$10）现价反比 Neon（$3/$15）便宜。",
       "details": [
-        "使用时只要点击或轻触语音波形图标，就能实时看到 AI 正在识别的文字草稿；说完后可直接留在输入框内修改错别字，再决定发送或让模型整理成要点。",
-        "OpenAI 表示新版实时听写识别更稳、响应更快，而面向会议完整录音的 Record Mode 测试版仍仅限 Plus/Pro/Team/Enterprise/Edu 订阅，但普通免费用户如今已可利用放开时长限制的输入框听写完成长段口述转写与整理。",
-        "操作建议：更新 ChatGPT App 或桌面端后，点击输入框右侧麦克风图标即可开启边说边出字的实时听写。"
+        "价格窗口提醒：当前 Carbon 处于首发半价期（$2/$10 每百万 Token），Neon 为 $3/$15，Hydrogen 为 $1.50/$7.50；12 月 1 日 Carbon 恢复 $4/$20 后全系价格才回归正序。",
+        "生成能力对比：在 low/medium/high 三档测试 SVG 绘制与 Antigravity extra 档 Three.js 场景构建，Neon 明显强于 Hydrogen，细节略逊于 Carbon。",
+        "工具生态：llm-gemini 0.38 已同步适配 Neon，可直接搭配 Simon Willison 的 llm CLI 工具链做多模型提示词对比。"
       ],
       "action_snippet": "",
-      "source_platform": "The Verge",
-      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037634/openai-chatgpt-live-dictation"
+      "source_platform": "Simon Willison",
+      "source_url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
+    },
+    {
+      "id": "ai-20261122-06",
+      "date": "2026-11-22",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "media_url": "https://i2.ytimg.com/vi/MDI81OaZAD4/hqdefault.jpg",
+      "metric_badge": "75% 生产代码 · 实机复盘",
+      "status": "ACTIVE",
+      "vendor": "Ramp / AI Engineer",
+      "priority": 87,
+      "impact": "推进企业级后台编码 Agent 落地与研发效能平台建设的工程负责人",
+      "title": "Ramp 首席工程师 CODE Summit 复盘：内部后台代理 Inspect 已编写并交付全司约 75% 生产代码",
+      "value_tag": "75% 生产代码实证",
+      "tldr": "Ramp 首席软件工程师 Zach Bruggeman 在 CODE Summit 2026 披露，公司自研全员共享后台编码代理 Inspect 目前已承担约 75% 的生产代码编写与交付，核心破局点在于“会话默认全司公开”的工程文化与云端预置沙盒自验证。",
+      "details": [
+        "统一平台替代单兵作战：放弃让工程师各自在本地折腾碎片化提示词配置，全公司收敛到同一套后台代理平台 Inspect，消除工具割裂与治理盲区。",
+        "默认公开会话驱动文化扩散：所有 Inspect 任务会话在内部默认全员可见，工程师通过围观同事如何拆解复杂故障与引导代理，自然完成提示工程与调试范式的组织级复用。",
+        "Modal 云沙盒端到端自验真：Inspect 在提交 PR 前会自动拉起预构建云端虚拟机沙盒，独立跑通测试套件、查询线上遥测与 Feature Flag 并完成界面视觉核验，将人工 Review 心智负担降至最低。",
+        "无许可内部扩展生态：开放底层接口供各团队自建衍生工具（如专职代码审查的 Review Buddy），让代理能力随内部工作流自发演进。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube · AI Engineer",
+      "source_url": "https://www.youtube.com/watch?v=MDI81OaZAD4"
     },
     {
       "id": "ai-20261120-23",
@@ -1115,6 +1262,27 @@
           ]
         }
       ]
+    },
+    {
+      "id": "ai-20261120-10",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 87,
+      "impact": "习惯在网页、电脑端或手机上用语音快速输入和转写长文的全体 ChatGPT 用户",
+      "title": "ChatGPT 实时语音听写 Live Dictation 全球推送：边说边转字且取消 10 分钟限制",
+      "value_tag": "全员免费升级",
+      "tldr": "OpenAI 向网页、桌面及 iOS/Android 端全部 ChatGPT 套餐（含免费版）推送 Live Dictation：说话瞬间实时出现文字，不再干等整段录完，并彻底取消此前 10 分钟单次录音上限。",
+      "details": [
+        "使用时只要点击或轻触语音波形图标，就能实时看到 AI 正在识别的文字草稿；说完后可直接留在输入框内修改错别字，再决定发送或让模型整理成要点。",
+        "OpenAI 表示新版实时听写识别更稳、响应更快，而面向会议完整录音的 Record Mode 测试版仍仅限 Plus/Pro/Team/Enterprise/Edu 订阅，但普通免费用户如今已可利用放开时长限制的输入框听写完成长段口述转写与整理。",
+        "操作建议：更新 ChatGPT App 或桌面端后，点击输入框右侧麦克风图标即可开启边说边出字的实时听写。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge",
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037634/openai-chatgpt-live-dictation"
     },
     {
       "id": "ai-20261119-11",
@@ -1186,26 +1354,6 @@
       "metric_badge": "深度实战 · 带时间戳"
     },
     {
-      "id": "ai-20261120-24",
-      "date": "2026-11-20",
-      "channel": "INTEL",
-      "type": "PRODUCT",
-      "status": "ACTIVE",
-      "vendor": "Google",
-      "priority": 86,
-      "impact": "使用入门级或老款低内存安卓手机、想免费用语音和相机 AI 功能的普通用户",
-      "title": "Gemini App 正式适配低内存安卓机型（Android Go），老设备免费用实时语音与生图",
-      "value_tag": "老手机免费升级",
-      "tldr": "Google 宣布完成 Gemini 移动客户端轻量化重构，正式向 Android Go 等低内存入门手机开放完整核心体验，支持 45+ 种语言 Gemini Live 实时语音对练、相机拍笔记翻译及 Nano Banana 生图。",
-      "details": [
-        "过去受限于运行内存门槛，低配置安卓机往往只能触发基础语音指令；重构后的 Gemini App 可在低内存设备上流畅运行，直接覆盖全球数亿台入门级与备用手机用户。",
-        "实用场景：无需打字即可开口用 Gemini Live 模拟面试或学外语、对准纸质表格或课堂笔记拍照翻译讲解，或用内置 Nano Banana 模型生成海报配图。"
-      ],
-      "action_snippet": "",
-      "source_platform": "Google AI Blog",
-      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/"
-    },
-    {
       "id": "ai-20261120-25",
       "date": "2026-11-20",
       "channel": "REVIEW",
@@ -1225,6 +1373,26 @@
       "metric_badge": "MEI 工程榜 #1 · 352赞",
       "source_platform": "Hacker News / MEI",
       "source_url": "https://git-aarvin.github.io/mei/"
+    },
+    {
+      "id": "ai-20261120-24",
+      "date": "2026-11-20",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 86,
+      "impact": "使用入门级或老款低内存安卓手机、想免费用语音和相机 AI 功能的普通用户",
+      "title": "Gemini App 正式适配低内存安卓机型（Android Go），老设备免费用实时语音与生图",
+      "value_tag": "老手机免费升级",
+      "tldr": "Google 宣布完成 Gemini 移动客户端轻量化重构，正式向 Android Go 等低内存入门手机开放完整核心体验，支持 45+ 种语言 Gemini Live 实时语音对练、相机拍笔记翻译及 Nano Banana 生图。",
+      "details": [
+        "过去受限于运行内存门槛，低配置安卓机往往只能触发基础语音指令；重构后的 Gemini App 可在低内存设备上流畅运行，直接覆盖全球数亿台入门级与备用手机用户。",
+        "实用场景：无需打字即可开口用 Gemini Live 模拟面试或学外语、对准纸质表格或课堂笔记拍照翻译讲解，或用内置 Nano Banana 模型生成海报配图。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/"
     },
     {
       "id": "ai-20261119-04",
@@ -1248,25 +1416,25 @@
       "source_url": "https://blog.cloudflare.com/open-clairic/"
     },
     {
-      "id": "ai-20261118-03",
+      "id": "ai-20261119-21",
       "date": "2026-11-18",
       "channel": "RADAR",
       "type": "DEAL",
       "status": "ACTIVE",
-      "vendor": "CMU",
+      "vendor": "Google",
       "priority": 86,
-      "impact": "AI 学习者与开发者 · 免费顶尖正课",
-      "title": "CMU 卡内基梅隆大学 CS Learn 免费上线：AI Agents、ML Systems 等全套顶尖正课公开",
-      "value_tag": "零学费 CMU 正课",
-      "tldr": "CMU 计算机科学学院推出 CS Learn 平台，通过 YouTube 免费开放多门完整正课录像，含 AI Agents、机器学习系统与大规模机器学习等硬核课程。",
+      "impact": "美/日/韩/加/澳/印地区 Gemini 应用与 Workspace 用户",
+      "title": "Google Tasks in Gemini 面向六国免费开放：基于 Gemini 4 Hydrogen 的隔离沙盒个人助理",
+      "value_tag": "六国免费开放",
+      "tldr": "Google 宣布将由 Gemini 4 Hydrogen 驱动的 Tasks in Gemini 自动化任务能力向美、日、韩、加、澳、印六国用户免费开放，可在硬件隔离虚拟机中联动邮箱、日历与账单自动办事。",
       "details": [
-        "免费资源：无需学生邮箱、无需注册付费，直接在 YouTube (@CMULearn) 与 cs.cmu.edu/learn 观看完整学期剪辑课程录像。",
-        "AI 核心课表：已上线 10-605（大规模数据集机器学习）与 15-442（陈天奇、贾志豪主讲机器学习系统），11 月 19 日首播 11-768（AI Agents）与 17-645（生产级机器学习）。",
-        "后续预告：2027 年 1 月还将陆续免费开放 11-777（多模态机器学习）与 15-259（概率与计算）等课程及配套交互学习资料。"
+        "开放范围：本次免费推送覆盖美国、日本、韩国、加拿大、澳大利亚与印度数亿用户，部分高阶代办功能率先在美国上线。",
+        "触发方式：在 Gemini App 内将顶部开关从 Chat 切换至 Task、发送短信，或直接将待处理邮件转发至 gemini@google.com 即可自动执行预约与账单分析。",
+        "隐私隔离：任务运行在硬件隔离虚拟机中，与 Google 生态内的邮件、日历及支付信息安全联动。"
       ],
       "action_snippet": "",
-      "source_platform": "Hacker News",
-      "source_url": "https://www.cs.cmu.edu/learn/"
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/"
     },
     {
       "id": "ai-20261119-12",
@@ -1291,25 +1459,25 @@
       "source_url": "https://latent.space/p/ainews-gpt-6-2-astra-the-2-frontier-model-is-better-and-20-600-cheaper-but-has-mixed-reviews-6-2-sol/"
     },
     {
-      "id": "ai-20261119-21",
+      "id": "ai-20261118-03",
       "date": "2026-11-18",
       "channel": "RADAR",
       "type": "DEAL",
       "status": "ACTIVE",
-      "vendor": "Google",
+      "vendor": "CMU",
       "priority": 86,
-      "impact": "美/日/韩/加/澳/印地区 Gemini 应用与 Workspace 用户",
-      "title": "Google Tasks in Gemini 面向六国免费开放：基于 Gemini 4 Hydrogen 的隔离沙盒个人助理",
-      "value_tag": "六国免费开放",
-      "tldr": "Google 宣布将由 Gemini 4 Hydrogen 驱动的 Tasks in Gemini 自动化任务能力向美、日、韩、加、澳、印六国用户免费开放，可在硬件隔离虚拟机中联动邮箱、日历与账单自动办事。",
+      "impact": "AI 学习者与开发者 · 免费顶尖正课",
+      "title": "CMU 卡内基梅隆大学 CS Learn 免费上线：AI Agents、ML Systems 等全套顶尖正课公开",
+      "value_tag": "零学费 CMU 正课",
+      "tldr": "CMU 计算机科学学院推出 CS Learn 平台，通过 YouTube 免费开放多门完整正课录像，含 AI Agents、机器学习系统与大规模机器学习等硬核课程。",
       "details": [
-        "开放范围：本次免费推送覆盖美国、日本、韩国、加拿大、澳大利亚与印度数亿用户，部分高阶代办功能率先在美国上线。",
-        "触发方式：在 Gemini App 内将顶部开关从 Chat 切换至 Task、发送短信，或直接将待处理邮件转发至 gemini@google.com 即可自动执行预约与账单分析。",
-        "隐私隔离：任务运行在硬件隔离虚拟机中，与 Google 生态内的邮件、日历及支付信息安全联动。"
+        "免费资源：无需学生邮箱、无需注册付费，直接在 YouTube (@CMULearn) 与 cs.cmu.edu/learn 观看完整学期剪辑课程录像。",
+        "AI 核心课表：已上线 10-605（大规模数据集机器学习）与 15-442（陈天奇、贾志豪主讲机器学习系统），11 月 19 日首播 11-768（AI Agents）与 17-645（生产级机器学习）。",
+        "后续预告：2027 年 1 月还将陆续免费开放 11-777（多模态机器学习）与 15-259（概率与计算）等课程及配套交互学习资料。"
       ],
       "action_snippet": "",
-      "source_platform": "Google AI Blog",
-      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/"
+      "source_platform": "Hacker News",
+      "source_url": "https://www.cs.cmu.edu/learn/"
     },
     {
       "id": "ai-20261120-26",
@@ -1330,6 +1498,49 @@
       "action_snippet": "codex exec --remote <ADDR>",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0"
+    },
+    {
+      "id": "ai-20261120-19",
+      "date": "2026-11-19",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 85,
+      "impact": "已使用过 Gemini Gems 或希望和团队共享提示词模板的用户",
+      "title": "Google 下线 Gems 并全面升级 Gemini Skills：支持挂载 100MB 文档与多人协作共享",
+      "value_tag": "功能迁移",
+      "tldr": "随着旧版自定义工具 Gems 逐步关停，Google 为其继任者 Gemini Skills 加入两大实用升级：创建 Skill 时可挂载最高 100 MB 本地/Drive/Photos 文件且云端文档实时同步，并支持按查看或编辑权限共享给他人，免费个人账号与 Workspace 全员可用。",
+      "details": [
+        "相比单纯写提示词的传统模板，新版 Gemini Skills 支持从本机设备、Google Drive、Gemini Notebook 与 Google Photos 上传或关联最多 100 MB 资料；其中 Drive 文档与 Notebook 会自动保持实时同步，确保每次运行 Skill 与定时任务时都读取最新版本。",
+        "网页端 Customize > Skills 页面新增共享权限控制，可向同事、同学或好友授予 View（只读查看）或 Edit（协同编辑）权限，对方会收到邮件通知并可预览后再添加到自己账号。",
+        "此前依赖 Gems 保存固定工作流的用户需注意功能切换节奏，可趁升级窗口将常用指令与参考文件迁入 Skills，提升个人或团队复用的稳定性。",
+        "操作建议：打开 Gemini 网页端 Customize > Skills 新建可复用技能，关联 Google Drive 参考文件并设置只读或编辑共享权限。"
+      ],
+      "action_snippet": "",
+      "source_platform": "9to5Google",
+      "source_url": "https://9to5google.com/2026/11/16/gemini-skills-files-sharing/"
+    },
+    {
+      "id": "ai-20261120-05",
+      "date": "2026-11-19",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Media over QUIC",
+      "priority": 85,
+      "impact": "开发实时语音交互、WebRTC / WebTransport AI 产品的架构师",
+      "title": "Voice AI 为何总让用户重复说话？MoQ 团队拆解 OpenAI 实时语音的 WebRTC 丢包陷阱与 QUIC 方案",
+      "value_tag": "实时语音协议避坑",
+      "tldr": "Media over QUIC（MoQ）作者指出 WebRTC 为人类视频会议设计、默认关闭音频重传并丢弃超 30ms 延迟包，导致 Voice AI 频频丢失用户关键词；倡议转向 MoQ 与 WebTransport 架构。",
+      "details": [
+        "协议错配：WebRTC 激进丢包保低延迟（人类听不清会自然追问），但服务端大模型一旦漏收语音片段就会浪费 Token 甚至错误猜测语义。",
+        "运维痛点：WebRTC 依赖 DTLS、有状态负载均衡及复杂定制 SFU/Pion 链路，在 Wi-Fi 切蜂窝或 Starlink 切换时极易丢失音频片段。",
+        "替代架构：Media over QUIC（MoQ）基于 WebTransport，原生支持 QUIC 连接迁移（Connection ID）与灵活流控，更契合云端双向语音 AI 流。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hacker News",
+      "source_url": "https://moq.dev/blog/webrtc-is-still-the-problem/"
     },
     {
       "id": "ai-20261119-16",
@@ -1355,49 +1566,6 @@
       "source_url": "https://www.youtube.com/watch?v=EDp4IoAUsXY"
     },
     {
-      "id": "ai-20261120-05",
-      "date": "2026-11-19",
-      "channel": "INTEL",
-      "type": "PRODUCT",
-      "status": "ACTIVE",
-      "vendor": "Media over QUIC",
-      "priority": 85,
-      "impact": "开发实时语音交互、WebRTC / WebTransport AI 产品的架构师",
-      "title": "Voice AI 为何总让用户重复说话？MoQ 团队拆解 OpenAI 实时语音的 WebRTC 丢包陷阱与 QUIC 方案",
-      "value_tag": "实时语音协议避坑",
-      "tldr": "Media over QUIC（MoQ）作者指出 WebRTC 为人类视频会议设计、默认关闭音频重传并丢弃超 30ms 延迟包，导致 Voice AI 频频丢失用户关键词；倡议转向 MoQ 与 WebTransport 架构。",
-      "details": [
-        "协议错配：WebRTC 激进丢包保低延迟（人类听不清会自然追问），但服务端大模型一旦漏收语音片段就会浪费 Token 甚至错误猜测语义。",
-        "运维痛点：WebRTC 依赖 DTLS、有状态负载均衡及复杂定制 SFU/Pion 链路，在 Wi-Fi 切蜂窝或 Starlink 切换时极易丢失音频片段。",
-        "替代架构：Media over QUIC（MoQ）基于 WebTransport，原生支持 QUIC 连接迁移（Connection ID）与灵活流控，更契合云端双向语音 AI 流。"
-      ],
-      "action_snippet": "",
-      "source_platform": "Hacker News",
-      "source_url": "https://moq.dev/blog/webrtc-is-still-the-problem/"
-    },
-    {
-      "id": "ai-20261120-19",
-      "date": "2026-11-19",
-      "channel": "INTEL",
-      "type": "PRODUCT",
-      "status": "ACTIVE",
-      "vendor": "Google",
-      "priority": 85,
-      "impact": "已使用过 Gemini Gems 或希望和团队共享提示词模板的用户",
-      "title": "Google 下线 Gems 并全面升级 Gemini Skills：支持挂载 100MB 文档与多人协作共享",
-      "value_tag": "功能迁移",
-      "tldr": "随着旧版自定义工具 Gems 逐步关停，Google 为其继任者 Gemini Skills 加入两大实用升级：创建 Skill 时可挂载最高 100 MB 本地/Drive/Photos 文件且云端文档实时同步，并支持按查看或编辑权限共享给他人，免费个人账号与 Workspace 全员可用。",
-      "details": [
-        "相比单纯写提示词的传统模板，新版 Gemini Skills 支持从本机设备、Google Drive、Gemini Notebook 与 Google Photos 上传或关联最多 100 MB 资料；其中 Drive 文档与 Notebook 会自动保持实时同步，确保每次运行 Skill 与定时任务时都读取最新版本。",
-        "网页端 Customize > Skills 页面新增共享权限控制，可向同事、同学或好友授予 View（只读查看）或 Edit（协同编辑）权限，对方会收到邮件通知并可预览后再添加到自己账号。",
-        "此前依赖 Gems 保存固定工作流的用户需注意功能切换节奏，可趁升级窗口将常用指令与参考文件迁入 Skills，提升个人或团队复用的稳定性。",
-        "操作建议：打开 Gemini 网页端 Customize > Skills 新建可复用技能，关联 Google Drive 参考文件并设置只读或编辑共享权限。"
-      ],
-      "action_snippet": "",
-      "source_platform": "9to5Google",
-      "source_url": "https://9to5google.com/2026/11/16/gemini-skills-files-sharing/"
-    },
-    {
       "id": "ai-20261118-05",
       "date": "2026-11-18",
       "channel": "INTEL",
@@ -1419,25 +1587,46 @@
       "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"
     },
     {
-      "id": "ai-20261120-12",
+      "id": "ai-20261122-07",
+      "date": "2026-11-22",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Muru / Open Source",
+      "priority": 84,
+      "metric_badge": "Rust 编写 · WSGI/ASGI",
+      "impact": "Python Web 后端架构师与探索 AI 辅助开发底层基础设施的工程师",
+      "title": "mod_wsgi 作者时隔 20 年新作：AI 辅助用 Rust 打造 Python 统一应用服务器 Muru（同进程兼顾 WSGI 与 ASGI）",
+      "value_tag": "零停机灰度 + 统一运行时",
+      "tldr": "维护 mod_wsgi 长达二十年的 Graham Dumpleton 公布借助 AI 辅助用 Rust 编写的新一代 Python 应用服务器与控制面 Muru，支持在同一工作进程体系下运行 WSGI 与 ASGI（含 WebSocket/gRPC），原生内置零停机灰度发布与页内追踪工具栏。",
+      "details": [
+        "统一运行时与进程安全：采用 Rust 构建路由边缘与控制面，通过“一次导入、多次派生（import once, fork many）”策略在派生 Worker 前做并发安全校验，兼容传统同步 WSGI、异步 ASGI 与现代 Python 自由线程模型。",
+        "告别重启式发布：以路由权重切换替代重型服务重启，原生支持多版本并跑、按流量比例金丝雀灰度与秒级回滚，并在开发环境内置可信本地 HTTPS 与逐页请求追踪诊断栏。",
+        "资深专家主导的 AI 造轮子范式：作者在三周内连发十余篇深度架构手记并坦言，AI 虽承担了大量表层编码，但“判断哪些设计还不够格上生产”仍完全仰赖过去二十年在 mod_wsgi 踩过的所有深坑。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Simon Willison",
+      "source_url": "https://simonwillison.net/2026/Nov/21/muru/"
+    },
+    {
+      "id": "ai-20261120-27",
       "date": "2026-11-20",
       "channel": "RADAR",
-      "type": "DEAL",
+      "type": "HACK",
       "status": "ACTIVE",
       "vendor": "Google",
       "priority": 84,
-      "impact": "全家使用 YouTube Premium 且需要大空间云盘的 Google AI Ultra 订阅用户",
-      "title": "Google AI Ultra 权益免费扩容：由 YouTube 个人版升级为价值 $26.99/月的家庭版",
-      "value_tag": "权益升级可回本",
-      "tldr": "Google 宣布为旗下旗舰订阅 AI Ultra 5x（$99.99/月含 20TB）和 AI Ultra 20x（$199.99/月含 30TB）补齐重磅影音权益：原附赠的 YouTube Premium 个人版免费升级为可拉 5 位家庭成员共享的 Family 家庭套餐。",
+      "impact": "构建挂载数十至上百个 MCP/Function Calling 工具的 Gemini Agent 开发者",
+      "title": "Gemini API 推出 Tool Retrieval 按需加载工具：百级工具场景免塞全量 Schema，大幅省 Token",
+      "value_tag": "百工具省 Token 技巧",
+      "tldr": "Google 在 Gemini Interactions API 预览上线 Tool Retrieval：Agent 挂载上百个工具时不必再每轮把所有参数 Schema 塞进 prompt，开启 `tool_search` 与 `defer_loading: true` 即可按需检索加载，同时降成本和延迟。",
       "details": [
-        "YouTube Premium 家庭版单买需 $26.99/月，最多支持邀请同家庭组内 5 名成员共享全平台无广告观看、后台播放、离线下载以及 YouTube Music 与 Ask Music 权益。",
-        "相比之下，$19.99/月的入门档 Google AI Pro 目前仍仅附带不含 YouTube Music 的 YouTube Premium Lite；对于原本就自费购买 YouTube 家庭组和 Google One 大容量云盘的家庭用户而言，Ultra 档位的实际净支出被明显摊薄。",
-        "操作建议：已有 Google AI Ultra 订阅的用户可前往 Google One / YouTube 家庭组管理页面邀请家庭成员共享权益（注意家庭成员需在同一账单国家/地区）。"
+        "痛点解决：多工具 Agent 常见输入 Token 爆炸以及工具过多导致模型选错函数的准确率下降；Tool Retrieval 允许开发者先延迟加载外部工具定义，仅在模型通过工具检索命中后再动态展开完整参数表。",
+        "接入方式：当前已在 Gemini Interactions API 开放预览，只需在请求配置中添加 `tool_search` 工具并将长尾工具声明的 `defer_loading` 设为 `true` 即可生效。"
       ],
-      "action_snippet": "",
-      "source_platform": "9to5Google",
-      "source_url": "https://9to5google.com/2026/11/18/google-ai-ultra-youtube-premium-family/"
+      "action_snippet": "\"defer_loading\": true",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
     },
     {
       "id": "ai-20261120-16",
@@ -1462,24 +1651,25 @@
       "source_url": "https://developers.openai.com/community/students"
     },
     {
-      "id": "ai-20261120-27",
+      "id": "ai-20261120-12",
       "date": "2026-11-20",
       "channel": "RADAR",
-      "type": "HACK",
+      "type": "DEAL",
       "status": "ACTIVE",
       "vendor": "Google",
       "priority": 84,
-      "impact": "构建挂载数十至上百个 MCP/Function Calling 工具的 Gemini Agent 开发者",
-      "title": "Gemini API 推出 Tool Retrieval 按需加载工具：百级工具场景免塞全量 Schema，大幅省 Token",
-      "value_tag": "百工具省 Token 技巧",
-      "tldr": "Google 在 Gemini Interactions API 预览上线 Tool Retrieval：Agent 挂载上百个工具时不必再每轮把所有参数 Schema 塞进 prompt，开启 `tool_search` 与 `defer_loading: true` 即可按需检索加载，同时降成本和延迟。",
+      "impact": "全家使用 YouTube Premium 且需要大空间云盘的 Google AI Ultra 订阅用户",
+      "title": "Google AI Ultra 权益免费扩容：由 YouTube 个人版升级为价值 $26.99/月的家庭版",
+      "value_tag": "权益升级可回本",
+      "tldr": "Google 宣布为旗下旗舰订阅 AI Ultra 5x（$99.99/月含 20TB）和 AI Ultra 20x（$199.99/月含 30TB）补齐重磅影音权益：原附赠的 YouTube Premium 个人版免费升级为可拉 5 位家庭成员共享的 Family 家庭套餐。",
       "details": [
-        "痛点解决：多工具 Agent 常见输入 Token 爆炸以及工具过多导致模型选错函数的准确率下降；Tool Retrieval 允许开发者先延迟加载外部工具定义，仅在模型通过工具检索命中后再动态展开完整参数表。",
-        "接入方式：当前已在 Gemini Interactions API 开放预览，只需在请求配置中添加 `tool_search` 工具并将长尾工具声明的 `defer_loading` 设为 `true` 即可生效。"
+        "YouTube Premium 家庭版单买需 $26.99/月，最多支持邀请同家庭组内 5 名成员共享全平台无广告观看、后台播放、离线下载以及 YouTube Music 与 Ask Music 权益。",
+        "相比之下，$19.99/月的入门档 Google AI Pro 目前仍仅附带不含 YouTube Music 的 YouTube Premium Lite；对于原本就自费购买 YouTube 家庭组和 Google One 大容量云盘的家庭用户而言，Ultra 档位的实际净支出被明显摊薄。",
+        "操作建议：已有 Google AI Ultra 订阅的用户可前往 Google One / YouTube 家庭组管理页面邀请家庭成员共享权益（注意家庭成员需在同一账单国家/地区）。"
       ],
-      "action_snippet": "\"defer_loading\": true",
-      "source_platform": "Google AI Blog",
-      "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+      "action_snippet": "",
+      "source_platform": "9to5Google",
+      "source_url": "https://9to5google.com/2026/11/18/google-ai-ultra-youtube-premium-family/"
     },
     {
       "id": "ai-20261120-17",

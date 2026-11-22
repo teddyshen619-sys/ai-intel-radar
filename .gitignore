@@ -25,3 +25,8 @@ web/data/*
 # OS
 .DS_Store
 Thumbs.db
+
+# Daily News Local Drafts
+scraper/.daily_prompt.md
+scraper/.daily_draft.json
+

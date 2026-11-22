@@ -25,8 +25,9 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 if __package__:
-    from . import guides_radar, studio, validate_data
+    from . import daily_news, guides_radar, studio, validate_data
 else:
+    import daily_news
     import guides_radar
     import studio
     import validate_data
@@ -968,6 +969,455 @@ class GuidesRadarTest(unittest.TestCase):
         report = self.report(releases=failed_releases)
         self.assertIn("降级 · 模拟发布源不可用", report)
         self.assertNotIn("../guides/", report)
+
+
+class DailyNewsTest(unittest.TestCase):
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        self.root = Path(temp.name).resolve()
+        for folder in ("data", "web/data", "scraper"):
+            (self.root / folder).mkdir(parents=True, exist_ok=True)
+
+        for rel in (
+            "data/schema.json",
+            "data/guides_schema.json",
+            "data/models_catalog.json",
+            "data/catalog_changes.json",
+        ):
+            src = studio.ROOT / rel
+            if src.is_file():
+                (self.root / rel).write_bytes(src.read_bytes())
+
+        (self.root / "data/guides.json").write_bytes(EMPTY_BYTES)
+        (self.root / "web/data/guides.json").write_bytes(EMPTY_BYTES)
+
+        self.seed_items = [
+            {
+                "id": "ai-20261120-02",
+                "date": "2026-11-20",
+                "channel": "RADAR",
+                "type": "DEAL",
+                "status": "URGENT",
+                "vendor": "OpenAI",
+                "priority": 96,
+                "impact": "高校研究人员与实验室团队",
+                "title": "OpenAI 学术免费额度扩容专项通知",
+                "value_tag": "免费 3 席",
+                "tldr": "面向科研机构开放免费席位申请。",
+                "details": ["资格覆盖高校及非营利科研机构。", "支持最多三名同机构成员协作。"],
+                "action_snippet": "",
+                "source_platform": "OpenAI News",
+                "source_url": "https://example.org/deal-20",
+            },
+            {
+                "id": "ai-20261122-01",
+                "date": "2026-11-22",
+                "channel": "INTEL",
+                "type": "MODEL",
+                "status": "ACTIVE",
+                "vendor": "Google",
+                "priority": 90,
+                "impact": "多模态推理与 API 开发者",
+                "title": "Gemini 新一代轻量推理底座上线",
+                "value_tag": "1M 上下文",
+                "tldr": "支持百万级上下文窗口与缓存折扣。",
+                "details": ["输入百万 Token 定价下调。", "默认支持工具调用与结构化输出。"],
+                "action_snippet": "",
+                "source_platform": "Google AI Blog",
+                "source_url": "https://example.org/model-22-01",
+            },
+            {
+                "id": "ai-20261122-03",
+                "date": "2026-11-22",
+                "channel": "REVIEW",
+                "type": "BENCHMARK",
+                "status": "ACTIVE",
+                "vendor": "Anthropic",
+                "priority": 85,
+                "impact": "代码重构与自动化评测团队",
+                "title": "第三方长程编码代理基准横评",
+                "value_tag": "实测成本对比",
+                "tldr": "汇总主流推理模型在真实仓库修复任务上的得分与单次开销。",
+                "details": ["覆盖多语言仓库迁移测试。", "统计缓存命中率与超时重试率。"],
+                "action_snippet": "",
+                "source_platform": "Latent Space",
+                "source_url": "https://example.org/bench-22-03",
+            },
+            {
+                "id": "ai-20261101-01",
+                "date": "2026-11-01",
+                "channel": "INTEL",
+                "type": "PRODUCT",
+                "status": "FIXED",
+                "vendor": "Open Source",
+                "priority": 70,
+                "impact": "早期内测用户",
+                "title": "月初旧版预览通道归档记录",
+                "value_tag": "已归档",
+                "tldr": "超过七天窗口的历史归档条目。",
+                "details": ["旧测试入口已下线并合并至正式版。"],
+                "action_snippet": "",
+                "source_platform": "GitHub",
+                "source_url": "https://example.org/old-archive-01",
+            },
+        ]
+        initial_payload = {
+            "updated_at": "2026-11-22T09:00:00+08:00",
+            "items": daily_news.sort_intel_items(self.seed_items),
+        }
+        raw_bytes = daily_news.serialize_json(initial_payload)
+        (self.root / "data/intel_data.json").write_bytes(raw_bytes)
+        (self.root / "web/data/intel_data.json").write_bytes(raw_bytes)
+
+        digest_with_emoji = (
+            "# 每日开源与厂商情报雷达\n\n"
+            "北京时间 2026-11-22 08:30 · 去重后 **3** 条\n\n"
+            "## 模型价格与免费额度异动速报\n\n"
+            "精选目录新增免费型号 **1** 个 · 显著调价 **0** 个模型 · 30 天内到期 **0** 个\n\n"
+            "- **新增免费** · [qwen/qwen3-coder:free](https://openrouter.ai/models?q=qwen%2Fqwen3-coder%3Afree) \u2728\n\n"
+            "## 大众实用与免费福利精选\n\n"
+            "- [建议: RADAR] [\U0001F680 Free GPU Credits for Open Source Maintainers](<https://example.org/free-gpu>) · Hacker News\n\n"
+            "## 价值排行\n\n"
+            "### 1. \U0001F680 Free GPU Credits for Open Source Maintainers \u26A1\uFE0F\n\n"
+            "**价值分 92** · [建议: RADAR] · Hacker News\n\n"
+            "发布时间 2026-11-22 07:00（北京）\n\n"
+            "原始 URL · <https://example.org/free-gpu>\n\n"
+            "> Cloud provider announces free compute grants \U0001F468\u200D\U0001F4BB \U0001F517 for maintainers.\n\n"
+            "### 2. DeepSeek Releases New Reasoning SDK\n\n"
+            "**价值分 88** · [建议: INTEL] · GitHub\n\n"
+            "发布时间 2026-11-22 06:30（北京）\n\n"
+            "原始 URL · <https://example.org/deepseek-sdk>\n\n"
+            "> Official Python SDK adds streaming tool call verification.\n"
+        )
+        (self.root / "scraper/raw_digest.md").write_text(digest_with_emoji, encoding="utf-8")
+
+    def run_cli(self, *argv):
+        stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
+        with redirect_stdout(stdout_buf), redirect_stderr(stderr_buf):
+            rc = daily_news.main(list(argv), root=self.root)
+        return rc, stdout_buf.getvalue(), stderr_buf.getvalue()
+
+    def make_valid_item(self, **overrides):
+        base = {
+            "id": "ai-20261122-04",
+            "date": "2026-11-22",
+            "channel": "INTEL",
+            "type": "MODEL",
+            "status": "ACTIVE",
+            "vendor": "DeepSeek",
+            "priority": 93,
+            "impact": "推理服务与工具调用编排开发者",
+            "title": "DeepSeek 发布新一代推理 SDK 并开放流式工具校验",
+            "value_tag": "流式校验提速",
+            "tldr": "官方推理 SDK 支持流式函数签名校验与缓存命中统计，显著降低长链路重试开销。",
+            "details": [
+                "协议兼容：原生兼容 OpenAI Chat Completions 与严格 Schema 工具参数校验。",
+                "吞吐表现：高并发流式解码下首字延迟维持稳定，支持断点缓存复用。",
+                "升级方式：通过标准包管理器升级至最新稳定版即可启用。",
+            ],
+            "action_snippet": "pip install -U deepseek-sdk",
+            "source_platform": "GitHub Releases",
+            "source_url": "https://example.org/deepseek-sdk",
+        }
+        base.update(overrides)
+        return base
+
+    def data_snapshots(self):
+        tracked = {}
+        for folder in ("data", "web/data"):
+            for path in sorted((self.root / folder).rglob("*")):
+                if path.is_file():
+                    tracked[path] = (path.read_bytes(), path.stat().st_mtime_ns)
+        return tracked
+
+    def test_next_item_id_status_and_prep_no_fetch(self):
+        self.assertEqual(daily_news.next_item_id(self.seed_items, "2026-11-22"), "ai-20261122-04")
+        self.assertEqual(daily_news.next_item_id(self.seed_items, "2026-11-23"), "ai-20261123-01")
+        high_seq = [{"id": "ai-20261123-99"}]
+        self.assertEqual(daily_news.next_item_id(high_seq, "2026-11-23"), "ai-20261123-100")
+
+        before_status = {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        rc, out, err = self.run_cli("status", "--days", "7", "--date", "2026-11-22")
+        self.assertEqual(rc, 0, err)
+        self.assertIn("4 条（近 7 天已收录 3 条）", out)
+        self.assertIn("2026-11-22T09:00:00+08:00", out)
+        self.assertIn("ai-20261122-04", out)
+        self.assertIn("ai-20261120-02", out)
+        self.assertIn("raw_digest.md", out)
+        self.assertEqual(before_status, {p: p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
+
+        rc, out, err = self.run_cli("prep", "--no-fetch", "--days", "7", "--date", "2026-11-22")
+        self.assertEqual(rc, 0, err)
+        prompt_path = self.root / "scraper/.daily_prompt.md"
+        draft_path = self.root / "scraper/.daily_draft.json"
+        self.assertTrue(prompt_path.is_file())
+        self.assertTrue(draft_path.is_file())
+
+        prompt_text = prompt_path.read_text(encoding="utf-8")
+        self.assertIsNone(daily_news.EMOJI_PATTERN.search(prompt_text))
+        self.assertIsNone(daily_news.LEGACY_BRAND_PATTERN.search(prompt_text))
+        self.assertIn("ai-20261122-04", prompt_text)
+        self.assertIn("ai-20261120-02", prompt_text)
+        self.assertIn("https://example.org/model-22-01", prompt_text)
+        self.assertNotIn("ai-20261101-01", prompt_text)
+        self.assertIn("Free GPU Credits for Open Source Maintainers", prompt_text)
+        self.assertIn("qwen3-coder:free", prompt_text)
+
+        self.assertEqual(
+            json.loads(draft_path.read_text(encoding="utf-8")),
+            {"items": [], "status_updates": []},
+        )
+
+        custom_draft = {"items": [self.make_valid_item()], "status_updates": []}
+        daily_news.atomic_write_json(draft_path, custom_draft)
+        rc, _, err = self.run_cli("prep", "--no-fetch", "--days", "7", "--date", "2026-11-22")
+        self.assertEqual(rc, 0, err)
+        self.assertEqual(json.loads(draft_path.read_text(encoding="utf-8")), custom_draft)
+
+        rc, _, err = self.run_cli(
+            "prep", "--no-fetch", "--days", "7", "--date", "2026-11-22", "--reset-draft"
+        )
+        self.assertEqual(rc, 0, err)
+        self.assertEqual(
+            json.loads(draft_path.read_text(encoding="utf-8")),
+            {"items": [], "status_updates": []},
+        )
+
+        (self.root / "scraper/raw_digest.md").unlink()
+        rc, _, err = self.run_cli("prep", "--no-fetch", "--date", "2026-11-22")
+        self.assertEqual(rc, 1)
+        self.assertIn("raw_digest.md", err)
+
+    def test_apply_merge_status_updates_sorting_and_dual_sync(self):
+        # 故意制造 web/data 缺文件与字节不一致，验证 apply 自动同步且不触碰 guides/*.md
+        (self.root / "web/data/guides.json").write_bytes(b"{}\n")
+        (self.root / "web/data/models_catalog.json").unlink(missing_ok=True)
+        (self.root / "web/data/catalog_changes.json").unlink(missing_ok=True)
+
+        draft_payload = {
+            "status_updates": [
+                {"id": "ai-20261120-02", "status": "ACTIVE"},
+            ],
+            "items": [
+                self.make_valid_item(
+                    id="ai-20261122-04",
+                    status="URGENT",
+                    priority=94,
+                    story=[
+                        {
+                            "heading": "流式校验机制的技术背景",
+                            "paragraphs": ["在高并发工具调用场景下，流式阶段提前拦截格式偏差可显著减少无效生成。"],
+                        },
+                        {
+                            "heading": "社区集成反馈",
+                            "paragraphs": ["首批接入测试显示多轮代理调用稳定性明显提升。"],
+                        },
+                    ],
+                ),
+                self.make_valid_item(
+                    id="ai-20261122-05",
+                    channel="RADAR",
+                    type="HACK",
+                    status="ACTIVE",
+                    priority=96,
+                    title="本地代理缓存命中率调优指南",
+                    source_url="https://example.org/cache-hack-05",
+                ),
+                self.make_valid_item(
+                    id="ai-20261122-06",
+                    channel="REVIEW",
+                    type="VIDEO",
+                    status="ACTIVE",
+                    priority=90,
+                    title="官方架构师深度演示推理管线调优",
+                    media_url="https://i2.ytimg.com/vi/demo123/hqdefault.jpg",
+                    metric_badge="18m 实机拆解",
+                    source_url="https://www.youtube.com/watch?v=demo123",
+                ),
+            ],
+        }
+        draft_path = self.root / "scraper/.daily_draft.json"
+        daily_news.atomic_write_json(draft_path, draft_payload)
+
+        before_dry = self.data_snapshots()
+        rc, out, err = self.run_cli("apply", "--dry-run")
+        self.assertEqual(rc, 0, err)
+        self.assertIn("[DRY-RUN]", out)
+        self.assertEqual(before_dry, self.data_snapshots())
+
+        rc, out, err = self.run_cli("apply")
+        self.assertEqual(rc, 0, err)
+        self.assertIn("新增 3 条", out)
+        self.assertIn("状态变更 1 条", out)
+        self.assertIn("最新总条数 7 条", out)
+        self.assertFalse((self.root / "guides").exists())
+
+        for name in ("intel_data.json", "models_catalog.json", "guides.json", "catalog_changes.json"):
+            src = self.root / "data" / name
+            dst = self.root / "web/data" / name
+            if src.is_file():
+                self.assertTrue(dst.is_file(), name)
+                self.assertEqual(src.read_bytes(), dst.read_bytes(), name)
+
+        merged = json.loads((self.root / "data/intel_data.json").read_text(encoding="utf-8"))
+        self.assertRegex(merged["updated_at"], r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+08:00$")
+        ordered_ids = [item["id"] for item in merged["items"]]
+        self.assertEqual(
+            ordered_ids,
+            [
+                "ai-20261122-04",  # URGENT (weight 3), priority 94
+                "ai-20261122-05",  # ACTIVE (weight 2), priority 96, date 2026-11-22
+                "ai-20261120-02",  # ACTIVE (downgraded), priority 96, date 2026-11-20
+                "ai-20261122-06",  # ACTIVE, priority 90, date 2026-11-22, id -06
+                "ai-20261122-01",  # ACTIVE, priority 90, date 2026-11-22, id -01
+                "ai-20261122-03",  # ACTIVE, priority 85
+                "ai-20261101-01",  # FIXED (weight 1), priority 70
+            ],
+        )
+
+        # 验证顶层数组兼容与 --allow-upsert 覆写模式
+        upsert_draft = [
+            self.make_valid_item(
+                id="ai-20261122-05",
+                channel="RADAR",
+                type="HACK",
+                status="ACTIVE",
+                priority=97,
+                title="本地代理缓存命中率调优指南（修订版）",
+                source_url="https://example.org/cache-hack-05",
+            )
+        ]
+        daily_news.atomic_write_json(draft_path, upsert_draft)
+        rc, out, err = self.run_cli("apply", "--allow-upsert")
+        self.assertEqual(rc, 0, err)
+        self.assertIn("覆写 1 条", out)
+        updated = json.loads((self.root / "data/intel_data.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            next(i for i in updated["items"] if i["id"] == "ai-20261122-05")["priority"],
+            97,
+        )
+
+    def test_redline_gates_reject_invalid_drafts_without_modifying_files(self):
+        legacy_word = "\x56" + "anguard"
+        legacy_mixed = "\x76" + "AnGuArD"
+        draft_path = self.root / "scraper/.daily_draft.json"
+        baseline = self.data_snapshots()
+
+        invalid_cases = [
+            (
+                "emoji_in_title",
+                {"items": [self.make_valid_item(title="重磅发布 \U0001F680")], "status_updates": []},
+                "Emoji",
+            ),
+            (
+                "emoji_variation_in_story",
+                {
+                    "items": [
+                        self.make_valid_item(
+                            story=[{"heading": "背景", "paragraphs": ["包含变体符号 \u26A0\uFE0F"]}]
+                        )
+                    ],
+                    "status_updates": [],
+                },
+                "Emoji",
+            ),
+            (
+                "zwj_in_details",
+                {
+                    "items": [self.make_valid_item(details=["零宽连接符\u200D测试"])],
+                    "status_updates": [],
+                },
+                "Emoji",
+            ),
+            (
+                "legacy_brand_exact",
+                {
+                    "items": [self.make_valid_item(title=f"{legacy_word} 每日快讯")],
+                    "status_updates": [],
+                },
+                "旧英文品牌词",
+            ),
+            (
+                "legacy_brand_case_insensitive",
+                {
+                    "items": [self.make_valid_item(tldr=f"来自 {legacy_mixed} 编辑部")],
+                    "status_updates": [],
+                },
+                "旧英文品牌词",
+            ),
+            (
+                "duplicate_id_default_rejected",
+                {
+                    "items": [
+                        self.make_valid_item(
+                            id="ai-20261122-01",
+                            source_url="https://example.org/brand-new-url",
+                        )
+                    ],
+                    "status_updates": [],
+                },
+                "ai-20261122-01",
+            ),
+            (
+                "duplicate_source_url_exact",
+                {
+                    "items": [
+                        self.make_valid_item(
+                            id="ai-20261122-09",
+                            source_url="https://example.org/model-22-01",
+                        )
+                    ],
+                    "status_updates": [],
+                },
+                "ai-20261122-01",
+            ),
+            (
+                "duplicate_source_url_normalized",
+                {
+                    "items": [
+                        self.make_valid_item(
+                            id="ai-20261122-10",
+                            source_url="https://EXAMPLE.org/model-22-01/?utm_source=rss",
+                        )
+                    ],
+                    "status_updates": [],
+                },
+                "ai-20261122-01",
+            ),
+            (
+                "illegal_channel_type_pair",
+                {
+                    "items": [self.make_valid_item(channel="RADAR", type="MODEL")],
+                    "status_updates": [],
+                },
+                "不匹配",
+            ),
+            (
+                "unknown_status_update_id",
+                {
+                    "items": [],
+                    "status_updates": [{"id": "ai-20990101-99", "status": "ACTIVE"}],
+                },
+                "不存在",
+            ),
+            (
+                "illegal_status_update_target",
+                {
+                    "items": [],
+                    "status_updates": [{"id": "ai-20261120-02", "status": "ARCHIVED"}],
+                },
+                "status 非法",
+            ),
+        ]
+
+        for case_name, payload, expected_err in invalid_cases:
+            with self.subTest(case=case_name):
+                daily_news.atomic_write_json(draft_path, payload)
+                rc, _, err = self.run_cli("apply")
+                self.assertNotEqual(rc, 0, f"{case_name} 应当被拦截")
+                self.assertIn(expected_err, err)
+                self.assertEqual(baseline, self.data_snapshots())
 
 
 if __name__ == "__main__":

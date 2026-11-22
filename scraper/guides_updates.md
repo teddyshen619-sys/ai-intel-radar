@@ -1,6 +1,6 @@
 # 教程更新线索
 
-采集时间 2026-11-21 13:47 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-22 07:05 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
 
@@ -8,8 +8,10 @@
 
 关联教程 · [02-lesson-657ffec5712f](<../guides/02-lesson-657ffec5712f.md>)、[03-lesson-22ece7536789](<../guides/03-lesson-22ece7536789.md>)、[04-lesson-b101841fb51f](<../guides/04-lesson-b101841fb51f.md>)
 
+- [I’m Crashing Out About Anthropic](<https://www.youtube.com/watch?v=I0Fasi1-teQ>) · YouTube · Matthew Berman · 2026-11-21 · 命中 subscription
 - [Trump threatens ‘tremendous tax’ for moving AI data centers outside the US](<https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax>) · The Verge AI · 2026-11-20 · 命中 country
-- [3 ChatGPT Tips to Save Money](<https://www.youtube.com/watch?v=WGvsk0LIveU>) · YouTube · OpenAI · 2026-11-20 · 命中 subscriptions
+- [3 Tips to Save Money With ChatGPT](<https://www.youtube.com/watch?v=WGvsk0LIveU>) · YouTube · OpenAI · 2026-11-20 · 命中 subscriptions
+- [\[Bug\] Agent V2 converts multiple-select tool arrays into Python repr strings](<https://github.com/langgenius/dify/issues/46840>) · GitHub · langgenius/dify · 2026-11-20 · 命中 regions
 
 编辑核查 · 核对服务地区、付款入口及续费条件；涉及账户的反馈先找厂商依据。
 
@@ -30,8 +32,6 @@
 - [MCP tools from any installed server are silently auto-approved by default — no per-tool opt-in exists](<https://github.com/cline/cline/issues/15817>) · GitHub · cline/cline · 2026-11-21 · 命中 installed
 - [Connect Your Team’s Data to ChatGPT](<https://www.youtube.com/watch?v=oJIuz3AFfEQ>) · YouTube · OpenAI · 2026-11-20 · 命中 install
 - [Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup](<https://huggingface.co/blog/inkling2mini>) · Hugging Face Blog · 2026-11-20 · 命中 Setup
-- [Get started with Daybreak Blue](<https://openai.com/business/learn/daybreak-blue-onboarding-demo>) · OpenAI News · 2026-11-19 · 命中 setup
-- [Deploying Daybreak Red](<https://openai.com/business/learn/deploying-daybreak-red>) · OpenAI News · 2026-11-19 · 命中 setup
 
 编辑核查 · 核对各工具的安装命令、认证入口与 WSL 排障步骤；版本号变化本身不代表安装命令失效。
 
@@ -56,12 +56,11 @@
 **[OpenHands/OpenHands 官方发布](https://github.com/OpenHands/OpenHands/releases.atom)** · 成功
 
 - [OpenHands/OpenHands · v1.43.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.43.0>) · 订阅更新时间 2026-11-20 19:03 UTC。1.43.0 (2026-11-20) What's Changed Features feat(automations): create automations enabled from the setup wizard by @SaltGardenia in #19769 feat(settings): Features page for…
-- [OpenHands/OpenHands · v1.42.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.42.0>) · 订阅更新时间 2026-11-18 16:46 UTC。1.42.0 (2026-11-18) What's Changed Features feat(cloud): pick the exact connected git provider for repositories by @tofarr in #19762 feat(verify-openhands): every run has a…
 
 - [What Runs Where? Local AI in Production — Ahmad Osman, Osmantic](<https://www.youtube.com/watch?v=GKSQYbELDzw>) · YouTube · AI Engineer · 2026-11-21 · 命中 batching
 - [MCP tools from any installed server are silently auto-approved by default — no per-tool opt-in exists](<https://github.com/cline/cline/issues/15817>) · GitHub · cline/cline · 2026-11-21 · 命中 approval
-- [Show HN: OpenComputer – an open source alternative to Devin](<https://github.com/diggerhq/opencomputer>) · Hacker News · 2026-11-20 · 命中 sandbox
-- [Gemini on Mac can now use your computer](<https://www.theverge.com/tech/1037902/google-gemini-macos-ai-computer-use>) · The Verge AI · 2026-11-19 · 命中 workflows
 - [Google gives Gemini the ability to use your Mac for you](<https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/>) · TechCrunch AI · 2026-11-19 · 命中 workflows
+- [What it takes to set intelligence free — Fabian Hedin, CTO, Lovable](<https://www.youtube.com/watch?v=pZWPq_ZAmM4>) · YouTube · AI Engineer · 2026-11-19 · 命中 Sandbox
+- [How OpenAI’s Performance Factory keeps ChatGPT fast](<https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast>) · OpenAI News · 2026-11-19 · 命中 Codex
 
 编辑核查 · 核对沙盒、审批、审查及自动执行示例；区分各工具的适用条件与行为差异。
