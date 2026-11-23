@@ -98,21 +98,73 @@
       "id": "lesson-657ffec5712f",
       "order": 3,
       "track": "前期准备",
-      "title": "申请一张可在海外平台使用的Visa卡（改进中）",
+      "title": "申请一张可在海外平台使用的Bybit卡",
       "summary": "在解决网络问题后，解决支付难题",
-      "updated_at": "2026-11-20",
+      "updated_at": "2026-11-23",
       "author_note": "",
       "related_tags": [],
-      "status": "revising",
       "source_file": "guides/02-lesson-657ffec5712f.md",
-      "body_markdown": "",
+      "body_markdown": "\n## 第一步\n\n相较于网络问题，支付问题是一个更难解决的问题，所以给大家介绍一种几乎无门槛，不需要信用卡即可在海外平台正常订阅 AI 与日常消费的途径。\n\n## 第二步：了解台湾区 Bybit卡\n\n在订阅 ChatGPT / Claude / Gemini 等海外 AI 服务或进行海外网站消费时，中国大陆发行的信用卡非常容易触发风控而导致拒付——常见原因包括海外商户对大陆卡段（BIN）限制严格、账单地址（AVS）校验不通过，以及国内发卡行的跨境交易拦截等。\n\n过去大家常用的小平台虚拟卡不仅损耗高、风控严，还缺乏保障。相比之下，台湾区 Bybit 卡是目前更稳妥、性价比极高的选择：\n\n大平台背书，靠谱主流：由全球前三大加密货币交易所 Bybit 发行，资金安全性高、损耗极低，非一般小厂 U 卡可比。\n\n目前几乎 0 门槛：不需要护照、不需要地址证明，支持使用中国大陆居民身份证认证。\n\n适用场景极广：支持绑定 微信支付、支付宝、Apple Pay 进行日常消费，也可直接订阅 ChatGPT、Gemini 等海外 AI 会员。\n\n核心费用与新客福利：\n\n年费与开卡费：无任何年费。\n\n日常返现：消费享 2% – 10% 返现。\n\n新客专属奖励（最高 120 USDT）：通过专属邀请链接及推荐码注册开卡后，前 30 天内消费享 10% 返现（最高返 110 U）；且开卡后 30 天内累计消费满 100 美元，额外再送 10 美元奖励。\n\n## 第三步：下载 Bybit APP 与账户注册\n\n1.下载 Bybit APP\n\n开启韩国网络节点（或台湾，其他常见节点不行。在步骤开始前先确定相应节点是否可用）后下载客户端：\n\n安卓用户：直接通过 Google Play 或 Bybit 官网下载安装包。\n\niPhone 用户：需要登录香港区或台湾区的 Apple ID，在 App Store 搜索 “Bybit” 完成下载。\n\n没有海外 Apple ID？可参考注册教程：（教程里以美区为参考，开港区即可。实际上除了中国大陆地区之外，其他地区都能自由切换，不必担心）\nhttps://help.roogoo.com/zh-CN/articles/10625818\n\n2.注册bybit账户\n\n打开app后点击注册，然后选择居住地为台湾\n\n![操作截图](guides-media/lesson-657ffec5712f/74af17945644b2b239fb839d81c93bfc154f61dfb8c1f0a047db112c0daf4cbe.png)\n然后输入你的常用邮箱，最好是谷歌邮箱，微软邮箱也可以。（没有尝试过国内邮箱，不确定。）\n\n然后点击邀请码处，填入邀请码 EX4EDPG\n![操作截图](guides-media/lesson-657ffec5712f/e28e8aeb41fa6d2ce05f3f2e89035d1518d433505cb0d9e3949ef6714a9a9802.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/fdd459a2b2c296421bf8e73803f41e85372841c19982dabe2d279a0c3fb0559b.png)\n\n**因为平台走邀请给新用户的福利特别多，所以要填入邀请码！！**\n\n然后按照流程完成注册。\n\n## 第四步：实名认证（KYC）与绑定手机号\n\n**1. 完成实名认证**\n登录 Bybit APP 后，按照页面指引进行身份认证：\n\n居住国家/地区：选择 台湾。（如果没有这个环节请忽略）\n\n身份证明：证件签发国家选择 中国，证件类型选择 身份证。\n\n依次拍摄上传身份证正反面，并完成人脸识别，系统很快就会审核通过。\n\n**2.绑定手机号**\n\n认证通过后回到 APP 首页，不要急着充值，先去绑定手机号（否则后续申卡时仍会被要求重新绑定，容易卡流程）：\n\n点击左上角头像 → 进入 「安全设置」 → 点击 「绑定手机号」。\n\n点击手机号前面的区号，选择中国大陆区号 +86，输入你的手机号并接收短信验证码完成绑定即可。（如果有什么提示要谷歌身份验证什么的就跟随提示完成即可）\n\n## 第五步：申请开通台湾区 Bybit 卡\n\n回到 Bybit APP 首页，点击左上角头像进入个人主页，然后进入开卡页面（地区选择 台湾）。\n\n![操作截图](guides-media/lesson-657ffec5712f/68e8c80349ba58bd25cd01d7517b6606e604812fbd043ef2cd1a3c18b9f5a9dd.png)\n\n\n填写资料与推荐码：\n\n如实填写工作与收入情况。\n\n填入准备好的台湾地址，用地址生成器即可，网上一搜就有，如果没有英文的让ai翻译下就行（无需上传地址证明）。\n\n\n**记住填入推荐码：EX4EDPG（确保解锁 120 U 新客奖励及首月消费 100 U 返 10 U 活动）**\n\n补充尽职调查：系统可能会询问“是否为政治公众人物”（选择 否）、开卡目的、职业情况等，如实勾选即可。\n\n提交后等待审核通过，你的台湾区 Bybit 虚拟卡就正式开通了！\n\n## 第六步：购买USDT\n\n由于 Bybit 无法直接用人民币充值，我们需要先在合规大所购买稳定币 USDT，再提币到 Bybit 账户中激活使用（几乎无损）。\n\n对于区块链小白，我推荐在全球最大的数字货币交易所币安（Binance）进行购买，可以有效避免在其他途径购买收到黑U或者假U。大家可以放心使用币安。\n\n \n\n下面详细介绍从交易所购买加密货币的步骤。\n\n \n\n第一步：下载币安(Binance)APP 并安装\n \n\n对于已经使用梯子的用户，可以打开这个页面 下载 币安(Binance) APP 或者获得下载指引：https://www.binance.com/zh-CN/download\n\n \n\n1.安卓用户下载币安APP：\n安卓用户请务必通过官方渠道下载App，您可以直接复制以下链接到浏览器中打开，然后完成下载、安装。\n\n \n\n下载链接1：https://download.bsmkweb.cc/pack/BNApp64.apk\n\n \n\n也可以发任意邮件至 download@binance.com , 自动获取下载链接。\n\n \n\n2.安卓用户安装币安APP：\n一些安卓手机在完成App 安装包下载之后，可能会出现“安全风险”、“病毒风险”等提示而无法完成安装，您可以参照以下方法完成安装。\n\nhttps://help.roogoo.com/zh-CN/articles/10914411 （注：文中以Roogoo App为例，安装方法是一样的）\n\n \n\n3. iPhone 手机用户下载币安APP：\n \n\niPhone 手机用户下载币安APP需要有海外的 Apple ID ，如果没有你需要重新注册一个。\n\n \n\n建议注册个国家或地区为菲律宾，台湾，新加坡等，币安 App 支持的国家/地区参加： https://www.binance.com/zh-CN/support-region-list ；特别注意不要用美区 Apple ID。\n\n \n\n如何注册海外Apple ID 建议参考这篇文章 https://help.roogoo.com/zh-CN/articles/10625818\n\n \n\n注册完海外 Apple ID 后，打开 App Store 搜索 “币安”或“Binance” ，完成下载即可。\n\n \n\n \n\n第二步：注册币安账号\n打开币安APP，通过邮箱和手机号码注册账号；注册账号完成时会询问是否有人邀请，建议大家填写邀请码：\n\nCPA_00600B9GPP\n\n币安对于填写邀请码的受邀用户，可以享受部分手续费减免，和参与多种活动。\n\n网页端注册：通过我的邀请码注册，您能享受平台提供的专属优惠与返佣。\n\n[点击链接注册](https://www.bsmkweb.net/activity/referral-entry/CPA?ref=CPA%5F00600B9GPP)\n\n在app上登陆后\n![操作截图](guides-media/lesson-657ffec5712f/d4873bc65014f8191ef8f87f21a2314e53c51cb625c0d2934392d54457c20b14.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/cc0ee90c094facfe464fc9dbe74d7cb1aebb58dd1ea2fab634206bfbeced05c3.png)\n第三步：购买 USDT\n在币安购买USDT需要通过C2C交易方式进行，即你先个人购买USDT。大致的流程就是通过币安平台担保，你需要将人民币通过支付宝，微信，银行卡转账的方式，将人民币转账到卖家的个人账户；卖家收到款项后，将USDT 自动汇入你在币安的资金账户，这样交易就完成了。具体购买步骤：\n\n \n\n1、点击APP首页上的C2C买币 或 添加资金 按钮，你就可以进入购买USDT的界面；如图：\n\n![操作截图](guides-media/lesson-657ffec5712f/a1e4060770daa741c5b84e17df79f6a7dda5ecd0235b5f23de1f6830a3203144.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/4ea079615bbbeae933cc43b60ef21f45dc80c3a5424953f3eee08461157af3ba.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/c931a5268aa6782d6ada3e57502a8a249374b1054b07ba6a770230bfa11d63ad.png)\n\n注意！！！要确保自己诚信交易否则可能账号会受限。\n\n> 风险提示：如果你的用途只是支付 AI 订阅或其他数字服务，每个月只充值当月实际需要消费的金额，不要超额充值，也不要把交易平台当成长期存钱的地方。\n> 不要炒币，不要炒币，不要炒币。重要的事情说三遍。十赌九输，请远离投机，理性消费。\n\n## 第七步：将 USDT 提币到 Bybit 并绑定消费\n\n**1. 在 Bybit 获取充币地址**\n\n打开 Bybit APP，点击右下角 「资产」 → 「充值 / 存入加密货币」。\n\n![操作截图](guides-media/lesson-657ffec5712f/cc117c1ecb92dfea258fa2757faccd69f16ad2c4edbe30c99373b3125a717400.png)\n\n搜索并选择 USDT，接着选择一个区块链网络（推荐选择手续费较低的 BSC (BEP20)，务必记清楚所选的网络名称）。\n\n复制生成的充币地址或保存二维码。\n\n![操作截图](guides-media/lesson-657ffec5712f/71be92ee3770e7a66d9f9d25c97d673662e985a7636225fb53f8193f42dd7ea0.png)\n\n！！！注意，在充币之前你要确定充币提币区块链网络，确保充币平台与提币平台是一致的网络。\n\n\n2、在币安(Binance)平台提币，具体步骤：（刚刚那边选的是BSC就按图片来，若为其他网络就选你自己选的网络）\n\n \n\n![操作截图](guides-media/lesson-657ffec5712f/d3be505db6cb9643f33ed8c4a4c285b3efad18db7ecaf988cb50f4f400a9d597.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/e696404dd8fc4d76316a9630ebb052db912998f29674a551a8c4af0b3bad05e1.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/90c8acdd4477ae77845ec962781113727397506c07033167cce3981c38b42d44.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/f89eb3bd213524b6fb98b6bba5d0b98104b36683228eccdb3ae674222786bd49.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/84cfe9b98fa16e7f9cc3134864a6f54f879885ecb007953d09afa27bffa999ec.png)\n这样就可以等待区块链转账完成，在Bybit收到USDT了，然后你再打开主页卡的地方，就会发现卡有一定的额度，那个额度就能用来消费。\n\n之后可将卡片绑定至 Apple Pay、微信支付、支付宝 用于日常刷卡消费，或前往 ChatGPT、Claude、Gemini 等官网直接绑定订阅，即可享受 2% – 10% 返现！\n \n\n> 风险提示：请仔细看图，在提币时确保两个平台提币网络一致！！！\n\n## 总结\n\n相比市面上各类小平台虚拟卡，台湾区 Bybit 卡背靠全球头部交易所，不仅免年费、消费有返现、支持微信支付宝，现阶段还免去了护照和地址证明的门槛，是目前内地用户解决海外支付的最优解之一。\n\n最后提醒大家注意 2个细节：\n\n网络与号码：注册和申卡全程保持台湾（或韩国）节点，避开美国、日本、香港 IP；手机号直接使用中国大陆 +86 手机号接收验证码绑定即可。\n\n留意自动续费：按需入金消费，同时记好 ChatGPT 等会员的自动续费日期，提前确保资金账户内余额充足，避免扣款失败影响账号信用。\n",
       "steps": [
         {
           "number": 1,
-          "title": "课程内容改进中",
-          "markdown": "本课教程正在重新梳理与验证最新可用方案，更新完成后将恢复开放。",
+          "title": "第一步",
           "code_blocks": [],
-          "risk_notes": []
+          "risk_notes": [],
+          "markdown": "\n相较于网络问题，支付问题是一个更难解决的问题，所以给大家介绍一种几乎无门槛，不需要信用卡即可在海外平台正常订阅 AI 与日常消费的途径。\n\n"
+        },
+        {
+          "number": 2,
+          "title": "第二步：了解台湾区 Bybit卡",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n在订阅 ChatGPT / Claude / Gemini 等海外 AI 服务或进行海外网站消费时，中国大陆发行的信用卡非常容易触发风控而导致拒付——常见原因包括海外商户对大陆卡段（BIN）限制严格、账单地址（AVS）校验不通过，以及国内发卡行的跨境交易拦截等。\n\n过去大家常用的小平台虚拟卡不仅损耗高、风控严，还缺乏保障。相比之下，台湾区 Bybit 卡是目前更稳妥、性价比极高的选择：\n\n大平台背书，靠谱主流：由全球前三大加密货币交易所 Bybit 发行，资金安全性高、损耗极低，非一般小厂 U 卡可比。\n\n目前几乎 0 门槛：不需要护照、不需要地址证明，支持使用中国大陆居民身份证认证。\n\n适用场景极广：支持绑定 微信支付、支付宝、Apple Pay 进行日常消费，也可直接订阅 ChatGPT、Gemini 等海外 AI 会员。\n\n核心费用与新客福利：\n\n年费与开卡费：无任何年费。\n\n日常返现：消费享 2% – 10% 返现。\n\n新客专属奖励（最高 120 USDT）：通过专属邀请链接及推荐码注册开卡后，前 30 天内消费享 10% 返现（最高返 110 U）；且开卡后 30 天内累计消费满 100 美元，额外再送 10 美元奖励。\n\n"
+        },
+        {
+          "number": 3,
+          "title": "第三步：下载 Bybit APP 与账户注册",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n1.下载 Bybit APP\n\n开启韩国网络节点（或台湾，其他常见节点不行。在步骤开始前先确定相应节点是否可用）后下载客户端：\n\n安卓用户：直接通过 Google Play 或 Bybit 官网下载安装包。\n\niPhone 用户：需要登录香港区或台湾区的 Apple ID，在 App Store 搜索 “Bybit” 完成下载。\n\n没有海外 Apple ID？可参考注册教程：（教程里以美区为参考，开港区即可。实际上除了中国大陆地区之外，其他地区都能自由切换，不必担心）\nhttps://help.roogoo.com/zh-CN/articles/10625818\n\n2.注册bybit账户\n\n打开app后点击注册，然后选择居住地为台湾\n\n![操作截图](guides-media/lesson-657ffec5712f/74af17945644b2b239fb839d81c93bfc154f61dfb8c1f0a047db112c0daf4cbe.png)\n然后输入你的常用邮箱，最好是谷歌邮箱，微软邮箱也可以。（没有尝试过国内邮箱，不确定。）\n\n然后点击邀请码处，填入邀请码 EX4EDPG\n![操作截图](guides-media/lesson-657ffec5712f/e28e8aeb41fa6d2ce05f3f2e89035d1518d433505cb0d9e3949ef6714a9a9802.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/fdd459a2b2c296421bf8e73803f41e85372841c19982dabe2d279a0c3fb0559b.png)\n\n**因为平台走邀请给新用户的福利特别多，所以要填入邀请码！！**\n\n然后按照流程完成注册。\n\n"
+        },
+        {
+          "number": 4,
+          "title": "第四步：实名认证（KYC）与绑定手机号",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n**1. 完成实名认证**\n登录 Bybit APP 后，按照页面指引进行身份认证：\n\n居住国家/地区：选择 台湾。（如果没有这个环节请忽略）\n\n身份证明：证件签发国家选择 中国，证件类型选择 身份证。\n\n依次拍摄上传身份证正反面，并完成人脸识别，系统很快就会审核通过。\n\n**2.绑定手机号**\n\n认证通过后回到 APP 首页，不要急着充值，先去绑定手机号（否则后续申卡时仍会被要求重新绑定，容易卡流程）：\n\n点击左上角头像 → 进入 「安全设置」 → 点击 「绑定手机号」。\n\n点击手机号前面的区号，选择中国大陆区号 +86，输入你的手机号并接收短信验证码完成绑定即可。（如果有什么提示要谷歌身份验证什么的就跟随提示完成即可）\n\n"
+        },
+        {
+          "number": 5,
+          "title": "第五步：申请开通台湾区 Bybit 卡",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n回到 Bybit APP 首页，点击左上角头像进入个人主页，然后进入开卡页面（地区选择 台湾）。\n\n![操作截图](guides-media/lesson-657ffec5712f/68e8c80349ba58bd25cd01d7517b6606e604812fbd043ef2cd1a3c18b9f5a9dd.png)\n\n\n填写资料与推荐码：\n\n如实填写工作与收入情况。\n\n填入准备好的台湾地址，用地址生成器即可，网上一搜就有，如果没有英文的让ai翻译下就行（无需上传地址证明）。\n\n\n**记住填入推荐码：EX4EDPG（确保解锁 120 U 新客奖励及首月消费 100 U 返 10 U 活动）**\n\n补充尽职调查：系统可能会询问“是否为政治公众人物”（选择 否）、开卡目的、职业情况等，如实勾选即可。\n\n提交后等待审核通过，你的台湾区 Bybit 虚拟卡就正式开通了！\n\n"
+        },
+        {
+          "number": 6,
+          "title": "第六步：购买USDT",
+          "code_blocks": [],
+          "risk_notes": [
+            "如果你的用途只是支付 AI 订阅或其他数字服务，每个月只充值当月实际需要消费的金额，不要超额充值，也不要把交易平台当成长期存钱的地方。\n不要炒币，不要炒币，不要炒币。重要的事情说三遍。十赌九输，请远离投机，理性消费。"
+          ],
+          "markdown": "\n由于 Bybit 无法直接用人民币充值，我们需要先在合规大所购买稳定币 USDT，再提币到 Bybit 账户中激活使用（几乎无损）。\n\n对于区块链小白，我推荐在全球最大的数字货币交易所币安（Binance）进行购买，可以有效避免在其他途径购买收到黑U或者假U。大家可以放心使用币安。\n\n \n\n下面详细介绍从交易所购买加密货币的步骤。\n\n \n\n第一步：下载币安(Binance)APP 并安装\n \n\n对于已经使用梯子的用户，可以打开这个页面 下载 币安(Binance) APP 或者获得下载指引：https://www.binance.com/zh-CN/download\n\n \n\n1.安卓用户下载币安APP：\n安卓用户请务必通过官方渠道下载App，您可以直接复制以下链接到浏览器中打开，然后完成下载、安装。\n\n \n\n下载链接1：https://download.bsmkweb.cc/pack/BNApp64.apk\n\n \n\n也可以发任意邮件至 download@binance.com , 自动获取下载链接。\n\n \n\n2.安卓用户安装币安APP：\n一些安卓手机在完成App 安装包下载之后，可能会出现“安全风险”、“病毒风险”等提示而无法完成安装，您可以参照以下方法完成安装。\n\nhttps://help.roogoo.com/zh-CN/articles/10914411 （注：文中以Roogoo App为例，安装方法是一样的）\n\n \n\n3. iPhone 手机用户下载币安APP：\n \n\niPhone 手机用户下载币安APP需要有海外的 Apple ID ，如果没有你需要重新注册一个。\n\n \n\n建议注册个国家或地区为菲律宾，台湾，新加坡等，币安 App 支持的国家/地区参加： https://www.binance.com/zh-CN/support-region-list ；特别注意不要用美区 Apple ID。\n\n \n\n如何注册海外Apple ID 建议参考这篇文章 https://help.roogoo.com/zh-CN/articles/10625818\n\n \n\n注册完海外 Apple ID 后，打开 App Store 搜索 “币安”或“Binance” ，完成下载即可。\n\n \n\n \n\n第二步：注册币安账号\n打开币安APP，通过邮箱和手机号码注册账号；注册账号完成时会询问是否有人邀请，建议大家填写邀请码：\n\nCPA_00600B9GPP\n\n币安对于填写邀请码的受邀用户，可以享受部分手续费减免，和参与多种活动。\n\n网页端注册：通过我的邀请码注册，您能享受平台提供的专属优惠与返佣。\n\n[点击链接注册](https://www.bsmkweb.net/activity/referral-entry/CPA?ref=CPA%5F00600B9GPP)\n\n在app上登陆后\n![操作截图](guides-media/lesson-657ffec5712f/d4873bc65014f8191ef8f87f21a2314e53c51cb625c0d2934392d54457c20b14.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/cc0ee90c094facfe464fc9dbe74d7cb1aebb58dd1ea2fab634206bfbeced05c3.png)\n第三步：购买 USDT\n在币安购买USDT需要通过C2C交易方式进行，即你先个人购买USDT。大致的流程就是通过币安平台担保，你需要将人民币通过支付宝，微信，银行卡转账的方式，将人民币转账到卖家的个人账户；卖家收到款项后，将USDT 自动汇入你在币安的资金账户，这样交易就完成了。具体购买步骤：\n\n \n\n1、点击APP首页上的C2C买币 或 添加资金 按钮，你就可以进入购买USDT的界面；如图：\n\n![操作截图](guides-media/lesson-657ffec5712f/a1e4060770daa741c5b84e17df79f6a7dda5ecd0235b5f23de1f6830a3203144.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/4ea079615bbbeae933cc43b60ef21f45dc80c3a5424953f3eee08461157af3ba.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/c931a5268aa6782d6ada3e57502a8a249374b1054b07ba6a770230bfa11d63ad.png)\n\n注意！！！要确保自己诚信交易否则可能账号会受限。\n\n> 风险提示：如果你的用途只是支付 AI 订阅或其他数字服务，每个月只充值当月实际需要消费的金额，不要超额充值，也不要把交易平台当成长期存钱的地方。\n> 不要炒币，不要炒币，不要炒币。重要的事情说三遍。十赌九输，请远离投机，理性消费。\n\n"
+        },
+        {
+          "number": 7,
+          "title": "第七步：将 USDT 提币到 Bybit 并绑定消费",
+          "code_blocks": [],
+          "risk_notes": [
+            "请仔细看图，在提币时确保两个平台提币网络一致！！！"
+          ],
+          "markdown": "\n**1. 在 Bybit 获取充币地址**\n\n打开 Bybit APP，点击右下角 「资产」 → 「充值 / 存入加密货币」。\n\n![操作截图](guides-media/lesson-657ffec5712f/cc117c1ecb92dfea258fa2757faccd69f16ad2c4edbe30c99373b3125a717400.png)\n\n搜索并选择 USDT，接着选择一个区块链网络（推荐选择手续费较低的 BSC (BEP20)，务必记清楚所选的网络名称）。\n\n复制生成的充币地址或保存二维码。\n\n![操作截图](guides-media/lesson-657ffec5712f/71be92ee3770e7a66d9f9d25c97d673662e985a7636225fb53f8193f42dd7ea0.png)\n\n！！！注意，在充币之前你要确定充币提币区块链网络，确保充币平台与提币平台是一致的网络。\n\n\n2、在币安(Binance)平台提币，具体步骤：（刚刚那边选的是BSC就按图片来，若为其他网络就选你自己选的网络）\n\n \n\n![操作截图](guides-media/lesson-657ffec5712f/d3be505db6cb9643f33ed8c4a4c285b3efad18db7ecaf988cb50f4f400a9d597.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/e696404dd8fc4d76316a9630ebb052db912998f29674a551a8c4af0b3bad05e1.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/90c8acdd4477ae77845ec962781113727397506c07033167cce3981c38b42d44.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/f89eb3bd213524b6fb98b6bba5d0b98104b36683228eccdb3ae674222786bd49.png)\n\n![操作截图](guides-media/lesson-657ffec5712f/84cfe9b98fa16e7f9cc3134864a6f54f879885ecb007953d09afa27bffa999ec.png)\n这样就可以等待区块链转账完成，在Bybit收到USDT了，然后你再打开主页卡的地方，就会发现卡有一定的额度，那个额度就能用来消费。\n\n之后可将卡片绑定至 Apple Pay、微信支付、支付宝 用于日常刷卡消费，或前往 ChatGPT、Claude、Gemini 等官网直接绑定订阅，即可享受 2% – 10% 返现！\n \n\n> 风险提示：请仔细看图，在提币时确保两个平台提币网络一致！！！\n\n"
+        },
+        {
+          "number": 8,
+          "title": "总结",
+          "code_blocks": [],
+          "risk_notes": [],
+          "markdown": "\n相比市面上各类小平台虚拟卡，台湾区 Bybit 卡背靠全球头部交易所，不仅免年费、消费有返现、支持微信支付宝，现阶段还免去了护照和地址证明的门槛，是目前内地用户解决海外支付的最优解之一。\n\n最后提醒大家注意 2个细节：\n\n网络与号码：注册和申卡全程保持台湾（或韩国）节点，避开美国、日本、香港 IP；手机号直接使用中国大陆 +86 手机号接收验证码绑定即可。\n\n留意自动续费：按需入金消费，同时记好 ChatGPT 等会员的自动续费日期，提前确保资金账户内余额充足，避免扣款失败影响账号信用。\n"
         }
       ]
     },
