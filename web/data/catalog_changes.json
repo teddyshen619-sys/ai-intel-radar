@@ -1,8 +1,10 @@
 {
-  "updated_at": "2026-11-22T07:05:45.557659+00:00",
-  "previous_updated_at": "2026-11-21T13:47:23.288243+00:00",
+  "updated_at": "2026-11-23T05:41:30.250994+00:00",
+  "previous_updated_at": "2026-11-22T07:05:45.557659+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
-  "new_free": [],
+  "new_free": [
+    "dots-studio/dots-3-note-preview:free"
+  ],
   "price_changes": [],
   "expiring": []
 }

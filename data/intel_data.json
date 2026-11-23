@@ -1,12 +1,81 @@
 {
-  "updated_at": "2026-11-22T15:15:35+08:00",
+  "updated_at": "2026-11-23T13:47:29+08:00",
   "items": [
+    {
+      "id": "ai-20261123-01",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "URGENT",
+      "vendor": "OpenAI",
+      "priority": 98,
+      "metric_badge": "困惑度 0.99->0.76",
+      "impact": "关注前沿模型预训练边界、思维链监控与行业算力治理机制的研究者及开发者",
+      "title": "OpenAI 首席科学家首曝内部预训练困惑度曲线：突破 0.76 触发数学质变，呼吁行业共设“限速阈值”",
+      "value_tag": "首曝内部曲线 · 倡议限速",
+      "tldr": "OpenAI 首席科学家 Jakub Pachocki 发表《Perplexity and Intelligence》，首次公开历代模型在内部保留代码库上的对数困惑度（log-perplexity）轨迹（从 GPT-3.5 的 ~0.99 压至前沿模型 ~0.76），呼吁各大前沿实验室围绕困惑度与监控指标共同设定开发上限。",
+      "details": [
+        "首次公开内部预训练标尺：在固定的 OpenAI 内部保留代码库评测集上，对数困惑度（交叉熵损失）从 GPT-3.5 的约 0.99（实现流畅对话）降至 GPT-4 的约 0.91（解锁高产思维链推理），再到低于 0.80 时涌现网络安全与高等数学跃迁。",
+        "0.76 临界点与能力跳变：Pachocki 披露，当内部前沿模型对数困惑度触及约 0.76 阈值时，模型开始在内部测试中连续独立攻克长期悬而未决的开放数学难题；同时指出思维链（CoT）虽大幅提升执行力，但本身并不降低基座困惑度。",
+        "2027 自动化加速预警：文章警告随着预训练压缩持续推进，AI 最快可能在 2027 年前后具备加速深度学习自身研发的闭环能力，导致传统滞后式跑分评估失效。",
+        "跨实验室“共同限速”倡议：OpenAI 提议前沿实验室以预训练困惑度等客观连续指标锚定共同开发上限（Common Limits），在思维链监控器（CoT Monitors）与对齐护栏达到明确里程碑前承诺不单方面越线；Sam Altman 公开背书称其为公司近期最重要文章之一。"
+      ],
+      "action_snippet": "",
+      "source_platform": "OpenAI News",
+      "source_url": "https://openai.com/index/perplexity-and-intelligence",
+      "story": [
+        {
+          "heading": "把黑盒跑分拉回底层物理量：从 0.99 到 0.76 的预训练底牌",
+          "paragraphs": [
+            "过去两年，AI 行业饱受基准测试刷榜、测试集污染与合成数据过拟合的困扰，外界很难判断新一代旗舰究竟是底层智能提升，还是针对特定考题做了后训练特化。北京时间 11 月 22 日，OpenAI 首席科学家 Jakub Pachocki 在官方博客罕见抛出硬核长文《Perplexity and Intelligence》，首次将公司内部最核心的预训练温度计——在标准化内部保留代码库（held-out codebase）上的对数困惑度（log-perplexity）轨迹公之于众。",
+            "Pachocki 给出的四档历史刻度清晰勾勒出预训练压缩与宏观智能跃迁的映射关系：GPT-3.5 落在约 0.99，跨过了自然语言流畅交互门槛；GPT-4 压至约 0.91，恰好越过模型能够高效利用思维链（Chain-of-Thought）进行多步推理的分水岭；进入 0.80 以下区间后，网络安全攻防与高阶数理能力开始陡然抬升；而当内部前沿模型下探至约 0.76 时，研究团队观测到模型开始在内部评测中接连解开长期未决的开放数学难题。"
+          ]
+        },
+        {
+          "heading": "基座压缩与后训练推理的双轮耦合，为何让 2027 充满变数",
+          "paragraphs": [
+            "文章特别澄清了一个近年常见的技术误区：以强化学习驱动的思维链推理虽然在终端任务上带来了巨大的能力增益，但它改变的是测试时算力的组织效率，并不会直接压低基座模型的对数困惑度。真正决定推理上限天花板的，依然是预训练阶段对海量代码与人类知识结构的无损压缩深度。",
+            "当更低困惑度的预训练基座与长程强化学习结合，能力演进往往呈现“平时线性下降、跨过阈值突然质变”的非线性特征。Pachocki 判断，如果放任各大实验室在算力军备竞赛中无约束地继续下探预训练损失，模型在 2027 年前后极可能触及“自主加速深度学习研发”的正反馈拐点，届时人类安全团队制定评测与审计规则的速度将被模型迭代远远甩开。"
+          ]
+        },
+        {
+          "heading": "用可核查困惑度充当行业“限速表”：理想共识与现实博弈",
+          "paragraphs": [
+            "正是基于“限速必须先统一车速表”的工程逻辑，Pachocki 代表 OpenAI 向全行业发出了设立“共同开发上限”（Common Limits）的倡议：各大前沿实验室应围绕预训练困惑度等难以作弊的底层指标划定阶段性红线，唯有当自动化对齐机制与高可靠思维链监控器（CoT Monitors）率先通过验证里程碑，行业才同步解锁下一档预训练规模。",
+            "这篇由 Sam Altman 亲自转发并盛赞为“OpenAI 相当长一段时间内最重要发布之一”的文章，迅速在硅谷与华盛顿引发激辩。支持者认为，相比空泛的政治口号，对数困惑度首次给跨机构算力核查提供了一个可量化、可审计的技术锚点；但审慎派也指出，不同实验室的训练语料配比、分词器（Tokenizer）词表效率乃至架构范式（如循环层与稀疏 MoE）都会影响绝对困惑度读数，如何在商业竞争白热化的当下建立跨公司的互信校准集，仍是横亘在纸面倡议与落地条约之间的最大考题。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-20261123-02",
+      "date": "2026-11-23",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "URGENT",
+      "vendor": "Dots Studio / OpenRouter",
+      "priority": 95,
+      "metric_badge": "$0/M · 512K · 全模态",
+      "impact": "需要零成本测试超长文档、原生音视频理解及长程 Agent 工具调用的开发者",
+      "title": "OpenRouter 新增免费全模态 MoE 模型 Dots3-Note Preview：512K 上下文 + 原生音视频与工具调用",
+      "value_tag": "0 费用 · 512K 全模态",
+      "tldr": "OpenRouter 最新目录上线小红书 AI 实验室 Dots Studio 开源权重模型 dots-studio/dots-3-note-preview:free（总参 280B / 激活 16B），免费开放 512K 上下文、460K 最大输出、原生图文音视频输入及函数调用。",
+      "details": [
+        "核心架构规格：采用稀疏 MoE 架构（总参 280B，256 个路由专家 + 1 个共享专家，每 Token 仅激活 16B），权重以 Apache 2.0 协议开源。",
+        "OpenRouter 免费配额：模型 ID 为 dots-studio/dots-3-note-preview:free，输入与输出均为 $0/M，开放高达 512,000 上下文窗口与 460,800 最大输出上限，原生支持 tools 调用。",
+        "全模态与长程强化学习：支持文本、图像、音频及带音轨视频联合输入；底层引入 TEMPO 强化学习框架，专门优化数小时跨度的长程 Agent 自我评估与记忆管理。",
+        "有效期提醒：OpenRouter 目录元数据标注该免费预览通道当前设定到期日为 2026-12-31，适合近期低成本跑通多模态知识库与长代码仓分析工作流。"
+      ],
+      "action_snippet": "dots-studio/dots-3-note-preview:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=dots-studio%2Fdots-3-note-preview%3Afree"
+    },
     {
       "id": "ai-20261122-01",
       "date": "2026-11-22",
       "channel": "INTEL",
       "type": "MODEL",
-      "status": "URGENT",
+      "status": "ACTIVE",
       "vendor": "Lean FRO / MIT / Anthropic",
       "priority": 100,
       "metric_badge": "175,187 模块 · 0 错误",
@@ -53,75 +122,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "ai-20261121-02",
-      "date": "2026-11-21",
-      "channel": "INTEL",
-      "type": "POLICY",
-      "status": "URGENT",
-      "vendor": "DeepSeek",
-      "priority": 96,
-      "impact": "所有在 OpenRouter 路由 DeepSeek V4 Flash 系列的成本敏感型与视觉推理应用",
-      "title": "OpenRouter DeepSeek 夜间大跳水：V4.1 Flash 回落 -83.4% 至 $0.0498/$0.1992/M，Vision Exp 砍半",
-      "value_tag": "-83.4% · 重返低价",
-      "tldr": "OpenRouter 21:47 最新快照逆转凌晨涨势：无后缀款 deepseek/deepseek-v4.1-flash 输入/输出/缓存同步大降 83.4%，反超 -1017 固定价版便宜 66.8%；视觉实验款 deepseek/deepseek-v4-flash-vision-exp 亦全线砍半降价 51%。",
-      "details": [
-        "V4.1 Flash 回落：输入从 $0.30 降至 $0.0498/M，输出由 $1.20 降至 $0.1992/M，缓存读取由 $0.006 降至 $0.000996/M，降幅均达 -83.4%。",
-        "版本价差倒挂：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 仍维持 $0.15/$0.60/$0.003/M，此前因避险切往 -1017 的调用方现可切回。",
-        "Vision Exp 降价：多模态型号 deepseek/deepseek-v4-flash-vision-exp（1M 上下文）输入/输出/缓存同步下调 -51.0% 至 $0.2156 / $0.6468 / $0.00686/M。",
-        "操作建议：OpenRouter 无后缀路由价格浮动频繁，建议在网关层结合价格报警或对预算严格路由保留 -1017 固定价模型 ID 作为回退开关。"
-      ],
-      "action_snippet": "{\n  \"model\": \"deepseek/deepseek-v4.1-flash\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"Analyze logs\"}]\n}",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash",
-      "metric_badge": "-83.4% · $0.0498/M"
-    },
-    {
-      "id": "ai-20261121-01",
-      "date": "2026-11-21",
-      "channel": "RADAR",
-      "type": "DEAL",
-      "status": "URGENT",
-      "vendor": "Google",
-      "priority": 96,
-      "impact": "寻求高性价比开源多模态（文本+图像+视频）与原生工具调用接口的开发者",
-      "title": "OpenRouter 新增免费 Google Gemma 4 26B A4B：仅 3.8B 激活参量支持 256K 与 60 秒视频理解",
-      "value_tag": "0 费用 · 视频+工具",
-      "tldr": "OpenRouter 北京时间 2026-11-21 21:47 快照新上线免费模型 google/gemma-4-26b-a4b-it:free，Apache 2.0 协议开源，总参 25.2B / 每 token 仅激活 3.8B，提供 262K 上下文、原生函数调用与最长达 60 秒 1fps 视频输入。",
-      "details": [
-        "模型规格：采用稀疏 MoE 架构（总参 25.2B / 激活 3.8B），OpenRouter 配置 262,144 上下文窗口与 32,768 最大输出，输入输出均 $0/M。",
-        "多模态与工程：除文本与多图外支持 60s@1fps 视频理解、可配置 thinking 模式、结构化 JSON 输出与原生 tools 调用，Apache 2.0 可商用。",
-        "实测基准：Artificial Analysis 推理模式下 GPQA Diamond 79.2%、IFBench 72.4%、AA-LCR 65.7%，非推理 MMMU-Pro 66.7%、SciCode 40.0%。",
-        "线上性能：Google AI Studio 免费上游通道实测中位延迟 1.11s、吞吐约 42 tok/s、近 3 日在线率 100.00%（综合可用率 99.52%）。"
-      ],
-      "action_snippet": "google/gemma-4-26b-a4b-it:free",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=google%2Fgemma-4-26b-a4b-it%3Afree",
-      "metric_badge": "$0/M · 262K · 视频"
-    },
-    {
-      "id": "ai-20261121-04",
-      "date": "2026-11-21",
-      "channel": "RADAR",
-      "type": "BUG",
-      "status": "URGENT",
-      "vendor": "Cline",
-      "priority": 94,
-      "impact": "在 VS Code 中挂载第三方或数据库/本地写权限 MCP Server 的 Cline 用户",
-      "title": "安全隐患 #15817：Cline 默认静默自动批准全部已安装 MCP 工具调用，v4.1.27 仅加“只读”UI 徽标未改默认值",
-      "value_tag": "高危默认放行 · 未修",
-      "tldr": "GitHub Issue #15817 披露 Cline 默认设置 DEFAULT_AUTO_APPROVAL_SETTINGS 中将 useMcp 设为 true，只要工具名包含双下划线 serverName__toolName 即跳过用户确认直接执行；今天发布的 v4.1.27 仅补了 UI 只读标记，未修改默认开关。",
-      "details": [
-        "源码实锤路径：在主分支 e8227d6f 中 AutoApprovalSettings.ts 第 41 行默认 useMcp: true（同期命令执行 executeSafeCommands 为 false）。",
-        "无分工具粒度：sdk-tool-policies.ts 仅以 toolName.indexOf(\"__\") > 0 判定是否为 MCP 工具，源码注释直言全局一刀切开关且无单工具 opt-in。",
-        "v4.1.27 现状：今晨 06:05 发布的 v4.1.27（8075d2e）仅对声明为只读的 MCP 工具增加 UI“read-only”徽标，useMcp 默认值依然保持为 true。",
-        "避坑提示：该问题无 CVE 编号但极易误触发破坏性外部工具调用，使用 Cline 时请立即在 Auto-approve 面板取消勾选 Use MCP servers 并逐一审核挂载的 MCP 权限。"
-      ],
-      "action_snippet": "",
-      "source_platform": "GitHub · cline/cline",
-      "source_url": "https://github.com/cline/cline/issues/15817",
-      "metric_badge": "useMcp: true · 未改默认"
     },
     {
       "id": "ai-20261120-28",
@@ -283,6 +283,52 @@
       ]
     },
     {
+      "id": "ai-20261121-02",
+      "date": "2026-11-21",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "DeepSeek",
+      "priority": 96,
+      "impact": "所有在 OpenRouter 路由 DeepSeek V4 Flash 系列的成本敏感型与视觉推理应用",
+      "title": "OpenRouter DeepSeek 夜间大跳水：V4.1 Flash 回落 -83.4% 至 $0.0498/$0.1992/M，Vision Exp 砍半",
+      "value_tag": "-83.4% · 重返低价",
+      "tldr": "OpenRouter 21:47 最新快照逆转凌晨涨势：无后缀款 deepseek/deepseek-v4.1-flash 输入/输出/缓存同步大降 83.4%，反超 -1017 固定价版便宜 66.8%；视觉实验款 deepseek/deepseek-v4-flash-vision-exp 亦全线砍半降价 51%。",
+      "details": [
+        "V4.1 Flash 回落：输入从 $0.30 降至 $0.0498/M，输出由 $1.20 降至 $0.1992/M，缓存读取由 $0.006 降至 $0.000996/M，降幅均达 -83.4%。",
+        "版本价差倒挂：带日期后缀的 deepseek/deepseek-v4.1-flash-1017 仍维持 $0.15/$0.60/$0.003/M，此前因避险切往 -1017 的调用方现可切回。",
+        "Vision Exp 降价：多模态型号 deepseek/deepseek-v4-flash-vision-exp（1M 上下文）输入/输出/缓存同步下调 -51.0% 至 $0.2156 / $0.6468 / $0.00686/M。",
+        "操作建议：OpenRouter 无后缀路由价格浮动频繁，建议在网关层结合价格报警或对预算严格路由保留 -1017 固定价模型 ID 作为回退开关。"
+      ],
+      "action_snippet": "{\n  \"model\": \"deepseek/deepseek-v4.1-flash\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"Analyze logs\"}]\n}",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash",
+      "metric_badge": "-83.4% · $0.0498/M"
+    },
+    {
+      "id": "ai-20261121-01",
+      "date": "2026-11-21",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 96,
+      "impact": "寻求高性价比开源多模态（文本+图像+视频）与原生工具调用接口的开发者",
+      "title": "OpenRouter 新增免费 Google Gemma 4 26B A4B：仅 3.8B 激活参量支持 256K 与 60 秒视频理解",
+      "value_tag": "0 费用 · 视频+工具",
+      "tldr": "OpenRouter 北京时间 2026-11-21 21:47 快照新上线免费模型 google/gemma-4-26b-a4b-it:free，Apache 2.0 协议开源，总参 25.2B / 每 token 仅激活 3.8B，提供 262K 上下文、原生函数调用与最长达 60 秒 1fps 视频输入。",
+      "details": [
+        "模型规格：采用稀疏 MoE 架构（总参 25.2B / 激活 3.8B），OpenRouter 配置 262,144 上下文窗口与 32,768 最大输出，输入输出均 $0/M。",
+        "多模态与工程：除文本与多图外支持 60s@1fps 视频理解、可配置 thinking 模式、结构化 JSON 输出与原生 tools 调用，Apache 2.0 可商用。",
+        "实测基准：Artificial Analysis 推理模式下 GPQA Diamond 79.2%、IFBench 72.4%、AA-LCR 65.7%，非推理 MMMU-Pro 66.7%、SciCode 40.0%。",
+        "线上性能：Google AI Studio 免费上游通道实测中位延迟 1.11s、吞吐约 42 tok/s、近 3 日在线率 100.00%（综合可用率 99.52%）。"
+      ],
+      "action_snippet": "google/gemma-4-26b-a4b-it:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=google%2Fgemma-4-26b-a4b-it%3Afree",
+      "metric_badge": "$0/M · 262K · 视频"
+    },
+    {
       "id": "ai-20261118-04",
       "date": "2026-11-18",
       "channel": "INTEL",
@@ -346,6 +392,29 @@
       "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
     },
     {
+      "id": "ai-20261121-04",
+      "date": "2026-11-21",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Cline",
+      "priority": 94,
+      "impact": "在 VS Code 中挂载第三方或数据库/本地写权限 MCP Server 的 Cline 用户",
+      "title": "安全隐患 #15817：Cline 默认静默自动批准全部已安装 MCP 工具调用，v4.1.27 仅加“只读”UI 徽标未改默认值",
+      "value_tag": "高危默认放行 · 未修",
+      "tldr": "GitHub Issue #15817 披露 Cline 默认设置 DEFAULT_AUTO_APPROVAL_SETTINGS 中将 useMcp 设为 true，只要工具名包含双下划线 serverName__toolName 即跳过用户确认直接执行；今天发布的 v4.1.27 仅补了 UI 只读标记，未修改默认开关。",
+      "details": [
+        "源码实锤路径：在主分支 e8227d6f 中 AutoApprovalSettings.ts 第 41 行默认 useMcp: true（同期命令执行 executeSafeCommands 为 false）。",
+        "无分工具粒度：sdk-tool-policies.ts 仅以 toolName.indexOf(\"__\") > 0 判定是否为 MCP 工具，源码注释直言全局一刀切开关且无单工具 opt-in。",
+        "v4.1.27 现状：今晨 06:05 发布的 v4.1.27（8075d2e）仅对声明为只读的 MCP 工具增加 UI“read-only”徽标，useMcp 默认值依然保持为 true。",
+        "避坑提示：该问题无 CVE 编号但极易误触发破坏性外部工具调用，使用 Cline 时请立即在 Auto-approve 面板取消勾选 Use MCP servers 并逐一审核挂载的 MCP 权限。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub · cline/cline",
+      "source_url": "https://github.com/cline/cline/issues/15817",
+      "metric_badge": "useMcp: true · 未改默认"
+    },
+    {
       "id": "ai-20261120-20",
       "date": "2026-11-20",
       "channel": "RADAR",
@@ -407,6 +476,52 @@
       "action_snippet": "",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/langgenius/dify/releases/tag/1.20.0"
+    },
+    {
+      "id": "ai-20261123-03",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "Anthropic / Energy",
+      "priority": 93,
+      "metric_badge": "HN 932赞 · 87%燃气+11%煤",
+      "impact": "关注 AI 算力基础设施扩张、自建电厂（BYOP）趋势与云厂商碳排成本的从业者",
+      "title": "HN 932 赞能源报告拆解 AI 算力真实底色：Anthropic 到 2028 年预计 87% 电力靠天然气、11% 靠燃煤",
+      "value_tag": "98% 化石能源 · 算力真相",
+      "tldr": "独立能源研究机构 Better Data Center Project 发布自建供电（BYOP）与电网边际电力拆解报告：经对 Anthropic 算力布局建模，预计其 2028 年约 87% 电力来自天然气、11% 来自燃煤，在美公开可再生能源直签几近空白。",
+      "details": [
+        "能源结构测算：综合表后自建燃气机组（Behind-the-Meter）与所在区域电网承接新增负荷的边际火电机组，报告测算 Anthropic 2028 年电力来源中天然气占 87%、燃煤占 11%，合计约 98% 依赖化石能源。",
+        "BYOP 燃气潮主导：为绕开长达数年的公共电网并网排队，前沿实验室与基建商正大规模转向“自带电源”（BYOP）模式，直接采购 Caterpillar 等重型燃气轮机现场发电。",
+        "绿电承诺缺位与排放规模：研究指出 Anthropic 目前在美国尚未披露任何具有约束力的新增可再生能源直购合同，按其吉瓦级算力扩张推算，到 2028 年每年将产生数千万公吨二氧化碳排放。",
+        "社区热议焦点：该报告在 Hacker News 斩获 932 赞与超 930 条评论，工程师围绕“24x7 基荷训练刚需下风光储成本瓶颈”、“核电建设周期错配”及科技巨头环保叙事退潮展开激烈交锋。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Better Data Center Project / HN",
+      "source_url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power/",
+      "story": [
+        {
+          "heading": "排队等电网不如自己买燃机：席卷北美算力圈的 BYOP 模式",
+          "paragraphs": [
+            "当单座 AI 训练集群的功耗从百兆瓦级直接跃升至吉瓦（GW）级，决定大模型迭代速度的第一物理瓶颈早已从 GPU 产能转向了变压器与电力并网许可。在美国多个核心输电区域，新建大型负荷接入公共电网的审批与扩容排队动辄需要四到七年，没有任何一家正处于生死竞速中的前沿实验室愿意原地苦等。",
+            "Better Data Center Project 在这份引发 Hacker News 近千条评论的深度调查中，系统梳理了科技巨头破局的统一动作——BYOP（Bring Your Own Power，自带电源）。所谓 BYOP，即数据中心开发商不再依赖公用事业公司统购电力，而是直接在园区围墙内（表后，Behind-the-Meter）自建专属发电厂。而在所有可快速交付的发电设备中，单循环与联合循环重型燃气轮机凭借建设快、出力稳的绝对优势，拿下了当前全美 BYOP 规划容量的压倒性份额。"
+          ]
+        },
+        {
+          "heading": "拆解 Anthropic 2028 电力账本：为何清洁口号撞上 98% 化石现实",
+          "paragraphs": [
+            "报告选取刚刚完成纳斯达克重磅上市的 Anthropic 作为典型样本，对其已披露的多吉瓦级算力租约、自建园区选址及设备供应链进行了逐项溯源。建模结果显示，到 2028 年算力承诺集中兑现时，支撑 Anthropic 运转的每一度电里，预计有约 87% 来自天然气发电，另有约 11% 来自燃煤机组。",
+            "这一看似惊人的比例由两部分叠加而成：其一是园区自备的重型燃气轮机直接消耗天然气；其二是接入公共电网的部分大量落户于天然气与煤炭占比极高的传统电力市场。由于预训练集群需要全年无休（24/7/365）的恒定高负荷供电，在缺乏超大规模长时储能配套的情况下，园区新增的每一兆瓦负荷，在电网调度物理层面上几乎全部由当地随叫随到的边际燃煤与燃气电厂兜底，而研究团队并未查到 Anthropic 在美国本土签下对应规模的新增绿电直供协议。"
+          ]
+        },
+        {
+          "heading": "年排数千万吨碳背后：科技圈对能源物理规律的重新算账",
+          "paragraphs": [
+            "按高强度燃气与煤电排放因子折算，单家顶级 AI 实验室在 2028 年前后的年碳排放量就将飙升至数千万公吨级别，体量足以匹敌美国部分中等州全境的发电厂总排放。这组硬核数据在技术社区引发了罕见的务实讨论。",
+            "不少基础设施工程师在评论区直言，过去十年互联网巨头引以为傲的“100% 可再生能源匹配”多依赖购买异地绿证（REC）做财务对冲，而全天候满载运转的 AI 算力中心彻底撕开了账面绿电与物理电网之间的时间错配。在小型模块化核反应堆（SMR）与低成本长时储能真正规模化商用之前，AI 算力的狂飙突进在未来三到五年内，几乎注定要靠传统燃气机组来硬扛底座。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261121-05",
@@ -713,6 +828,29 @@
       "source_url": "https://github.com/OpenHands/OpenHands/issues/19823"
     },
     {
+      "id": "ai-20261123-04",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 91,
+      "metric_badge": "四大模块 · 分钟级止损",
+      "impact": "构建后台自治代码修复 Agent、APM 性能监控闭环与大规模研发效能平台的工程团队",
+      "title": "OpenAI 揭秘内部“Performance Factory”架构：用云端 Codex 全自动定位并修复数千起 ChatGPT 延迟退化",
+      "value_tag": "日均数十起 · 自动提补丁",
+      "tldr": "OpenAI 工程团队公开内部性能守护系统 Performance Factory：当线上遥测或代码变更触发微秒/毫秒级延迟回退时，系统自动唤醒 Cloud Codex 读取火焰图与链路日志，在隔离沙盒验证优化补丁后直接提交人工合入。",
+      "details": [
+        "四层核心架构：由 Task Service（性能任务建模）、Subscription System（监听部署完成、指标越界与 GitHub 评审评论）、Dispatch Loop（任务分发调度）及 Cloud Codex（云端隔离推理与执行引擎）闭环组成。",
+        "全链路自动排障：出现延迟毛刺时，Codex 自动拉取线上 Profiling 采样、分布式 Trace 与资源指标，精准溯源至冗余计算、低效 SQL 查询或内存分配热点代码段。",
+        "沙盒实证后提审：所有候选补丁均先在隔离压测环境中跑完基准验证与回归测试，确认收益后再打包根因报告与 PR 交由人类工程师审批合并。",
+        "线上实战战果：系统已累计自动执行数千次性能调查（日均处理数十起），成功揪出数百起生产环境性能退化根因，将排障周期从数小时乃至数天压缩至分钟级。"
+      ],
+      "action_snippet": "",
+      "source_platform": "OpenAI News",
+      "source_url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast"
+    },
+    {
       "id": "ai-20261122-02",
       "date": "2026-11-22",
       "channel": "RADAR",
@@ -953,6 +1091,29 @@
       "action_snippet": "export CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME=1",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328"
+    },
+    {
+      "id": "ai-20261123-05",
+      "date": "2026-11-23",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "status": "ACTIVE",
+      "vendor": "Earendil / Armin Ronacher",
+      "priority": 89,
+      "media_url": "https://i3.ytimg.com/vi/JNexz3Tbiu8/hqdefault.jpg",
+      "metric_badge": "141 仓库 · P90 14分钟",
+      "impact": "重度使用 Claude Code / Codex / Pi 等编程 Agent 并思考团队研发范式的开发者",
+      "title": "Flask 之父 Armin Ronacher 复盘一年期编码代理数据：新建 141 个仓库仅留存 10%，人类注意力已成真瓶颈",
+      "value_tag": "一年期真实会话复盘",
+      "tldr": "Flask 作者、Earendil 联创 Armin Ronacher 在 AI Engineer 放出过去一年使用极简编码代理 Pi 的真实遥测：日均提问稳定在 120~190 次，单任务 P90 自治时长从 2.5 分钟拉长至 14 分钟，但 141 个新建仓库仅 10~15 个持续维护。",
+      "details": [
+        "自治时长跃迁：在 Pi 核心工具集一年未变的前提下，仅靠底层大模型进化，单次任务 P90 连续运行时间便从 2.5 分钟涨至 14 分钟，人工中途纠偏次数显著下降。",
+        "141 个仓库的留存悖论：一年内借助 AI 轻松拉起 141 个 Git 项目，但最终保持常规提交的仅 10~15 个（约 10%），其余大多沦为“车库里半途而废的木工半成品”。",
+        "工坊优于软件工厂：Ronacher 反对盲目追求无人值守流水线（Software Factory），主张先打造趁手的“匠人工坊”（Workshop），用极简 Bash Agent 底座配合工程师可理解的认知节奏交付高复杂度精品。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube · AI Engineer",
+      "source_url": "https://www.youtube.com/watch?v=JNexz3Tbiu8"
     },
     {
       "id": "ai-20261122-04",
@@ -1330,6 +1491,28 @@
       "source_url": "https://www.youtube.com/watch?v=vlfCjWuv4es"
     },
     {
+      "id": "ai-20261123-06",
+      "date": "2026-11-23",
+      "channel": "RADAR",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "vendor": "Unsloth / Local AI",
+      "priority": 86,
+      "metric_badge": "HN 370赞 · 15分钟部署",
+      "impact": "希望在 Windows 消费级显卡（8GB~32GB 显存）上零门槛搭建家庭局域网私有 AI 的用户",
+      "title": "HN 370 赞保姆级本地部署指南：用 Unsloth Desktop 在 Windows 显卡零命令行跑通 Inkling 与 Qwen",
+      "value_tag": "15 分钟建家庭私有 AI",
+      "tldr": "GPU Partner 发布的 Windows 本地大模型实战教程登顶 Hacker News 热门（370 赞）：无需配置 Python 环境或敲终端命令，基于 Unsloth Desktop 15 分钟即可拉起 GGUF 量化的 Inkling 与 Qwen 并开放家庭局域网共享。",
+      "details": [
+        "零终端图形化栈：直接通过 Unsloth Desktop 统一管理模型下载、GGUF 动态量化加载与对话界面，彻底绕开繁琐的 CUDA/Python 依赖冲突。",
+        "显存分级选型：高端 32GB 显存（如 RTX 5090）可满血跑高阶多模态与推理权重，主流 8GB~12GB 消费级显卡则搭配高压缩比 GGUF 版 Qwen 与 Thinking Machines 开源的 Inkling 系列。",
+        "局域网多端直连：内置一键开启家庭 LAN 局域网服务开关，手机与平板无需额外内网穿透即可在完全离线隐私环境下共享同一台主机算力。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GPU Partner / Hacker News",
+      "source_url": "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth"
+    },
+    {
       "id": "ai-20261121-08",
       "date": "2026-11-21",
       "channel": "REVIEW",
@@ -1585,6 +1768,28 @@
       "action_snippet": "# 校验时强制从默认基线分支读取 REVIEW.md，防止 PR 篡改验收规则\ngit fetch origin main && git show origin/main:REVIEW.md\n\n# 在代码目录就近创建 E2E 冒烟验证技能目录：\n# .claude/skills/verify/",
       "source_platform": "Hacker News",
       "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"
+    },
+    {
+      "id": "ai-20261123-07",
+      "date": "2026-11-23",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "LangGraph",
+      "priority": 84,
+      "metric_badge": "Issue #9762 · TypeError",
+      "impact": "使用 LangGraph RemoteGraph 构建“先建会话线程、发首条消息前预读状态”前端流程的团队",
+      "title": "LangGraph 远程图状态读取缺陷（#9762）：对新建未运行线程调用 RemoteGraph.get_state 直接抛 TypeError",
+      "value_tag": "新会话初始化崩溃避坑",
+      "tldr": "GitHub Issue #9762 披露，当客户端通过 RemoteGraph 连接远端部署服务时，对刚创建、尚未执行首次图推理的空 Thread 调用 get_state() 或 aget_state() 会直接抛出 TypeError，而非像底层 SDK 一样返回空状态。",
+      "details": [
+        "触发条件对比：同一空线程直接调用 LangGraph SDK 原生接口可正常返回预期空状态，但经由 RemoteGraph 封装层同步或异步拉取 Checkpoint 时因未处理空载荷直接触发 TypeError。",
+        "受影响业务流：凡采用“进入新聊天页先创建 thread_id -> 立即调用 get_state 渲染初始 UI -> 等待用户输入首条消息”的对话应用均会在初始化阶段报错中断。",
+        "临时规避方案：在官方合入空状态判空补丁前，建议前端/网关对新建未执行的 thread_id 跳过首次 get_state 预读，或在外层捕获 TypeError 回退为空字典状态。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub · langchain-ai/langgraph",
+      "source_url": "https://github.com/langchain-ai/langgraph/issues/9762"
     },
     {
       "id": "ai-20261122-07",
