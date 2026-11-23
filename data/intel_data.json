@@ -1,6 +1,52 @@
 {
-  "updated_at": "2026-11-23T13:47:29+08:00",
+  "updated_at": "2026-11-24T00:04:32+08:00",
   "items": [
+    {
+      "id": "ai-20261123-08",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "URGENT",
+      "vendor": "NVIDIA",
+      "priority": 99,
+      "metric_badge": "11天闪电复职 · 暴涨30%+",
+      "impact": "关注全球 AI 算力供应链稳定、英伟达治理走向与美国出口管制审查的全行业从业者",
+      "title": "英伟达上演 11 天惊天反转：董事会全票恢复黄仁勋 CEO 职务，美政府高层背书“无国安风险”后股价暴涨逾 30%",
+      "value_tag": "全票复职 · 盘中暴涨 30%+",
+      "tldr": "辞职仅 11 天后，英伟达董事会于美东时间 11 月 23 日早间宣布全票恢复黄仁勋总裁、CEO 及董事职务（即刻生效）。董事会称经听取美国政府高层意见确认其回归无国家安全风险，特朗普亦引述司法部长表态公开背书，NVDA 股价随即飙升逾 30%。",
+      "details": [
+        "董事会全票决议与管理层交接：英伟达官方公告确认，经与黄仁勋多轮深入沟通，董事会全票通过其即刻复职；此前临危受命担任代理 CEO 的首席财务官 Colette Kress 回归专职 CFO，Harvey C. Jones 继续留任董事会主席。",
+        "美国政府高层定调无国安风险：此前黄仁勋于 11 月 12 日因个人婚外情风波（含美方一度怀疑其中一名交往对象与中国情报机构存在关联）突然辞职；英伟达声明指出本轮复职已获美国政府高层意见输入，确认不构成国家安全风险。",
+        "白宫表态与出口管制后续：美国总统特朗普同日公开支持黄仁勋回归，引述美国司法部长结论称“未发现任何违法不当证据”，同时敦促英伟达继续推进内部出口管制合规审查。",
+        "资本市场剧烈反弹：复职公告发出后，此前因群龙无首承压的英伟达股价在美股盘前及早盘瞬间飙涨超 30%，创下美股科技巨头单日市值回血历史级纪录。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge / NVIDIA",
+      "source_url": "https://www.theverge.com/tech/1039937/nvidia-ceo-jensen-huang-reinstated",
+      "story": [
+        {
+          "heading": "从 11 月 12 日闪电辞职到周一早盘全票召回",
+          "paragraphs": [
+            "过去十一天里，全球价值数万亿美元的 AI 基础设施产业链经历了自 2023 年底 OpenAI 宫斗以来最剧烈的一次权力震荡。11 月 12 日，执掌英伟达三十余年的联合创始人黄仁勋因两段婚外关系曝光突然宣布辞去 CEO 与董事职务——其中一段涉及公司下属，另一段交往对象则一度被美国有关部门怀疑具有涉外情报背景。尽管资深首席财务官 Colette Kress 迅速接任代理 CEO 稳住日常运营，硅谷多家头部大模型实验室与云巨头高管仍在过去一周密集公开呼吁迎回黄仁勋。",
+            "转折在美东时间 11 月 23 日（周一）开盘前突然落地。英伟达发布官方声明宣布，董事会在与黄仁勋进行系列严肃会谈后，对其坦诚态度与继续领导公司的能力感到满意，全票表决恢复其总裁、首席执行官及董事会成员身份，且即刻生效。董事会主席 Harvey C. Jones 留任原职并公开致谢 Colette Kress 在过渡期的稳健掌舵，黄仁勋则在声明中表示将以“最大的谦逊与重塑的承诺”回归岗位。"
+          ]
+        },
+        {
+          "heading": "华盛顿绿灯成关键胜负手：排除国安隐患但保留合规督导",
+          "paragraphs": [
+            "真正为这场反转扫清最大障碍的并非商业游说，而是来自华盛顿的安全背书。由于英伟达掌握着全球前沿 AI 训练集群命脉，外界此前最核心的恐慌在于涉事关系是否触发反间谍或机密外泄调查。英伟达董事会在复职公告中罕见写明：在做出决议过程中，董事会专门听取了“美国政府高层”（senior levels of the United States government）的输入意见，并据此确信黄仁勋复职不会带来任何国家安全风险。",
+            "几乎在同一时间窗口，美国总统特朗普公开发声力挺黄仁勋重掌英伟达。据 TechCrunch 报道，特朗普在讲话中直接援引美国司法部长（Attorney General）的审查结论，明确表示美方未发现黄仁勋存在任何违法或不当行为，并强调其领导力对美国经济与科技竞争力至关重要；不过白宫方面也同步要求英伟达不得放松正在进行中的芯片出口管制内部调查。"
+          ]
+        },
+        {
+          "heading": "单日暴涨超 30% 背后：不可替代的“超级芯片架构师”",
+          "paragraphs": [
+            "消息公布后，华尔街用真金白银投出了最直接的信任票——英伟达股价在盘前与早盘交易中直接暴拉超过 30%，一举收复过去十天的全部恐慌性跌幅。对于正处在年度架构快速切换、上游台积电先进封装排产博弈以及主权 AI 大单交付深水区的英伟达而言，黄仁勋集技术路线裁决者、头号供应链谈判官与政商沟通枢纽于一身的个人印记依然难以短期复制。",
+            "不过经历这轮长达 11 天的过山车后，机构投资者与企业治理观察人士也普遍指出，此次风波暴露出算力帝国高度绑定单一创始人的潜在脆弱性。如何在黄仁勋回归后加速构建更具纵深的继任者梯队，并在董事会层面强化内控与出口合规防火墙，将是英伟达重返常态后无法回避的长期考卷。"
+          ]
+        }
+      ]
+    },
     {
       "id": "ai-20261123-01",
       "date": "2026-11-23",
@@ -46,29 +92,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "ai-20261123-02",
-      "date": "2026-11-23",
-      "channel": "RADAR",
-      "type": "DEAL",
-      "status": "URGENT",
-      "vendor": "Dots Studio / OpenRouter",
-      "priority": 95,
-      "metric_badge": "$0/M · 512K · 全模态",
-      "impact": "需要零成本测试超长文档、原生音视频理解及长程 Agent 工具调用的开发者",
-      "title": "OpenRouter 新增免费全模态 MoE 模型 Dots3-Note Preview：512K 上下文 + 原生音视频与工具调用",
-      "value_tag": "0 费用 · 512K 全模态",
-      "tldr": "OpenRouter 最新目录上线小红书 AI 实验室 Dots Studio 开源权重模型 dots-studio/dots-3-note-preview:free（总参 280B / 激活 16B），免费开放 512K 上下文、460K 最大输出、原生图文音视频输入及函数调用。",
-      "details": [
-        "核心架构规格：采用稀疏 MoE 架构（总参 280B，256 个路由专家 + 1 个共享专家，每 Token 仅激活 16B），权重以 Apache 2.0 协议开源。",
-        "OpenRouter 免费配额：模型 ID 为 dots-studio/dots-3-note-preview:free，输入与输出均为 $0/M，开放高达 512,000 上下文窗口与 460,800 最大输出上限，原生支持 tools 调用。",
-        "全模态与长程强化学习：支持文本、图像、音频及带音轨视频联合输入；底层引入 TEMPO 强化学习框架，专门优化数小时跨度的长程 Agent 自我评估与记忆管理。",
-        "有效期提醒：OpenRouter 目录元数据标注该免费预览通道当前设定到期日为 2026-12-31，适合近期低成本跑通多模态知识库与长代码仓分析工作流。"
-      ],
-      "action_snippet": "dots-studio/dots-3-note-preview:free",
-      "source_platform": "OpenRouter",
-      "source_url": "https://openrouter.ai/models?q=dots-studio%2Fdots-3-note-preview%3Afree"
     },
     {
       "id": "ai-20261122-01",
@@ -348,6 +371,29 @@
       "action_snippet": "{\n  \"model\": \"gpt-6.2-sol\",\n  \"service_tier\": \"ultrafast\",\n  \"input\": \"Summarize and extract structured anomalies from these logs.\"\n}",
       "source_platform": "Hacker News",
       "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
+    },
+    {
+      "id": "ai-20261123-02",
+      "date": "2026-11-23",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "Dots Studio / OpenRouter",
+      "priority": 95,
+      "metric_badge": "$0/M · 512K · 全模态",
+      "impact": "需要零成本测试超长文档、原生音视频理解及长程 Agent 工具调用的开发者",
+      "title": "OpenRouter 新增免费全模态 MoE 模型 Dots3-Note Preview：512K 上下文 + 原生音视频与工具调用",
+      "value_tag": "0 费用 · 512K 全模态",
+      "tldr": "OpenRouter 最新目录上线小红书 AI 实验室 Dots Studio 开源权重模型 dots-studio/dots-3-note-preview:free（总参 280B / 激活 16B），免费开放 512K 上下文、460K 最大输出、原生图文音视频输入及函数调用。",
+      "details": [
+        "核心架构规格：采用稀疏 MoE 架构（总参 280B，256 个路由专家 + 1 个共享专家，每 Token 仅激活 16B），权重以 Apache 2.0 协议开源。",
+        "OpenRouter 免费配额：模型 ID 为 dots-studio/dots-3-note-preview:free，输入与输出均为 $0/M，开放高达 512,000 上下文窗口与 460,800 最大输出上限，原生支持 tools 调用。",
+        "全模态与长程强化学习：支持文本、图像、音频及带音轨视频联合输入；底层引入 TEMPO 强化学习框架，专门优化数小时跨度的长程 Agent 自我评估与记忆管理。",
+        "有效期提醒：OpenRouter 目录元数据标注该免费预览通道当前设定到期日为 2026-12-31，适合近期低成本跑通多模态知识库与长代码仓分析工作流。"
+      ],
+      "action_snippet": "dots-studio/dots-3-note-preview:free",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=dots-studio%2Fdots-3-note-preview%3Afree"
     },
     {
       "id": "ai-20261120-01",
@@ -718,6 +764,28 @@
       ]
     },
     {
+      "id": "ai-20261123-09",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Sierra",
+      "priority": 92,
+      "metric_badge": "估值 $300亿 · ARR 超$4亿",
+      "impact": "构建企业级客服自动化、按结果计费（Outcome-based）商业化 Agent 的创业者与产品团队",
+      "title": "Bret Taylor 旗下企业客服 Agent 独角兽 Sierra 半年估值翻倍至 $300 亿：F 轮融资 $17.5 亿，ARR 破 $4 亿",
+      "value_tag": "半年翻倍 · ARR 破 $4 亿",
+      "tldr": "由前 Salesforce 联席 CEO、OpenAI 董事会主席 Bret Taylor 联合创办的企业对话式 AI 公司 Sierra 宣布完成 17.5 亿美元 F 轮融资，估值在短短六个月内从约 158 亿美元跃升至 300 亿美元，年化经常性收入（ARR）已突破 4 亿美元。",
+      "details": [
+        "融资与估值跳升：本轮 17.5 亿美元 F 轮由 Greenoaks 与 Lightspeed Venture Partners 领投，Benchmark、Sequoia、GV 与 Tiger Global 等老股东跟投，投后估值较半年前的 158 亿美元接近翻倍。",
+        "营收硬指标兑现：公司披露其年化经常性收入（ARR）已正式跨越 4 亿美元大关，验证了大型零售、金融与电信客户对可直接闭环处理退换货、账单争议与套餐变更的生产级 Agent 付费意愿。",
+        "赛道风向意义：在通用大模型底座价格持续下探的背景下，握有行业深水区工作流编排、多模型路由防幻觉护栏及“按解决率计费”商业模式的垂直应用层龙头正吸纳巨额后期资本。"
+      ],
+      "action_snippet": "",
+      "source_platform": "TechCrunch",
+      "source_url": "https://techcrunch.com/2026/11/23/sierra-doubles-valuation-to-30b-within-six-months-as-demand-for-ai-in-cx-takes-off/"
+    },
+    {
       "id": "ai-20261120-15",
       "date": "2026-11-20",
       "channel": "RADAR",
@@ -983,6 +1051,28 @@
       "source_url": "https://github.com/open-webui/open-webui/issues/34646"
     },
     {
+      "id": "ai-20261123-10",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Walmart / Meta",
+      "priority": 90,
+      "metric_badge": "MCP 网关 · 代购预算锁",
+      "impact": "开发电商交易型 MCP Server、跨平台购物代理与消费者授权支付协议的工程团队",
+      "title": "沃尔玛正式上线基于 MCP 的 Agent Gateway：向 Meta Muse 开放黑五自动下单，支持预设代购消费上限",
+      "value_tag": "电商 MCP 实战破冰",
+      "tldr": "赶在黑色星期五大促前夕，沃尔玛正式投产上月预告的 Agent Gateway（基于开放 MCP 标准），允许 Meta 旗下 Muse 等外部 AI 代理通过店内助手 Sparky 直接为用户检索折扣并完成代购结账，与亚马逊封堵爬虫形成鲜明分野。",
+      "details": [
+        "开放协议直连：沃尔玛 Agent Gateway 基于 Model Context Protocol（MCP）构建，将实时库存、黑五促销价与订单接口标准化暴露给 Meta Muse、ChatGPT 与 Gemini 等第三方个人助理并与站内 Sparky 协同。",
+        "细粒度预算护栏：同步推出消费者端 Agent Profiles 权限面板，用户可预先设定单笔/总计消费额度上限与品类白名单，让代理在限额内自动锁单而无需每件商品手动二次确认。",
+        "零售阵营分化：此前亚马逊选择通过反爬墙拦截 Meta Muse 等外部购物代理以保卫站内广告流量，沃尔玛则押注率先成为全网 AI 代理默认成交出口。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge",
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1039874/walmart-agent-gateway-meta-muse-black-friday"
+    },
+    {
       "id": "ai-20261122-03",
       "date": "2026-11-22",
       "channel": "INTEL",
@@ -1244,6 +1334,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · OpenAI",
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
+    },
+    {
+      "id": "ai-20261123-11",
+      "date": "2026-11-23",
+      "channel": "REVIEW",
+      "type": "BENCHMARK",
+      "status": "ACTIVE",
+      "vendor": "SLAI / Import AI",
+      "priority": 88,
+      "metric_badge": "48 算子 · 昇腾 NPU 实测",
+      "impact": "从事国产算力底层算子优化、vLLM 异构适配与编码 Agent 硬件调优评测的研发人员",
+      "title": "Import AI #482 解析昇腾算子基准 AscendGYM：Claude Code 夺最高加速分，Agent 外壳显著影响调优上限",
+      "value_tag": "48 个真实负载算子横评",
+      "tldr": "Jack Clark 在最新一期 Import AI #482 重点拆解深圳河套学院团队发布的华为昇腾 NPU 算子优化基准 AscendGYM：基于 vLLM-Ascend 等 48 个真实算子，实测揭示不同编码 Agent 外壳与基座组合在受限算力调优上存在显著分化。",
+      "details": [
+        "基准与沙盒设计：从 vLLM-Ascend 与 MindSpeed-LLM 真实瓶颈中抽取 48 个算子（覆盖访存优化、多步归一化、量化与稀疏融合注意力三级难度），通过 AscendForge 沙盒自动比对 CPU 基准精度与实机加速比。",
+        "模型与成本权衡：在给定 Token 预算的受控测试中，Opus 5 取得最高绝对加速得分，GPT-5.6 与 GLM-5.3 紧随其后；其中 Opus 系列 Token 消耗较重，而 GPT 系列展现出更高的单 Token 调优效率。",
+        "脚手架耦合效应：同一模型在不同工具外壳中表现差异显著——Claude Code 环境整体跑出最高绝对性能（GLM 在该外壳下增益尤为突出），而 GPT 系列则在原生 Codex 环境中发挥最佳。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Import AI",
+      "source_url": "https://importai.substack.com/p/import-ai-482-huawei-kernel-benchmarks"
     },
     {
       "id": "ai-20261122-05",
@@ -1768,6 +1880,28 @@
       "action_snippet": "# 校验时强制从默认基线分支读取 REVIEW.md，防止 PR 篡改验收规则\ngit fetch origin main && git show origin/main:REVIEW.md\n\n# 在代码目录就近创建 E2E 冒烟验证技能目录：\n# .claude/skills/verify/",
       "source_platform": "Hacker News",
       "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/"
+    },
+    {
+      "id": "ai-20261123-12",
+      "date": "2026-11-23",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "OpenHands",
+      "priority": 84,
+      "metric_badge": "v1.44.0 · 预算可读告警",
+      "impact": "在团队内自托管或使用 OpenHands 跑定时自动化任务与多协作会话的研发团队",
+      "title": "OpenHands v1.44.0 晚间发布：新增自动化任务可见权限分级、预算触顶可读提示与跨会话提及",
+      "value_tag": "团队权限与预算体验升级",
+      "tldr": "开源编码代理平台 OpenHands 于北京时间 11 月 23 日晚发布 v1.44.0 正式版，补齐团队级定时自动化（Automations）可见范围控制、预算耗尽时的清晰可读报错，并上线实验性跨会话 @ 提及能力。",
+      "details": [
+        "自动化权限细化：在 Automations 模块新增可见性范围设置（#19893），支持创建者在团队工作区内按需指定哪些成员可查看与管理后台定时代理任务。",
+        "成本止损交互改进：修复此前额度耗尽时底层异常晦涩的问题，现当会话或任务触及预设预算上限时直接在聊天界面展示清晰可读的止损提示（#19926）。",
+        "多会话上下文串联：在 conversation_mentions 实验开关下新增对话内跨会话提及功能（#19921），便于复杂工程拆分为多个子代理会话后相互引用上下文。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub · OpenHands/OpenHands",
+      "source_url": "https://github.com/OpenHands/OpenHands/releases/tag/v1.44.0"
     },
     {
       "id": "ai-20261123-07",

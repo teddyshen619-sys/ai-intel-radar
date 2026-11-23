@@ -1,10 +1,8 @@
 # 教程更新线索
 
-采集时间 2026-11-23 14:13 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-23 15:59 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
-
-本轮部分来源降级 · Import AI（降级 · https://importai.substack.com/feed：HTTP Error 403: Forbidden）
 
 ## 地区、支付与订阅
 
@@ -30,7 +28,7 @@
 **[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功 · 无符合条件的条目
 
 
-本轮日常采集未发现匹配线索。
+- [What we learned operating auth for 1k APIs](<https://nango.dev/blog/lessons-from-operating-api-auth-for-900-apis/>) · Hacker News · 2026-11-23 · 命中 auth
 
 编辑核查 · 核对各工具的安装命令、认证入口与 WSL 排障步骤；版本号变化本身不代表安装命令失效。
 
@@ -52,6 +50,7 @@
 
 **[OpenHands/OpenHands 官方发布](https://github.com/OpenHands/OpenHands/releases.atom)** · 成功
 
+- [OpenHands/OpenHands · v1.44.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.44.0>) · 订阅更新时间 2026-11-23 15:39 UTC。1.44.0 (2026-11-23) What's Changed Features feat(chat): conversation mentions, behind the conversation\_mentions flag by @enyst in #19921 feat(automations): choose who can see an…
 - [OpenHands/OpenHands · v1.43.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.43.0>) · 订阅更新时间 2026-11-20 19:03 UTC。1.43.0 (2026-11-20) What's Changed Features feat(automations): create automations enabled from the setup wizard by @SaltGardenia in #19769 feat(settings): Features page for…
 
 - [FigmaMCP](<https://www.producthunt.com/products/figmamcp>) · Product Hunt · 2026-11-22 · 命中 Codex
