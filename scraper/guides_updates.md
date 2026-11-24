@@ -1,6 +1,6 @@
 # 教程更新线索
 
-采集时间 2026-11-23 15:59 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-24 00:10 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
 
@@ -10,8 +10,6 @@
 
 - [Claude helps solve math's biggest open problem](<https://therundownai.beehiiv.com/p/claude-helps-solve-math-s-biggest-open-problem>) · The Rundown AI · 2026-11-23 · 命中 billing
 - [I’m Crashing Out About Anthropic](<https://www.youtube.com/watch?v=I0Fasi1-teQ>) · YouTube · Matthew Berman · 2026-11-21 · 命中 subscription
-- [Trump threatens ‘tremendous tax’ for moving AI data centers outside the US](<https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax>) · The Verge AI · 2026-11-20 · 命中 country
-- [3 Tips to Save Money With ChatGPT](<https://www.youtube.com/watch?v=WGvsk0LIveU>) · YouTube · OpenAI · 2026-11-20 · 命中 subscriptions
 
 编辑核查 · 核对服务地区、付款入口及续费条件；涉及账户的反馈先找厂商依据。
 
@@ -25,10 +23,11 @@
   - 摘录 · `brew install --cask codex`
 <!-- codex-readme-sha256: 7baf50df44354c4564f2873757181b6bd4b97760684256c4336cd3288167ecf3 -->
 
-**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功 · 无符合条件的条目
+**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功
 
+- [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
-- [What we learned operating auth for 1k APIs](<https://nango.dev/blog/lessons-from-operating-api-auth-for-900-apis/>) · Hacker News · 2026-11-23 · 命中 auth
+本轮日常采集未发现匹配线索。
 
 编辑核查 · 核对各工具的安装命令、认证入口与 WSL 排障步骤；版本号变化本身不代表安装命令失效。
 
@@ -36,12 +35,13 @@
 
 关联教程 · [04-lesson-b101841fb51f](<../guides/04-lesson-b101841fb51f.md>)、[05-lesson-d8e774cab580](<../guides/05-lesson-d8e774cab580.md>)
 
-**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功 · 无符合条件的条目
+**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功
 
+- [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
 **[anthropics/claude-code 官方发布](https://github.com/anthropics/claude-code/releases.atom)** · 成功
 
-- [anthropics/claude-code · v2.1.330](<https://github.com/anthropics/claude-code/releases/tag/v2.1.330>) · 订阅更新时间 2026-11-20 22:32 UTC。What's changed Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login , Claude Code applies the organization's settings and uses…
+- [anthropics/claude-code · v2.1.331](<https://github.com/anthropics/claude-code/releases/tag/v2.1.331>) · 订阅更新时间 2026-11-23 21:34 UTC。What's changed Added Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS Added…
 
 **[cline/cline 官方发布](https://github.com/cline/cline/releases.atom)** · 成功
 
@@ -51,11 +51,10 @@
 **[OpenHands/OpenHands 官方发布](https://github.com/OpenHands/OpenHands/releases.atom)** · 成功
 
 - [OpenHands/OpenHands · v1.44.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.44.0>) · 订阅更新时间 2026-11-23 15:39 UTC。1.44.0 (2026-11-23) What's Changed Features feat(chat): conversation mentions, behind the conversation\_mentions flag by @enyst in #19921 feat(automations): choose who can see an…
-- [OpenHands/OpenHands · v1.43.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.43.0>) · 订阅更新时间 2026-11-20 19:03 UTC。1.43.0 (2026-11-20) What's Changed Features feat(automations): create automations enabled from the setup wizard by @SaltGardenia in #19769 feat(settings): Features page for…
 
+- [Anthropic launches Claude Ship, letting AI agents review, fix, and approve code changes](<https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/>) · TechCrunch AI · 2026-11-23 · 命中 approvals
+- [Connected intelligence for in-house legal](<https://openai.com/business/learn/connected-intelligence-for-in-house-legal>) · OpenAI News · 2026-11-23 · 命中 workflows
 - [FigmaMCP](<https://www.producthunt.com/products/figmamcp>) · Product Hunt · 2026-11-22 · 命中 Codex
-- [Workflow schedule dispatch limit can exceed its configured maximum](<https://github.com/langgenius/dify/issues/46899>) · GitHub · langgenius/dify · 2026-11-22 · 命中 Workflow
-- [Cloud quota rejection stops later documents in a retry batch](<https://github.com/langgenius/dify/issues/46892>) · GitHub · langgenius/dify · 2026-11-22 · 命中 batch
 - [What Runs Where? Local AI in Production — Ahmad Osman, Osmantic](<https://www.youtube.com/watch?v=GKSQYbELDzw>) · YouTube · AI Engineer · 2026-11-21 · 命中 batching
 
 编辑核查 · 核对沙盒、审批、审查及自动执行示例；区分各工具的适用条件与行为差异。

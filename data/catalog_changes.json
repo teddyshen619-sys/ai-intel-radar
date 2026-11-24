@@ -1,10 +1,65 @@
 {
-  "updated_at": "2026-11-23T05:41:30.250994+00:00",
-  "previous_updated_at": "2026-11-22T07:05:45.557659+00:00",
+  "updated_at": "2026-11-24T00:10:06.782546+00:00",
+  "previous_updated_at": "2026-11-23T05:41:30.250994+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
-  "new_free": [
-    "dots-studio/dots-3-note-preview:free"
+  "new_free": [],
+  "price_changes": [
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "input_per_m",
+      "old": 0.15,
+      "new": 0.03,
+      "change_pct": -80.0
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "output_per_m",
+      "old": 0.6,
+      "new": 0.2,
+      "change_pct": -66.67
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "cache_read_per_m",
+      "old": 0.003,
+      "new": 0.001,
+      "change_pct": -66.67
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash",
+      "field": "input_per_m",
+      "old": 0.0498,
+      "new": 0.3,
+      "change_pct": 502.41
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash",
+      "field": "output_per_m",
+      "old": 0.1992,
+      "new": 1.2,
+      "change_pct": 502.41
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash",
+      "field": "cache_read_per_m",
+      "old": 0.000996,
+      "new": 0.006,
+      "change_pct": 502.41
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro-0813",
+      "field": "input_per_m",
+      "old": 1.32,
+      "new": 0.111,
+      "change_pct": -91.59
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro-0813",
+      "field": "cache_read_per_m",
+      "old": 0.044,
+      "new": 0.097,
+      "change_pct": 120.45
+    }
   ],
-  "price_changes": [],
   "expiring": []
 }
