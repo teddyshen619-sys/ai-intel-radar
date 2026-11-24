@@ -156,7 +156,7 @@ def compile_guides(root, sources, *, editor=False):
     seen = {"id": {}, "order": {}}
     for path, data in sorted(sources.items()):
         try:
-            lines = data.decode("utf-8-sig").splitlines(keepends=True)
+            lines = data.decode("utf-8-sig").replace("\r\n", "\n").replace("\r", "\n").splitlines(keepends=True)
         except UnicodeDecodeError as exc:
             raise GuideError(path, data[:exc.start].count(b"\n") + 1, "请保存为 UTF-8") from None
         values, locations, start = metadata(path, lines)

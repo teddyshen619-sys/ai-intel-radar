@@ -58,6 +58,18 @@ FEEDS = {
     "Cloudflare Blog": ("https://blog.cloudflare.com/rss/",),
 }
 HN_API = "https://hacker-news.firebaseio.com/v0"
+HN_ALGOLIA_API = "https://hn.algolia.com/api/v1/search_by_date"
+X_OEMBED_API = "https://publish.twitter.com/oembed"
+X_HOSTS = {"x.com", "www.x.com", "twitter.com", "www.twitter.com", "mobile.twitter.com"}
+X_STATUS_PATH = re.compile(r"^/([A-Za-z0-9_]{1,15})/status/(\d+)(?:/|$)")
+X_CORE_ACCOUNTS = {
+    "openai", "chatgpt", "openaidevs", "sama", "gdb", "kevinweil",
+    "anthropicai", "claudeai", "bcherny", "alexalbert__", "amandaaskell",
+    "googledeepmind", "googleai", "geminiapp", "demishassabis", "jeffdean", "sundarpichai",
+    "xai", "grok", "elonmusk", "deepseek_ai", "alibaba_qwen", "mistralai",
+    "aiatmeta", "ylecun", "karpathy", "simonw", "openrouter", "huggingface",
+    "cursor_ai", "windsurf_ai", "perplexity_ai", "vllm_project", "ollama",
+}
 REVIEW_FEEDS = {
     "Simon Willison": ("https://simonwillison.net/atom/everything/",),
     "Latent Space": ("https://www.latent.space/feed",),
@@ -104,7 +116,7 @@ PAPER_TOPICS = re.compile(
 )
 # 每组最多加一次分，防止模板、重复词和长日志挤占排名。
 BASE_SCORE = {
-    "blog": 56, "release": 55, "video": 49, "review_blog": 47,
+    "blog": 56, "release": 55, "video": 49, "x_post": 48, "review_blog": 47,
     "paper": 43, "community_blog": 39, "hn": 32, "issue": 18,
 }
 FEED_FILTERS = {
@@ -335,6 +347,179 @@ def hacker_news():
     return batch
 
 
+def parse_x_status_url(url):
+    if not isinstance(url, str) or not url.strip():
+        return None
+    try:
+        parts = urlsplit(url.strip())
+    except ValueError:
+        return None
+    host = (parts.hostname or "").lower().rstrip(".")
+    if host not in X_HOSTS:
+        return None
+    match = X_STATUS_PATH.match(parts.path or "")
+    if not match:
+        return None
+    handle, status_id = match.group(1), match.group(2)
+    return handle, status_id, f"https://x.com/{handle}/status/{status_id}"
+
+
+def extract_oembed_tweet_text(html_snippet):
+    if not isinstance(html_snippet, str) or not html_snippet:
+        return ""
+    para = re.search(r"<p\b[^>]*>(.*?)</p>", html_snippet, flags=re.I | re.S)
+    raw = para.group(1) if para else html_snippet
+    raw = re.sub(r"<a\b[^>]*>\s*pic\.twitter\.com/[^<]+</a>", " ", raw, flags=re.I)
+    return clean_text(raw)
+
+
+def fetch_x_oembed(handle, status_id):
+    query = urlencode({
+        "url": f"https://twitter.com/{handle}/status/{status_id}",
+        "omit_script": "true",
+        "dnt": "true",
+    })
+    payload = fetch_json(f"{X_OEMBED_API}?{query}")
+    author = clean_text(payload.get("author_name") or "")
+    text = extract_oembed_tweet_text(payload.get("html") or "")
+    return author, text
+
+
+def x_posts(now):
+    cutoff_ts = int((now - timedelta(hours=72)).timestamp())
+    by_status = {}
+    notes = []
+    any_ok = False
+    for domain in ("twitter.com", "x.com"):
+        query = urlencode({
+            "query": domain,
+            "restrictSearchableAttributes": "url",
+            "tags": "story",
+            "numericFilters": f"created_at_i>={cutoff_ts}",
+            "hitsPerPage": 50,
+        })
+        try:
+            payload = fetch_json(f"{HN_ALGOLIA_API}?{query}")
+            hits = payload.get("hits")
+            if not isinstance(hits, list):
+                raise ValueError("Algolia 响应缺少 hits 数组")
+            any_ok = True
+        except Exception as exc:
+            notes.append(f"{domain} 检索失败 ({exc})")
+            continue
+        for hit in hits:
+            if not isinstance(hit, dict):
+                continue
+            parsed = parse_x_status_url(hit.get("url") or "")
+            if not parsed:
+                continue
+            handle, status_id, canonical_url = parsed
+            points = int(hit.get("points") or 0)
+            comments = int(hit.get("num_comments") or 0)
+            prev = by_status.get(status_id)
+            if prev is None or (points + comments) > (prev["points"] + prev["comments"]):
+                by_status[status_id] = {
+                    "hit": hit,
+                    "handle": handle,
+                    "status_id": status_id,
+                    "canonical_url": canonical_url,
+                    "points": points,
+                    "comments": comments,
+                }
+
+    if not any_ok:
+        return Batch(notes=notes or ["X 推文检索不可用"], available=False)
+
+    candidates = []
+    for item in by_status.values():
+        hit = item["hit"]
+        handle = item["handle"]
+        title = clean_text(hit.get("title") or "")
+        if not title:
+            continue
+        try:
+            published = parse_date(hit.get("created_at") or "")
+        except Exception:
+            continue
+        if not (now - timedelta(hours=72) <= published <= now + timedelta(minutes=5)):
+            continue
+        is_core = handle.lower() in X_CORE_ACCOUNTS
+        prelim_text = f"{title} @{handle} {clean_text(hit.get('story_text') or '')}"
+        has_topic = bool(
+            AI_TOPIC.search(prelim_text)
+            or HN_KEYWORDS.search(prelim_text)
+            or BENEFIT_TOPIC.search(prelim_text)
+            or PRODUCT_TOPIC.search(prelim_text)
+            or RADAR_TOPIC.search(prelim_text)
+            or REVIEW_TOPIC.search(prelim_text)
+        )
+        if not (is_core or has_topic or item["points"] >= 15):
+            continue
+        candidates.append({
+            **item,
+            "title": title,
+            "published": min(published, now),
+            "is_core": is_core,
+        })
+
+    candidates.sort(
+        key=lambda c: (c["is_core"], c["points"] + c["comments"], c["published"].timestamp()),
+        reverse=True,
+    )
+    shortlist = candidates[:16]
+
+    oembed_map = {}
+    if shortlist:
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            futures = {
+                pool.submit(fetch_x_oembed, c["handle"], c["status_id"]): c["status_id"]
+                for c in shortlist
+            }
+            for future in as_completed(futures):
+                sid = futures[future]
+                try:
+                    oembed_map[sid] = future.result()
+                except Exception:
+                    oembed_map[sid] = ("", "")
+
+    entries = []
+    for c in shortlist:
+        author_name, tweet_text = oembed_map.get(c["status_id"], ("", ""))
+        full_context = f"{c['title']} @{c['handle']} {author_name} {tweet_text}"
+        relevant = c["is_core"] or bool(
+            AI_TOPIC.search(full_context)
+            or DEV_TOPIC.search(full_context)
+            or HN_KEYWORDS.search(full_context)
+            or BENEFIT_TOPIC.search(full_context)
+            or PRODUCT_TOPIC.search(full_context)
+            or RADAR_TOPIC.search(full_context)
+            or REVIEW_TOPIC.search(full_context)
+        )
+        if not relevant:
+            continue
+        hit_id = c["hit"].get("objectID")
+        discussion = f"https://news.ycombinator.com/item?id={hit_id}" if hit_id else ""
+        heat = max(1, c["points"] + c["comments"])
+        author_tag = f"{author_name} (@{c['handle']})" if author_name and author_name.lower() != c["handle"].lower() else f"@{c['handle']}"
+        metrics = f"{author_tag} · HN {c['points']} 分 · {c['comments']} 条评论"
+        body = tweet_text or clean_text(c["hit"].get("story_text") or "")
+        entries.append(
+            Entry(
+                "x_post",
+                f"X · @{c['handle']}",
+                c["title"],
+                c["canonical_url"],
+                c["published"],
+                body,
+                heat,
+                metrics,
+                discussion,
+            )
+        )
+
+    return Batch(examined=len(by_status), entries=entries, notes=notes, available=True)
+
+
 def child_text(node, *paths):
     for path in paths:
         child = node.find(path)
@@ -507,11 +692,16 @@ def value_score(entry, now):
     keywords = sum(weight for pattern, weight in KEYWORD_WEIGHTS if pattern.search(text))
     if REVIEW_TOPIC.search(entry.title):
         keywords += 8
-    return min(100, BASE_SCORE[entry.kind] + freshness + interaction + min(30, keywords))
+    core_bonus = 0
+    if entry.kind == "x_post" and entry.source.startswith("X · @"):
+        handle = entry.source.removeprefix("X · @").strip().lower()
+        if handle in X_CORE_ACCOUNTS:
+            core_bonus = 6
+    return min(100, BASE_SCORE[entry.kind] + core_bonus + freshness + interaction + min(30, keywords))
 
 
 def consumer_channel(entry):
-    if (entry.kind not in {"blog", "community_blog", "review_blog", "hn"}
+    if (entry.kind not in {"blog", "community_blog", "review_blog", "hn", "x_post"}
             or re.search(r"\b(?:APIs?|SDKs?)\b", entry.title, re.I)):
         return None
     text = f"{entry.title} {entry.body}"
@@ -530,7 +720,7 @@ def channel(entry):
         return consumer
     if entry.kind == "video":
         return "REVIEW"
-    if entry.kind in {"review_blog", "hn", "paper", "blog"} and REVIEW_TOPIC.search(entry.title):
+    if entry.kind in {"review_blog", "hn", "x_post", "paper", "blog"} and REVIEW_TOPIC.search(entry.title):
         return "REVIEW"
     if entry.kind == "review_blog" and REVIEW_TOPIC.search(entry.body):
         return "REVIEW"
@@ -541,9 +731,13 @@ def channel(entry):
 
 def url_key(url):
     parts = urlsplit(url)
+    host = parts.netloc.lower().rstrip(".")
+    if host in X_HOSTS:
+        host = "x.com"
+    ignored_params = {"fbclid", "gclid"} | ({"s", "t"} if host == "x.com" else set())
     query = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
-             if not k.lower().startswith("utm_") and k.lower() not in {"fbclid", "gclid"}]
-    return urlunsplit(("", parts.netloc.lower(), parts.path.rstrip("/"), urlencode(sorted(query)), ""))
+             if not k.lower().startswith("utm_") and k.lower() not in ignored_params]
+    return urlunsplit(("", host, parts.path.rstrip("/"), urlencode(sorted(query)), ""))
 
 
 def event_title(entry):
@@ -702,6 +896,7 @@ def main():
     now = datetime.now(UTC)
     jobs = [(f"GitHub · {repo}", github, (repo, now)) for repo in REPOS]
     jobs.append(("Hacker News", hacker_news, ()))
+    jobs.append(("X · 热门推文与官号动态", x_posts, (now,)))
     jobs.extend((source, fetch_feed, (source, urls, now)) for source, urls in FEEDS.items())
     jobs.append(("Hugging Face Daily Papers", daily_papers, (now,)))
     jobs.extend((f"Release · {repo}", releases, (repo, now)) for repo in RELEASE_REPOS)

@@ -145,16 +145,20 @@ def normalize_source_url(url: str) -> str:
         return raw
     if parts.scheme.lower() not in {"http", "https"} or not parts.netloc:
         return raw
+    host = parts.netloc.lower().rstrip(".")
+    if host in {"www.x.com", "twitter.com", "www.twitter.com", "mobile.twitter.com"}:
+        host = "x.com"
+    ignored_params = {"fbclid", "gclid"} | ({"s", "t"} if host == "x.com" else set())
     filtered_query = [
         (k, v)
         for k, v in parse_qsl(parts.query, keep_blank_values=True)
-        if not k.lower().startswith("utm_") and k.lower() not in {"fbclid", "gclid"}
+        if not k.lower().startswith("utm_") and k.lower() not in ignored_params
     ]
     norm_path = unquote(parts.path).rstrip("/") or "/"
     return urlunsplit(
         (
             "",
-            parts.netloc.lower().rstrip("."),
+            host,
             norm_path,
             urlencode(sorted(filtered_query)),
             "",
@@ -498,7 +502,8 @@ def build_daily_prompt(
         "   - **`details`（所有条目必填）**：严格保持 **3~5 条**精炼、高密度硬核事实要点（具体参数、百万 Token 输入/输出/缓存单价、名额门槛、复现版本或避坑方案），严禁写成冗长水文或营销套话。",
         "   - **`story`（仅重磅条目可选）**：**仅限当日头版重磅事件（通常 1~2 条，`priority >= 92`）**附带 `story` 数组，包含 **2~4 个小节**（每节含 `heading` 与 `paragraphs`），完整交代事件背景脉络、底层技术机制与社区/学界多方验证态度。常规动态请勿添加 `story`。",
         "2. **事实核查铁律**：",
-        "   - 动笔前必须联网核对一手原始信源 URL（官方博客、论文 PDF、GitHub Release/Issue、OpenRouter 实时面板或独立评测原文），拒绝仅凭二手标题臆测参数。",
+        "   - 动笔前必须联网核对一手原始信源 URL（官方博客、论文 PDF、GitHub Release/Issue、OpenRouter 实时面板、官方 X 推文或独立评测原文），拒绝仅凭二手标题臆测参数。",
+        "   - **X（Twitter）信源核查与补充巡检**：下方候选已包含 `X · @账号` 热帖及 oEmbed 完整推文正文；若你具备网页搜索工具，请额外用搜索语法（如 `site:x.com/OpenAI`、`site:x.com/ChatGPT`、`site:x.com/AnthropicAI`、`site:x.com/claudeai`、`site:x.com/GoogleDeepMind`、`site:x.com/xai`、`site:x.com/deepseek_ai`、`site:x.com/Alibaba_Qwen`）补充巡检近 24~48 小时尚未同步至博客的突发官宣、模型退役通知或限时订阅福利。以 X 推文作为一手源时，`source_url` 统一规范为 `https://x.com/<账号>/status/<推文ID>`（严禁填 `t.co` 短链或 `hn.algolia.com` 接口地址），`source_platform` 填 `X (@账号)`；若推文内已附官方长文/论文/GitHub 链接且参数更完整，优先采用长文一手链接。",
         "   - 严格区分**「官方正式发布 / 独立实测编译验证」**与**「个人单方宣称 / 早期传闻 / 尚未验证」**：凡未经同行评审或独立团队复现的个人突破宣称，必须在 `title`、`value_tag`、`tldr` 与 `details` 中明确注明“作者宣称 / 尚未验证 / 待独立复核”。",
         "3. **零 Emoji 与品牌洁净铁律**：",
         "   - 全文所有字符串字段**严禁出现任何 Emoji 表情字符、装饰符号或变体选择符**。",

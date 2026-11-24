@@ -1658,5 +1658,99 @@ class DailyNewsTest(unittest.TestCase):
                 self.assertEqual(baseline, self.data_snapshots())
 
 
+class XPostsSourceTest(unittest.TestCase):
+    def test_url_parsing_and_normalization_unify_twitter_and_x(self):
+        fr = daily_news.fetch_radar
+        self.assertEqual(
+            fr.parse_x_status_url("https://twitter.com/ChatGPT/status/2124981905380569283?s=20"),
+            ("ChatGPT", "2124981905380569283", "https://x.com/ChatGPT/status/2124981905380569283"),
+        )
+        self.assertEqual(
+            fr.parse_x_status_url("https://mobile.twitter.com/bcherny/status/12345/photo/1"),
+            ("bcherny", "12345", "https://x.com/bcherny/status/12345"),
+        )
+        self.assertIsNone(fr.parse_x_status_url("https://x.com/OpenAI"))
+        self.assertIsNone(fr.parse_x_status_url("https://example.com/ChatGPT/status/12345"))
+
+        self.assertEqual(
+            fr.url_key("https://twitter.com/ChatGPT/status/123?s=20&t=xyz"),
+            fr.url_key("https://x.com/ChatGPT/status/123/"),
+        )
+        self.assertEqual(
+            daily_news.normalize_source_url("https://twitter.com/ChatGPT/status/123?s=20&t=xyz"),
+            daily_news.normalize_source_url("https://x.com/ChatGPT/status/123"),
+        )
+
+    def test_x_posts_enriches_via_oembed_and_filters_irrelevant(self):
+        fr = daily_news.fetch_radar
+        now = datetime(2026, 11, 24, 8, 0, tzinfo=timezone.utc)
+
+        def fake_fetch_json(url):
+            if "hn.algolia.com" in url and "query=twitter.com" in url:
+                return {
+                    "hits": [
+                        {
+                            "objectID": "9001",
+                            "title": "GPT-5.6 Sol is deprecating on December 23",
+                            "url": "https://twitter.com/ChatGPT/status/2124981905380569283",
+                            "points": 2,
+                            "num_comments": 1,
+                            "created_at": "2026-11-23T23:15:02Z",
+                        },
+                        {
+                            "objectID": "9002",
+                            "title": "Random sports score update",
+                            "url": "https://twitter.com/randomfan/status/1111111111",
+                            "points": 3,
+                            "num_comments": 0,
+                            "created_at": "2026-11-24T01:00:00Z",
+                        },
+                    ]
+                }
+            if "hn.algolia.com" in url and "query=x.com" in url:
+                return {
+                    "hits": [
+                        {
+                            "objectID": "9003",
+                            "title": "Mistral offers three months of Vibe Pro free for students",
+                            "url": "https://x.com/MistralAI/status/2122713540666806397",
+                            "points": 18,
+                            "num_comments": 4,
+                            "created_at": "2026-11-24T02:00:00Z",
+                        }
+                    ]
+                }
+            if "publish.twitter.com/oembed" in url:
+                if "2124981905380569283" in url:
+                    return {
+                        "author_name": "ChatGPT",
+                        "html": '<blockquote class="twitter-tweet"><p lang="en">On December 23, we&#39;re deprecating GPT-5.6 Sol in Chat and Codex. <a href="https://t.co/abc">pic.twitter.com/abc</a></p>&mdash; ChatGPT (@ChatGPT)</blockquote>',
+                    }
+                if "2122713540666806397" in url:
+                    return {
+                        "author_name": "Mistral AI",
+                        "html": '<blockquote class="twitter-tweet"><p lang="en">Students get 3 months of Vibe Pro for free starting today.</p></blockquote>',
+                    }
+            raise AssertionError(f"Unexpected URL: {url}")
+
+        with patch.object(fr, "fetch_json", side_effect=fake_fetch_json):
+            batch = fr.x_posts(now)
+
+        self.assertTrue(batch.available)
+        self.assertEqual(batch.examined, 3)
+        self.assertEqual(len(batch.entries), 2)
+        by_source = {e.source: e for e in batch.entries}
+        self.assertIn("X · @ChatGPT", by_source)
+        self.assertIn("X · @MistralAI", by_source)
+        self.assertEqual(
+            by_source["X · @ChatGPT"].url,
+            "https://x.com/ChatGPT/status/2124981905380569283",
+        )
+        self.assertIn("deprecating GPT-5.6 Sol", by_source["X · @ChatGPT"].body)
+        self.assertNotIn("pic.twitter.com", by_source["X · @ChatGPT"].body)
+        self.assertEqual(fr.channel(by_source["X · @MistralAI"]), "RADAR")
+        self.assertEqual(fr.channel(by_source["X · @ChatGPT"]), "INTEL")
+
+
 if __name__ == "__main__":
     unittest.main()

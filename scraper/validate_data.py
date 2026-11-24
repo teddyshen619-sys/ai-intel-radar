@@ -203,7 +203,9 @@ def validate_stdlib(data: object) -> list[str]:
                     raise ValueError
                 if field == "source_url":
                     path = unquote(parts.path).lower().rstrip("/")
-                    if (parts.hostname.rstrip(".") in {"api.github.com", "hacker-news.firebaseio.com"}
+                    host = parts.hostname.lower().rstrip(".")
+                    if (host in {"api.github.com", "hacker-news.firebaseio.com", "hn.algolia.com",
+                                 "publish.twitter.com", "t.co"}
                             or "api" in path.split("/")
                             or path.endswith((".json", ".xml", ".rss", ".atom", "/rss", "/atom", "/feed"))):
                         errors.append(f"{prefix}.source_url ({item_id}) 必须指向人类可读的网页，"

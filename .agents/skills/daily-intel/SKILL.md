@@ -33,9 +33,11 @@ description: >-
    ```bash
    python scraper/daily_news.py prep
    ```
-   自动调用 `fetch_radar.py` 刷新 `scraper/raw_digest.md`、`data/models_catalog.json` 与 `data/catalog_changes.json`，生成清洗完 Emoji 的候选与契约文档 `scraper/.daily_prompt.md`，并初始化空草稿 `scraper/.daily_draft.json`（若草稿非空默认保留，需重置时显式传 `--reset-draft`；若仅基于已有摘要重生成提示词可加 `--no-fetch`）。
-3. **一手信源交叉核实**：
-   阅读 `scraper/.daily_prompt.md` 中的「模型价格与免费额度异动速报」、「大众实用与免费福利精选」与三频道高分候选，对照近 7 天防重清单剔除重复线索；对拟入选条目逐一联网访问官方博客、原始论文/PDF、GitHub Release/Issue 或独立基准页面核实参数细节。
+   自动调用 `fetch_radar.py` 刷新 `scraper/raw_digest.md`（含官方博客 RSS、GitHub Release/Issue、Hacker News、YouTube、Hugging Face Daily Papers，以及经公开检索接口与官方 oEmbed 自动补全正文的 `X · @账号` 推文动态）、`data/models_catalog.json` 与 `data/catalog_changes.json`，生成清洗完 Emoji 的候选与契约文档 `scraper/.daily_prompt.md`，并初始化空草稿 `scraper/.daily_draft.json`（若草稿非空默认保留，需重置时显式传 `--reset-draft`；若仅基于已有摘要重生成提示词可加 `--no-fetch`）。
+3. **一手信源交叉核实与 X 官号补充巡检**：
+   - 阅读 `scraper/.daily_prompt.md` 中的「模型价格与免费额度异动速报」、「大众实用与免费福利精选」与三频道高分候选（含 `X · @账号` 推文候选），对照近 7 天防重清单剔除重复线索。
+   - **X 首发动态补充巡检（免登录、零风控）**：使用网页搜索工具定向检索核心厂商与主创近 24~48 小时公开推文（如 `site:x.com (OpenAI OR ChatGPT OR AnthropicAI OR claudeai OR GoogleDeepMind OR xai OR deepseek_ai OR Alibaba_Qwen)`），补齐尚未发博客的突发官宣、功能灰度、模型退役通知或限时订阅福利；如需核对某条公开推文的逐字原文，可读取官方公开 oEmbed 接口 `https://publish.twitter.com/oembed?url=https://twitter.com/<账号>/status/<ID>&omit_script=true&dnt=true`，严禁使用任何账号 Cookie 爬虫或绕过反爬验证。
+   - 对拟入选条目逐一联网访问官方博客、原始论文/PDF、GitHub Release/Issue、官方 X 推文或独立基准页面核实参数细节。
 4. **筛选撰稿与置顶维护**：
    精选当日 **3~8 条**高信噪比情报，按双层正文规范写入 `scraper/.daily_draft.json`；同时审视现有 `URGENT` 置顶列表，将已过 24~48 小时突发窗口的条目写入 `status_updates` 降级为 `ACTIVE`（若福利已截止或漏洞已修复则标为 `FIXED`）。
 5. **门禁预检与正式合入**：
@@ -86,7 +88,7 @@ description: >-
 
 ### 1. 事实核查铁律
 
-- **一手人类可读信源**：`source_url` 必须指向人类可直接阅读的原始网页（官方公告、arXiv/个人论文 PDF、GitHub Release/Issue 页面、OpenRouter 模型页、YouTube 观看页等），严禁填入 `api.github.com`、`hacker-news.firebaseio.com`、含 `/api/` 路径或 `.json/.xml/.rss/.atom/.feed` 机器订阅地址。
+- **一手人类可读信源**：`source_url` 必须指向人类可直接阅读的原始网页（官方公告、arXiv/个人论文 PDF、GitHub Release/Issue 页面、OpenRouter 模型页、YouTube 观看页、公开 X 推文页 `https://x.com/<账号>/status/<推文ID>` 等），严禁填入 `api.github.com`、`hacker-news.firebaseio.com`、`hn.algolia.com`、`publish.twitter.com`、`t.co` 短链、含 `/api/` 路径或 `.json/.xml/.rss/.atom/.feed` 机器订阅地址。以 X 推文为一手源时，`source_platform` 统一填 `X (@账号)`；若推文指向参数更详尽的官方博客、论文或 GitHub Release，优先采用该长文一手链接。
 - **确定性严格分级**：必须明确区分**「官方正式发布 / 独立第三方实测验证」**与**「个人单方宣称 / 社区传闻 / 尚未验证」**。对于未经同行评审或独立团队完整复现的重大宣称，必须在 `title`、`value_tag`、`tldr` 与 `details` 中显式标注“作者宣称 / 尚未验证 / 待独立复核”，严禁把单方声明直接写成既成定论。
 - **数据逐项对齐**：模型上下文窗口、总参量/激活参量、百万 Token 输入/缓存/输出单价、涨跌百分比、开源许可证与申请门槛必须与一手原文核对无误。
 
