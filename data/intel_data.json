@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T08:14:03+08:00",
+  "updated_at": "2026-11-24T16:09:53+08:00",
   "items": [
     {
       "id": "ai-20261124-01",
@@ -48,27 +48,50 @@
       ]
     },
     {
-      "id": "ai-20261124-02",
+      "id": "ai-20261124-08",
       "date": "2026-11-24",
-      "channel": "RADAR",
-      "type": "DEAL",
+      "channel": "INTEL",
+      "type": "MODEL",
       "status": "URGENT",
-      "vendor": "Google",
-      "priority": 96,
-      "metric_badge": "AI Pro 解锁 · 配额重置",
-      "impact": "正在使用 Google Antigravity 开发且订阅了 Google AI Pro（$19.99/月）档位的全体开发者",
-      "title": "Google Antigravity 向 AI Pro 订阅下放旗舰模型 Gemini 4 Carbon：同步重置全员配额并升级主从编排面板",
-      "value_tag": "$19.99 档直享顶配 Carbon",
-      "tldr": "Google 正式向月费 $19.99 的 Google AI Pro 付费用户开放 Antigravity 平台内的顶配长程工程模型 Gemini 4 Carbon（此前主要面向高阶 Ultra 档），同时得益于缓存效率提升，官方同步为全体用户重置了 Gemini 调用配额。",
+      "vendor": "Google DeepMind",
+      "priority": 97,
+      "metric_badge": "聚变省11.8x · 子例程快290x",
+      "impact": "关注 AI 形式化数学验证（Lean）、容错量子计算编译优化与科学计算智能体的研究者",
+      "title": "Google DeepMind 联手量子团队突破：Gemini 4 代理群配 Lean 形式化验证，将核聚变量子模拟成本大砍 11.8 倍",
+      "value_tag": "Lean 验真 · 开源量子库",
+      "tldr": "Google DeepMind 与 Google Quantum AI 联合发布多代理科学突破：利用多支 Gemini 4 代理团队开展“虚拟学术会议”协作并强制通过 Lean 定理证明器逐行验真，将惯性约束核聚变容错量子模拟开销降低 11.8 倍、核心算术子例程提速 290 倍，全套代码已开源。",
       "details": [
-        "订阅权益下放：定位于长程软件工程、网络安全防御与复杂推理的顶配旗舰 Gemini 4 Carbon 现已在 Antigravity 内对全体付费 Google AI Pro 会员直接解锁。",
-        "全员配额重置扩容：Google 表示近期底层前缀缓存优化显著抬升了单用户可执行上限，因此在模型下放同时为 Antigravity 用户执行了一次全局 Gemini 额度重置。",
-        "编排器细粒度升级：设置面板（Settings > Models > Orchestrator Settings）新增主从模型独立配对功能，支持用户自由指定规划模型（Planner）、执行模型（Executor）及思考强度档位。",
-        "旧型号退场预告：随着 Gemini 4 全系到位，平台内较早期的 Gemini 4 Argon 与 Gemini 3.8 Flash 已列入计划轮换下线名单。"
+        "核聚变与生化模拟降本：激光驱动惯性约束聚变燃料的量子计算成本直降 11.8 倍（所需纠错逻辑量子比特从 5,650 压降至 4,338 个）；光化学敏感分子模拟成本降低约 8 倍；负责人体多数药物代谢的细胞色素 P450 酶模拟开销降低 2.5 倍。",
+        "底层量子子例程跃升：针对特定 Grover 搜索实现取得 2.57 倍优化，更将量子核心反三角函数算术子例程（arcsin）的资源开销压缩高达 290 倍。",
+        "零幻觉 Lean 验证闭环：因目标大规模容错线路既无法在经典超算上全量模拟、也超出当代早期量子芯片规模，系统强制要求代理提出的每一次线路等价变换都必须提交 Lean 交互式形式化证明并通过独立回路复核。",
+        "开源与现实硬件边界：DeepMind 已在 GitHub 开源完整问题规约与经验证的 Lean 量子程序库，同时严谨注明上述成果属于理论容错资源评估，实际运行仍需等待下一代大规模纠错量子硬件成熟。"
       ],
-      "action_snippet": "Settings > Models > Orchestrator Settings",
-      "source_platform": "9to5Google / Antigravity",
-      "source_url": "https://9to5google.com/2026/11/23/antigravity-gemini-4-carbon/"
+      "action_snippet": "",
+      "source_platform": "Google DeepMind",
+      "source_url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+      "story": [
+        {
+          "heading": "经典超算跑不动、真机还没造出：量子算法优化的“盲飞困境”",
+          "paragraphs": [
+            "在容错量子计算领域，横亘在物理学家与工业级应用之间的最大鸿沟往往是惊人的硬件资源账单：要想精确模拟核聚变等离子体演化或复杂酶分子的电子结构，动辄需要数千个高质量逻辑量子比特与百亿级量子门操作。过去，把这类庞大线路削减哪怕百分之几十，都需要顶尖量子算法专家耗费数月甚至数年手工推导。",
+            "更棘手的是AI介入这类前沿问题时的“验真死结”。在常规软件工程里，编码代理写完优化代码可以直接跑一遍单元测试看结果对不对；但在数千逻辑比特规模的量子算法上，经典超级计算机根本模拟不了指数级膨胀的量子态空间，而人类现有的早期物理量子处理器也远未达到运行门槛。一旦大模型在简化量子门时夹带哪怕一个细微相位错误，没有人能靠“跑一下试试”把它抓出来。"
+          ]
+        },
+        {
+          "heading": "虚拟学术会议 + Lean 铁面裁判：继黎曼猜想后形式化验证再立大功",
+          "paragraphs": [
+            "为了破解无模拟器可用的死局，Google DeepMind 与 Google Quantum AI 团队搭建了一套极具启发性的人机与多代理架构。团队拉起了多支由 Gemini 4 驱动的独立代理小组，让它们分别主攻不同子问题，并在共享工作区定期召开自动化的“虚拟学术研讨会”——彼此争辩思路、交换中间引理并复用对方刚发现的线路技巧。",
+            "而在所有天马行空的启发式搜索之上，坐镇终审席的正是刚刚在本周因黎曼猜想验真而声名大噪的交互式定理证明器 Lean。在 DeepMind 的流水线里，Gemini 4 代理不允许只交出一份“看起来更快”的量子线路，它必须同时写出严格的数学等价性证明脚本；独立的验证回路会在隔离环境中调用 Lean 内核逐条机械核验，任何未能证明与原算法在数学上严格等价的捷径都会被当场驳回。"
+          ]
+        },
+        {
+          "heading": "聚变省下上千逻辑比特与 290 倍子例程压缩：离实用化再近一步",
+          "paragraphs": [
+            "这套“多代理头脑风暴 + 形式化机械验真”的组合拳在多条科学战线上交出了远超预期的成绩单：在激光驱动惯性约束核聚变燃料模拟上，新算法直接砍掉了 11.8 倍的计算开销，将所需纠错量子比特数从 5,650 个压减至 4,338 个；光敏分子模拟成本下降约 8 倍，药物研发核心靶点细胞色素 P450 酶模拟成本降低 2.5 倍；而在更底层的量子数学原语 arcsin 计算上，代理群甚至挖出了高达 290 倍的资源缩减方案。",
+            "DeepMind 在博文中保持了清晰的科学克制：研究团队坦承这批数字属于严格的理论电路资源上界评估，距离在第一代容错量子计算机上直接点火运行仍有硬件代差。但通过将全套问题定义与经 Lean 验真的量子程序库悉数开源至 GitHub，这套范式无疑证明了一件事——凡是能够被形式化语言精确定义评判标准的硬核科学分支，都正在成为多智能体规模化接管的下一片沃土。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261122-01",
@@ -375,6 +398,29 @@
       ]
     },
     {
+      "id": "ai-20261124-02",
+      "date": "2026-11-24",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 96,
+      "metric_badge": "AI Pro 解锁 · 配额重置",
+      "impact": "正在使用 Google Antigravity 开发且订阅了 Google AI Pro（$19.99/月）档位的全体开发者",
+      "title": "Google Antigravity 向 AI Pro 订阅下放旗舰模型 Gemini 4 Carbon：同步重置全员配额并升级主从编排面板",
+      "value_tag": "$19.99 档直享顶配 Carbon",
+      "tldr": "Google 正式向月费 $19.99 的 Google AI Pro 付费用户开放 Antigravity 平台内的顶配长程工程模型 Gemini 4 Carbon（此前主要面向高阶 Ultra 档），同时得益于缓存效率提升，官方同步为全体用户重置了 Gemini 调用配额。",
+      "details": [
+        "订阅权益下放：定位于长程软件工程、网络安全防御与复杂推理的顶配旗舰 Gemini 4 Carbon 现已在 Antigravity 内对全体付费 Google AI Pro 会员直接解锁。",
+        "全员配额重置扩容：Google 表示近期底层前缀缓存优化显著抬升了单用户可执行上限，因此在模型下放同时为 Antigravity 用户执行了一次全局 Gemini 额度重置。",
+        "编排器细粒度升级：设置面板（Settings > Models > Orchestrator Settings）新增主从模型独立配对功能，支持用户自由指定规划模型（Planner）、执行模型（Executor）及思考强度档位。",
+        "旧型号退场预告：随着 Gemini 4 全系到位，平台内较早期的 Gemini 4 Argon 与 Gemini 3.8 Flash 已列入计划轮换下线名单。"
+      ],
+      "action_snippet": "Settings > Models > Orchestrator Settings",
+      "source_platform": "9to5Google / Antigravity",
+      "source_url": "https://9to5google.com/2026/11/23/antigravity-gemini-4-carbon/"
+    },
+    {
       "id": "ai-20261121-02",
       "date": "2026-11-21",
       "channel": "INTEL",
@@ -658,6 +704,28 @@
       "action_snippet": "",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/langgenius/dify/releases/tag/1.20.0"
+    },
+    {
+      "id": "ai-20261124-09",
+      "date": "2026-11-24",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "Microsoft / OpenAI",
+      "priority": 93,
+      "metric_badge": "MAI-2 困惑度 0.819",
+      "impact": "关注微软自研基座真实水位、跨大厂预训练标尺对齐与算力限速博弈的研究者",
+      "title": "微软回应 OpenAI 预训练透明倡议：首次公开 MAI-2 Base 同口径对数困惑度 0.819，但未签限速承诺",
+      "value_tag": "首家外部巨头晒同标尺底牌",
+      "tldr": "继 OpenAI 首席科学家公开内部预训练困惑度曲线并倡议在 0.68~0.70 区间设立行业共同限速线后，微软 AI CEO Mustafa Suleyman 率先响应，首次公布微软自研基座 MAI-2 Base 在 OpenAI 同一测试集上的对数困惑度为 0.819。",
+      "details": [
+        "首次跨大厂同尺横比：Mustafa Suleyman 披露微软自研 MAI-2 Base 在 OpenAI 标准化评测集上录得 0.819 对数困惑度，这一读数已优于早先 GPT-4 基座刻度（约 0.91）并逼近涌现高阶专精能力的 0.80 关口。",
+        "只跟透明、暂缓限速：据 Latent Space 汇总分析，微软明确表态支持行业建立开放统一的预训练能力度量披露机制，但对于 OpenAI 提议在约 0.68~0.70 对数困惑度前“集体踩刹车限速”的条款并未做出绑定承诺。",
+        "竞合信号解读：微软闪电晒出 MAI-2 底牌一方面展示了其脱离单一外部依赖后的自研预训练追赶速度，另一方面也折射出各大巨头在“赞成统一车速表”与“拒绝自缚手脚停赛”之间的微妙温差。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Latent Space",
+      "source_url": "https://latent.space/p/ainews-jensen-is-back-and-openai-shows-its-pretraining-curve-joined-by-microsoft/"
     },
     {
       "id": "ai-20261123-03",
@@ -1209,6 +1277,28 @@
       "source_url": "https://github.com/open-webui/open-webui/issues/34646"
     },
     {
+      "id": "ai-20261124-10",
+      "date": "2026-11-24",
+      "channel": "RADAR",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "vendor": "Ollama",
+      "priority": 90,
+      "metric_badge": "v0.40.18 · Metal 融合算子",
+      "impact": "在 Apple Silicon Mac（约 20GB 统一内存起）上本地部署运行 Inkling 2 Mini 的开发者",
+      "title": "Ollama v0.40.18 午间发布：专为 Mac 新增 Inkling 2 原生 Metal 融合算子，全面提速预填充与投机解码",
+      "value_tag": "Mac 本地跑循环 MoE 大提速",
+      "tldr": "继 v0.40.17 首发适配 Thinking Machines 开源循环混合专家模型 Inkling 2 Mini（总参 26B）后，Ollama 今早 09:35 快速推出 v0.40.18，专门针对 Apple Silicon 补齐一整套定制 Metal 内核（#19843）。",
+      "details": [
+        "低精度专家采样融合：针对 Inkling 2 原生采用的 NVFP4 与 MXFP8 分块浮点格式，新增去重专家收集（deduplicated expert gathers）与融合 SwiGLU 激活 Metal 算子，显著减少统一内存带宽往返。",
+        "循环层专用加速：由于 Inkling 2 依赖循环层（looped layers）在不增加参数体积的前提下换取更高单 Token 计算深度，新版本专门融合了循环控制器（loop controllers）、残差混合与相对位置编码算子。",
+        "按芯片代数安全回退：全套定制算子覆盖 Prefill、Decode 及投机采样 Draft 轮次，并按 Mac GPU 代际与张量尺寸自动门控，不支持的场景无缝回退至标准计算图以确保零崩溃。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub · ollama/ollama",
+      "source_url": "https://github.com/ollama/ollama/releases/tag/v0.40.18"
+    },
+    {
       "id": "ai-20261123-10",
       "date": "2026-11-23",
       "channel": "INTEL",
@@ -1339,6 +1429,28 @@
       "action_snippet": "export CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME=1",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328"
+    },
+    {
+      "id": "ai-20261124-11",
+      "date": "2026-11-24",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Google",
+      "priority": 89,
+      "metric_badge": "只读接入 Wallet + Drive",
+      "impact": "重度使用 Google Workspace 生态并希望在搜索框直接跨个人文档与账单提问的用户",
+      "title": "Google Search AI Mode 扩容个人智能上下文：支持按需只读接入 Google Wallet、Drive 与 Gemini 对话",
+      "value_tag": "打通账单积分与云盘私有检索",
+      "tldr": "Google 宣布升级搜索 AI Mode 内的 Personal Intelligence 能力，在原有 Gmail、日历与相册基础上，正式支持用户手动授权连接 Google Wallet、Google Drive 及 Gemini App 历史上下文。",
+      "details": [
+        "Wallet 只读理财与返现优化：授权后 AI Mode 可结合绑定信用卡权益与历史消费习惯帮用户规划省钱目标或最大化旅行积分返现；Google 强调该接口严格限定为只读权限，AI 无法划转或触碰资金。",
+        "Drive 与 Gemini 跨端续接：可直接跨 Google Drive 内的个人表格、PDF 与文档汇总报税或项目计划，并能无缝承接此前在独立 Gemini App 内聊到一半的方案构思。",
+        "默认关闭与透明溯源：所有连接均需用户在 Search Personalization > Connected Apps 中主动勾选开启且支持随时撤销，引用私有上下文生成的回答下方会显式展示个人化溯源图标。"
+      ],
+      "action_snippet": "Search Personalization > Connected Apps",
+      "source_platform": "Google AI Blog",
+      "source_url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/"
     },
     {
       "id": "ai-20261123-05",
@@ -1648,6 +1760,28 @@
       "action_snippet": "",
       "source_platform": "Simon Willison",
       "source_url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
+    },
+    {
+      "id": "ai-20261124-12",
+      "date": "2026-11-24",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "DeepSeek / OpenRouter",
+      "priority": 87,
+      "metric_badge": "Pro 输出涨80% · 1017 仍最低",
+      "impact": "今日刚根据早盘降价将重度生成流量切向 DeepSeek V4 Pro 0813 的 OpenRouter 生产用户",
+      "title": "OpenRouter 午后报价再回调：DeepSeek V4 Pro 0813 输出急涨 +80% 至 $8/M，V4.1 Flash 无后缀款腰斩",
+      "value_tag": "日内二次剧震 · 防账单刺客",
+      "tldr": "OpenRouter 北京时间 11 月 24 日 16:01 快照显示 DeepSeek 路由单价日内二次大幅摆动：今晨输入刚跳水的旗舰 deepseek-v4-pro-0813 全线回调上涨 55%~80%（输出升至 $8.00/M）；而无后缀款 deepseek-v4.1-flash 则由今晨高点腰斩回落。",
+      "details": [
+        "V4 Pro 0813 日内急涨预警：输入由早盘 $0.111 反弹 +71.17% 至 $0.19/M，输出由 $4.44 大涨 +80.18% 至 $8.00/M，缓存读取亦上调 +54.64% 至 $0.15/M，长输出任务单价已接近一线闭源旗舰。",
+        "无后缀 V4.1 Flash 回落但仍偏贵：deepseek/deepseek-v4.1-flash 输入由 $0.30 降至 $0.14/M（-53.33%）、输出由 $1.20 降至 $0.42/M（-65.0%）、缓存降至 $0.0042/M（-30.0%）。",
+        "当前最优锁价结论：截至 16:00 快照，带固定快照后缀的 deepseek/deepseek-v4.1-flash-1017 依然稳守 $0.03 / $0.20 / $0.001/M 全系最低位，建议生产网关继续锁定 -1017 后缀以规避日内上游竞价波动。"
+      ],
+      "action_snippet": "deepseek/deepseek-v4.1-flash-1017",
+      "source_platform": "OpenRouter",
+      "source_url": "https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4-pro-0813"
     },
     {
       "id": "ai-20261122-06",
