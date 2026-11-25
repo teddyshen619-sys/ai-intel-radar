@@ -1,50 +1,73 @@
 {
-  "updated_at": "2026-11-24T14:09:05.582138+00:00",
-  "previous_updated_at": "2026-11-24T08:01:16.094998+00:00",
+  "updated_at": "2026-11-25T11:17:57.023677+00:00",
+  "previous_updated_at": "2026-11-24T14:09:05.582138+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
-  "new_free": [],
+  "new_free": [
+    "google/gemma-4-26b-a4b-it:free"
+  ],
   "price_changes": [
     {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "input_per_m",
+      "old": 0.03,
+      "new": 0.15,
+      "change_pct": 400.0
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "output_per_m",
+      "old": 0.2,
+      "new": 0.6,
+      "change_pct": 200.0
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "cache_read_per_m",
+      "old": 0.001,
+      "new": 0.003,
+      "change_pct": 200.0
+    },
+    {
       "id": "deepseek/deepseek-v4.1-flash",
       "field": "input_per_m",
-      "old": 0.14,
-      "new": 0.0507,
-      "change_pct": -63.79
+      "old": 0.0507,
+      "new": 0.14,
+      "change_pct": 176.13
     },
     {
       "id": "deepseek/deepseek-v4.1-flash",
       "field": "output_per_m",
-      "old": 0.42,
-      "new": 0.2028,
-      "change_pct": -51.71
+      "old": 0.2028,
+      "new": 0.42,
+      "change_pct": 107.1
     },
     {
       "id": "deepseek/deepseek-v4.1-flash",
       "field": "cache_read_per_m",
-      "old": 0.0042,
-      "new": 0.001014,
-      "change_pct": -75.86
+      "old": 0.001014,
+      "new": 0.0042,
+      "change_pct": 314.2
     },
     {
-      "id": "deepseek/deepseek-v4-pro-0813",
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
       "field": "input_per_m",
-      "old": 0.19,
-      "new": 0.111,
-      "change_pct": -41.58
+      "old": 0.2156,
+      "new": 0.44,
+      "change_pct": 104.08
     },
     {
-      "id": "deepseek/deepseek-v4-pro-0813",
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
       "field": "output_per_m",
-      "old": 8.0,
-      "new": 4.44,
-      "change_pct": -44.5
+      "old": 0.6468,
+      "new": 1.32,
+      "change_pct": 104.08
     },
     {
-      "id": "deepseek/deepseek-v4-pro-0813",
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
       "field": "cache_read_per_m",
-      "old": 0.15,
-      "new": 0.097,
-      "change_pct": -35.33
+      "old": 0.00686,
+      "new": 0.028,
+      "change_pct": 308.16
     }
   ],
   "expiring": []
