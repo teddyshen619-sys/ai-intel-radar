@@ -1,8 +1,10 @@
 # 教程更新线索
 
-采集时间 2026-11-26 11:30 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-26 14:07 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
+
+本轮部分来源降级 · Import AI（降级 · https://importai.substack.com/feed：HTTP Error 403: Forbidden）
 
 ## 地区、支付与订阅
 
@@ -28,6 +30,7 @@
 
 - [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
+- [issue: bug:Requests route to the wrong OpenAI connection after deleting a connection with multiple workers](<https://github.com/open-webui/open-webui/issues/35114>) · GitHub · open-webui/open-webui · 2026-11-26 · 命中 Installation
 - [FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space](<https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>) · The Verge AI · 2026-11-25 · 命中 authorized
 - [Transept AI](<https://www.producthunt.com/products/transept-ai>) · Product Hunt · 2026-11-25 · 命中 authorship
 

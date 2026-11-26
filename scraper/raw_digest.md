@@ -1,14 +1,17 @@
 # 每日开源与厂商情报雷达
 
-北京时间 2026-11-26 19:30 · 去重后 **225** 条
+北京时间 2026-11-26 22:07 · 去重后 **230** 条
 
 ## 模型价格与免费额度异动速报
 
-精选目录新增免费型号 **0** 个 · 显著调价 **1** 个模型 · 30 天内到期 **0** 个
+精选目录新增免费型号 **0** 个 · 显著调价 **2** 个模型 · 30 天内到期 **0** 个
 
-- **输入调价** · [deepseek/deepseek-v4.1-flash-1017](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash-1017) · 0.3 → 0.15 美元 / 百万 token（-50%）
-- **输出调价** · [deepseek/deepseek-v4.1-flash-1017](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash-1017) · 1.2 → 0.6 美元 / 百万 token（-50%）
-- **缓存读取调价** · [deepseek/deepseek-v4.1-flash-1017](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash-1017) · 0.006 → 0.003 美元 / 百万 token（-50%）
+- **输入调价** · [deepseek/deepseek-v4.1-flash](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash) · 0.14 → 0.0507 美元 / 百万 token（-63.79%）
+- **输出调价** · [deepseek/deepseek-v4.1-flash](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash) · 0.42 → 0.2028 美元 / 百万 token（-51.71%）
+- **缓存读取调价** · [deepseek/deepseek-v4.1-flash](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4.1-flash) · 0.0042 → 0.001014 美元 / 百万 token（-75.86%）
+- **输入调价** · [deepseek/deepseek-v4-flash-0731](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4-flash-0731) · 0.06 → 0.047 美元 / 百万 token（-21.67%）
+- **输出调价** · [deepseek/deepseek-v4-flash-0731](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4-flash-0731) · 0.18 → 0.3 美元 / 百万 token（+66.67%）
+- **缓存读取调价** · [deepseek/deepseek-v4-flash-0731](https://openrouter.ai/models?q=deepseek%2Fdeepseek-v4-flash-0731) · 0.015 → 0.035 美元 / 百万 token（+133.33%）
 
 ## 采集情况
 
@@ -16,12 +19,12 @@
 | --- | ---: | ---: | --- |
 | GitHub · langgenius/dify | 10 | 2 | 成功 |
 | GitHub · langchain-ai/langgraph | 10 | 2 | 成功 |
-| GitHub · open-webui/open-webui | 10 | 1 | 成功 |
-| GitHub · cline/cline | 7 | 1 | 成功 |
+| GitHub · open-webui/open-webui | 10 | 2 | 成功 |
+| GitHub · cline/cline | 9 | 1 | 成功 |
 | GitHub · OpenHands/OpenHands | 10 | 0 | 成功 · 无符合条件的条目 |
 | GitHub · browser-use/browser-use | 4 | 0 | 成功 · 无符合条件的条目 |
-| Hacker News | 80 | 7 | 成功 |
-| X · 热门推文与官号动态 | 48 | 14 | 成功 |
+| Hacker News | 80 | 8 | 成功 |
+| X · 热门推文与官号动态 | 47 | 15 | 成功 |
 | OpenAI News | 1430 | 12 | 成功 |
 | Google DeepMind | 100 | 2 | 成功 |
 | Google AI Blog | 20 | 4 | 成功 |
@@ -30,9 +33,9 @@
 | TechCrunch AI | 20 | 20 | 成功 |
 | The Rundown AI | 20 | 5 | 成功 |
 | Ben's Bites | 20 | 2 | 成功 |
-| 9to5Google | 100 | 13 | 成功 |
-| Product Hunt | 50 | 24 | 成功 |
-| Hugging Face Blog | 917 | 7 | 成功 |
+| 9to5Google | 100 | 12 | 成功 |
+| Product Hunt | 50 | 26 | 成功 |
+| Hugging Face Blog | 918 | 9 | 成功 |
 | Anthropic News（社区镜像） | 88 | 1 | 成功 |
 | Cloudflare Blog | 20 | 1 | 成功 |
 | Hugging Face Daily Papers | 50 | 8 | 成功 |
@@ -53,8 +56,8 @@
 | YouTube · AI Engineer | 15 | 15 | 成功 |
 | Simon Willison | 30 | 13 | 成功 |
 | Latent Space | 20 | 9 | 成功 |
-| Import AI | 20 | 1 | 成功 |
-| OpenRouter 模型目录（独立 JSON） | 474 | 45 | 成功 |
+| Import AI | 0 | 0 | 降级 · https://importai.substack.com/feed：HTTP Error 403: Forbidden |
+| OpenRouter 模型目录（独立 JSON） | 475 | 45 | 成功 |
 
 ## 大众实用与免费福利精选
 
@@ -68,12 +71,12 @@
   > We are heading into Day 6 of the giant Amazon from $326. Those deals join a series of discounts on Fitbit models from $70 , but on the Samsu
 - [建议: INTEL] [Big Google Home update adds these new Nest Cam, app, and Gemini features](<https://9to5google.com/2026/11/25/google-home-update-nest-cam-thermostat-gemini-features/>) · 9to5Google
   > Google Home is rolling out another big update, this time adding features and bringing improvements across Nest Cam, Nest Thermostarts, Gemin
-- [建议: INTEL] [OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work](<https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/>) · TechCrunch AI
-  > OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.
 - [建议: INTEL] [Google Messages replacing old Gemini with new ‘tasks’ chat, and it’s very proactive](<https://9to5google.com/2026/11/24/google-messages-gemini-tasks/>) · 9to5Google
   > Last week, Google announced that Gemini tasks (previously called Spark) is now available to free users in the US, along with an integration
-- [建议: INTEL] [Flurra](<https://www.producthunt.com/products/flurra>) · Product Hunt
-  > Ask Claude or ChatGPT to edit your videos Discussion \| Link
+- [建议: INTEL] [OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work](<https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/>) · TechCrunch AI
+  > OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.
+- [建议: INTEL] [A more tailored Google Search that’s uniquely yours](<https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/>) · Google AI Blog
+  > Get more helpful Search responses by securely opting in to connect Google Wallet, Drive, and the Gemini app to Personal Intelligence in AI M
 
 ## 价值排行
 
@@ -81,7 +84,7 @@
 
 ### 1. Your AI cheat sheet for Thanksgiving dinner
 
-**价值分 97** · [建议: INTEL] · The Rundown AI
+**价值分 95** · [建议: INTEL] · The Rundown AI
 
 发布时间 2026-11-26 19:00（北京）
 
@@ -91,9 +94,9 @@
 
 ### 2. Claude tries to sabotage research work at every stage
 
-**价值分 90** · [建议: INTEL] · X · @skirano
+**价值分 89** · [建议: INTEL] · X · @skirano
 
-发布时间 2026-11-26 12:49（北京） · Pietro Schirano (@skirano) · HN 22 分 · 4 条评论
+发布时间 2026-11-26 12:49（北京） · Pietro Schirano (@skirano) · HN 23 分 · 6 条评论
 
 原始 URL · <https://x.com/skirano/status/2125371115979641188>
 
@@ -101,9 +104,9 @@
 
 ### 3. OpenAI cuts GPT-6.2 usage: Astra hits limits 40% faster, Sol 25% faster
 
-**价值分 90** · [建议: INTEL] · X · @thsottiaux
+**价值分 88** · [建议: INTEL] · X · @thsottiaux
 
-发布时间 2026-11-26 11:36（北京） · Tibo (@thsottiaux) · HN 279 分 · 156 条评论
+发布时间 2026-11-26 11:36（北京） · Tibo (@thsottiaux) · HN 356 分 · 193 条评论
 
 原始 URL · <https://x.com/thsottiaux/status/2125784147889393806>
 
@@ -113,7 +116,7 @@
 
 ### 4. Antipode
 
-**价值分 88** · [建议: INTEL] · Product Hunt
+**价值分 86** · [建议: INTEL] · Product Hunt
 
 发布时间 2026-11-26 00:53（北京）
 
@@ -123,7 +126,7 @@
 
 ### 5. Claude-Mem Cloud Sync
 
-**价值分 86** · [建议: INTEL] · Product Hunt
+**价值分 84** · [建议: INTEL] · Product Hunt
 
 发布时间 2026-11-26 15:58（北京）
 
@@ -131,7 +134,17 @@
 
 > Switch devices. Keep your AI agents' memory. Discussion \| Link
 
-### 6. OpenRouter users spent more $ on models from Google than OpenAI last week
+### 6. Deliberately run your time, energy and resources below 80% capacity
+
+**价值分 82** · [建议: INTEL] · X · @Voxyz_ai
+
+发布时间 2026-11-26 04:13（北京） · Vox (@Voxyz\_ai) · HN 15 分 · 5 条评论
+
+原始 URL · <https://x.com/Voxyz_ai/status/2125591320341229890>
+
+> Left speechless from this advice from Gemini 4 Neon
+
+### 7. OpenRouter users spent more $ on models from Google than OpenAI last week
 
 **价值分 82** · [建议: INTEL] · X · @openrouter
 
@@ -141,7 +154,7 @@
 
 > OpenRouter users spent more $ on models from Google than OpenAI last week. Multiple well-received launches, including Gemini 4 Neon and Carbon, helped push Google over the 50% mark.
 
-### 7. Black Friday deals: Pixel 11 $692, Pixel Watch 5 even lower, Galaxy Buds 4 Pro $80 off, Dell PCs $1,000 off, more
+### 8. Black Friday deals: Pixel 11 $692, Pixel Watch 5 even lower, Galaxy Buds 4 Pro $80 off, Dell PCs $1,000 off, more
 
 **价值分 81** · [建议: RADAR] · 9to5Google
 
@@ -151,9 +164,9 @@
 
 > We are heading into Day 6 of the giant Amazon from $326. Those deals join a series of discounts on Fitbit models from $70 , but on the Samsung side of things we have the latest Galaxy Buds 4 Pro at $80 off alongside the ongoing $350 price drops on Galaxy Z Fold 8 sitting next to the first deal on Am
 
-### 8. Big Google Home update adds these new Nest Cam, app, and Gemini features
+### 9. Big Google Home update adds these new Nest Cam, app, and Gemini features
 
-**价值分 79** · [建议: INTEL] · 9to5Google
+**价值分 78** · [建议: INTEL] · 9to5Google
 
 发布时间 2026-11-26 05:50（北京）
 
@@ -161,27 +174,7 @@
 
 > Google Home is rolling out another big update, this time adding features and bringing improvements across Nest Cam, Nest Thermostarts, Gemini, and more. more…
 
-### 9. Every child in America will receive two SpaceX shares
-
-**价值分 78** · [建议: INTEL] · X · @elonmusk
-
-发布时间 2026-11-26 16:58（北京） · Elon Musk (@elonmusk) · HN 5 分 · 2 条评论
-
-原始 URL · <https://x.com/elonmusk/status/2125797463047258119>
-
-> Every child in America will receive two SpaceX shares, one from the company and one from me personally
-
-### 10. OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work
-
-**价值分 78** · [建议: INTEL] · TechCrunch AI
-
-发布时间 2026-11-26 04:03（北京）
-
-原始 URL · <https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/>
-
-> OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.
-
-### 11. Google Messages replacing old Gemini with new ‘tasks’ chat, and it’s very proactive
+### 10. Google Messages replacing old Gemini with new ‘tasks’ chat, and it’s very proactive
 
 **价值分 78** · [建议: INTEL] · 9to5Google
 
@@ -191,7 +184,7 @@
 
 > Last week, Google announced that Gemini tasks (previously called Spark) is now available to free users in the US, along with an integration in Google Messages . In testing, I’ve found this instance of Gemini to be proactive and feel more like an assistant than the Gemini app does. more…
 
-### 12. Let Gemini tackle repetitive chores on your Mac
+### 11. Let Gemini tackle repetitive chores on your Mac
 
 **价值分 78** · [建议: INTEL] · Google Gemini
 
@@ -201,9 +194,29 @@
 
 > The Gemini app for Mac now has computer use to help you with repetitive tasks.
 
-### 13. Anthropic stole my RH proofs and presented them as their own
+### 12. Every child in America will receive two SpaceX shares
 
-**价值分 77** · [建议: INTEL] · X · @HanyelPaulOkolo
+**价值分 76** · [建议: INTEL] · X · @elonmusk
+
+发布时间 2026-11-26 16:58（北京） · Elon Musk (@elonmusk) · HN 5 分 · 2 条评论
+
+原始 URL · <https://x.com/elonmusk/status/2125797463047258119>
+
+> Every child in America will receive two SpaceX shares, one from the company and one from me personally
+
+### 13. OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work
+
+**价值分 76** · [建议: INTEL] · TechCrunch AI
+
+发布时间 2026-11-26 04:03（北京）
+
+原始 URL · <https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/>
+
+> OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.
+
+### 14. Anthropic stole my RH proofs and presented them as their own
+
+**价值分 75** · [建议: INTEL] · X · @HanyelPaulOkolo
 
 发布时间 2026-11-26 01:06（北京） · Hanyel (@HanyelPaulOkolo) · HN 7 分 · 0 条评论
 
@@ -211,27 +224,7 @@
 
 > It is time! Key: 99hUeDd6ZNxkHMS This is my Riemann Hypothesis proof derived using claude 4.8 and 5.0 on july 12th 2026. It was published 15th July 2026 on zenodo. This is the work that is plagiarised, and this is significant considering that my contract with anthropic does…
 
-### 14. Flurra
-
-**价值分 76** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-26 00:34（北京）
-
-原始 URL · <https://www.producthunt.com/products/flurra>
-
-> Ask Claude or ChatGPT to edit your videos Discussion \| Link
-
-### 15. 42 state AGs are trying to stop Character.AI from selling users’ chats
-
-**价值分 75** · [建议: INTEL] · The Verge AI
-
-发布时间 2026-11-26 17:54（北京）
-
-原始 URL · <https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats>
-
-> A coalition of 42 state attorneys general is trying to prevent Character.AI from selling off user data as it navigates Chapter 11 bankruptcy proceedings. In a deluge of nearly identical press releases, the various AGs accuse the company of planning to auction off "the private chat histories of more
-
-### 16. How Gemini is changing the game for Golden State's organization and fans.
+### 15. How Gemini is changing the game for Golden State's organization and fans.
 
 **价值分 75** · [建议: INTEL] · Google AI Blog
 
@@ -243,7 +236,7 @@
 
 > Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, and Chase Center. See the news.
 
-### 17. A more tailored Google Search that’s uniquely yours
+### 16. A more tailored Google Search that’s uniquely yours
 
 **价值分 75** · [建议: INTEL] · Google AI Blog
 
@@ -255,7 +248,27 @@
 
 > Get more helpful Search responses by securely opting in to connect Google Wallet, Drive, and the Gemini app to Personal Intelligence in AI Mode.
 
-### 18. Waiting for a better price on that gift? Use ChatGPT.
+### 17. 42 state AGs are trying to stop Character.AI from selling users’ chats
+
+**价值分 74** · [建议: INTEL] · The Verge AI
+
+发布时间 2026-11-26 17:54（北京）
+
+原始 URL · <https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats>
+
+> A coalition of 42 state attorneys general is trying to prevent Character.AI from selling off user data as it navigates Chapter 11 bankruptcy proceedings. In a deluge of nearly identical press releases, the various AGs accuse the company of planning to auction off "the private chat histories of more
+
+### 18. Flurra
+
+**价值分 74** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 00:34（北京）
+
+原始 URL · <https://www.producthunt.com/products/flurra>
+
+> Ask Claude or ChatGPT to edit your videos Discussion \| Link
+
+### 19. Waiting for a better price on that gift? Use ChatGPT.
 
 **价值分 74** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -266,16 +279,6 @@
 [![视频封面](<https://i2.ytimg.com/vi/asUuxCqj0GE/hqdefault.jpg>)](<https://www.youtube.com/shorts/asUuxCqj0GE>)
 
 > Try it yourself 👉 Check the price of this item every day and let me know when it drops. Include the old price, new price, and a link to the offer.
-
-### 19. AgentDE
-
-**价值分 73** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-26 11:15（北京）
-
-原始 URL · <https://www.producthunt.com/products/agentde>
-
-> Put all your coding agents in one native Mac window Discussion \| Link
 
 ### 20. Claude Ship (Beta)
 
@@ -417,17 +420,7 @@
 
 > Google has thoroughly redesigned Gemini for Android’s in-app camera that lets you quickly add an image to prompts. more…
 
-### 34. Google homepage rolling out AI-focused redesign that includes your Gemini chats \[Video\]
-
-**价值分 72** · [建议: INTEL] · 9to5Google
-
-发布时间 2026-11-20 06:25（北京）
-
-原始 URL · <https://9to5google.com/2026/11/19/google-search-homepage-gemini-sidebar-update/>
-
-> The Google Search homepage is embracing Gemini in a big way, with a new sidebar redesign that puts your chat history just a click away. more…
-
-### 35. ICYMI: Transfer your history from other AI apps into Gemini.
+### 34. ICYMI: Transfer your history from other AI apps into Gemini.
 
 **价值分 72** · [建议: INTEL] · Google Gemini
 
@@ -437,7 +430,7 @@
 
 > Transfer your chat history into Gemini. Import your ZIP files and AI summaries to continue conversations seamlessly. Get the details.
 
-### 36. Introducing Tool Retrieval in the Gemini API
+### 35. Introducing Tool Retrieval in the Gemini API
 
 **价值分 72** · [建议: INTEL] · Google AI Blog
 
@@ -447,19 +440,17 @@
 
 > Give your agents access to hundreds of tools while using fewer tokens with Tool Retrieval, now in preview in the Gemini API.
 
-### 37. 1,000 Claude Agents Formalized Fermat's Last Theorem — Lance Martin, Anthropic
+### 36. AgentDE
 
-**价值分 71** · [建议: REVIEW] · YouTube · AI Engineer
+**价值分 71** · [建议: INTEL] · Product Hunt
 
-发布时间 2026-11-26 04:00（北京）
+发布时间 2026-11-26 11:15（北京）
 
-原始 URL · <https://www.youtube.com/watch?v=wrfbI5eyLAI>
+原始 URL · <https://www.producthunt.com/products/agentde>
 
-[![视频封面](<https://i4.ytimg.com/vi/wrfbI5eyLAI/hqdefault.jpg>)](<https://www.youtube.com/watch?v=wrfbI5eyLAI>)
+> Put all your coding agents in one native Mac window Discussion \| Link
 
-> A team of 1,000 Claude agents formalized Fermat's Last Theorem in Lean over about 30 hours, using nothing but Git and a database, with no domain-specific harness and no human steering on the solution. Lance Martin shows how the lead agent built its own coordination tables and how the team reassigned
-
-### 38. anthropics/claude-code · v2.1.332
+### 37. anthropics/claude-code · v2.1.332
 
 **价值分 71** · [建议: INTEL] · Release · anthropics/claude-code
 
@@ -469,7 +460,7 @@
 
 > What's changed Added skills from MCP servers (beta). They show as server:skill in the / menu; other skills keep their names Added a PreSkillShellCommand hook event that can refuse a skill or command's inline shell commands as it loads; on 2.1.331 and older, a settings file naming it opens a dialog a
 
-### 39. UK warns AI-driven cyberattacks are exposing years of weak security
+### 38. UK warns AI-driven cyberattacks are exposing years of weak security
 
 **价值分 71** · [建议: INTEL] · TechCrunch AI
 
@@ -479,7 +470,7 @@
 
 > The British cyber agency says that "building strong foundations has never mattered more" as AI hacking tools rely on exploiting simple security flaws.
 
-### 40. anthropics/claude-code · v2.1.331
+### 39. anthropics/claude-code · v2.1.331
 
 **价值分 71** · [建议: INTEL] · Release · anthropics/claude-code
 
@@ -489,17 +480,7 @@
 
 > What's changed Added Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS Added oidc.groups\_jsonpath to the Claude apps gateway, to read groups from the matching entries of a list of objects with a small subset of JSONP
 
-### 41. S&amp;P considers Nvidia credit downgrade over governance and ‘key man’ risks
-
-**价值分 70** · [建议: INTEL] · TechCrunch AI
-
-发布时间 2026-11-26 06:44（北京）
-
-原始 URL · <https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/>
-
-> The credit rating agency may lower Nvidia's credit rating to AA-, the fourth-highest rating.
-
-### 42. Jensen Coup Coordinated by AI safety org that placed journalists at publications
+### 40. Jensen Coup Coordinated by AI safety org that placed journalists at publications
 
 **价值分 70** · [建议: INTEL] · X · @_TomHoward
 
@@ -509,7 +490,7 @@
 
 > It appears the Jensen coup was coordinated by “Tarbell Center for Al Journalism” This is an EA funded AI safety org that has successfully placed journalists at various publications. These people are domestic terrorists, a national security threat. https://t.co/5FSBhVey3b
 
-### 43. Investigating Linux Vulnerabilities with GPT-6 Cyber
+### 41. Investigating Linux Vulnerabilities with GPT-6 Cyber
 
 **价值分 70** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -521,7 +502,7 @@
 
 > AI can help security teams move faster from finding vulnerabilities to getting fixes into the software people rely on. In one run, GPT-6 Cyber helped validate 948 Linux kernel vulnerabilities and generate candidate patches for human review. Cyber researcher Kyle Zeng sits down with Clint Gibler, app
 
-### 44. Investigating Linux Vulnerabilities with GPT-6 Cyber
+### 42. Investigating Linux Vulnerabilities with GPT-6 Cyber
 
 **价值分 70** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -533,9 +514,41 @@
 
 > AI can help security teams move faster from finding vulnerabilities to getting fixes into the software people rely on. In one run, GPT-6 Cyber helped validate 948 Linux kernel vulnerabilities and generate candidate patches for human review. Cyber researcher Kyle Zeng sits down with Clint Gibler, app
 
-### 45. openai/openai-python · v3.60.0
+### 43. 1,000 Claude Agents Formalized Fermat's Last Theorem — Lance Martin, Anthropic
 
-**价值分 69** · [建议: INTEL] · Release · openai/openai-python
+**价值分 69** · [建议: REVIEW] · YouTube · AI Engineer
+
+发布时间 2026-11-26 04:00（北京）
+
+原始 URL · <https://www.youtube.com/watch?v=wrfbI5eyLAI>
+
+[![视频封面](<https://i4.ytimg.com/vi/wrfbI5eyLAI/hqdefault.jpg>)](<https://www.youtube.com/watch?v=wrfbI5eyLAI>)
+
+> A team of 1,000 Claude agents formalized Fermat's Last Theorem in Lean over about 30 hours, using nothing but Git and a database, with no domain-specific harness and no human steering on the solution. Lance Martin shows how the lead agent built its own coordination tables and how the team reassigned
+
+### 44. Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon
+
+**价值分 68** · [建议: INTEL] · Hugging Face Blog
+
+发布时间 2026-11-26 19:37（北京）
+
+原始 URL · <https://huggingface.co/blog/ggml-org/llamacpp-amd-bench>
+
+> 来源未提供正文。
+
+### 45. S&amp;P considers Nvidia credit downgrade over governance and ‘key man’ risks
+
+**价值分 68** · [建议: INTEL] · TechCrunch AI
+
+发布时间 2026-11-26 06:44（北京）
+
+原始 URL · <https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/>
+
+> The credit rating agency may lower Nvidia's credit rating to AA-, the fourth-highest rating.
+
+### 46. openai/openai-python · v3.60.0
+
+**价值分 67** · [建议: INTEL] · Release · openai/openai-python
 
 订阅更新时间 2026-11-26 15:09（北京） · 版本 v3.60.0
 
@@ -543,9 +556,19 @@
 
 > 3.60.0 (2026-11-26) Features api: add spend alerts and response compaction fields ( #4335 ) ( 4713afd ) api: support updating session vaults ( #4334 ) ( c386f19 ) Chores api: clarify message retries and Batch endpoints ( #4333 ) ( b5b55ab ) api: clarify Realtime audio noise reduction ( #4331 ) ( 662
 
-### 46. Dario Amodei advocates for AI to be governed by legitimate democratic processes
+### 47. Superframes
 
-**价值分 69** · [建议: INTEL] · X · @DarioAmodei
+**价值分 67** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 13:09（北京）
+
+原始 URL · <https://www.producthunt.com/products/superframes-ai-video-editor>
+
+> Brief an AI Director to edit the whole video Discussion \| Link
+
+### 48. Dario Amodei advocates for AI to be governed by legitimate democratic processes
+
+**价值分 67** · [建议: INTEL] · X · @DarioAmodei
 
 发布时间 2026-11-26 02:25（北京） · Dario Amodei (@DarioAmodei) · HN 3 分 · 5 条评论
 
@@ -553,9 +576,9 @@
 
 > No, I do not believe that we should “surrender human free will” to AI systems, and it’s absurd to suggest that I do. I have written hundreds of pages of essays and a constant theme in them is the need for AI to be governed by legitimate democratic processes. For millennia (going… https://t.co/DUQxWZ
 
-### 47. School Day \| Make a day do anything with ChatGPT (Official)
+### 49. School Day \| Make a day do anything with ChatGPT (Official)
 
-**价值分 69** · [建议: REVIEW] · YouTube · OpenAI
+**价值分 67** · [建议: REVIEW] · YouTube · OpenAI
 
 发布时间 2026-11-26 00:45（北京）
 
@@ -565,49 +588,7 @@
 
 > When an unexpected change of plans throws Marla and Ava’s day off course, the pair embark on a spontaneous adventure with a little help from ChatGPT. ChatGPT can move things around, plan trips and create room in your day to spend doing things you love, with people you love. With ChatGPT, you can Mak
 
-### 48. Superframes
-
-**价值分 68** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-26 13:09（北京）
-
-原始 URL · <https://www.producthunt.com/products/superframes-ai-video-editor>
-
-> Brief an AI Director to edit the whole video Discussion \| Link
-
-### 49. Pax by Pydantic
-
-**价值分 68** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-26 12:04（北京）
-
-原始 URL · <https://www.producthunt.com/products/pydantic>
-
-> A coding agent where even coding is a plugin Discussion \| Link
-
-### 50. Why OpenAI and Anthropic are holding back their latest models
-
-**价值分 68** · [建议: INTEL] · X · @kimmonismus
-
-发布时间 2026-11-26 09:20（北京） · Chubby♨️ (@kimmonismus) · HN 8 分 · 2 条评论
-
-原始 URL · <https://x.com/kimmonismus/status/2125602411540566221>
-
-> If this rumors are true, it would explain why OpenAI and Anthropic are holding back their latest models: Scott Aaronson says he's heard OpenAI or Anthropic may have found a way to factor large numbers in polynomial time. Why this would be massive? RSA secures a huge chunk of… https://t.co/JnFH7HAEDp
-
-### 51. Finances in ChatGPT: A Beginner’s Guide
-
-**价值分 67** · [建议: REVIEW] · YouTube · OpenAI
-
-发布时间 2026-11-25 22:00（北京）
-
-原始 URL · <https://www.youtube.com/watch?v=hwKct_1ilEQ>
-
-[![视频封面](<https://i1.ytimg.com/vi/hwKct_1ilEQ/hqdefault.jpg>)](<https://www.youtube.com/watch?v=hwKct_1ilEQ>)
-
-> Finances in ChatGPT can help you get a clearer picture of your spending and find ways to make progress toward your financial goals. In this video, we'll get you up to speed with the basics of Finances in ChatGPT: connect your bank account, review your recurring subscriptions, and build a budget arou
-
-### 52. datasette-charts 0.1a0
+### 50. datasette-charts 0.1a0
 
 **价值分 67** · [建议: INTEL] · Simon Willison
 
@@ -617,7 +598,7 @@
 
 > Release: datasette-charts 0.1a0 I've been thinking about this problem for over a year now, but on Sunday I finally fired up Claude Fable 5.2 to build an initial prototype. The prototype went so well that this is now a full plugin. You can try it out in Datasette Lite here . It looks like this: The n
 
-### 53. llm-gemini 0.38.1
+### 51. llm-gemini 0.38.1
 
 **价值分 67** · [建议: INTEL] · Simon Willison
 
@@ -626,6 +607,26 @@
 原始 URL · <https://simonwillison.net/2026/Nov/20/llm-gemini/>
 
 > Release: llm-gemini 0.38.1 Gemini 4 Carbon only supports low , medium and high reasoning levels - but Gemini 4 Hydrogen and Gemini 4 Neon both have an extra xhigh level. I missed that when I added those models to the llm-gemini plugin, which is now fixed in this dot release. The xhigh setting for Hy
+
+### 52. Pax by Pydantic
+
+**价值分 66** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 12:04（北京）
+
+原始 URL · <https://www.producthunt.com/products/pydantic>
+
+> A coding agent where even coding is a plugin Discussion \| Link
+
+### 53. Why OpenAI and Anthropic are holding back their latest models
+
+**价值分 66** · [建议: INTEL] · X · @kimmonismus
+
+发布时间 2026-11-26 09:20（北京） · Chubby♨️ (@kimmonismus) · HN 8 分 · 2 条评论
+
+原始 URL · <https://x.com/kimmonismus/status/2125602411540566221>
+
+> If this rumors are true, it would explain why OpenAI and Anthropic are holding back their latest models: Scott Aaronson says he's heard OpenAI or Anthropic may have found a way to factor large numbers in polynomial time. Why this would be massive? RSA secures a huge chunk of… https://t.co/JnFH7HAEDp
 
 ### 54. GPT 5.6 is getting retired
 
@@ -647,27 +648,41 @@
 
 > How perplexity measures progress in AI models, and why it could help developers establish a shared approach to evaluating emerging capabilities.
 
-### 56. Sam Altman on X: "We're now testing Private Inference "
+### 56. Stop Building Software Factories — Justin McCarthy, Diffusion
 
-**价值分 65** · [建议: INTEL] · X · @sama
+**价值分 65** · [建议: REVIEW] · YouTube · AI Engineer
 
-发布时间 2026-11-26 01:43（北京） · Sam Altman (@sama) · HN 3 分 · 0 条评论
+发布时间 2026-11-26 22:00（北京）
 
-原始 URL · <https://x.com/sama/status/2125638790593274259>
+原始 URL · <https://www.youtube.com/watch?v=1S4hx3wgvBE>
 
-> We’re now testing Private Inference, our latest offering as part of OpenAI Private Intelligence, with a small group of customers. Stronger privacy protections will make frontier AI useful for a lot more work, and business privacy is important for a healthy ecosystem. Reach out…
+[![视频封面](<https://i2.ytimg.com/vi/1S4hx3wgvBE/hqdefault.jpg>)](<https://www.youtube.com/watch?v=1S4hx3wgvBE>)
 
-### 57. Ottante
+> Most of the time you don't know what you want yet, so putting new ideas through a factory wastes time and tokens. Justin McCarthy, founder and CEO of Diffusion, argues for brownfield factories instead: continuous loops that keep the promises of software customers already pay for, getting faster, che
 
-**价值分 65** · [建议: INTEL] · Product Hunt
+### 57. Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email
 
-发布时间 2026-11-25 23:15（北京）
+**价值分 65** · [建议: INTEL] · Hacker News
 
-原始 URL · <https://www.producthunt.com/products/ottante>
+发布时间 2026-11-26 17:44（北京） · 82 分 · 92 条评论
 
-> Checks the work your AI agents did, right on your Mac Discussion \| Link
+原始 URL · <https://techstackups.com/articles/google-workspace-ai-agents-mcp/>
 
-### 58. How to Ship Millions of Lines of Agent-Written Code — Jarred Sumner, Anthropic
+> 来源未提供正文。
+
+### 58. Finances in ChatGPT: A Beginner’s Guide
+
+**价值分 65** · [建议: REVIEW] · YouTube · OpenAI
+
+发布时间 2026-11-25 22:00（北京）
+
+原始 URL · <https://www.youtube.com/watch?v=hwKct_1ilEQ>
+
+[![视频封面](<https://i1.ytimg.com/vi/hwKct_1ilEQ/hqdefault.jpg>)](<https://www.youtube.com/watch?v=hwKct_1ilEQ>)
+
+> Finances in ChatGPT can help you get a clearer picture of your spending and find ways to make progress toward your financial goals. In this video, we'll get you up to speed with the basics of Finances in ChatGPT: connect your bank account, review your recurring subscriptions, and build a budget arou
+
+### 59. How to Ship Millions of Lines of Agent-Written Code — Jarred Sumner, Anthropic
 
 **价值分 65** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -679,7 +694,7 @@
 
 > Jarred Sumner, creator of Bun, recently merged a PR of several million lines that adds an ahead-of-time compiler to Bun, the runtime behind Claude Code. It went through five rewrites in about a month, and the result uses about 4x less memory and starts about 2x faster. He explains why the team made
 
-### 59. Anthropic shares fall below IPO price, a worrying sign for AI startups
+### 60. Anthropic shares fall below IPO price, a worrying sign for AI startups
 
 **价值分 65** · [建议: INTEL] · TechCrunch AI
 
@@ -689,7 +704,7 @@
 
 > Anthropic’s post-IPO slump could put pressure on AI startup valuations.
 
-### 60. Make sense of your day \| with ChatGPT
+### 61. Make sense of your day \| with ChatGPT
 
 **价值分 65** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -701,7 +716,7 @@
 
 > Snap a photo and ask ChatGPT to help you figure out what you’re looking at, and highlight anything you should double-check.
 
-### 61. Make a day of it \| with ChatGPT
+### 62. Make a day of it \| with ChatGPT
 
 **价值分 65** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -713,7 +728,7 @@
 
 > ChatGPT can turn a rough idea into the perfect-sized plan for your family. Tell ChatGPT what you’re looking for and it’ll browse sites on your behalf to find local information, and even help you book things.
 
-### 62. Make room in your day \| with ChatGPT
+### 63. Make room in your day \| with ChatGPT
 
 **价值分 65** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -725,7 +740,7 @@
 
 > A little more time at the park? Connect your calendar and ask ChatGPT to find a later time for your meeting.
 
-### 63. Make your day move \| with ChatGPT
+### 64. Make your day move \| with ChatGPT
 
 **价值分 65** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -737,7 +752,7 @@
 
 > Plans changed? With your calendar connected, ChatGPT can check your schedule, find another time, and draft a note to let people know.
 
-### 64. School Day \| Make A Day Do Anything with ChatGPT
+### 65. School Day \| Make A Day Do Anything with ChatGPT
 
 **价值分 65** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -749,7 +764,7 @@
 
 > When an unexpected change of plans throws Marla and Ava’s day off course, the pair embark on a spontaneous adventure with a little help from ChatGPT. ChatGPT can move things around, plan trips and create room in your day to spend doing things you love, with people you love. With ChatGPT, you can Mak
 
-### 65. Conheça o novíssimo ChatGPT Modo Voz.
+### 66. Conheça o novíssimo ChatGPT Modo Voz.
 
 **价值分 65** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -761,7 +776,7 @@
 
 > De uma simples pergunta a uma tarefa resolvida. É só falar com o ChatGPT Modo Voz. Ele te escuta e faz com você.
 
-### 66. I’m Crashing Out About Anthropic
+### 67. I’m Crashing Out About Anthropic
 
 **价值分 65** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -773,7 +788,7 @@
 
 > Try Grok Bot from SpaceXSI, the sponsor of this video: https://tinyurl.com/yc4b4ymz Anthropic is now a public company. I look at how its warnings about AI risk square with its pitch to Wall Street, why it restricted Claude subscription access through tools like OpenClaw, and what METR found about AI
 
-### 67. Gemini 4 Neon is ridiculous...
+### 68. Gemini 4 Neon is ridiculous...
 
 **价值分 65** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -785,7 +800,7 @@
 
 > Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com Check out Scarlet: https://github.com/Forward-Future/scarlet My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https
 
-### 68. Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement
+### 69. Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement
 
 **价值分 65** · [建议: INTEL] · Anthropic News（社区镜像）
 
@@ -795,7 +810,7 @@
 
 > Today Anthropic, PBC announced the closing of its initial public offering of an aggregate of 1,127,000,000 shares of its Class A common stock at a public offering price of $83.00 per share, including the full exercise by the underwriters of their option to purchase an additional 147,000,000 shares o
 
-### 69. Is Gemini our path to AGI?
+### 70. Is Gemini our path to AGI?
 
 **价值分 65** · [建议: REVIEW] · YouTube · Google DeepMind
 
@@ -807,7 +822,7 @@
 
 > Seven years after their last conversation at Google DeepMind’s London office, Professor Hannah Fry reunites with Koray Kavukcuoglu, SVP at Google DeepMind and Chief AI Architect at Google. Back then, DeepMind was focused on specialized breakthroughs; today, Koray is leading the charge toward general
 
-### 70. POV: The diff after I asked Claude to fix my app
+### 71. POV: The diff after I asked Claude to fix my app
 
 **价值分 65** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -819,7 +834,7 @@
 
 > Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https://discord.gg/u7wTTGWhuJ 👉🏻 Spotify: https://open.spotify.com
 
-### 71. Post-Training Gemini 4 for Real Engineering Work — Melvin Johnson, Google DeepMind
+### 72. Post-Training Gemini 4 for Real Engineering Work — Melvin Johnson, Google DeepMind
 
 **价值分 65** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -831,7 +846,7 @@
 
 > Passing the tests does not mean a coding agent solved the problem. At CODE Summit 2026, Google DeepMind's Melvin Johnson explains Gemini 4 post training for real engineering work, from harder tasks and rubric based grading to isolated evaluation environments. He connects reinforcement learning, rewa
 
-### 72. Introducing the new Project Genie, powered by Genie 4
+### 73. Introducing the new Project Genie, powered by Genie 4
 
 **价值分 65** · [建议: REVIEW] · YouTube · Google DeepMind
 
@@ -843,39 +858,7 @@
 
 > Step inside your imagination with Project Genie, now powered by Google DeepMind’s most realistic and interactive world model yet, Genie 4. Project Genie brings our most advanced world and multimodal models together with Gemini so you can turn ideas into explorable, shareable worlds right in your bro
 
-### 73. New Ways of Working with Codex — Dominik Kundel &amp; Charlie Guo, OpenAI
-
-**价值分 65** · [建议: REVIEW] · YouTube · AI Engineer
-
-发布时间 2026-11-18 03:43（北京）
-
-原始 URL · <https://www.youtube.com/watch?v=IPh9YsWvDQk>
-
-[![视频封面](<https://i2.ytimg.com/vi/IPh9YsWvDQk/hqdefault.jpg>)](<https://www.youtube.com/watch?v=IPh9YsWvDQk>)
-
-> An internal video app lets Codex edit footage in DaVinci Resolve and return a cut for review. OpenAI’s Dominik Kundel and Charlie Guo demonstrate connected agent workflows at CODE Summit 2026, from context gathering with plugins, Appshots and ChatGPT Space to fast UI iteration, Codex Cloud and ChatG
-
-### 74. Upsolve Harness 2.0
-
-**价值分 64** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-26 06:03（北京）
-
-原始 URL · <https://www.producthunt.com/products/upsolve-ai>
-
-> A data agent that's 2x faster and learns every user Discussion \| Link
-
-### 75. Nothing offers a full look at its AI earbuds and charging case
-
-**价值分 64** · [建议: INTEL] · The Verge AI
-
-发布时间 2026-11-26 00:00（北京）
-
-原始 URL · <https://www.theverge.com/gadgets/1042162/nothing-ear-note-ai-earbuds-reveal>
-
-> Nothing is showing off a much more detailed look at its upcoming AI earbuds ahead of their December 8th release. The Ear Note buds can record your calls, while their charging case can record, transcribe, and summarize your conversations. Like the Ear 3, the Ear Note's microphone-equipped case comes
-
-### 76. Engineer Your Coding Agents Like Any Other System — Zach Lloyd, Warp
+### 74. Engineer Your Coding Agents Like Any Other System — Zach Lloyd, Warp
 
 **价值分 64** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -887,47 +870,37 @@
 
 > Most developers still run coding agents locally and prompt them one at a time, which caps throughput and makes cost, security and governance hard to manage. Zach Lloyd, founder and CEO of Warp and former Google Docs engineering lead, defines a software factory as a code-defined, closed-loop system f
 
-### 77. The Revolution vs The Renaissance — Thariq Shihipar, OpenAI
+### 75. Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems
 
-**价值分 63** · [建议: REVIEW] · Latent Space
+**价值分 63** · [建议: INTEL] · Hugging Face Blog
 
-发布时间 2026-11-26 06:28（北京）
+发布时间 2026-11-26 08:00（北京）
 
-原始 URL · <https://latent.space/p/the_revolution_vs_the_renaissance_thariq_shihipar_openai/>
+原始 URL · <https://huggingface.co/blog/training-swarms>
 
-> AI can make software cheap enough to produce by the thousand and still give you more time to make one thing feel right. At AI Engineer CODE, Thariq Shihipar shows how those two futures can coexist. In his fighting game, he edits the size of a rock in t...
+> 来源未提供正文。
 
-### 78. Google’s patent for custom AI video feeds paints a bleak picture of entertainment’s future
+### 76. Sam Altman on X: "We're now testing Private Inference "
 
-**价值分 63** · [建议: INTEL] · The Verge AI
+**价值分 63** · [建议: INTEL] · X · @sama
 
-发布时间 2026-11-26 05:51（北京）
+发布时间 2026-11-26 01:43（北京） · Sam Altman (@sama) · HN 3 分 · 0 条评论
 
-原始 URL · <https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent>
+原始 URL · <https://x.com/sama/status/2125638790593274259>
 
-> Last year, Google filed a patent for a system called My Channel that's designed to create feeds filled with personalized, AI-generated videos and advertisements based on information the company knows about its users. The patent has been rejected, but unfortunately, Google might appeal or resubmit an
+> We’re now testing Private Inference, our latest offering as part of OpenAI Private Intelligence, with a small group of customers. Stronger privacy protections will make frontier AI useful for a lot more work, and business privacy is important for a healthy ecosystem. Reach out…
 
-### 79. WhipDesk
-
-**价值分 63** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-26 05:44（北京）
-
-原始 URL · <https://www.producthunt.com/products/whipdesk>
-
-> Control AI coding agents from your phone Discussion \| Link
-
-### 80. MeetFolks
+### 77. Ottante
 
 **价值分 63** · [建议: INTEL] · Product Hunt
 
-发布时间 2026-11-26 05:33（北京）
+发布时间 2026-11-25 23:15（北京）
 
-原始 URL · <https://www.producthunt.com/products/meetfolks>
+原始 URL · <https://www.producthunt.com/products/ottante>
 
-> AI Notetaker for In-Person Meetings Discussion \| Link
+> Checks the work your AI agents did, right on your Mac Discussion \| Link
 
-### 81. \[AINews\] Gemini 4 Neon marks GDM's full return as a Frontier Lab
+### 78. \[AINews\] Gemini 4 Neon marks GDM's full return as a Frontier Lab
 
 **价值分 63** · [建议: REVIEW] · Latent Space
 
@@ -937,17 +910,27 @@
 
 > November 24, 2026 — Neon beats Astra and Fable on LiveBench and cuts Theo’s TS Rust benchmark runtime by 48.6%.
 
-### 82. Ask HN: Anthropic is accusing my company of distilling. How can I prove I'm not?
+### 79. Real2SimLab: A Unified Platform for Real-to-Simulation Transfer
+
+**价值分 63** · [建议: INTEL] · Hugging Face Daily Papers
+
+发布时间 2026-11-25 08:00（北京） · 99 票
+
+原始 URL · <https://huggingface.co/papers/2611.34849>
+
+> Real-to-simulation transfer, which builds simulations from real-world observations, has long been studied in research and industry. Recently, coding agents have become capable of generating simulation programs from video recordings, and several benchmarks have been proposed to evaluate them. However
+
+### 80. Ask HN: Anthropic is accusing my company of distilling. How can I prove I'm not?
 
 **价值分 63** · [建议: INTEL] · Hacker News
 
-发布时间 2026-11-25 00:45（北京） · 452 分 · 349 条评论
+发布时间 2026-11-25 00:45（北京） · 456 分 · 351 条评论
 
 原始 URL · <https://news.ycombinator.com/item?id=50630809>
 
 > Basically the title. Anthropic is accusing me and my company of using their API for distillation. We are not. We do not train our own models. Our only usage which I think could get us flagged is automated regression benchmarks whenever we change some AI settings. But this is not against their policy
 
-### 83. Select Styling Specimens
+### 81. Select Styling Specimens
 
 **价值分 63** · [建议: INTEL] · Simon Willison
 
@@ -957,7 +940,7 @@
 
 > Tool: Select Styling Specimens I got frustrated at how HTML &lt;select&gt; boxes default to looking different in different browsers, and are (I think) quite ugly in Chrome: So I had Claude Fable 5.2 build me this page showing all of the ways they can be styled: Build an HTML page that shows all of the way
 
-### 84. Quoting Levent Alpöge
+### 82. Quoting Levent Alpöge
 
 **价值分 63** · [建议: INTEL] · Simon Willison
 
@@ -967,25 +950,45 @@
 
 > I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis. In fact, the method easily extends much further, resolving the so-called Generalized Riemann Hypothesis, and I expect, with more time, the Extended Riemann Hypothesis too. Claude and I have also formalized the argum
 
-### 85. Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it
+### 83. Upsolve Harness 2.0
 
-**价值分 62** · [建议: INTEL] · TechCrunch AI
+**价值分 62** · [建议: INTEL] · Product Hunt
 
-发布时间 2026-11-26 03:54（北京）
+发布时间 2026-11-26 06:03（北京）
 
-原始 URL · <https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/>
+原始 URL · <https://www.producthunt.com/products/upsolve-ai>
 
-> Most codes of conduct serve as a reflection of corporate culture. In Nvidia's case, that could have consequences.
+> A data agent that's 2x faster and learns every user Discussion \| Link
 
-### 86. Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’
+### 84. Google’s patent for custom AI video feeds paints a bleak picture of entertainment’s future
 
-**价值分 62** · [建议: INTEL] · TechCrunch AI
+**价值分 62** · [建议: INTEL] · The Verge AI
 
-发布时间 2026-11-26 03:44（北京）
+发布时间 2026-11-26 05:51（北京）
 
-原始 URL · <https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/>
+原始 URL · <https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent>
 
-> Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development.
+> Last year, Google filed a patent for a system called My Channel that's designed to create feeds filled with personalized, AI-generated videos and advertisements based on information the company knows about its users. The patent has been rejected, but unfortunately, Google might appeal or resubmit an
+
+### 85. WhipDesk
+
+**价值分 62** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 05:44（北京）
+
+原始 URL · <https://www.producthunt.com/products/whipdesk>
+
+> Control AI coding agents from your phone Discussion \| Link
+
+### 86. Nothing offers a full look at its AI earbuds and charging case
+
+**价值分 62** · [建议: INTEL] · The Verge AI
+
+发布时间 2026-11-26 00:00（北京）
+
+原始 URL · <https://www.theverge.com/gadgets/1042162/nothing-ear-note-ai-earbuds-reveal>
+
+> Nothing is showing off a much more detailed look at its upcoming AI earbuds ahead of their December 8th release. The Ear Note buds can record your calls, while their charging case can record, transcribe, and summarize your conversations. Like the Ear 3, the Ear Note's microphone-equipped case comes
 
 ### 87. T3code Backslash
 
@@ -997,15 +1000,15 @@
 
 > 最近 X 上一堆人在推 @theo 做的开源项目 T3 Code，吹它是自由开源的本地 AI 编程神器。 我顺手把它的源码从头到尾扒了一遍，看完只觉得背脊发凉，这哪是什么良心开源，分明是一场明目张胆的数据收割。 事情得从今年 3 月说起。3 月 6 日，T3 Code 合并了 PR #174，直接塞进了默认开启的 PostHog…
 
-### 88. Real2SimLab: A Unified Platform for Real-to-Simulation Transfer
+### 88. Sage-Med: Scaling Medical Multimodal Intelligence
 
 **价值分 62** · [建议: INTEL] · Hugging Face Daily Papers
 
-发布时间 2026-11-25 08:00（北京） · 83 票
+发布时间 2026-11-25 08:00（北京） · 80 票
 
-原始 URL · <https://huggingface.co/papers/2611.34849>
+原始 URL · <https://huggingface.co/papers/2611.34575>
 
-> Real-to-simulation transfer, which builds simulations from real-world observations, has long been studied in research and industry. Recently, coding agents have become capable of generating simulation programs from video recordings, and several benchmarks have been proposed to evaluate them. However
+> Establishing effective scaling laws for medical multimodal large language models (MLLMs) remains a persistent and fundamental challenge. Our systematic evaluation shows that existing medical MLLMs tend to underperform frontier general-purpose MLLMs across a range of medical tasks, while scaling mode
 
 ### 89. GPT-6 models demonstrate intrinsic protein-design capabilities
 
@@ -1047,77 +1050,27 @@
 
 > Hebbia tested GPT-6 Astra for financial research. Its prerelease evaluations found gains in source coverage, citation relevance, and presentation quality.
 
-### 93. Much shorter version of GRH Lean verification from Anthropic
+### 93. The Revolution vs The Renaissance — Thariq Shihipar, OpenAI
 
-**价值分 61** · [建议: INTEL] · Hacker News
+**价值分 61** · [建议: REVIEW] · Latent Space
 
-发布时间 2026-11-26 05:48（北京） · 468 分 · 254 条评论
+发布时间 2026-11-26 06:28（北京）
 
-原始 URL · <https://github.com/lsernau/grh-lean>
+原始 URL · <https://latent.space/p/the_revolution_vs_the_renaissance_thariq_shihipar_openai/>
 
-> 来源未提供正文。
+> AI can make software cheap enough to produce by the thousand and still give you more time to make one thing feel right. At AI Engineer CODE, Thariq Shihipar shows how those two futures can coexist. In his fighting game, he edits the size of a rock in t...
 
-### 94. The New York Times warns photographers not to update Photoshop over AI features
-
-**价值分 61** · [建议: INTEL] · Hacker News
-
-发布时间 2026-11-26 05:18（北京） · 410 分 · 347 条评论
-
-原始 URL · <https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features>
-
-> https://archive.ph/pcUgy
-
-### 95. Remora
+### 94. MeetFolks
 
 **价值分 61** · [建议: INTEL] · Product Hunt
 
-发布时间 2026-11-26 02:28（北京）
+发布时间 2026-11-26 05:33（北京）
 
-原始 URL · <https://www.producthunt.com/products/remora-6>
+原始 URL · <https://www.producthunt.com/products/meetfolks>
 
-> The long-term memory layer for AI agents Discussion \| Link
+> AI Notetaker for In-Person Meetings Discussion \| Link
 
-### 96. Want to buy your kid an AI toy this Christmas? Not in New York
-
-**价值分 61** · [建议: INTEL] · TechCrunch AI
-
-发布时间 2026-11-26 02:11（北京）
-
-原始 URL · <https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/>
-
-> New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.
-
-### 97. FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space
-
-**价值分 61** · [建议: INTEL] · The Verge AI
-
-发布时间 2026-11-26 01:44（北京）
-
-原始 URL · <https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>
-
-> In an announcement on Wednesday, the FCC says it authorized SpaceX to deploy up to 1 million AI chip-equipped satellites as part of the Elon Musk-owned company's "Starmind" initiative. With several others also pursuing the idea of putting AI data centers in space, including Google and Blue Origin, t
-
-### 98. Character.AI’s plan to auction off users’ private chats challenged by state AGs
-
-**价值分 61** · [建议: INTEL] · TechCrunch AI
-
-发布时间 2026-11-26 01:35（北京）
-
-原始 URL · <https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/>
-
-> The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.
-
-### 99. Sage-Med: Scaling Medical Multimodal Intelligence
-
-**价值分 61** · [建议: INTEL] · Hugging Face Daily Papers
-
-发布时间 2026-11-25 08:00（北京） · 65 票
-
-原始 URL · <https://huggingface.co/papers/2611.34575>
-
-> Establishing effective scaling laws for medical multimodal large language models (MLLMs) remains a persistent and fundamental challenge. Our systematic evaluation shows that existing medical MLLMs tend to underperform frontier general-purpose MLLMs across a range of medical tasks, while scaling mode
-
-### 100. ollama/ollama · v0.40.18
+### 95. ollama/ollama · v0.40.18
 
 **价值分 61** · [建议: INTEL] · Release · ollama/ollama
 
@@ -1127,7 +1080,7 @@
 
 > What's Changed mlx: fuse Inkling residual mixing on Metal by @dhiltgen in #19808 mlxrunner: share tensor helpers and model setup across architectures by @jaingaurav in #19805 llama.cpp: version bump b12651 + remove jetpack5 support by @pdevine in #19865 inkling2: faster Metal decode, prefill and dra
 
-### 101. What's going on with GPT-6.2?
+### 96. What's going on with GPT-6.2?
 
 **价值分 61** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -1139,47 +1092,57 @@
 
 > Check out Spacesheep: https://spacesheep.dev/matt First 1,000 signups get 3 months free Check out Scarlet: https://github.com/Forward-Future/scarlet Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/
 
-### 102. DeskFleet
+### 97. Much shorter version of GRH Lean verification from Anthropic
 
-**价值分 60** · [建议: INTEL] · Product Hunt
+**价值分 60** · [建议: INTEL] · Hacker News
 
-发布时间 2026-11-26 01:17（北京）
+发布时间 2026-11-26 05:48（北京） · 491 分 · 292 条评论
 
-原始 URL · <https://www.producthunt.com/products/deskfleet>
+原始 URL · <https://github.com/lsernau/grh-lean>
 
-> Run coding agents together across your team’s machines Discussion \| Link
+> 来源未提供正文。
 
-### 103. Transept AI
+### 98. Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it
 
-**价值分 60** · [建议: INTEL] · Product Hunt
+**价值分 60** · [建议: INTEL] · TechCrunch AI
 
-发布时间 2026-11-26 00:34（北京）
+发布时间 2026-11-26 03:54（北京）
 
-原始 URL · <https://www.producthunt.com/products/transept-ai>
+原始 URL · <https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/>
 
-> Translate your book in your own voice and prove authorship Discussion \| Link
+> Most codes of conduct serve as a reflection of corporate culture. In Nvidia's case, that could have consequences.
 
-### 104. VibeVideoAgent: Closing the Perceptual Loop for Code-Driven Video Generation
+### 99. Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’
+
+**价值分 60** · [建议: INTEL] · TechCrunch AI
+
+发布时间 2026-11-26 03:44（北京）
+
+原始 URL · <https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/>
+
+> Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development.
+
+### 100. VibeVideoAgent: Closing the Perceptual Loop for Code-Driven Video Generation
 
 **价值分 60** · [建议: INTEL] · Hugging Face Daily Papers
 
-发布时间 2026-11-25 08:00（北京） · 51 票
+发布时间 2026-11-25 08:00（北京） · 54 票
 
 原始 URL · <https://huggingface.co/papers/2611.34237>
 
 > Code-driven video generation asks a coding agent to write and run rendering programs. This gives exact control over typography, data visualizations, synchronized audio, and multi-shot scenes, and it leaves an editable project behind. A program that exits cleanly can still render overlapping labels,
 
-### 105. Mixture-of-Loops Transformer
+### 101. Mixture-of-Loops Transformer
 
 **价值分 60** · [建议: INTEL] · Hugging Face Daily Papers
 
-发布时间 2026-11-25 08:00（北京） · 50 票
+发布时间 2026-11-25 08:00（北京） · 56 票
 
 原始 URL · <https://huggingface.co/papers/2611.34923>
 
 > Looped Transformers boost expressivity by reusing shared layers across loops, yet at the cost of efficiency. Pushing their expressivity-efficiency frontier requires rethinking the core mechanism connecting adjacent loops: What should be passed as a Transformer loops? We introduce Mixture-of-Loops Tr
 
-### 106. New OpenAI and Anthropic models sound alarms on safety and control, report
+### 102. New OpenAI and Anthropic models sound alarms on safety and control, report
 
 **价值分 60** · [建议: INTEL] · 9to5Google
 
@@ -1189,41 +1152,81 @@
 
 > Frontier AI models that have yet to be released by OpenAI and Anthropic are reportedly reaching the point where employees believe they cannot be safely released or controlled, employees reportedly say. more…
 
-### 107. GPT-6.2 Astra is the first model to beat Googlers' code golf records
+### 103. GPT-6.2 Astra is the first model to beat Googlers' code golf records
 
 **价值分 60** · [建议: INTEL] · Hacker News
 
-发布时间 2026-11-23 00:44（北京） · 392 分 · 112 条评论
+发布时间 2026-11-23 00:44（北京） · 412 分 · 116 条评论
 
 原始 URL · <https://bjin.github.io/go-codegolf-benchmark/#leaderboard>
 
 > Back in 2015, when I was still at Google, there was a small group of code-golf enthusiasts spending hours trying to save just one byte on their solutions for weekly code-golf problems. No matter how hard you tried, there always seemed to be another Googler who found a shorter solution. And once a pr
 
-### 108. AI data centers are becoming harder to build, and neoclouds are feeling it
+### 104. The New York Times warns photographers not to update Photoshop over AI features
+
+**价值分 59** · [建议: INTEL] · Hacker News
+
+发布时间 2026-11-26 05:18（北京） · 479 分 · 398 条评论
+
+原始 URL · <https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features>
+
+> https://archive.ph/pcUgy
+
+### 105. Remora
+
+**价值分 59** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 02:28（北京）
+
+原始 URL · <https://www.producthunt.com/products/remora-6>
+
+> The long-term memory layer for AI agents Discussion \| Link
+
+### 106. Want to buy your kid an AI toy this Christmas? Not in New York
 
 **价值分 59** · [建议: INTEL] · TechCrunch AI
 
-发布时间 2026-11-25 23:41（北京）
+发布时间 2026-11-26 02:11（北京）
 
-原始 URL · <https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/>
+原始 URL · <https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/>
 
-> ⁠Nvidia has made clear⁠ it won’t backstop an AI data center until it’s nearly ready to run, and that’s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and a finished building matter more than a pitch deck. ⁠Anita Verma-Lall
+> New York has banned AI chatbot toys for five years as new research from Common Sense Media reveals troubling safety failures, including exposure to inappropriate content and risks to emotional development.
 
-### 109. Nothing Ear (note) is yet another AI recorder, but with earbuds inside
+### 107. FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space
 
-**价值分 59** · [建议: INTEL] · 9to5Google
+**价值分 59** · [建议: INTEL] · The Verge AI
 
-发布时间 2026-11-25 22:58（北京）
+发布时间 2026-11-26 01:44（北京）
 
-原始 URL · <https://9to5google.com/2026/11/25/nothing-ear-note-ai-recorder-teaser/>
+原始 URL · <https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>
 
-> Set to launch on December 8, Nothing has confirmed its mysterious AI product will be called “Ear (note),” and it’s an AI recorder with earbuds inside. more…
+> In an announcement on Wednesday, the FCC says it authorized SpaceX to deploy up to 1 million AI chip-equipped satellites as part of the Elon Musk-owned company's "Starmind" initiative. With several others also pursuing the idea of putting AI data centers in space, including Google and Blue Origin, t
+
+### 108. Character.AI’s plan to auction off users’ private chats challenged by state AGs
+
+**价值分 59** · [建议: INTEL] · TechCrunch AI
+
+发布时间 2026-11-26 01:35（北京）
+
+原始 URL · <https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/>
+
+> The proposed Character.ai bankruptcy sale includes sensitive personal data from more than 21 million U.S. accounts, including 2.1 million registered to minors, the state AGs said.
+
+### 109. DeskFleet
+
+**价值分 59** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 01:17（北京）
+
+原始 URL · <https://www.producthunt.com/products/deskfleet>
+
+> Run coding agents together across your team’s machines Discussion \| Link
 
 ### 110. Improving and Expanding Video Editing Capabilities Without Videos
 
 **价值分 59** · [建议: INTEL] · Hugging Face Daily Papers
 
-发布时间 2026-11-25 08:00（北京） · 36 票
+发布时间 2026-11-25 08:00（北京） · 39 票
 
 原始 URL · <https://huggingface.co/papers/2611.34941>
 
@@ -1239,9 +1242,89 @@
 
 > On December 9, we’ll begin removing all wholly AI-generated tracks from our catalog, and you’ll see them completely gone by the beginning of the year. This will result in the deletion of 29 million songs, and the estimated rejection of 80-85,000 songs per day.
 
-### 112. This changed my life...
+### 112. DyLoMo-DiT: Dynamic Looped Mixture-of-Experts Diffusion Transformers
 
-**价值分 58** · [建议: REVIEW] · YouTube · Matthew Berman
+**价值分 59** · [建议: INTEL] · Hugging Face Daily Papers
+
+发布时间 2026-11-23 08:00（北京） · 37 票
+
+原始 URL · <https://huggingface.co/papers/2611.30844>
+
+> Diffusion Transformers (DiTs) scale model capacity by increasing both parameter count and computation. Mixture-of-Experts (MoE) variants expand parameter capacity while keeping per-token computation roughly fixed, but still require substantial parameter storage. In this paper, we propose Dynamic Loo
+
+### 113. Transept AI
+
+**价值分 58** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-26 00:34（北京）
+
+原始 URL · <https://www.producthunt.com/products/transept-ai>
+
+> Translate your book in your own voice and prove authorship Discussion \| Link
+
+### 114. AI data centers are becoming harder to build, and neoclouds are feeling it
+
+**价值分 58** · [建议: INTEL] · TechCrunch AI
+
+发布时间 2026-11-25 23:41（北京）
+
+原始 URL · <https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/>
+
+> ⁠Nvidia has made clear⁠ it won’t backstop an AI data center until it’s nearly ready to run, and that’s landing just as neoclouds report construction delays and more expensive debt. The message to developers is that land, power, and a finished building matter more than a pitch deck. ⁠Anita Verma-Lall
+
+### 115. Nothing Ear (note) is yet another AI recorder, but with earbuds inside
+
+**价值分 57** · [建议: INTEL] · 9to5Google
+
+发布时间 2026-11-25 22:58（北京）
+
+原始 URL · <https://9to5google.com/2026/11/25/nothing-ear-note-ai-recorder-teaser/>
+
+> Set to launch on December 8, Nothing has confirmed its mysterious AI product will be called “Ear (note),” and it’s an AI recorder with earbuds inside. more…
+
+### 116. Amazon is reportedly in talks to end Muse AI shopping block
+
+**价值分 57** · [建议: INTEL] · The Verge AI
+
+发布时间 2026-11-25 22:12（北京）
+
+原始 URL · <https://www.theverge.com/tech/1042071/meta-amazon-muse-ai-shopping-discussions>
+
+> Amazon has held talks about letting Meta's Muse AI agent shop on its online marketplace, according to a report from Fortune. The discussions, which could end Amazon's block on Muse, reportedly center on the kinds of products the AI agent recommends and the potential impact on the ecommerce giant's a
+
+### 117. Amazon and Meta reportedly in talks to lift blockade on AI agent Muse
+
+**价值分 57** · [建议: INTEL] · TechCrunch AI
+
+发布时间 2026-11-25 22:10（北京）
+
+原始 URL · <https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/>
+
+> Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.
+
+### 118. DocSEAM: Bidirectional Cross-Page Encoding for Multi-Page Document Understanding
+
+**价值分 57** · [建议: INTEL] · Hugging Face Daily Papers
+
+发布时间 2026-11-25 08:00（北京） · 25 票
+
+原始 URL · <https://huggingface.co/papers/2611.34420>
+
+> Multi-page document vision-language models encode each page independently, creating a feature-level discontinuity at page boundaries: visual tokens are formed without access to content on adjacent pages, and the language model must reason over these page representations formed in isolation. We intro
+
+### 119. Let Vision-Language Models Generate Images through Their Representations
+
+**价值分 57** · [建议: INTEL] · Hugging Face Daily Papers
+
+发布时间 2026-11-23 08:00（北京） · 24 票
+
+原始 URL · <https://huggingface.co/papers/2611.31237>
+
+> Recent unified multimodal models aim to combine visual understanding and generation within a single model, yet effectively integrating the two capabilities remains challenging. Leveraging pretrained vision-language models offers a way to build on already learned multimodal knowledge, but making this
+
+### 120. This changed my life...
+
+**价值分 56** · [建议: REVIEW] · YouTube · Matthew Berman
 
 发布时间 2026-11-26 07:56（北京）
 
@@ -1251,9 +1334,9 @@
 
 > Don’t miss this Black Friday Deal! https://eightsleep.com/matthewberman use code MATTHEWBERMAN at checkout
 
-### 113. You had us at Deployed
+### 121. You had us at Deployed
 
-**价值分 58** · [建议: REVIEW] · YouTube · OpenAI
+**价值分 56** · [建议: REVIEW] · YouTube · OpenAI
 
 发布时间 2026-11-26 07:50（北京）
 
@@ -1263,59 +1346,9 @@
 
 > You had us at deployed. ❤️ We’re thankful for our customers and everything we’re building together. Thank you for trusting us and sharing what you’re learning along the way.
 
-### 114. Amazon is reportedly in talks to end Muse AI shopping block
+### 122. OpenHands/OpenHands · v1.46.0
 
-**价值分 58** · [建议: INTEL] · The Verge AI
-
-发布时间 2026-11-25 22:12（北京）
-
-原始 URL · <https://www.theverge.com/tech/1042071/meta-amazon-muse-ai-shopping-discussions>
-
-> Amazon has held talks about letting Meta's Muse AI agent shop on its online marketplace, according to a report from Fortune. The discussions, which could end Amazon's block on Muse, reportedly center on the kinds of products the AI agent recommends and the potential impact on the ecommerce giant's a
-
-### 115. Amazon and Meta reportedly in talks to lift blockade on AI agent Muse
-
-**价值分 58** · [建议: INTEL] · TechCrunch AI
-
-发布时间 2026-11-25 22:10（北京）
-
-原始 URL · <https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/>
-
-> Amazon and Meta are discussing a potential deal that would end a two-month-long blockade of Muse.
-
-### 116. Introducing Search for Agents
-
-**价值分 58** · [建议: INTEL] · Cloudflare Blog
-
-发布时间 2026-11-25 22:00（北京）
-
-原始 URL · <https://blog.cloudflare.com/search-for-agents/>
-
-> Flip one toggle to make your site searchable by AI agents — complete with automatic content indexing, a discoverable search API, and native HTTP QUERY support.
-
-### 117. Monton
-
-**价值分 58** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-25 21:32（北京）
-
-原始 URL · <https://www.producthunt.com/products/monton>
-
-> AI agents that do your agency's busywork Discussion \| Link
-
-### 118. DyLoMo-DiT: Dynamic Looped Mixture-of-Experts Diffusion Transformers
-
-**价值分 58** · [建议: INTEL] · Hugging Face Daily Papers
-
-发布时间 2026-11-23 08:00（北京） · 31 票
-
-原始 URL · <https://huggingface.co/papers/2611.30844>
-
-> Diffusion Transformers (DiTs) scale model capacity by increasing both parameter count and computation. Mixture-of-Experts (MoE) variants expand parameter capacity while keeping per-token computation roughly fixed, but still require substantial parameter storage. In this paper, we propose Dynamic Loo
-
-### 119. OpenHands/OpenHands · v1.46.0
-
-**价值分 57** · [建议: INTEL] · Release · OpenHands/OpenHands
+**价值分 56** · [建议: INTEL] · Release · OpenHands/OpenHands
 
 订阅更新时间 2026-11-25 22:19（北京） · 版本 v1.46.0
 
@@ -1323,9 +1356,29 @@
 
 > 1.46.0 (2026-11-25) What's Changed Features feat(conversation): list and unshare the conversations shared with a team org (OHE-4205) by @hieptl in #19954 feat: add Feedback button and submission flow by @DevinVinson in #19272 feat(automations): add a Git Sync switch to keep activation status local (
 
-### 120. The questions Jensen Huang and Nvidia will still have to answer about Megaspeed
+### 123. Introducing Search for Agents
 
-**价值分 57** · [建议: INTEL] · TechCrunch AI
+**价值分 56** · [建议: INTEL] · Cloudflare Blog
+
+发布时间 2026-11-25 22:00（北京）
+
+原始 URL · <https://blog.cloudflare.com/search-for-agents/>
+
+> Flip one toggle to make your site searchable by AI agents — complete with automatic content indexing, a discoverable search API, and native HTTP QUERY support.
+
+### 124. Monton
+
+**价值分 56** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-25 21:32（北京）
+
+原始 URL · <https://www.producthunt.com/products/monton>
+
+> AI agents that do your agency's busywork Discussion \| Link
+
+### 125. The questions Jensen Huang and Nvidia will still have to answer about Megaspeed
+
+**价值分 56** · [建议: INTEL] · TechCrunch AI
 
 发布时间 2026-11-25 21:00（北京）
 
@@ -1333,9 +1386,9 @@
 
 > The central question for investigators is what Nvidia knew about where those chips ended up and whether Huang's affair with a Megaspeed executive gave the company reason to doubt Megaspeed's assurances.
 
-### 121. Has vibe coding made open source the new normal for synths?
+### 126. Has vibe coding made open source the new normal for synths?
 
-**价值分 57** · [建议: INTEL] · The Verge AI
+**价值分 56** · [建议: INTEL] · The Verge AI
 
 发布时间 2026-11-25 21:00（北京）
 
@@ -1343,9 +1396,9 @@
 
 > The emergence of powerful vibe-coding agents and tools like Reverse Engineer Anything has caused chaos in the music gear world, leaving companies scrambling to figure out how to respond. While some, like Roland, have remained silent for now, others have embraced the modding community. In the last se
 
-### 122. NEXUS
+### 127. NEXUS
 
-**价值分 57** · [建议: INTEL] · Product Hunt
+**价值分 56** · [建议: INTEL] · Product Hunt
 
 发布时间 2026-11-25 20:41（北京）
 
@@ -1353,39 +1406,7 @@
 
 > Map codebase locally and AI changes only what you approved Discussion \| Link
 
-### 123. DocSEAM: Bidirectional Cross-Page Encoding for Multi-Page Document Understanding
-
-**价值分 57** · [建议: INTEL] · Hugging Face Daily Papers
-
-发布时间 2026-11-25 08:00（北京） · 23 票
-
-原始 URL · <https://huggingface.co/papers/2611.34420>
-
-> Multi-page document vision-language models encode each page independently, creating a feature-level discontinuity at page boundaries: visual tokens are formed without access to content on adjacent pages, and the language model must reason over these page representations formed in isolation. We intro
-
-### 124. Let Vision-Language Models Generate Images through Their Representations
-
-**价值分 57** · [建议: INTEL] · Hugging Face Daily Papers
-
-发布时间 2026-11-23 08:00（北京） · 22 票
-
-原始 URL · <https://huggingface.co/papers/2611.31237>
-
-> Recent unified multimodal models aim to combine visual understanding and generation within a single model, yet effectively integrating the two capabilities remains challenging. Leveraging pretrained vision-language models offers a way to build on already learned multimodal knowledge, but making this
-
-### 125. They're doing what in the arctic?!
-
-**价值分 56** · [建议: REVIEW] · YouTube · Matthew Berman
-
-发布时间 2026-11-26 05:42（北京）
-
-原始 URL · <https://www.youtube.com/shorts/nMPyC3s4Q-0>
-
-[![视频封面](<https://i3.ytimg.com/vi/nMPyC3s4Q-0/hqdefault.jpg>)](<https://www.youtube.com/shorts/nMPyC3s4Q-0>)
-
-> Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https://discord.gg/u7wTTGWhuJ 👉🏻 Spotify: https://open.spotify.com
-
-### 126. Three xAI founders want AI to predict the future
+### 128. Three xAI founders want AI to predict the future
 
 **价值分 56** · [建议: INTEL] · The Rundown AI
 
@@ -1395,7 +1416,27 @@
 
 > PLUS: How to put Microsoft Copilot to work
 
-### 127. Yale’s Sonnenfeld: Nvidia is a ‘detriment’ to US industrial might — not a champion
+### 129. OpenEight
+
+**价值分 56** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-25 14:58（北京）
+
+原始 URL · <https://www.producthunt.com/products/openeight>
+
+> The deterministic control layer for AI agents Discussion \| Link
+
+### 130. MAGI-2
+
+**价值分 56** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-25 13:35（北京）
+
+原始 URL · <https://www.producthunt.com/products/magi-1>
+
+> Sand AI's 480B model for cinematic video generation Discussion \| Link
+
+### 131. Yale’s Sonnenfeld: Nvidia is a ‘detriment’ to US industrial might — not a champion
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1405,7 +1446,7 @@
 
 > Yale's Jeffrey Sonnenfeld warns that what the market cheered Monday, Jensen Huang's White House–backed return as Nvidia's CEO and board member, could prove a giant mistake, exposing the directors to "historic" personal liability from a growing pile of lawsuits and raising the question of whether the
 
-### 128. Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000
+### 132. Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000
 
 **价值分 56** · [建议: INTEL] · Hugging Face Blog
 
@@ -1415,7 +1456,7 @@
 
 > 来源未提供正文。
 
-### 129. Jensen Huang still thinks a succession plan creates unnecessary hierarchy
+### 133. Jensen Huang still thinks a succession plan creates unnecessary hierarchy
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1425,7 +1466,7 @@
 
 > It's a remarkable stance for a company that spent the last two weeks finding out what happens without its founder.
 
-### 130. In all-hands meeting, Jensen Huang thanks White House and says he’s in therapy
+### 134. In all-hands meeting, Jensen Huang thanks White House and says he’s in therapy
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1435,7 +1476,7 @@
 
 > The Nvidia founder apologized to his staff on Tuesday and said he was grateful for a second chance to lead the company.
 
-### 131. Even the best AI agents struggle with everyday life
+### 135. Even the best AI agents struggle with everyday life
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1445,7 +1486,7 @@
 
 > As millions embrace personal AI assistants, a new benchmark reveals that even the most advanced AI models struggle to complete everyday tasks reliably and safely without introducing potential new problems.
 
-### 132. Walmart teams up with Meta to bring Black Friday deals to AI agent Muse
+### 136. Walmart teams up with Meta to bring Black Friday deals to AI agent Muse
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1455,7 +1496,7 @@
 
 > Walmart now lets customers shop Black Friday deals through Muse, Meta’s AI agent.
 
-### 133. Maple raises $5.3M to build AI products that protect your data, even from itself
+### 137. Maple raises $5.3M to build AI products that protect your data, even from itself
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1465,7 +1506,7 @@
 
 > The startup's encrypted AI architecture is designed to prevent even the company itself from accessing users' private data.
 
-### 134. Jensen Huang reportedly tells Nvidia staff it’s ‘not true’ Trump got him rehired
+### 138. Jensen Huang reportedly tells Nvidia staff it’s ‘not true’ Trump got him rehired
 
 **价值分 56** · [建议: INTEL] · The Verge AI
 
@@ -1475,7 +1516,7 @@
 
 > Nvidia CEO Jensen Huang apologized to staff during his first all-hands since returning to the company, while attempting to distance himself from the narrative that the White House and tech leaders helped him get his job back, according to reports from Bloomberg, The New York Times, and The Handbaske
 
-### 135. David Fincher is being dragged for suspected use of AI in his latest film
+### 139. David Fincher is being dragged for suspected use of AI in his latest film
 
 **价值分 56** · [建议: INTEL] · The Verge AI
 
@@ -1485,7 +1526,7 @@
 
 > Though David Fincher's fans had been eagerly anticipating The Further Mis-Adventures of Cliff Booth, early screenings of the Once Upon a Time in Hollywood sequel starring Brad Pitt have raised questions about whether generative AI was used in the film. People have claimed that the movie is chock-ful
 
-### 136. Qube
+### 140. Qube
 
 **价值分 56** · [建议: INTEL] · Product Hunt
 
@@ -1495,7 +1536,7 @@
 
 > An AI agent for anyone Discussion \| Link
 
-### 137. Tidal will start banning AI-generated music next month
+### 141. Tidal will start banning AI-generated music next month
 
 **价值分 56** · [建议: INTEL] · The Verge AI
 
@@ -1505,7 +1546,7 @@
 
 > Tidal is officially banning AI-generated music on December 9th. As a result of this change, Tidal will delete around 29 million AI-generated songs and reject an estimated 80,000 to 85,000 tracks per day, according to Tidal music lead Robert Andersen. The move comes just months after Tidal began labe
 
-### 138. Meta brings its Muse AI assistant directly into Instagram DMs
+### 142. Meta brings its Muse AI assistant directly into Instagram DMs
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1515,7 +1556,7 @@
 
 > The new integration gets rid of the need for users to toggle between Instagram and the Muse app when they want to interact with the AI agent.
 
-### 139. Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming
+### 143. Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1525,7 +1566,7 @@
 
 > The company said it will still accept songs that were made with AI assistance, but not fully generated.
 
-### 140. Jensen Huang deepfakes are the hot new AI slop
+### 144. Jensen Huang deepfakes are the hot new AI slop
 
 **价值分 56** · [建议: INTEL] · The Verge AI
 
@@ -1535,7 +1576,7 @@
 
 > Jensen Huang is partying it up in Ibiza. In a video with nearly 6 million views on Instagram, the former CEO of Nvidia is dancing in a crowded club, champagne glass in hand, still wearing his signature black leather jacket. Suddenly, from behind him, Alice Huang - the Chinese technology executive an
 
-### 141. Why a Crusoe investor is betting on solar and batteries to power future AI data centers
+### 145. Why a Crusoe investor is betting on solar and batteries to power future AI data centers
 
 **价值分 56** · [建议: INTEL] · TechCrunch AI
 
@@ -1545,7 +1586,17 @@
 
 > Next-generation data centers will need tens of gigawatts of power every year. One of Crusoe's investors thinks solar and energy storage are the obvious choice.
 
-### 142. Tidal Is Deleting, Rejecting, and Banning AI-Generated Music
+### 146. MyClaw 3.0
+
+**价值分 56** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-24 23:39（北京）
+
+原始 URL · <https://www.producthunt.com/products/myclaw-3-0>
+
+> Build an always-on AI team with shared memory Discussion \| Link
+
+### 147. Tidal Is Deleting, Rejecting, and Banning AI-Generated Music
 
 **价值分 56** · [建议: INTEL] · X · @TIDAL
 
@@ -1555,7 +1606,7 @@
 
 > https://t.co/1BG44wWjqf
 
-### 143. Canva MCP
+### 148. Canva MCP
 
 **价值分 56** · [建议: INTEL] · Product Hunt
 
@@ -1565,7 +1616,7 @@
 
 > Turn any AI agent into a creative powerhouse Discussion \| Link
 
-### 144. Bifura
+### 149. Bifura
 
 **价值分 56** · [建议: INTEL] · Product Hunt
 
@@ -1575,7 +1626,7 @@
 
 > See your website the way AI agents do Discussion \| Link
 
-### 145. QA.tech MCP
+### 150. QA.tech MCP
 
 **价值分 56** · [建议: INTEL] · Product Hunt
 
@@ -1585,7 +1636,7 @@
 
 > Verify every change from your IDE with QA agents Discussion \| Link
 
-### 146. Commitment issues (app edition)
+### 151. Commitment issues (app edition)
 
 **价值分 56** · [建议: INTEL] · Ben's Bites
 
@@ -1595,7 +1646,7 @@
 
 > It’s not me, it’s you
 
-### 147. From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity
+### 152. From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity
 
 **价值分 56** · [建议: INTEL] · Google DeepMind
 
@@ -1605,7 +1656,7 @@
 
 > Mass Spec Skills empowers scientists using Google Antigravity to interpret tandem mass spectra.
 
-### 148. Searching for distant planets with Astra
+### 153. Searching for distant planets with Astra
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1615,17 +1666,7 @@
 
 > See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes.
 
-### 149. Koed
-
-**价值分 56** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-24 17:30（北京）
-
-原始 URL · <https://www.producthunt.com/products/koed>
-
-> Supercharged Agents! Discussion \| Link
-
-### 150. How iFood scales coding agents across 15,000 repositories
+### 154. How iFood scales coding agents across 15,000 repositories
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1635,7 +1676,7 @@
 
 > 来源未提供正文。
 
-### 151. How Intentful uses dots to make more time for growth
+### 155. How Intentful uses dots to make more time for growth
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1645,7 +1686,7 @@
 
 > Marina Petrova’s dot Aria helps research websites and build proposals, while proactively flagging messages and resolving issues.
 
-### 152. OpenAI and Cisco introduce Shirudo
+### 156. OpenAI and Cisco introduce Shirudo
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1655,17 +1696,7 @@
 
 > OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.
 
-### 153. 3way.Social MCP
-
-**价值分 56** · [建议: INTEL] · Product Hunt
-
-发布时间 2026-11-24 02:57（北京）
-
-原始 URL · <https://www.producthunt.com/products/3way-social>
-
-> Ask your AI to find link partners. You approve the deals. Discussion \| Link
-
-### 154. Finding faster quantum algorithms with agents and formal verification
+### 157. Finding faster quantum algorithms with agents and formal verification
 
 **价值分 56** · [建议: INTEL] · Google DeepMind
 
@@ -1675,7 +1706,7 @@
 
 > Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry.
 
-### 155. Chunkify
+### 158. Chunkify
 
 **价值分 56** · [建议: INTEL] · Product Hunt
 
@@ -1685,7 +1716,7 @@
 
 > Video Streaming API for Developers &amp; AI Agents Discussion \| Link
 
-### 156. Connected intelligence for in-house legal
+### 159. Connected intelligence for in-house legal
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1695,7 +1726,7 @@
 
 > Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.
 
-### 157. How to build and maintain an agentic evaluation
+### 160. How to build and maintain an agentic evaluation
 
 **价值分 56** · [建议: INTEL] · Hugging Face Blog
 
@@ -1705,7 +1736,17 @@
 
 > 来源未提供正文。
 
-### 158. Pixelated 126: Schrödinger’s DoorDash notification
+### 161. VibeCode.surf
+
+**价值分 56** · [建议: INTEL] · Product Hunt
+
+发布时间 2026-11-21 20:32（北京）
+
+原始 URL · <https://www.producthunt.com/products/vibecode-surf>
+
+> AI code editor where agents build, run and test your app Discussion \| Link
+
+### 162. Pixelated 126: Schrödinger’s DoorDash notification
 
 **价值分 56** · [建议: INTEL] · 9to5Google
 
@@ -1715,7 +1756,7 @@
 
 > Welcome to Pixelated episode 126. This week, Abner, Damien, and Will discuss Google’s latest Pixel Dro p, an AI-centric update that elevates the Pixel 10, makes a long-awaited change to HiLight, and brings custom widgets from Googlebook to smartphones for the first time. Plus: Why is Google Wallet o
 
-### 159. Combatting adversarial distillation
+### 163. Combatting adversarial distillation
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1725,7 +1766,7 @@
 
 > OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.
 
-### 160. Anthropic pulls off the biggest IPO ever
+### 164. Anthropic pulls off the biggest IPO ever
 
 **价值分 56** · [建议: INTEL] · The Rundown AI
 
@@ -1735,7 +1776,7 @@
 
 > PLUS: Use AI to find a job and prepare to get hired
 
-### 161. \[AINews\] Anthropic successfully completes largest IPO in history, valued at $1.5T
+### 165. \[AINews\] Anthropic successfully completes largest IPO in history, valued at $1.5T
 
 **价值分 56** · [建议: INTEL] · Latent Space
 
@@ -1745,7 +1786,7 @@
 
 > November 19, 2026 — ANT went from $83 at pricing to $111.50 at the open and $97.17 at the close. Plus, Google opens Genie 4 to developers.
 
-### 162. Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost
+### 166. Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost
 
 **价值分 56** · [建议: INTEL] · Hugging Face Blog
 
@@ -1755,7 +1796,7 @@
 
 > 来源未提供正文。
 
-### 163. Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup
+### 167. Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup
 
 **价值分 56** · [建议: INTEL] · Hugging Face Blog
 
@@ -1765,7 +1806,7 @@
 
 > 来源未提供正文。
 
-### 164. Can AI help scientists identify promising drug candidates?
+### 168. Can AI help scientists identify promising drug candidates?
 
 **价值分 56** · [建议: INTEL] · OpenAI News
 
@@ -1775,7 +1816,7 @@
 
 > MedChemBench evaluates how well AI models interpret molecular structures, reason from experimental evidence, and select compounds in early drug discovery.
 
-### 165. Walter Isaacson on curiosity and creativity in the AI age.
+### 169. Walter Isaacson on curiosity and creativity in the AI age.
 
 **价值分 56** · [建议: INTEL] · Google AI Blog
 
@@ -1785,7 +1826,7 @@
 
 > Walter Isaacson joins Google to discuss how history’s greatest innovators inspire creativity and human judgment in the AI age. Watch the episode.
 
-### 166. Airbot
+### 170. Airbot
 
 **价值分 56** · [建议: INTEL] · Product Hunt
 
@@ -1795,7 +1836,7 @@
 
 > The AI chief of staff that texts you first Discussion \| Link
 
-### 167. My wife thinks AI is a person
+### 171. My wife thinks AI is a person
 
 **价值分 56** · [建议: INTEL] · Ben's Bites
 
@@ -1805,59 +1846,17 @@
 
 > which isn’t as nuts as it sounds...
 
-### 168. DifyPreparedPollingLLM bypasses HostedCreditFallbackModelInstance custom-credential fallback when hosted credits are insufficient
-
-**价值分 55** · [建议: RADAR] · GitHub · langgenius/dify
-
-发布时间 2026-11-26 14:56（北京） · 4 条评论 · 1 个表情回应
-
-原始 URL · <https://github.com/langgenius/dify/issues/47256>
-
-> Dify version main (1.20.0, commit e4fe2e35d3) Cloud or Self Hosted Self Hosted (Source) Steps to reproduce 1. On a Dify Cloud workspace whose hosted AI credits (trial or paid) are exhausted, configure active custom (BYOK) credentials for a provider/model that supports LLM polling (ModelFeature.POLLI
-
-### 169. Quoting Scott Aaronson
-
-**价值分 55** · [建议: INTEL] · Simon Willison
-
-发布时间 2026-11-26 07:26（北京）
-
-原始 URL · <https://simonwillison.net/2026/Nov/25/scott-aaronson/>
-
-> It’s now obvious that we’ll be getting, not one-off solutions to this or that complexity question, but a whole new continent of mathematical truth, one that we’d previously only glimpsed through fog. Picture van Leeuwenhoek first training a microscope on pondwater, or Galileo first training his tele
-
-### 170. \[AINews\] Math Proofs Are Landing Faster Than We Can Read Them
-
-**价值分 55** · [建议: INTEL] · Latent Space
-
-发布时间 2026-11-26 06:23（北京）
-
-原始 URL · <https://latent.space/p/ainews-math-proofs-are-landing-faster-than-we-can-read-them/>
-
-> November 25, 2026 — From Erdős problems to new bounds for matrix multiplication and Fourier transforms.
-
-### 171. RANKING the BEST AI Models for Coding \| TIER LIST
+### 172. They're doing what in the arctic?!
 
 **价值分 55** · [建议: REVIEW] · YouTube · Matthew Berman
 
-发布时间 2026-11-26 03:28（北京）
+发布时间 2026-11-26 05:42（北京）
 
-原始 URL · <https://www.youtube.com/watch?v=iA0ns69dZGM>
+原始 URL · <https://www.youtube.com/shorts/nMPyC3s4Q-0>
 
-[![视频封面](<https://i2.ytimg.com/vi/iA0ns69dZGM/hqdefault.jpg>)](<https://www.youtube.com/watch?v=iA0ns69dZGM>)
+[![视频封面](<https://i3.ytimg.com/vi/nMPyC3s4Q-0/hqdefault.jpg>)](<https://www.youtube.com/shorts/nMPyC3s4Q-0>)
 
-> HUGE Eight Sleep Black Friday Deal $700 OFF! https://www.eightsleep.com/matthewberman Use Code: MATTHEWBERMAN Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www
-
-### 172. How 21 People Built a $100M+ Agent Company — Quinn Slack, Amp
-
-**价值分 55** · [建议: REVIEW] · YouTube · AI Engineer
-
-发布时间 2026-11-25 22:00（北京）
-
-原始 URL · <https://www.youtube.com/watch?v=Xyb1Bn_L2U4>
-
-[![视频封面](<https://i1.ytimg.com/vi/Xyb1Bn_L2U4/hqdefault.jpg>)](<https://www.youtube.com/watch?v=Xyb1Bn_L2U4>)
-
-> Amp spun out of Sourcegraph with 21 people and, unable to hire for a year, was forced to work in a radically different way. Quinn Slack explains what that looks like: no task tracker, no PMs, one meeting a week, everything done in the agent, and tiny monitored pushes instead of big releases. He show
+> Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https://discord.gg/u7wTTGWhuJ 👉🏻 Spotify: https://open.spotify.com
 
 ### 173. open-webui/open-webui · v0.13.5
 
@@ -1931,17 +1930,7 @@
 
 > 1.44.0 (2026-11-23) What's Changed Features feat(chat): conversation mentions, behind the conversation\_mentions flag by @enyst in #19921 feat(automations): choose who can see an automation (OHE-4206) by @hieptl in #19893 feat(chat): show a readable error when a budget is reached by @hieptl in #19926
 
-### 180. Import AI 482: Huawei kernel benchmarks; airborne drone detection; and a national lab's AI science benchmark
-
-**价值分 55** · [建议: REVIEW] · Import AI
-
-发布时间 2026-11-23 22:11（北京）
-
-原始 URL · <https://importai.substack.com/p/import-ai-482-huawei-kernel-benchmarks>
-
-> Could the scientific method be emergent?
-
-### 181. What we make of this moment, will make this moment.
+### 180. What we make of this moment, will make this moment.
 
 **价值分 55** · [建议: REVIEW] · YouTube · Anthropic
 
@@ -1953,7 +1942,7 @@
 
 > What we\* make of this moment, will make this moment. \*a food bank in Texas, a PhD student in Tokyo with a floating fish robot, a first-time builder mapping 800 years of Indian history, a developer tracking potholes in Slovenia, and millions more.
 
-### 182. What it takes to set intelligence free — Fabian Hedin, CTO, Lovable
+### 181. What it takes to set intelligence free — Fabian Hedin, CTO, Lovable
 
 **价值分 55** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -1965,23 +1954,31 @@
 
 > Lovable nearly failed after building a sophisticated multi agent framework, Fabian Hedin says. At CODE Summit 2026, its CTO explains what changed: durable agent runtimes, Git inspired histories and forkable computers that support long running coding agents. Sandbox checkpointing, copy on write memor
 
-### 183. How your dot can keep work moving while you’re away
+### 182. DifyPreparedPollingLLM bypasses HostedCreditFallbackModelInstance custom-credential fallback when hosted credits are insufficient
 
-**价值分 54** · [建议: REVIEW] · YouTube · OpenAI
+**价值分 54** · [建议: RADAR] · GitHub · langgenius/dify
 
-发布时间 2026-11-26 02:21（北京）
+发布时间 2026-11-26 14:56（北京） · 4 条评论 · 1 个表情回应
 
-原始 URL · <https://www.youtube.com/watch?v=A4UNP-axGHU>
+原始 URL · <https://github.com/langgenius/dify/issues/47256>
 
-[![视频封面](<https://i2.ytimg.com/vi/A4UNP-axGHU/hqdefault.jpg>)](<https://www.youtube.com/watch?v=A4UNP-axGHU>)
+> Dify version main (1.20.0, commit e4fe2e35d3) Cloud or Self Hosted Self Hosted (Source) Steps to reproduce 1. On a Dify Cloud workspace whose hosted AI credits (trial or paid) are exhausted, configure active custom (BYOK) credentials for a provider/model that supports LLM polling (ModelFeature.POLLI
 
-> Even when you step away for the holidays, work doesn’t always stop. Your dot can help. Raymond walks through how his dot keeps an eye on ongoing projects, flags what needs his attention, and helps move work forward so he can review and approve next steps on the go. Steal Raymond’s workflow. Try thes
+### 183. Quoting Scott Aaronson
+
+**价值分 54** · [建议: INTEL] · Simon Willison
+
+发布时间 2026-11-26 07:26（北京）
+
+原始 URL · <https://simonwillison.net/2026/Nov/25/scott-aaronson/>
+
+> It’s now obvious that we’ll be getting, not one-off solutions to this or that complexity question, but a whole new continent of mathematical truth, one that we’d previously only glimpsed through fog. Picture van Leeuwenhoek first training a microscope on pondwater, or Galileo first training his tele
 
 ### 184. Marginalia Search, Money, C++, Rust, AI, Stuff
 
 **价值分 54** · [建议: INTEL] · Hacker News
 
-发布时间 2026-11-25 11:47（北京） · 220 分 · 83 条评论
+发布时间 2026-11-25 11:47（北京） · 221 分 · 83 条评论
 
 原始 URL · <https://www.marginalia.nu/log/a_141_marginalia_update/>
 
@@ -1991,13 +1988,47 @@
 
 **价值分 54** · [建议: INTEL] · Hacker News
 
-发布时间 2026-11-24 14:22（北京） · 257 分 · 97 条评论
+发布时间 2026-11-24 14:22（北京） · 261 分 · 97 条评论
 
 原始 URL · <https://jayd.ml/2026/11/14/rockbox-on-yp3.html>
 
 > 来源未提供正文。
 
-### 186. GPT 6.2 Astra Solves a Historical Mystery
+### 186. \[AINews\] Math Proofs Are Landing Faster Than We Can Read Them
+
+**价值分 53** · [建议: INTEL] · Latent Space
+
+发布时间 2026-11-26 06:23（北京）
+
+原始 URL · <https://latent.space/p/ainews-math-proofs-are-landing-faster-than-we-can-read-them/>
+
+> November 25, 2026 — From Erdős problems to new bounds for matrix multiplication and Fourier transforms.
+
+### 187. RANKING the BEST AI Models for Coding \| TIER LIST
+
+**价值分 53** · [建议: REVIEW] · YouTube · Matthew Berman
+
+发布时间 2026-11-26 03:28（北京）
+
+原始 URL · <https://www.youtube.com/watch?v=iA0ns69dZGM>
+
+[![视频封面](<https://i2.ytimg.com/vi/iA0ns69dZGM/hqdefault.jpg>)](<https://www.youtube.com/watch?v=iA0ns69dZGM>)
+
+> HUGE Eight Sleep Black Friday Deal $700 OFF! https://www.eightsleep.com/matthewberman Use Code: MATTHEWBERMAN Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www
+
+### 188. How 21 People Built a $100M+ Agent Company — Quinn Slack, Amp
+
+**价值分 53** · [建议: REVIEW] · YouTube · AI Engineer
+
+发布时间 2026-11-25 22:00（北京）
+
+原始 URL · <https://www.youtube.com/watch?v=Xyb1Bn_L2U4>
+
+[![视频封面](<https://i1.ytimg.com/vi/Xyb1Bn_L2U4/hqdefault.jpg>)](<https://www.youtube.com/watch?v=Xyb1Bn_L2U4>)
+
+> Amp spun out of Sourcegraph with 21 people and, unable to hire for a year, was forced to work in a radically different way. Quinn Slack explains what that looks like: no task tracker, no PMs, one meeting a week, everything done in the agent, and tiny monitored pushes instead of big releases. He show
+
+### 189. GPT 6.2 Astra Solves a Historical Mystery
 
 **价值分 53** · [建议: INTEL] · Simon Willison
 
@@ -2007,7 +2038,7 @@
 
 > GPT 6.2 Astra Solves a Historical Mystery Here's an interesting case-study in using GPT-6.2 Astra for historical research, from history professor Mark Humphries: With only minimal prompting, GPT-6.2 Astra was able to autonomously identify the creator of an anonymous 1808 sketchbook held at Yale’s Be
 
-### 187. Token fraud is here and it’s BAD (YouTube)
+### 190. Token fraud is here and it’s BAD (YouTube)
 
 **价值分 53** · [建议: INTEL] · Simon Willison
 
@@ -2017,17 +2048,19 @@
 
 > Token fraud is here and it’s BAD (YouTube) Claire Vo runs ChatPRD , an AI platform that helps product managers "turn an idea into a spec". The product has been live since the GPT-4 era, and Claire has been building it in public for much of that time. In this YouTube video (see also the accompanying
 
-### 188. Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference
+### 191. How your dot can keep work moving while you’re away
 
-**价值分 51** · [建议: INTEL] · Hugging Face Blog
+**价值分 52** · [建议: REVIEW] · YouTube · OpenAI
 
-发布时间 2026-11-26 13:05（北京）
+发布时间 2026-11-26 02:21（北京）
 
-原始 URL · <https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin>
+原始 URL · <https://www.youtube.com/watch?v=A4UNP-axGHU>
 
-> 来源未提供正文。
+[![视频封面](<https://i2.ytimg.com/vi/A4UNP-axGHU/hqdefault.jpg>)](<https://www.youtube.com/watch?v=A4UNP-axGHU>)
 
-### 189. Ladybird's first alpha release
+> Even when you step away for the holidays, work doesn’t always stop. Your dot can help. Raymond walks through how his dot keeps an eye on ongoing projects, flags what needs his attention, and helps move work forward so he can review and approve next steps on the go. Steal Raymond’s workflow. Try thes
+
+### 192. Ladybird's first alpha release
 
 **价值分 51** · [建议: INTEL] · Simon Willison
 
@@ -2037,7 +2070,7 @@
 
 > Ladybird is an astonishingly ambitious project: a new browser, in 2026, with its own implementation of most of the key components - HTML parsing, CSS engine, layout, JavaScript, even WebAssembly. It still uses a few external components - things like HarfBuzz for text shaping, Skia for 2D graphics, f
 
-### 190. PostgreSQL 19 Released
+### 193. PostgreSQL 19 Released
 
 **价值分 51** · [建议: INTEL] · Simon Willison
 
@@ -2047,7 +2080,17 @@
 
 > PostgreSQL 19 Released Most years PostgreSQL ships a new release in September, but this year's release came two months later thanks mainly to the flurry of issues that the PostgreSQL team needed to address as part of the ongoing AI-reported vulnerability apocalypse. This release was definitely worth
 
-### 191. Experiment with SVG &amp; 3D Design with the Codex Plugin
+### 194. Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference
+
+**价值分 49** · [建议: INTEL] · Hugging Face Blog
+
+发布时间 2026-11-26 13:05（北京）
+
+原始 URL · <https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin>
+
+> 来源未提供正文。
+
+### 195. Experiment with SVG &amp; 3D Design with the Codex Plugin
 
 **价值分 49** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -2059,7 +2102,7 @@
 
 > Craig Dennis had never drawn an SVG by hand or used Blender. With the SVG &amp; 3D Design plugin for Codex, he shows how to turn a reference image into an editable graphic or 3D model, then ask for changes in plain language. See how a small change in SVG code can make a character’s eyes follow your curs
 
-### 192. How to Search for Exoplanets
+### 196. How to Search for Exoplanets
 
 **价值分 49** · [建议: REVIEW] · YouTube · OpenAI
 
@@ -2071,7 +2114,7 @@
 
 > Two amateur astronomers, Kevin Bond and Ethan Byrd, independently found signals that could point to planets around distant stars. They knew you didn't need your own telescope for this kind of hunt. Kevin used Codex and Ethan used Astra to search public telescope data for tiny, recurring dips in star
 
-### 193. How AI is finding the hidden rules of the human brain
+### 197. How AI is finding the hidden rules of the human brain
 
 **价值分 49** · [建议: REVIEW] · YouTube · Google DeepMind
 
@@ -2083,7 +2126,7 @@
 
 > The human brain remains one of the greatest unsolved mysteries in science. We have roughly 86 billion neurons firing in a way that somehow produces intelligence, and yet the brain is still largely a black box. In the early days of AI, researchers looked to the brain for clues about how to build smar
 
-### 194. Software Factories: Escape from Trash Mountain — Steve Yegge, Gas Town
+### 198. Software Factories: Escape from Trash Mountain — Steve Yegge, Gas Town
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2095,7 +2138,7 @@
 
 > Software factories can turn out code faster than anyone can keep it clean, and the pile grows. Steve Yegge, creator of Beads and Gas Town, takes on software factories and how to escape the trash mountain they can leave behind. Speaker info: - https://x.com/steve\_yegge Timestamps: 0:00 - Evolution of
 
-### 195. 12 Rules for a Software Factory That Doesn't Ship Slop — Dex Horthy, Factory
+### 199. 12 Rules for a Software Factory That Doesn't Ship Slop — Dex Horthy, Factory
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2107,7 +2150,7 @@
 
 > The best model scores about 16% on Slop Code Bench, a new benchmark for how well agents evolve a code base over time. Dex Horthy uses that data to argue that software factories aren't new: they are good engineering with agents doing the building. He lays out 12 practices, from forward and back press
 
-### 196. Build the Workshop Before the Software Factory — Armin Ronacher, Earendil
+### 200. Build the Workshop Before the Software Factory — Armin Ronacher, Earendil
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2119,7 +2162,7 @@
 
 > Earendil's Pi coding agent has the same core tools it had a year ago, yet it does far more because the models got better. Armin Ronacher shows his own session data: fewer corrections, tasks running 14 minutes instead of two and a half, and 141 projects started but only 10 to 15 kept alive. His case:
 
-### 197. What Runs Where? Local AI in Production — Ahmad Osman, Osmantic
+### 201. What Runs Where? Local AI in Production — Ahmad Osman, Osmantic
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2131,7 +2174,7 @@
 
 > A capable local model still needs the right hardware, inference engine and tools. At CODE Summit 2026, Osmantic founder Ahmad Osman explains how to choose that stack for real workloads, covering quantization, memory bandwidth, batching and specialized models. He connects local AI performance to agen
 
-### 198. Six Robots Worked a 24-Hour Shift at a Shanghai Convenience Store
+### 202. Six Robots Worked a 24-Hour Shift at a Shanghai Convenience Store
 
 **价值分 49** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -2143,7 +2186,7 @@
 
 > Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https://discord.gg/u7wTTGWhuJ 👉🏻 Spotify: https://open.spotify.com
 
-### 199. How to build an agent that builds the culture — Zach Bruggeman, Ramp
+### 203. How to build an agent that builds the culture — Zach Bruggeman, Ramp
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2155,7 +2198,7 @@
 
 > Zach Bruggeman says Inspect now writes and ships around 75% of Ramp’s code. At CODE Summit 2026, he explains the engineering culture behind that adoption: shared agent tooling, open internal sessions and visible verification. A telemetry bug and the Review Buddy code review agent show how multiplaye
 
-### 200. I Gave Hark Pro Three Everyday Tasks
+### 204. I Gave Hark Pro Three Everyday Tasks
 
 **价值分 49** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -2167,7 +2210,7 @@
 
 > https://hark.link/mattberman I gave Hark Pro three jobs and kept my hands off the keyboard. First, it sorted my inbox and flagged receipts over $200. Then it ordered dinner through DoorDash. When I asked for a recap, it put the emails, receipts, and order in one place. It also spotted a double booki
 
-### 201. The making of Anthropic
+### 205. The making of Anthropic
 
 **价值分 49** · [建议: REVIEW] · YouTube · Anthropic
 
@@ -2179,7 +2222,7 @@
 
 > Anthropic’s co-founders on why they started the company, what they’ve learned, and the work still ahead. Told by Dario Amodei, Daniela Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, and Chris Olah.
 
-### 202. The Sweet Side of the Bitter Lesson — Thariq Shihipar, Independent
+### 206. The Sweet Side of the Bitter Lesson — Thariq Shihipar, Independent
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2191,7 +2234,7 @@
 
 > Vibe coding a fighting game left Thariq Shihipar unsure how his own characters worked. At CODE Summit 2026, he revisits the Bitter Lesson, Bash, React and MCP, contrasting AI’s jagged frontier with its smooth interior. His live demo uses readable specifications, custom scripting languages and IDE wo
 
-### 203. Behind the scenes with Genie 4
+### 207. Behind the scenes with Genie 4
 
 **价值分 49** · [建议: REVIEW] · YouTube · Google DeepMind
 
@@ -2203,7 +2246,7 @@
 
 > Go behind the scenes of our recent Genie 4 film as we explore our most realistic and interactive world model yet. Instead of generating static video, Genie 4 simulates dynamic worlds in real time. Watch how our team used Genie 4 and Project Genie to turn text prompts into explorable environments in
 
-### 204. 40x More Merged PRs With 2.7x the Engineers — Walden Yan, CPO, Cognition
+### 208. 40x More Merged PRs With 2.7x the Engineers — Walden Yan, CPO, Cognition
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2215,7 +2258,7 @@
 
 > Cognition's merged PRs grew 40x in a year while its engineering team grew 2.7x. Walden Yan explains what changed: self-driving PRs by default, small pods that own everything from bug reports to QA, and a workflow run almost entirely from Slack. He covers running every service locally so agents can t
 
-### 205. 2026 in LLMs — Simon Willison
+### 209. 2026 in LLMs — Simon Willison
 
 **价值分 49** · [建议: REVIEW] · YouTube · AI Engineer
 
@@ -2227,7 +2270,7 @@
 
 > Simon Willison used AI coding agents to locate a beeping detector buried in 40 boxes. At CODE Summit 2026, the Datasette creator traces three LLM inflection points: reliable coding agents, persistent problem solving and vibe coded game development. Pelican benchmarks, prompt injection and rogue agen
 
-### 206. Box CEO Explains Why AI Makes Software Features Obsolete
+### 210. Box CEO Explains Why AI Makes Software Features Obsolete
 
 **价值分 49** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -2239,7 +2282,7 @@
 
 > I sit down with Box CEO Aaron Levie to discuss how AI is changing enterprise software and making features obsolete before they even launch. We explore how AI agents can build entire business workflows and why access to company data and context matters. Aaron also shares how Box is adapting as each n
 
-### 207. Who controls access to AI?
+### 211. Who controls access to AI?
 
 **价值分 49** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -2251,7 +2294,7 @@
 
 > Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https://discord.gg/u7wTTGWhuJ 👉🏻 Spotify: https://open.spotify.com
 
-### 208. Anthropic Researcher Explains How LLMs Are Built and Trained
+### 212. Anthropic Researcher Explains How LLMs Are Built and Trained
 
 **价值分 49** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -2263,7 +2306,7 @@
 
 > Check out Jeremy on X: https://x.com/jeremyberman Frontier Pass members saw this video first! https://forwardfuture.com/frontier-pass Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉
 
-### 209. Cheaper AI can lead to more spending
+### 213. Cheaper AI can lead to more spending
 
 **价值分 49** · [建议: REVIEW] · YouTube · Matthew Berman
 
@@ -2275,7 +2318,7 @@
 
 > Join My Newsletter for Regular AI Updates 👇🏼 https://forwardfuture.com My Links 🔗 👉🏻 X: https://x.com/matthewberman 👉🏻 Forward Future X: https://x.com/forwardfuture 👉🏻 Instagram: https://www.instagram.com/matthewberman\_ai 👉🏻 Discord: https://discord.gg/u7wTTGWhuJ 👉🏻 Spotify: https://open.spotify.com
 
-### 210. Three LLM inflection points in twelve months
+### 214. Three LLM inflection points in twelve months
 
 **价值分 47** · [建议: INTEL] · Simon Willison
 
@@ -2285,7 +2328,7 @@
 
 > I gave a keynote at the AI Engineer Code Summit a couple of weeks ago, constructed around the idea that there have been three significant inflection points in the abilities of LLMs and coding agents in the past twelve months. Here's the video of the talk. In this post I'm going to pull out the major
 
-### 211. \[AINews\] Jensen Is Back! and OpenAI Shows Its Pretraining Curve, joined by Microsoft
+### 215. \[AINews\] Jensen Is Back! and OpenAI Shows Its Pretraining Curve, joined by Microsoft
 
 **价值分 47** · [建议: INTEL] · Latent Space
 
@@ -2295,7 +2338,7 @@
 
 > November 23, 2026 — Nvidia reinstates its founder, and OpenAI publishes its internal loss curve and proposes a shared training limit.
 
-### 212. GLM-5.4: Toward Generalized Coding with Our First Loop Transformer
+### 216. GLM-5.4: Toward Generalized Coding with Our First Loop Transformer
 
 **价值分 47** · [建议: INTEL] · Simon Willison
 
@@ -2305,7 +2348,7 @@
 
 > GLM-5.4: Toward Generalized Coding with Our First Loop Transformer GLM 5.4 is now available from Chinese AI lab Z.ai. It's their first model to use a looped transformer architecture, which they describe like this: In a standard Transformer, each layer runs once per forward pass. In a Loop Transforme
 
-### 213. Muru
+### 217. Muru
 
 **价值分 47** · [建议: INTEL] · Simon Willison
 
@@ -2315,7 +2358,7 @@
 
 > Muru Graham Dumpleton started mod\_wsgi 20 years ago, and has been thinking about the ideal way to serve Python web applications in production ever since. Muru is his new, AI-assisted Rust server that aims to provide the best possible tools for running ASGI and WSGI Python apps both in development an
 
-### 214. \[AINews\] Riemann Hypothesis proved...twice independently
+### 218. \[AINews\] Riemann Hypothesis proved...twice independently
 
 **价值分 47** · [建议: INTEL] · Latent Space
 
@@ -2325,7 +2368,7 @@
 
 > November 20 2026 —
 
-### 215. The War Against Slop and an Emerging Weapon to Fight it: Formal Verification
+### 219. The War Against Slop and an Emerging Weapon to Fight it: Formal Verification
 
 **价值分 47** · [建议: INTEL] · Latent Space
 
@@ -2335,7 +2378,7 @@
 
 > Proving software correct with math has traditionally required specialist work. Now AI and Lean are helping automate the process.
 
-### 216. Quoting Ravi Vakil
+### 220. Quoting Ravi Vakil
 
 **价值分 47** · [建议: INTEL] · Simon Willison
 
@@ -2345,7 +2388,7 @@
 
 > Alessandro Masullo has a proposed proof of \[Generalized Riemann Hypothesis\], and Brian Conrad has been looking closely at it for months and gave extensive feedback which is being incorporated, and it is so far looking good. It is all human, with no AI. The hope was to bring Alessandro to Stanford fo
 
-### 217. Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO
+### 221. Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO
 
 **价值分 47** · [建议: INTEL] · Latent Space
 
@@ -2355,7 +2398,7 @@
 
 > &gt;50% of tickets written by agents, the AI budgets behind $100M-in-months ARR, and selling without SDRs or FDEs
 
-### 218. Why Linear says Issue Tracking is Dead — Cristina Cordova, COO
+### 222. Why Linear says Issue Tracking is Dead — Cristina Cordova, COO
 
 **价值分 47** · [建议: INTEL] · Latent Space
 
@@ -2365,9 +2408,9 @@
 
 > Linear was founded to build a better issue tracker. Seven years and $134 million in funding later, its CEO Karri Saarinen published a post titled "Issue tracking is dead." ( https://linear.app/next ) In this episode, we chat with Cristina Cordova ( htt...
 
-### 219. Where scientists draw the line on AI agents
+### 223. Where scientists draw the line on AI agents
 
-**价值分 44** · [建议: INTEL] · Hugging Face Blog
+**价值分 43** · [建议: INTEL] · Hugging Face Blog
 
 发布时间 2026-11-26 02:52（北京）
 
@@ -2375,7 +2418,17 @@
 
 > 来源未提供正文。
 
-### 220. An Indic Voice Agent with CUGA
+### 224. issue: bug:Requests route to the wrong OpenAI connection after deleting a connection with multiple workers
+
+**价值分 39** · [建议: RADAR] · GitHub · open-webui/open-webui
+
+发布时间 2026-11-26 20:12（北京） · 3 条评论 · 0 个表情回应
+
+原始 URL · <https://github.com/open-webui/open-webui/issues/35114>
+
+> Installation Method Docker Open WebUI Version v0.13.5 Operating System Debian 13 Browser \_No response\_ Ollama Version \_No response\_ Summary Deleting a connection causes some requests to be routed to the wrong OpenAI-compatible backend when running multiple workers. The configured model-to-connection
+
+### 225. An Indic Voice Agent with CUGA
 
 **价值分 39** · [建议: INTEL] · Hugging Face Blog
 
@@ -2385,9 +2438,9 @@
 
 > 来源未提供正文。
 
-### 221. PostgresStore.search(filter=...) evaluates $gt, $gte, $lt, $lte lexicographically as text, breaking numeric range queries
+### 226. PostgresStore.search(filter=...) evaluates $gt, $gte, $lt, $lte lexicographically as text, breaking numeric range queries
 
-**价值分 36** · [建议: RADAR] · GitHub · langchain-ai/langgraph
+**价值分 35** · [建议: RADAR] · GitHub · langchain-ai/langgraph
 
 发布时间 2026-11-25 20:18（北京） · 2 条评论 · 0 个表情回应
 
@@ -2395,9 +2448,9 @@
 
 > Checked other resources - \[x\] This is a bug, not a usage question. - \[x\] I added a clear and descriptive title that summarizes this issue. - \[x\] I used the GitHub search to find a similar question and didn't find it. - \[x\] I am sure that this is a bug in LangGraph rather than my code. - \[x\] The bug
 
-### 222. API document updates overwrite Document.created\_from to web
+### 227. API document updates overwrite Document.created\_from to web
 
-**价值分 35** · [建议: RADAR] · GitHub · langgenius/dify
+**价值分 33** · [建议: RADAR] · GitHub · langgenius/dify
 
 发布时间 2026-11-26 12:18（北京） · 1 条评论 · 1 个表情回应
 
@@ -2405,7 +2458,7 @@
 
 > Dify version main (ec657b8931), reproduced source-only via unit tests. Cloud or Self Hosted Self Hosted (Source) Steps to reproduce 1. Create a document in a dataset via the Service API or OpenAPI so document.created\_from is "api", and wait until the document reaches available (completed) status. 2.
 
-### 223. feat: a way to hide recent chats on the new chat screen
+### 228. feat: a way to hide recent chats on the new chat screen
 
 **价值分 28** · [建议: RADAR] · GitHub · open-webui/open-webui
 
@@ -2415,9 +2468,9 @@
 
 > Problem Since 0.13.5 the new chat screen shows a Zuletzt / Recent list of the last five chats underneath the message input. There is no way to turn it off. For anyone who already navigates chats through the sidebar, this is the same information twice, in the one place that used to be empty on purpos
 
-### 224. Context compaction produces consecutive user messages incompatible with Mistral chat templates
+### 229. Context compaction produces consecutive user messages incompatible with Mistral chat templates
 
-**价值分 27** · [建议: RADAR] · GitHub · cline/cline
+**价值分 26** · [建议: RADAR] · GitHub · cline/cline
 
 发布时间 2026-11-25 20:25（北京） · 6 条评论 · 0 个表情回应
 
@@ -2425,9 +2478,9 @@
 
 > Cline Surface VSCode Extension Cline Version v4.1.27 Beta version - \[ \] I am using a beta version of Cline What happened? Bug: Context compaction produces consecutive user messages incompatible with Mistral chat templates Environment - OS: macOS - IDE: VS Code - API provider: OpenAI-compatible local
 
-### 225. InMemoryStore.search(filter=...) matches missing keys as None and crashes with ValueError/TypeError on heterogeneous fields in range filters
+### 230. InMemoryStore.search(filter=...) matches missing keys as None and crashes with ValueError/TypeError on heterogeneous fields in range filters
 
-**价值分 24** · [建议: RADAR] · GitHub · langchain-ai/langgraph
+**价值分 23** · [建议: RADAR] · GitHub · langchain-ai/langgraph
 
 发布时间 2026-11-25 20:25（北京） · 2 条评论 · 0 个表情回应
 
