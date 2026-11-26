@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26T14:07:13.630418+00:00",
+  "updated_at": "2026-11-26T15:59:28.542202+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
   "models": [
     {
@@ -158,7 +158,7 @@
       "vendor": "DeepSeek",
       "created_at": "2026-07-31T06:21:48+00:00",
       "context_length": 1048576,
-      "input_per_m": 0.047,
+      "input_per_m": 0.0456,
       "output_per_m": 0.3,
       "is_free": false,
       "cache_read_per_m": 0.035,

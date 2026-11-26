@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26T19:37:21+08:00",
+  "updated_at": "2026-11-27T00:03:27+08:00",
   "items": [
     {
       "id": "ai-20261126-01",
@@ -1288,6 +1288,44 @@
       ]
     },
     {
+      "id": "ai-20261126-14",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Anthropic",
+      "priority": 92,
+      "metric_badge": "扩围日印巴印尼 · 24h 云端驻留",
+      "impact": "持有 Claude Pro/Max/Ultra 个人订阅且希望体验全天候云端主动代理工作流的亚太与新兴市场用户",
+      "title": "Anthropic 主动型代理应用 Claude Duet 开启首轮海外扩围：正式登陆日本、印度、巴西与印尼，支持 24 小时云端关机托管",
+      "value_tag": "个人高阶订阅免加价体验",
+      "tldr": "继 10 月美区独占首发后，Anthropic 于 11 月 26 日将全天候主动型 AI 代理应用 Claude Duet 研究预览扩展至日本、印度、巴西与印尼四国：面向个人 Pro、Max 与 Ultra 订阅者免额外收费分批开放，支持关机后台运行与超 6,000 款连接器联动。",
+      "details": [
+        "四地准入与计费规则：本次扩围面向日本、印度、巴西、印度尼西亚四国的个人 Pro、Max 与 Ultra 套餐用户（企业级 Team 与 Enterprise 暂未纳入），通过网页端 claude.ai 及 iOS/Android 独立应用按候补名单分批激活；预览期不收附加费，但后台自动巡检会直接消耗套餐既有配额。",
+        "云端虚拟机与主动晨报：不同于被动等待提问的传统聊天框，Claude Duet 运行在附带隔离浏览器的专属云端虚拟机中，即便用户电脑与手机断网休眠也能 24 小时持续推进任务，并在每日清晨汇总 Gmail、日历与 Slack 待办生成主动简报。",
+        "高危动作强制审批红线：已打通 Claude Marketplace 逾 6,000 个外部连接器（涵盖 HubSpot、Canva、Shopify 等）；凡涉及对外发邮件、付款、签署文档或删除数据的动作均须用户显式二次批准，而证券买卖与银行账户转账即便用户点击确认也会被底层硬性拦截。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Anthropic (Claude)",
+      "source_url": "https://claude.com/product/claude-duet",
+      "story": [
+        {
+          "heading": "走出北美试验田：主动型“云端数字助理”首次大举进军亚太",
+          "paragraphs": [
+            "今年 10 月 Anthropic 初次揭晓 Claude Duet 时，外界曾将其视为面向硅谷极客的小范围概念验证——把大模型从“你问一句、它答一句”的被动网页标签页，改造成驻留在云端带浏览器沙盒虚拟机里的全天候后台代理。时隔一个多月，Anthropic 在 11 月 26 日迈出了全球化的第一步，一次性向日本、印度、巴西与印度尼西亚四个核心海外市场敞开研究预览大门。",
+            "从首批落地的产品形态来看，Claude Duet 瞄准的是高频跨工具协同的个人知识工作者：只要在后台挂载好常用软件连接器（目前已覆盖 Claude Marketplace 中超过 6,000 款插件），它就能在用户夜间睡眠或合上笔记本期间持续跟进异步任务，并在第二天早晨推送一份提炼自 Gmail、Slack 与日程表的行动简报，主动提醒“今天哪几件事必须优先拍板”。"
+          ]
+        },
+        {
+          "heading": "零附加月费背后的配额暗战与金融禁区防线",
+          "paragraphs": [
+            "在商业定价与风控边界上，Anthropic 采取了“宽入口、严护栏”的组合拳。一方面，四国符合资格的个人 Pro、Max 与 Ultra 订阅者无需为云端虚拟机支付额外席位费即可申请入列；但另一方面，24 小时后台轮询与自动网页操作所产生的 Token 消耗会实时计入用户原有的订阅额度池——这意味着开启过多高频巡检任务极易加速耗尽日常对话余量，而合规审计更复杂的 Team 与 Enterprise 团队版则暂缓开放。",
+            "为了规避自主代理“越权惹祸”的信任致命伤，Claude Duet 在执行层焊死了两道刚性闸门：其一，任何具备外部不可逆副作用的操作——包括发出正式邮件、订单支付、合同签署及文件删除——必须挂起等待人类点击确认；其二，针对证券交易下单与银行账户间资金划转等高危金融行为，系统直接在架构层设为绝对禁区，即便用户本人试图授权放行也不予执行。"
+          ]
+        }
+      ]
+    },
+    {
       "id": "ai-20261126-10",
       "date": "2026-11-26",
       "channel": "INTEL",
@@ -1951,6 +1989,28 @@
       "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328"
     },
     {
+      "id": "ai-20261126-15",
+      "date": "2026-11-26",
+      "channel": "REVIEW",
+      "type": "BENCHMARK",
+      "status": "ACTIVE",
+      "vendor": "ggml-org / AMD",
+      "priority": 89,
+      "metric_badge": "官方持续测速 · GGUF 全公开数据",
+      "impact": "使用 AMD Ryzen AI 处理器或 Radeon 显卡在本地部署 GGUF 开源大模型的开发者与硬件评测者",
+      "title": "llama.cpp 官方上线 AMD Ryzen 与 Radeon 专属基准看板：持续追踪各版本 GGUF 预填充与解码真实吞吐",
+      "value_tag": "告别过时跑分 · 原始数据全开源",
+      "tldr": "llama.cpp 核心维护组织 ggml-org 在 Hugging Face 正式推出 AMD 硬件专属推理基准看板，针对 Ryzen 处理器与 Radeon 显卡（含 Radeon 8060S、Radeon AI Pro R9700S 等）自动化运行 llama-bench，公开追踪主流模型在不同量化与内核迭代下的真实吞吐变化。",
+      "details": [
+        "覆盖主流模型与量化矩阵：自动化评测流水线持续跑测 Qwen、Gemma、LFM 等代表性开源权重模型，横向对比 Q4_K_M、Q8_0 等常用 GGUF 量化档位及 Flash Attention 开启前后的预填充（pp）与生成（tg）速率。",
+        "纵向追踪内核回归与提速：针对本地推理生态“底层算子每周都在变、静态评测文章迅速过时”的痛点，看板按 llama.cpp 构建历史记录长线性能曲线与长上下文扩展衰减表现。",
+        "底层原始数据透明可审计：前端 Space 直接读取公开存储桶 ggml-org/install.sh-benches-data 中的原始基准日志，方便社区硬件玩家独立复核编译参数与复现实验结果。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hugging Face Blog (ggml-org)",
+      "source_url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench"
+    },
+    {
       "id": "ai-20261126-06",
       "date": "2026-11-26",
       "channel": "REVIEW",
@@ -2414,6 +2474,29 @@
       "source_url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
     },
     {
+      "id": "ai-20261126-16",
+      "date": "2026-11-26",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "status": "ACTIVE",
+      "vendor": "Diffusion / AI Engineer",
+      "priority": 87,
+      "media_url": "https://i2.ytimg.com/vi/1S4hx3wgvBE/hqdefault.jpg",
+      "metric_badge": "黑灯工厂先驱泼冷水 · 聚焦存量系统",
+      "impact": "正在筹建全自动多 Agent“软件工厂”或评估 AI 无人化研发投产比的技术高管与创业者",
+      "title": "“黑灯代码工厂”先驱 Justin McCarthy 演讲泼冷水：别拿全自动 Agent 工厂从零造新产品，存量系统才是真金矿",
+      "value_tag": "避开新项目狂烧 Token 造错产品陷阱",
+      "tldr": "曾率先实践“零人工写码、零逐行 Code Review”的 StrongDM 联合创始人兼 Diffusion CEO Justin McCarthy 在 CODE Summit 发表演讲《Stop Building Software Factories》，直言用自动化 Agent 工厂孵化需求未明的全新项目几乎必败，应将其对准已有付费流量的存量产品。",
+      "details": [
+        "新项目（Greenfield）高败率根源：McCarthy 指出，团队在探索全新创意时往往连自己真正想要什么都尚未厘清，直接塞进高并发 Agent 软件工厂只会“以更慢的速度、烧掉更多算力去精准造出错误的东西”。",
+        "转向存量工程（Brownfield Factories）：真正高投产比的做法是将后台持续运行的 Agent 工厂挂载到已有付费客户、真实线上流量与明确回归测试边界的成熟业务系统上，消除“猜需求”这一最大不确定性。",
+        "代码商品化后的竞争壁垒：当大模型让可运行软件的供给超过客户消化速度，单纯比拼代码产出量已毫无护城河，工程组织的重心必须转向人类产品判断力与锁定真实市场拉力的“需求工厂”。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube (AI Engineer)",
+      "source_url": "https://www.youtube.com/watch?v=1S4hx3wgvBE"
+    },
+    {
       "id": "ai-20261126-08",
       "date": "2026-11-26",
       "channel": "RADAR",
@@ -2612,6 +2695,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · AI Engineer",
       "source_url": "https://www.youtube.com/watch?v=vlfCjWuv4es"
+    },
+    {
+      "id": "ai-20261126-17",
+      "date": "2026-11-26",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Open WebUI",
+      "priority": 86,
+      "metric_badge": "v0.13.5 多进程 · 后端路由串线",
+      "impact": "以多 Worker 模式运行 Open WebUI v0.13.5 并同时接入内网私有模型与外部公有云 API 的自托管管理员",
+      "title": "Open WebUI v0.13.5 多进程路由串线警报（#35114）：删除任一后端连接后，部分对话会被静默发往错误的 API 端点",
+      "value_tag": "防内网敏感提示词误发至外部接口",
+      "tldr": "Open WebUI v0.13.5 晚间曝出多 Worker 部署下的连接路由错位 Bug：管理员在后台删除某个 OpenAI 兼容连接后，其余工作进程中的模型与连接映射未同步刷新，导致后续部分用户请求被静默转发至错误的后端提供商。",
+      "details": [
+        "故障复现条件：在启用多 Worker 并发（Docker 生产常见配置）的 Open WebUI v0.13.5 实例上绑定多个 OpenAI 兼容后端，随后从管理面板删除其中一条连接，即可观测到部分请求命中错误的目标连接。",
+        "潜在数据越界风险：若企业在同一面板同时挂载了本地保密推理端点（如内网 vLLM/Ollama）与外部第三方商用 API，连接索引错位可能导致本该留存内网的敏感对话被意外发往公网服务商。",
+        "运维应急规避：在官方修复跨 Worker 配置同步状态前，凡在生产环境增删或重排后端 API 连接，务必立即对整组 Open WebUI 容器执行滚动重启以强制对齐所有子进程内存映射。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub Issues (open-webui)",
+      "source_url": "https://github.com/open-webui/open-webui/issues/35114"
     },
     {
       "id": "ai-20261126-13",
