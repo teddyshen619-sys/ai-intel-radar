@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26T12:40:24+08:00",
+  "updated_at": "2026-11-26T19:37:21+08:00",
   "items": [
     {
       "id": "ai-20261126-01",
@@ -805,6 +805,52 @@
       "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers"
     },
     {
+      "id": "ai-20261126-09",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "Character.AI / 美国42州检方",
+      "priority": 94,
+      "metric_badge": "42州联手 · 2100万账户私聊",
+      "impact": "关注消费级 AI 伴侣破产数据归属、未成年人隐私红线及大模型训练语料合规收购的从业者",
+      "title": "美国 42 州总检察长联合出手：紧急阻击 Character.AI 破产拍卖逾 2100 万美区用户（含 210 万未成年人）私密聊天记录",
+      "value_tag": "叫停 12 月 1 日匿名空壳竞拍",
+      "tldr": "由加州、康州、马里兰州等 42 位美国州总检察长及华盛顿特区组成的跨党派联盟正式介入 Character.AI 第 11 章破产程序，要求法院驳回原定 12 月 1 日举行的用户数据拍卖条款，严防超 2100 万美国账户的极度私密心理与情感对话流入背景不明的匿名空壳公司。",
+      "details": [
+        "涉事数据规模与敏感度：拟拍卖资产涵盖逾 2,100 万个美国注册账户（其中超 210 万个属未成年人）的完整私密聊天记录、IP 地址及行为元数据，内含大量用户向“伪装心理咨询师或医生”角色倾诉的自残、厌食症及涉未成年人露骨诱导对话。",
+        "直指“借破产洗白隐私承诺”：42 州检方指控 Character.AI 此前明确向用户承诺“绝不出售个人数据”，如今却试图借破产清算豁免条款推翻原有隐私政策——按拟议拍卖规则，中标买方既无义务履行原隐私条款或响应删除请求，也不受禁止二次转售约束。",
+        "神秘匿名领跑买家引爆警惕：文件揭露目前唯一公开的保底竞买人（Smirks and Pangs Acquisition LLC）系在获选前一天才于特拉华州突击注册的匿名资方实体，背后真实出资人与数据用途完全黑盒。",
+        "检方核心诉求：联盟要求破产法院彻底否决现行拍卖条款、撤销拟议的 35 万美元分手费（break-up fee），并在任何企业资产交割前强制剥离并销毁未成年人及高敏个人聊天数据。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge",
+      "source_url": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats",
+      "story": [
+        {
+          "heading": "当陪伴机器人走向破产拍卖台：2100 万人的树洞沦为待价而沽的资产",
+          "paragraphs": [
+            "曾几何时，Character.AI 是硅谷最炙手可热的消费级角色扮演与情感陪伴独角兽；但在核心创始团队早年被科技巨头反向吸纳、安全诉讼缠身与高昂推理成本夹击下，这家平台最终走入了美国《破产法》第 11 章（Chapter 11）重组清算程序。真正让全美监管机构拉响最高警报的并非公司倒闭本身，而是清盘账本上最值钱的那项“核心资产”——超过 2,100 万美国用户的原始私密对话库。",
+            "北京时间 11 月 26 日傍晚，横跨两党的 42 位州总检察长与哥伦比亚特区同步向破产法院提交反对动议。检方在措辞严厉的声明中指出，这批聊天记录绝非普通的电商浏览流水：其中包括超过 210 万未成年账户的深度心理倾诉，大量青少年曾把平台上的虚拟角色当成持证心理医生倾吐自杀念头与进食障碍，甚至包含多起曾引发诉讼的虚拟角色诱导未成年人进行不当对话的完整文本。"
+          ]
+        },
+        {
+          "heading": "提前一天注册的特拉华州空壳与“破产洗白”漏洞",
+          "paragraphs": [
+            "让 42 州检方尤为震怒的，是原定于 12 月 1 日敲槌的拍卖规则设计。尽管 Character.AI 在日常运营期间白纸黑字向用户承诺绝不售卖个人隐私数据，但根据破产管理人拟定的资产出售协议，接盘买方将无需继承原有的隐私政策承诺，既不必在用户要求时删除历史记录，也没有被禁止将这批高密度人类情感语料转手倒卖用于商业模型训练或精准画像。",
+            "更添悬疑色彩的是唯一浮出水面的“假马竞标人”（stalking-horse bidder）——一家名为 Smirks and Pangs Acquisition LLC 的特拉华州有限责任公司。州检方调查发现，该实体竟是在被选定为基准买家前仅仅一天才突击注册成立，拒绝向公众披露任何幕后金主或实际控制人身份，同时还设置了 35 万美元的违约分手费门槛。"
+          ]
+        },
+        {
+          "heading": "给整个 AI 应用层的合规警钟：敏感上下文不是无主矿藏",
+          "paragraphs": [
+            "尽管破产法院此前已按程序指派了一名消费者隐私监察专员（Consumer Privacy Ombudsman）评估资产转移影响，但多达 42 个州司法首长的集体下场，意味着这场原计划低调走完流程的数据交割已被推上全美判例风口。检方明确要求法院直接剔除一切未成年人记录与敏感个人对话，严禁企业把破产法庭当成规避消费者保护法的后门。",
+            "这起案件正在确立生成式 AI 时代第一条关于“死亡初创公司遗留对话库”的司法高压线：随着今年下半年大批缺乏造血能力的套壳伴侣、AI 记账与医疗问诊初创公司进入洗牌清盘期，用户在对话框里交出的高度私密人格切片能否作为普通破产财产自由拍卖，将在未来几周迎来决定性的法律裁决。"
+          ]
+        }
+      ]
+    },
+    {
       "id": "ai-20261124-14",
       "date": "2026-11-24",
       "channel": "INTEL",
@@ -1242,6 +1288,28 @@
       ]
     },
     {
+      "id": "ai-20261126-10",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Pydantic",
+      "priority": 92,
+      "metric_badge": "全插件化 TUI · 支持微虚拟机沙盒",
+      "impact": "使用 Python 构建企业级自定义编码与运维 Agent 并追求强类型可观测性的开发者",
+      "title": "Pydantic 正式发布终端编码代理 Pax 与 AI Harness SDK 公测：连“写代码能力”本身都是可插拔插件",
+      "value_tag": "一行 uv 安装 · 原生隔离沙盒",
+      "tldr": "Pydantic 团队推出基于 Pydantic AI Harness SDK 构建的官方终端编码界面 Pax（pydantic-ai-pax）：采用彻底的全插件架构，不仅支持一键挂载任意自定义 Pydantic AI 代理，还将沙盒环境、MCP 工具与 Logfire 追踪全部模块化。",
+      "details": [
+        "“连写代码也是插件”的解耦设计：Pax 默认加载内置的 Coder 编码能力插件，同时允许开发者通过 --agent 参数直接把终端 TUI 指向自己用 Pydantic AI 编写的任意垂直领域 Agent，无需重复造交互外壳。",
+        "多后端安全隔离沙盒：文件读写与 Shell 命令执行原生支持对接 E2B、Daytona、Modal、Kubernetes 以及本地轻量微虚拟机（如 BoxLite），防止代理误操作污染宿主机环境。",
+        "开箱即用可观测闭环：基于全插件接口原生打通 MCP（Model Context Protocol）服务挂载与 Pydantic Logfire 链路追踪，一条 uv 命令即可完成全局安装并启动终端工作台。"
+      ],
+      "action_snippet": "uv tool install pydantic-ai-pax && pax",
+      "source_platform": "Pydantic Blog",
+      "source_url": "https://pydantic.dev/articles/pax-harness-beta"
+    },
+    {
       "id": "ai-20261126-03",
       "date": "2026-11-26",
       "channel": "RADAR",
@@ -1663,6 +1731,28 @@
       "source_url": "https://github.com/open-webui/open-webui/issues/34646"
     },
     {
+      "id": "ai-20261126-11",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "NVIDIA",
+      "priority": 90,
+      "metric_badge": "开源 1890 万样本 · DFlash2 加速",
+      "impact": "构建高吞吐 PDF/扫描件结构化解析（RAG 预处理、复杂财报与多语种表单 OCR）的算法与工程团队",
+      "title": "NVIDIA 开源 Nemotron 3.5 Parse 全栈进化包：放出 1890 万条文档训练数据、GRPO 微调配方与 DFlash2 投机解码",
+      "value_tag": "0.63B 轻量底座 · 开源千万级语料",
+      "tldr": "NVIDIA 在 Hugging Face 发布 Nemotron 3.5 Parse 深度扩展包：围绕这款仅 0.631B 参量的高效文档解析视觉语言模型，一次性开源约 1,890 万条合成训练样本、SFT+GRPO 强化学习防死循环微调流程，并内置 89.3M 草稿模型的 DFlash2 投机解码。",
+      "details": [
+        "1890 万级细分开放数据集：包含 998 万条图表解析样本、100 万条复杂表格样本及 790 万页多语种/多文字（含印度语系等）OCR 页面，支持将扫描件直出带阅读顺序与边界框的 Markdown/HTML/JSON。",
+        "公开 SFT + GRPO 后训练配方：详细拆解如何先用监督微调（SFT）对齐版面语义，再通过组相对策略优化（GRPO）强化学习消除小模型解析密集表单时常见的重复死循环与截断漏字。",
+        "原生集成 DFlash2 投机解码：仓库新增 dflash2/ 目录与可选的 89.3M 参量极速草稿器（drafter），在万页级批量文档流水线上显著拉高单卡 Token 生成吞吐。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hugging Face Blog (NVIDIA)",
+      "source_url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin"
+    },
+    {
       "id": "ai-20261126-05",
       "date": "2026-11-26",
       "channel": "INTEL",
@@ -2078,6 +2168,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · OpenAI",
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
+    },
+    {
+      "id": "ai-20261126-12",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 88,
+      "metric_badge": "预算告警 · 响应压缩 · 会话保险箱",
+      "impact": "基于 OpenAI Responses API 与平台管理接口开发长周期多轮 Agent 及企业账单治理的 Python 团队",
+      "title": "OpenAI Python SDK v3.60.0 发布：新增 API 预算告警、Responses 上下文压缩配置与会话密钥保险箱热更新",
+      "value_tag": "原生类型对齐三大生产治理接口",
+      "tldr": "openai-python 今日下午释出 v3.60.0 正式版，重点补齐三大后端生产能力的强类型客户端字段：账户/项目级消费预警（spend alerts）、长对话上下文自动/手动压缩（response compaction）及代理会话凭证保险箱更新（session vaults）。",
+      "details": [
+        "Responses 上下文无损压缩字段（#4335）：对齐 Responses API 的 context_management 与紧凑化参数，方便长时程多轮 Agent 在不丢失核心前置状态与推理语义的前提下收缩上下文体积。",
+        "平台消费预警配置（#4335）：在 SDK 层开放 spend alerts 相关治理字段，便于企业自动化编排项目级账单水位监控与触顶前预警通知。",
+        "会话保险箱热更新与文档纠偏（#4334 / #4333）：新增代理运行期动态更新隔离凭证容器（session vaults）支持，并同步厘清了消息重试幂等行为、Batch 批处理端点及 Realtime 实时音频降噪参数说明。"
+      ],
+      "action_snippet": "pip install -U \"openai>=3.60.0\"",
+      "source_platform": "GitHub Release",
+      "source_url": "https://github.com/openai/openai-python/releases/tag/v3.60.0"
     },
     {
       "id": "ai-20261126-07",
@@ -2500,6 +2612,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · AI Engineer",
       "source_url": "https://www.youtube.com/watch?v=vlfCjWuv4es"
+    },
+    {
+      "id": "ai-20261126-13",
+      "date": "2026-11-26",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Dify",
+      "priority": 86,
+      "metric_badge": "Dify v1.20.0 · BYOK 回退失效",
+      "impact": "在 Dify Cloud 或基于 v1.20.0 源码混用官方托管额度与自有 API Key（BYOK）兜底的生产工作流团队",
+      "title": "Dify v1.20.0 额度兜底失效故障（#47256）：轮询模型在托管积分耗尽时直接绕过自有 BYOK 密钥回退致线上报错",
+      "value_tag": "托管积分见底前务必手动切纯自有 Key",
+      "tldr": "Dify 最新主干（v1.20.0）曝出关键高可用缺陷：当工作区官方托管 AI 额度（试用或付费积分）耗尽时，具备 ModelFeature.POLLING 轮询特性的模型调用类 DifyPreparedPollingLLM 会直接跳过自定义凭证回退逻辑，导致已配好的 BYOK 密钥形同虚设。",
+      "details": [
+        "触发链路定位：正常情况下托管额度不足应由 HostedCreditFallbackModelInstance 自动无缝切流至用户绑定的自定义（BYOK）提供商密钥；但启用 POLLING 特性的封装层绕开了该回退实例，直接抛出额度不足异常。",
+        "叠加 API 来源覆写缺陷（#47239）：同日披露的另一项主干 Bug 显示，通过 Service API 创建的知识库文档（created_from=\"api\"）在调用 API 更新后会静默被篡改为 \"web\"，影响依赖来源字段做权限与同步审计的脚本。",
+        "临时规避建议：在官方合入修复补丁前，生产工作流切勿依赖“先烧完托管赠送积分再自动无缝切回自有 Key”的混合兜底策略，建议在积分临近见底前直接切换为纯自定义模型凭据。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub Issues (langgenius/dify)",
+      "source_url": "https://github.com/langgenius/dify/issues/47256"
     },
     {
       "id": "ai-20261124-07",

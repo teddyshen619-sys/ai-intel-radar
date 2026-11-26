@@ -1,6 +1,6 @@
 # 教程更新线索
 
-采集时间 2026-11-26 04:33 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-26 11:30 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
 
@@ -11,8 +11,6 @@
 - [OpenAI cuts GPT-6.2 usage: Astra hits limits 40% faster, Sol 25% faster](<https://x.com/thsottiaux/status/2125784147889393806>) · X · @thsottiaux · 2026-11-26 · 命中 billing
 - [Finances in ChatGPT: A Beginner’s Guide](<https://www.youtube.com/watch?v=hwKct_1ilEQ>) · YouTube · OpenAI · 2026-11-25 · 命中 subscriptions
 - [Did AI JUST Solve Mathematics?](<https://www.youtube.com/watch?v=MkeKXJzJo98>) · YouTube · Matthew Berman · 2026-11-24 · 命中 Subscription
-- [Qwen-Image-HD: Autoregressive Diffusion for High Definition Image Generation](<https://huggingface.co/papers/2611.32736>) · Hugging Face Daily Papers · 2026-11-24 · 命中 regions
-- [Claude helps solve math's biggest open problem](<https://therundownai.beehiiv.com/p/claude-helps-solve-math-s-biggest-open-problem>) · The Rundown AI · 2026-11-23 · 命中 billing
 
 编辑核查 · 核对服务地区、付款入口及续费条件；涉及账户的反馈先找厂商依据。
 
@@ -31,6 +29,7 @@
 - [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
 - [FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space](<https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>) · The Verge AI · 2026-11-25 · 命中 authorized
+- [Transept AI](<https://www.producthunt.com/products/transept-ai>) · Product Hunt · 2026-11-25 · 命中 authorship
 
 编辑核查 · 核对各工具的安装命令、认证入口与 WSL 排障步骤；版本号变化本身不代表安装命令失效。
 
@@ -47,8 +46,10 @@
 - [anthropics/claude-code · v2.1.332](<https://github.com/anthropics/claude-code/releases/tag/v2.1.332>) · 订阅更新时间 2026-11-25 01:32 UTC。What's changed Added skills from MCP servers (beta). They show as server:skill in the / menu; other skills keep their names Added a PreSkillShellCommand hook event that can refuse…
 - [anthropics/claude-code · v2.1.331](<https://github.com/anthropics/claude-code/releases/tag/v2.1.331>) · 订阅更新时间 2026-11-23 21:34 UTC。What's changed Added Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS Added…
 
-**[cline/cline 官方发布](https://github.com/cline/cline/releases.atom)** · 成功 · 无符合条件的条目
+**[cline/cline 官方发布](https://github.com/cline/cline/releases.atom)** · 成功
 
+- [cline/cline · v4.1.28](<https://github.com/cline/cline/releases/tag/v4.1.28>) · 订阅更新时间 2026-11-26 09:57 UTC。Changed Refreshed the model catalog. The OpenAI provider no longer lists ids the upstream catalog marks deprecated, including gpt-4o , gpt-4.1 , gpt-5 , gpt-5-mini , gpt-5.1 ,…
+- [cline/cline · Desktop v0.0.51](<https://github.com/cline/cline/releases/tag/desktop-v0.0.51>) · 订阅更新时间 2026-11-26 09:54 UTC。Refreshed the model catalog. The OpenAI provider no longer lists ids the upstream catalog marks deprecated, including gpt-4o , gpt-4.1 , gpt-5 , gpt-5-mini , gpt-5.1 ,…
 
 **[OpenHands/OpenHands 官方发布](https://github.com/OpenHands/OpenHands/releases.atom)** · 成功
 
@@ -58,7 +59,7 @@
 - [How your dot can keep work moving while you’re away](<https://www.youtube.com/watch?v=A4UNP-axGHU>) · YouTube · OpenAI · 2026-11-25 · 命中 workflow
 - [Experiment with SVG &amp; 3D Design with the Codex Plugin](<https://www.youtube.com/watch?v=1u0hTd86_HU>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
 - [How to Search for Exoplanets](<https://www.youtube.com/watch?v=p8lvQQebvpg>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
-- [Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton](<https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance>) · Hugging Face Blog · 2026-11-24 · 命中 Workflow
+- [Hub](<https://www.producthunt.com/products/hub-20>) · Product Hunt · 2026-11-24 · 命中 Codex
 - [GPT 5.6 is getting retired](<https://x.com/ChatGPT/status/2124981905380569283>) · X · @ChatGPT · 2026-11-24 · 命中 Codex
 
 编辑核查 · 核对沙盒、审批、审查及自动执行示例；区分各工具的适用条件与行为差异。

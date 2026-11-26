@@ -1,71 +1,29 @@
 {
-  "updated_at": "2026-11-26T04:33:41.755081+00:00",
-  "previous_updated_at": "2026-11-25T14:08:04.599159+00:00",
+  "updated_at": "2026-11-26T11:30:42.925384+00:00",
+  "previous_updated_at": "2026-11-26T04:33:41.755081+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
   "new_free": [],
   "price_changes": [
     {
       "id": "deepseek/deepseek-v4.1-flash-1017",
       "field": "input_per_m",
-      "old": 0.15,
-      "new": 0.3,
-      "change_pct": 100.0
-    },
-    {
-      "id": "deepseek/deepseek-v4.1-flash-1017",
-      "field": "output_per_m",
-      "old": 0.6,
-      "new": 1.2,
-      "change_pct": 100.0
-    },
-    {
-      "id": "deepseek/deepseek-v4.1-flash-1017",
-      "field": "cache_read_per_m",
-      "old": 0.003,
-      "new": 0.006,
-      "change_pct": 100.0
-    },
-    {
-      "id": "deepseek/deepseek-v4.1-flash",
-      "field": "input_per_m",
-      "old": 0.0507,
-      "new": 0.14,
-      "change_pct": 176.13
-    },
-    {
-      "id": "deepseek/deepseek-v4.1-flash",
-      "field": "output_per_m",
-      "old": 0.2028,
-      "new": 0.42,
-      "change_pct": 107.1
-    },
-    {
-      "id": "deepseek/deepseek-v4.1-flash",
-      "field": "cache_read_per_m",
-      "old": 0.001014,
-      "new": 0.0042,
-      "change_pct": 314.2
-    },
-    {
-      "id": "deepseek/deepseek-v4-flash-0731",
-      "field": "input_per_m",
-      "old": 0.0456,
-      "new": 0.06,
-      "change_pct": 31.58
-    },
-    {
-      "id": "deepseek/deepseek-v4-flash-0731",
-      "field": "output_per_m",
       "old": 0.3,
-      "new": 0.18,
-      "change_pct": -40.0
+      "new": 0.15,
+      "change_pct": -50.0
     },
     {
-      "id": "deepseek/deepseek-v4-flash-0731",
+      "id": "deepseek/deepseek-v4.1-flash-1017",
+      "field": "output_per_m",
+      "old": 1.2,
+      "new": 0.6,
+      "change_pct": -50.0
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash-1017",
       "field": "cache_read_per_m",
-      "old": 0.035,
-      "new": 0.015,
-      "change_pct": -57.14
+      "old": 0.006,
+      "new": 0.003,
+      "change_pct": -50.0
     }
   ],
   "expiring": []
