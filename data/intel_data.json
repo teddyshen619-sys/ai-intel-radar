@@ -1,94 +1,94 @@
 {
-  "updated_at": "2026-11-25T19:23:30+08:00",
+  "updated_at": "2026-11-26T12:40:24+08:00",
   "items": [
     {
-      "id": "ai-20261125-01",
-      "date": "2026-11-25",
+      "id": "ai-20261126-01",
+      "date": "2026-11-26",
       "channel": "INTEL",
-      "type": "MODEL",
+      "type": "POLICY",
       "status": "URGENT",
       "vendor": "OpenAI",
       "priority": 97,
-      "metric_badge": "零专用模型 · 5/5 湿实验靶点命中",
-      "impact": "从事计算生物学、AI 辅助新药靶点设计及评估通用大模型跨学科涌现能力的研究者",
-      "title": "OpenAI 发布重磅论文：GPT-6 系列无需生物专用模型辅助，仅靠通用推理与代码工具即跑通湿实验蛋白质从头设计",
-      "value_tag": "5 大靶点湿实验全数结合",
-      "tldr": "OpenAI 公布预印本《GPT-6 as a Universal Foundation Model for Protein Biology》，证实 GPT-6.2 等通用模型在完全不调用 RFdiffusion 或 ESMFold 等生物专有模型的前提下，仅凭内在推理与标准编程工具设计的全新蛋白质在 5 个湿实验靶点上全部确认结合。",
+      "metric_badge": "Astra 触顶快 40% · 单一额度池",
+      "impact": "高频使用 GPT-6.2 Astra/Sol 写代码与推理的 ChatGPT Plus、Pro、Business 订阅用户",
+      "title": "OpenAI 双重收紧订阅配额：修正计费错误致 GPT-6.2 Astra 触顶加快 40%，Chat 与 Work 合并为单一计量池",
+      "value_tag": "Astra 快 40% 触顶 · 送 1 次重置",
+      "tldr": "OpenAI 产品负责人 Tibo Sottiaux 发文承认 GPT-6.2 首发存在计费折算错误，修复后相同任务在 GPT-6.2 Astra 与 Sol 上将分别比上周快 40% 与 25% 触及配额上限；同日官方启动 Chat 与 Work（含 Codex）单一额度池合并灰度。",
       "details": [
-        "彻底剥离生物专用底座：实验严禁模型调用 RFdiffusion、AlphaFold 或 ESMFold 等领域专用结构模型，仅开放通用 Python 代码执行与思维链推理来直接构建三维迷你结合蛋白（minibinders）与氨基酸序列。",
-        "湿实验 5/5 靶点命中：在与生物实验伙伴 Onava 联合开展的真实湿实验室（wet-lab）合成测试中，由 GPT-6.2 从头设计的候选蛋白在全部 5 个受测生物靶点上均观测到明确的物理结合证据。",
-        "自然语言细粒度操控：研究人员可直接用日常自然语言提示词指定结合位点区域、二级结构偏好（如特定螺旋或折叠片排布）及理化约束，实现可交互的柔性分子定制。",
-        "范式转向信号：该结果挑战了“生命科学必须依赖领域特定架构从头训练”的传统共识，表明跨数理化生语料深度压缩的通用前沿基座正演化为统一的科学基础模型。"
+        "计费纠偏幅度：OpenAI 称 GPT-6.2 发布初期误对大多数用户低算了配额扣减比例，现已按原定权重修复；与上周相比，相同工作负载在 GPT-6.2 Astra 上触顶速度快 40%，在 GPT-6.2 Sol 上快 25%（官方称仍比旧代 GPT-6 Astra 与 6.1 Sol 更耐烧）。",
+        "免追缴与补偿方案：此前因配置失误少扣的历史用量不予追溯补扣；作为致歉，OpenAI 向 Go、Plus、Pro 与 Business 订阅账户统一发放 1 次可随时手动激活的“储备重置”（banked reset）额度。",
+        "Chat 与 Work 合并共享池：OpenAI 同步在部分 Pro 订阅者中灰度合并日常对话（Chat）与重度编码/多步任务（Work / Codex）界面及配额，改用单一共享 Token 计量表，计划 12 月推广至全体 Plus、Pro 与 Business 层级。",
+        "不限量兜底通道：合并单一计量表后，重度 Codex 代理任务会直接消耗主对话配额；仅有轻量级快速响应模型（Instant）继续豁免扣减、保持无限次调用作为触顶后的保底选项。"
       ],
       "action_snippet": "",
-      "source_platform": "OpenAI News",
-      "source_url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+      "source_platform": "X (@thsottiaux)",
+      "source_url": "https://x.com/thsottiaux/status/2125784147889393806",
       "story": [
         {
-          "heading": "告别“胶水调用专用小模型”：通用基座直闯结构生物学深水区",
+          "heading": "“首发算错账了”：一周蜜月期后配额消耗骤增四成",
           "paragraphs": [
-            "过去四年里，AI 制药与蛋白质工程界形成了一套稳固的技术分工：大语言模型最多充当外层自然语言“调度员”，真正涉及三维空间折叠、主链生成与侧链包装的核心重活，必须交给像 AlphaFold、ESMFold 或 RFdiffusion 这类专门在蛋白质结构数据库（PDB）与进化多序列比对上定制训练的几何深度学习模型。",
-            "北京时间 11 月 25 日冲上 Hacker News 热榜的 OpenAI 最新预印本《GPT-6 as a Universal Foundation Model for Protein Biology: Beyond Specialized Models》，正面打破了这道学科次元壁。研究团队设计了一组苛刻的对照实验：彻底切断一切生物专用 AI 模型的外部调用权限，只给 GPT-6 系列（重点测试了 GPT-6.2）配备最普通的通用代码解释器与推理沙盒，看它能否单凭预训练阶段内化的物理、化学与分子生物学规律，从零写出全新的功能性蛋白质。"
+            "北京时间 11 月 26 日中午，过去两天在 Reddit 与 Hacker News 上密集吐槽“GPT-6.2 突然变得极不经用”的订阅用户等来了官方实锤。OpenAI 产品负责人 Thibault “Tibo” Sottiaux（@thsottiaux）在 X 上公开致歉，坦言团队在 GPT-6.2 上线初期犯下了一项计费折算配置错误，导致绝大多数用户在调用 GPT-6.2 Astra 与 GPT-6.2 Sol 时享受了计划外的隐性折扣。",
+            "随着后台修复补丁正式生效，同样的代码重构与长链推理任务将按修正后的真实倍率扣减套餐额度。Sottiaux 给出了明确的体感对比数字：相较上周，用户在 GPT-6.2 Astra 上触及套餐上限的速度将加快 40%，在主力工程模型 GPT-6.2 Sol 上也将加快 25%。尽管官方补充强调修正后的配额效率依然优于上一代 6 Astra 与 6.1 Sol，且不会追缴历史差额并额外赠送一次“储备重置”（banked reset），这波突如其来的“体感缩水”仍在重度开发者群体中激起强烈讨论。"
           ]
         },
         {
-          "heading": "试管里的硬核验真：5 个真实靶点全部测出结合活性",
+          "heading": "告别双池隔离：Chat 与 Work 并表重塑重度用户账本",
           "paragraphs": [
-            "纸面上的能量打分再漂亮，在生物医药界也不如一次真实的试管验证有说服力。为了检验通用模型“手搓”出的氨基酸序列究竟是统计幻觉还是真实可折叠分子，OpenAI 联合实验合作机构 Onava 将 GPT-6.2 针对 5 个不同靶点从头设计的迷你结合蛋白（minibinders）直接送入湿实验室进行基因合成、表达纯化与亲和力测定。",
-            "最终公布的湿实验结果令不少计算生物学研究者感到意外：在全部 5 个测试靶点上，GPT-6.2 独立设计的候选分子均成功折叠并展现出明确的靶点结合活性。更令药物化学家看重的是其前所未有的“自然语言可控性”——过去需要修改复杂损失函数权重才能施加的空间位阻、螺旋拓扑比例或特定表位避让条件，如今直接写进自然语言提示词就能被模型转化为精确的序列约束。"
+            "让高频用户倍感压力的还不止单模扣费权重的回调。就在前一日（美东时间 11 月 25 日），OpenAI 确认启动一项底层产品结构大改——将原本分池核算的日常聊天（Chat）与复杂多步工作流/编码代理（Work，含 Codex 会话）彻底打通，并入同一个统一界面与单一共享配额计量表。",
+            "这一调整率先面向小范围 ChatGPT Pro 用户开启灰度测试，预计 12 月全面铺开至 Plus、Pro 与 Business 订阅层。在旧体系下，不少全栈工程师习惯一边在 Codex 中挂着长周期后台重构任务，一边在网页端高频提问查资料而互不挤占额度；并表之后，每一次多代理并发跑单测都会实时抽干日常高阶对话余量，仅剩响应最快但推理深度受限的 Instant 模型继续维持无限量免费兜底。"
           ]
         },
         {
-          "heading": "科学大模型的路线分野：通才底座何时吞并专才工具？",
+          "heading": "前沿推理算力通胀下的订阅制定价困局",
           "paragraphs": [
-            "这项发现在技术社区迅速掀起关于“AI for Science 终局路线”的讨论。支持者指出，生物分子本质上受制于热力学、静电相互作用与立体化学定律，当通用模型跨代码、物理方程与海量科研文献的预训练压缩越过临界阈值，它学到的不再是孤立的序列统计共现，而是可跨模态迁移的底层第一性原理。",
-            "与此同时，一线结构生物学家也在评论区给出了冷静补充：在单次高通量筛选成本与极低假阳性工业流水线上，经过百万级晶体结构特化的轻量几何模型短期内仍具备显著算力性价比；但通用基座展现出的“内在结构直觉”与跨文献推理能力，意味着未来的分子设计工作流将不再只是盲目枚举，而会变成人类科学家与通晓全学科文献的 AI 共同推演机理的闭环。"
+            "把这两项紧挨着落地的调整放在一起审视，不难看出头部实验室在固定月费（Flat-rate Subscription）模式下面临的毛利紧绷。进入 GPT-6.2 与长时程编码 Agent 时代，单次任务在后台自主循环调工具、跑编译所吞噬的思维链 Token 动辄达到传统一问一答的数十倍，继续维持宽松的独立分池与隐性补贴已难以为继。",
+            "对一线开发团队而言，应对策略也需要随之切换：日常语法查阅、文档润色与简单排障应主动切回免计量的 Instant 档位或本地轻量模型，把宝贵的共享池配额集中留给真正需要 Astra 与 Sol 介入的跨文件架构攻坚；而那张白送的“储备重置”券，则建议留到关键发版冲刺日再行启用。"
           ]
         }
       ]
     },
     {
-      "id": "ai-20261125-02",
-      "date": "2026-11-25",
-      "channel": "RADAR",
-      "type": "BUG",
+      "id": "ai-20261126-02",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "MODEL",
       "status": "URGENT",
       "vendor": "Anthropic",
-      "priority": 95,
-      "metric_badge": "HN 308赞 · 24小时举证死线",
-      "impact": "在生产与 CI 流水线中对 Claude API 跑高频自动化回归评测（Regression Evals）的企业与创业团队",
-      "title": "Anthropic API 反蒸馏风控误伤警报（HN 308 赞）：跑自动化回归评测被控“偷蒸馏模型”，仅给 24 小时自证清白",
-      "value_tag": "CI 评测防封号必看避坑",
-      "tldr": "一位创业公司创始人在 Hacker News 发帖求助（308 赞 / 238 评论）：团队从未训练自有模型，仅因每次调整提示词与配置时自动跑内部回归基准测试，便遭 Anthropic 自动化风控判定涉嫌“违规模型蒸馏”，被限期 24 小时内举证否则直接断服封号。",
+      "priority": 96,
+      "metric_badge": "压缩 99.5% · 7.6 万行可编译",
+      "impact": "关注形式化数学验真、Lean 4 自动推理工程与千万行 AI 代码重构压缩的研究者和工程师",
+      "title": "Anthropic 开源精简版黎曼猜想 Lean 4 证明库：将 1700 万行代码暴力压缩 99.5% 至 7.6 万行，普通电脑 2 小时可验",
+      "value_tag": "Apache 2.0 · 12核24G可重放",
+      "tldr": "Anthropic 研究员 Luke Sernau 联合团队与 Claude 开源 Apache 2.0 仓库 lsernau/grh-lean（HN 345 赞），将此前 Alpöge 发布的 1700 万行黎曼猜想与狄利克雷 GRH 证明重构精简为 7.6 万行紧凑版与 30 万行可读导读版，仅用 12 核 24GB 内存即可在 1~2 小时内完成全量编译验真。",
       "details": [
-        "误杀触发诱因：随着美方安全机构与前沿实验室严打利用闭源 API 批量合成训练语料的“非法蒸馏”，高频、固定模板、跨多参数变体批量采样的自动化 CI 回归测试（Regression Benchmarks）在流量指纹上极易撞上反蒸馏启发式规则。",
-        "24 小时“自证不存在”困局：事主指出官方风控邮件未披露具体触发请求特征，却要求小团队在 24 小时极短窗口内完成“证明自己没有拿输出去训模型”的反向举证，引发社区对单一供应商生杀大权的强烈反弹。",
-        "社区应急自救清单：高赞工程与法务建议立即冻结并导出带时间戳的评测框架 Git 提交历史、展示输出仅流向评分面板而非存储桶的架构图及内部监控日志，并在必要时由法务介入回复。",
-        "生产架构保命铁律：切勿将核心业务 100% 裸绑在单一官方直连 API Key 上，务必通过 AWS Bedrock / Google Vertex 等企业云合规通道分流评测流量，并在网关层配置跨厂商热备切换（Fallback）。"
+        "双版本开源架构：仓库以 Apache 2.0 协议（Copyright 2026 Anthropic, PBC）提供两套独立 Lake 工程——紧凑版 grh-compact/ 仅约 7.6 万行（较原版 1700 万行缩减逾 99.5%），可读版 grh/ 约 30 万行并附带结构导览文档 grh/GUIDE.md，两者完整证出相同的五项核心定理。",
+        "平民化复现门槛：工程基于 Lean v4.35.0 与 Mathlib（commit 56a00585），彻底告别此前需 64~80 线程服务器重放 61.57GB 导出文件的算力门槛；在拉取 Mathlib 缓存后，普通 12 核 CPU、24GB 内存机器仅需 1~2 小时即可跑通 lake build。",
+        "标准公理零夹带：内置 scripts/PrintAxioms.lean 审计脚本与 MIT 等外部独立重放确认，精简版覆盖经典黎曼猜想与狄利克雷 L-函数广义黎曼猜想（GRH），且仅依赖 propext、Classical.choice 与 Quot.sound 三项基础公理。",
+        "官方审慎边界声明：README 明确标注该仓库系“不接受外部 PR 的研究归档制品”，目前仅通过多项机器内核检查，尚无任何人类数学家完整通读全库，亦未附带传统自然语言学术论文。"
       ],
-      "action_snippet": "",
-      "source_platform": "Hacker News",
-      "source_url": "https://news.ycombinator.com/item?id=50630809",
+      "action_snippet": "git clone https://github.com/lsernau/grh-lean && cd grh-lean/grh-compact && lake exe cache get && lake build",
+      "source_platform": "GitHub (lsernau/grh-lean)",
+      "source_url": "https://github.com/lsernau/grh-lean",
       "story": [
         {
-          "heading": "一封限期 24 小时的断服通牒：当正规 CI 评测撞上反蒸馏高压线",
+          "heading": "从 61.57GB 巨兽到笔记本可跑：AI 给自己写的证明做“外科瘦身”",
           "paragraphs": [
-            "任何遵循现代 AI 工程最佳实践的团队都会被教导同一条铁律：每次修改系统提示词、切换模型温度或更新工具定义前，必须在固定黄金测试集上自动跑一遍回归基准（Regression Benchmarks），防止线上质量静默退化。然而北京时间 11 月 25 日凌晨引爆 Hacker News 首页的一篇求助帖，却给这套标准动作泼了一盆冰水。",
-            "发帖创始人透露，其公司纯粹做应用层产品，名下没有任何模型训练或微调业务；但 Anthropic 的自动化风险监控系统突然标记其账户涉嫌“利用 API 进行违规模型蒸馏”，并下达了近乎严苛的最后通牒——必须在 24 小时内提交证据自证清白，否则将直接终止账户与 API 访问权限。"
+            "五天前，Levent Alpöge 携手 Claude 抛出的 14 卷压缩包曾让整个数学与计算机界陷入一种奇特的震撼与无奈：尽管 MIT 与 Lean 社区动用 64 至 80 线程服务器集群确认那 175,187 个模块、1700 万行代码确实在逻辑上严丝合缝地证出了黎曼猜想，但高达 61.57GB 的证明导出体积与展开后超过 25 万页的冗余跨步，让普通学者连在个人工作站上完整重跑一遍都成了奢望。",
+            "北京时间 11 月 26 日清晨冲上 Hacker News 热榜前列（345 赞）的开源仓库 lsernau/grh-lean，直接把这座高不可攀的代码大山削成了普通桌面机就能啃下的标准工程。Anthropic 研究员 Luke Sernau 与同事再度调用 Claude，对原始证明树展开了系统性的死分支剪枝、重复引理折叠与策略去展开重构，一次性砍掉了超过 99.5% 的代码行数。"
           ]
         },
         {
-          "heading": "流量指纹撞车与“卡夫卡式”举证难题",
+          "heading": "7.6 万行紧凑版与 30 万行导读版：向人类可理解性迈出第一步",
           "paragraphs": [
-            "今年以来，围绕跨国实验室利用前沿闭源 API 大规模套取思维链与合成语料的攻防不断升级，CISA 等机构与头部大模型厂商相继上线了高敏感度的自动化流量审计模型。问题在于，从黑盒网关的视角看，“每天定时并发发送数千条结构高度规整的评测题并收集完整输出”，与“构建合成微调数据集”在请求特征上存在大面积重叠。",
-            "真正点燃超两百条开发者愤怒评论的，是不对等的申诉机制：风控系统出于防绕过考虑拒绝告知具体哪批请求踩线，却把“证明自己没有干某件事”的举证责任全盘抛给客户，且只留出短短一天窗口。一旦申诉未被人工及时审阅，整家初创公司的线上生产服务将瞬间瘫痪。"
+            "新仓库以极其克制清晰的工程结构交付了两份平行制品：追求极致精炼的 grh-compact/ 目录仅用约 7.6 万行 Lean 4 代码（不到 800 个文件）便完整重现了原有的五条主定理；而面向希望顺藤摸瓜研读证明脉络的数论学者，团队专门整理出约 30 万行的可读版 grh/，并在入口处编写了模块化路线图 grh/GUIDE.md。",
+            "硬件门槛的断崖式下降尤为关键。在升级对齐至 Lean v4.35.0 与指定 Mathlib 快照（56a00585）后，任何拥有 12 核处理器与 24GB 内存的常规开发机，执行 lake exe cache get 拉取预编译缓存后只需 1 到 2 小时即可在本地从头跑完 lake build，并通过一行 PrintAxioms.lean 脚本亲眼核实底层仅依赖 propext、Classical.choice 与 Quot.sound 三大标准公理。"
           ]
         },
         {
-          "heading": "给所有 AI 应用团队的三道工程防波堤",
+          "heading": "克制的 Anthropic 落款与形式化科学的新分工",
           "paragraphs": [
-            "结合多位曾处理过类似云厂商合规审查的技术负责人经验，应用层团队应当提前做好三层隔离：第一，物理拆分“线上用户生产Key”与“离线 CI 回归评测 Key”（甚至置于不同结算组织或通过云厂商托管端点如 AWS Bedrock 运行评测），避免测试流量波动连坐掐断线上业务。",
-            "第二，在评测脚本仓库中保留清晰可审计的链路——确保评测响应在打分完成后按最小留存策略清理，避免将全量原始问答长期堆积在酷似预训练语料池的对象存储桶中。第三，也是最根本的一条：在网关层常备至少一家同档位异构模型（如 Gemini 4 Neon 或 GPT-6.2 Sol）的无感故障转移路由，永远不要把公司的生存命脉押在单一风控黑盒的仁慈之上。"
+            "值得玩味的是，不同于此前 Alpöge 纯以个人身份挂出分卷压缩包，本次精简库首次直接打上了“Apache 2.0, Copyright 2026 Anthropic, PBC”的官方开源版权署名。但与此同时，仓库 README 的措辞却保持了极高的学术克制——开门见山写明“目前仅通过机器检查，尚无数学家通读全文，亦无配套论文”。",
+            "从 1700 万行的暴力搜索原始轨迹，到 30 万行的结构化导览，再到 7.6 万行的紧凑内核，这轮仅隔五天的闪电迭代揭示了一条极具启发性的 AI 工程范式：前沿大模型在探索未知难题时往往会先堆砌出庞大啰嗦的“脚手架式机器证明”，随后再由重构代理群将其蒸馏压缩至人类专家足以介入审阅的数量级。接下来，真正的接力棒终于可以顺畅地交到全球数论学者的案头。"
           ]
         }
       ]
@@ -490,6 +490,52 @@
       ]
     },
     {
+      "id": "ai-20261125-01",
+      "date": "2026-11-25",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 97,
+      "metric_badge": "零专用模型 · 5/5 湿实验靶点命中",
+      "impact": "从事计算生物学、AI 辅助新药靶点设计及评估通用大模型跨学科涌现能力的研究者",
+      "title": "OpenAI 发布重磅论文：GPT-6 系列无需生物专用模型辅助，仅靠通用推理与代码工具即跑通湿实验蛋白质从头设计",
+      "value_tag": "5 大靶点湿实验全数结合",
+      "tldr": "OpenAI 公布预印本《GPT-6 as a Universal Foundation Model for Protein Biology》，证实 GPT-6.2 等通用模型在完全不调用 RFdiffusion 或 ESMFold 等生物专有模型的前提下，仅凭内在推理与标准编程工具设计的全新蛋白质在 5 个湿实验靶点上全部确认结合。",
+      "details": [
+        "彻底剥离生物专用底座：实验严禁模型调用 RFdiffusion、AlphaFold 或 ESMFold 等领域专用结构模型，仅开放通用 Python 代码执行与思维链推理来直接构建三维迷你结合蛋白（minibinders）与氨基酸序列。",
+        "湿实验 5/5 靶点命中：在与生物实验伙伴 Onava 联合开展的真实湿实验室（wet-lab）合成测试中，由 GPT-6.2 从头设计的候选蛋白在全部 5 个受测生物靶点上均观测到明确的物理结合证据。",
+        "自然语言细粒度操控：研究人员可直接用日常自然语言提示词指定结合位点区域、二级结构偏好（如特定螺旋或折叠片排布）及理化约束，实现可交互的柔性分子定制。",
+        "范式转向信号：该结果挑战了“生命科学必须依赖领域特定架构从头训练”的传统共识，表明跨数理化生语料深度压缩的通用前沿基座正演化为统一的科学基础模型。"
+      ],
+      "action_snippet": "",
+      "source_platform": "OpenAI News",
+      "source_url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+      "story": [
+        {
+          "heading": "告别“胶水调用专用小模型”：通用基座直闯结构生物学深水区",
+          "paragraphs": [
+            "过去四年里，AI 制药与蛋白质工程界形成了一套稳固的技术分工：大语言模型最多充当外层自然语言“调度员”，真正涉及三维空间折叠、主链生成与侧链包装的核心重活，必须交给像 AlphaFold、ESMFold 或 RFdiffusion 这类专门在蛋白质结构数据库（PDB）与进化多序列比对上定制训练的几何深度学习模型。",
+            "北京时间 11 月 25 日冲上 Hacker News 热榜的 OpenAI 最新预印本《GPT-6 as a Universal Foundation Model for Protein Biology: Beyond Specialized Models》，正面打破了这道学科次元壁。研究团队设计了一组苛刻的对照实验：彻底切断一切生物专用 AI 模型的外部调用权限，只给 GPT-6 系列（重点测试了 GPT-6.2）配备最普通的通用代码解释器与推理沙盒，看它能否单凭预训练阶段内化的物理、化学与分子生物学规律，从零写出全新的功能性蛋白质。"
+          ]
+        },
+        {
+          "heading": "试管里的硬核验真：5 个真实靶点全部测出结合活性",
+          "paragraphs": [
+            "纸面上的能量打分再漂亮，在生物医药界也不如一次真实的试管验证有说服力。为了检验通用模型“手搓”出的氨基酸序列究竟是统计幻觉还是真实可折叠分子，OpenAI 联合实验合作机构 Onava 将 GPT-6.2 针对 5 个不同靶点从头设计的迷你结合蛋白（minibinders）直接送入湿实验室进行基因合成、表达纯化与亲和力测定。",
+            "最终公布的湿实验结果令不少计算生物学研究者感到意外：在全部 5 个测试靶点上，GPT-6.2 独立设计的候选分子均成功折叠并展现出明确的靶点结合活性。更令药物化学家看重的是其前所未有的“自然语言可控性”——过去需要修改复杂损失函数权重才能施加的空间位阻、螺旋拓扑比例或特定表位避让条件，如今直接写进自然语言提示词就能被模型转化为精确的序列约束。"
+          ]
+        },
+        {
+          "heading": "科学大模型的路线分野：通才底座何时吞并专才工具？",
+          "paragraphs": [
+            "这项发现在技术社区迅速掀起关于“AI for Science 终局路线”的讨论。支持者指出，生物分子本质上受制于热力学、静电相互作用与立体化学定律，当通用模型跨代码、物理方程与海量科研文献的预训练压缩越过临界阈值，它学到的不再是孤立的序列统计共现，而是可跨模态迁移的底层第一性原理。",
+            "与此同时，一线结构生物学家也在评论区给出了冷静补充：在单次高通量筛选成本与极低假阳性工业流水线上，经过百万级晶体结构特化的轻量几何模型短期内仍具备显著算力性价比；但通用基座展现出的“内在结构直觉”与跨文献推理能力，意味着未来的分子设计工作流将不再只是盲目枚举，而会变成人类科学家与通晓全学科文献的 AI 共同推演机理的闭环。"
+          ]
+        }
+      ]
+    },
+    {
       "id": "ai-20261124-08",
       "date": "2026-11-24",
       "channel": "INTEL",
@@ -624,6 +670,52 @@
       "action_snippet": "{\n  \"model\": \"gpt-6.2-sol\",\n  \"service_tier\": \"ultrafast\",\n  \"input\": \"Summarize and extract structured anomalies from these logs.\"\n}",
       "source_platform": "Hacker News",
       "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/"
+    },
+    {
+      "id": "ai-20261125-02",
+      "date": "2026-11-25",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Anthropic",
+      "priority": 95,
+      "metric_badge": "HN 308赞 · 24小时举证死线",
+      "impact": "在生产与 CI 流水线中对 Claude API 跑高频自动化回归评测（Regression Evals）的企业与创业团队",
+      "title": "Anthropic API 反蒸馏风控误伤警报（HN 308 赞）：跑自动化回归评测被控“偷蒸馏模型”，仅给 24 小时自证清白",
+      "value_tag": "CI 评测防封号必看避坑",
+      "tldr": "一位创业公司创始人在 Hacker News 发帖求助（308 赞 / 238 评论）：团队从未训练自有模型，仅因每次调整提示词与配置时自动跑内部回归基准测试，便遭 Anthropic 自动化风控判定涉嫌“违规模型蒸馏”，被限期 24 小时内举证否则直接断服封号。",
+      "details": [
+        "误杀触发诱因：随着美方安全机构与前沿实验室严打利用闭源 API 批量合成训练语料的“非法蒸馏”，高频、固定模板、跨多参数变体批量采样的自动化 CI 回归测试（Regression Benchmarks）在流量指纹上极易撞上反蒸馏启发式规则。",
+        "24 小时“自证不存在”困局：事主指出官方风控邮件未披露具体触发请求特征，却要求小团队在 24 小时极短窗口内完成“证明自己没有拿输出去训模型”的反向举证，引发社区对单一供应商生杀大权的强烈反弹。",
+        "社区应急自救清单：高赞工程与法务建议立即冻结并导出带时间戳的评测框架 Git 提交历史、展示输出仅流向评分面板而非存储桶的架构图及内部监控日志，并在必要时由法务介入回复。",
+        "生产架构保命铁律：切勿将核心业务 100% 裸绑在单一官方直连 API Key 上，务必通过 AWS Bedrock / Google Vertex 等企业云合规通道分流评测流量，并在网关层配置跨厂商热备切换（Fallback）。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Hacker News",
+      "source_url": "https://news.ycombinator.com/item?id=50630809",
+      "story": [
+        {
+          "heading": "一封限期 24 小时的断服通牒：当正规 CI 评测撞上反蒸馏高压线",
+          "paragraphs": [
+            "任何遵循现代 AI 工程最佳实践的团队都会被教导同一条铁律：每次修改系统提示词、切换模型温度或更新工具定义前，必须在固定黄金测试集上自动跑一遍回归基准（Regression Benchmarks），防止线上质量静默退化。然而北京时间 11 月 25 日凌晨引爆 Hacker News 首页的一篇求助帖，却给这套标准动作泼了一盆冰水。",
+            "发帖创始人透露，其公司纯粹做应用层产品，名下没有任何模型训练或微调业务；但 Anthropic 的自动化风险监控系统突然标记其账户涉嫌“利用 API 进行违规模型蒸馏”，并下达了近乎严苛的最后通牒——必须在 24 小时内提交证据自证清白，否则将直接终止账户与 API 访问权限。"
+          ]
+        },
+        {
+          "heading": "流量指纹撞车与“卡夫卡式”举证难题",
+          "paragraphs": [
+            "今年以来，围绕跨国实验室利用前沿闭源 API 大规模套取思维链与合成语料的攻防不断升级，CISA 等机构与头部大模型厂商相继上线了高敏感度的自动化流量审计模型。问题在于，从黑盒网关的视角看，“每天定时并发发送数千条结构高度规整的评测题并收集完整输出”，与“构建合成微调数据集”在请求特征上存在大面积重叠。",
+            "真正点燃超两百条开发者愤怒评论的，是不对等的申诉机制：风控系统出于防绕过考虑拒绝告知具体哪批请求踩线，却把“证明自己没有干某件事”的举证责任全盘抛给客户，且只留出短短一天窗口。一旦申诉未被人工及时审阅，整家初创公司的线上生产服务将瞬间瘫痪。"
+          ]
+        },
+        {
+          "heading": "给所有 AI 应用团队的三道工程防波堤",
+          "paragraphs": [
+            "结合多位曾处理过类似云厂商合规审查的技术负责人经验，应用层团队应当提前做好三层隔离：第一，物理拆分“线上用户生产Key”与“离线 CI 回归评测 Key”（甚至置于不同结算组织或通过云厂商托管端点如 AWS Bedrock 运行评测），避免测试流量波动连坐掐断线上业务。",
+            "第二，在评测脚本仓库中保留清晰可审计的链路——确保评测响应在打分完成后按最小留存策略清理，避免将全量原始问答长期堆积在酷似预训练语料池的对象存储桶中。第三，也是最根本的一条：在网关层常备至少一家同档位异构模型（如 Gemini 4 Neon 或 GPT-6.2 Sol）的无感故障转移路由，永远不要把公司的生存命脉押在单一风控黑盒的仁慈之上。"
+          ]
+        }
+      ]
     },
     {
       "id": "ai-20261124-03",
@@ -1150,6 +1242,29 @@
       ]
     },
     {
+      "id": "ai-20261126-03",
+      "date": "2026-11-26",
+      "channel": "RADAR",
+      "type": "DEAL",
+      "status": "ACTIVE",
+      "vendor": "Cloudflare",
+      "priority": 92,
+      "metric_badge": "Free 套餐可用 · 原生 HTTP QUERY",
+      "impact": "使用 Cloudflare 托管博客、技术文档与产品的独立站长及多 Agent 检索工具开发者",
+      "title": "Cloudflare 上线免费公测功能 Search for Agents：一键开启全站自动索引，原生支持 HTTP QUERY 返回干净 Markdown",
+      "value_tag": "Free 计划一键开 · 直出 Markdown",
+      "tldr": "Cloudflare 面向包含 Free 免费版在内的全系套餐推出 Search for Agents 公测：站长在域名概览页拨动一个开关，即可自动建立内容索引、暴露 /.well-known/search 标准发现端点，并原生支持 RFC 10008 的 HTTP QUERY 方法向外部 AI 代理直出 Markdown 片段。",
+      "details": [
+        "零改造一键启用：在 Cloudflare 控制台站点 Overview 的 Quick Actions 中打开开关后，系统会自动抓取并索引站点页面、注入响应头发现元数据，并挂载标准化的 /.well-known/search 检索端点。",
+        "直出 Markdown 拒绝黑盒二次总结：不同于强制套壳大模型生成摘要的传统站内搜索，该接口直接返回高相关度原始内容的 Markdown 切片，方便外部编码与研究 Agent 用自有模型精准消费上下文并节省网页解析 Token。",
+        "落地 RFC 10008 原生 HTTP QUERY：率先在生产网关支持 IETF 提议标准 RFC 10008 定义的安全幂等方法 HTTP QUERY，允许客户端在请求体中传入纯文本或含 q 字段的 JSON 查询条件，同时完整继承站点现有的 WAF、Bot Management 与 AI Crawl Control 防护策略。",
+        "免费门槛与计费口径：目前已对包括 Free 免费计划在内的所有计划开放 Beta 公测，免费额度与超额计费直接复用现有的 AI Search 与 Workers 免费资源池配额。"
+      ],
+      "action_snippet": "curl -X QUERY https://example.com/.well-known/search -H \"Content-Type: application/json\" -d '{\"q\":\"documentation\"}'",
+      "source_platform": "Cloudflare Blog",
+      "source_url": "https://blog.cloudflare.com/search-for-agents/"
+    },
+    {
       "id": "ai-20261125-04",
       "date": "2026-11-25",
       "channel": "INTEL",
@@ -1324,6 +1439,28 @@
       "action_snippet": "# 1. PowerShell 排查并强杀残留孤儿 sort.exe 进程树：\nGet-Process sort -ErrorAction SilentlyContinue | Select-Object Id, WorkingSet64\ntaskkill /F /IM sort.exe /T\n\n# 2. 本地 bundle 热修参考（限制 sort 内存上限为 64MB 并强制字面匹配）：\n# findstr /v /i /l /c:\"\\\\.git\\\\\" /c:\"\\\\node_modules\\\\\" | sort /M 65536",
       "source_platform": "GitHub Issues",
       "source_url": "https://github.com/OpenHands/OpenHands/issues/19823"
+    },
+    {
+      "id": "ai-20261126-04",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "SpaceX / FCC",
+      "priority": 91,
+      "metric_badge": "获批 100 万颗算力卫星",
+      "impact": "关注太空 AI 算力基础设施、地面电网瓶颈突围路线及低轨星座监管博弈的从业者",
+      "title": "美国 FCC 历史性批准 SpaceX“Starmind”太空数据中心计划：放行至多 100 万颗搭载 AI 芯片的近地算力卫星",
+      "value_tag": "美首张商用太空算力星座牌照",
+      "tldr": "美国联邦通信委员会（FCC）于 11 月 25 日有条件批准 SpaceX 部署并运营最多 100 万颗“Starmind”轨道数据中心卫星，允许其在 500~1002 公里轨道利用持续太阳能运行 AI1 算力模块并通过激光链路回传结果，成为美国史上首张商用太空算力星座牌照。",
+      "details": [
+        "轨道架构与能源逻辑：获批星座分布在 500 至 1,002 公里高度的 6 个非地球静止轨道（NGSO）壳层，拟搭载初代 AI1 算力模块，直接利用外太空无遮挡太阳能并规避地面超大型 AI 数据中心严峻的电网扩容与水冷瓶颈，算力结果经星间激光与 Starlink 网络传回地面。",
+        "刚性履约里程碑死线：牌照附带逾期即作废的阶段性考核——SpaceX 计划 2027 年底借全复用 Starship 首发，必须在 2033 年 11 月前令首颗卫星入轨运行、2035 年 11 月前运行满 10 万颗（10%）、2038 年达 50 万颗、2040 年 11 月前完成全部 100 万颗部署。",
+        "监管定调与行业反弹：FCC 主席 Brendan Carr 称该决定为美国争夺超级智能基础设施开辟新边疆；但亚马逊、Viasat 及美国天文学会此前均提交反对意见，警告百万级星座将剧烈推高轨道碰撞碎片、无线电干扰与夜空光污染风险。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge",
+      "source_url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers"
     },
     {
       "id": "ai-20261125-05",
@@ -1526,6 +1663,28 @@
       "source_url": "https://github.com/open-webui/open-webui/issues/34646"
     },
     {
+      "id": "ai-20261126-05",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 90,
+      "metric_badge": "硬件飞地隔离 · 推理态零窥探",
+      "impact": "受金融、医疗、法律严格合规约束且因运行态泄密顾虑不敢接入公有云前沿 API 的企业架构师",
+      "title": "Sam Altman 宣布开启 OpenAI Private Inference 企业内测：基于机密计算硬件隔离，连 OpenAI 自身也无法读取运行中提示词",
+      "value_tag": "补齐推理运行态内存加密闭环",
+      "tldr": "Sam Altman 在 X 宣布 OpenAI Private Intelligence 旗下的核心组件 Private Inference 已面向小批企业客户启动实测，通过机密计算安全飞地（Secure Enclaves）与可验证环境隔离运行态内存，阻断云端运维人员与模型方窥探推理数据的可能。",
+      "details": [
+        "攻克运行态裸奔痛点：传统企业 API 仅保证静态存储与网络传输加密，但在 GPU 实际推理窗口内明文仍对托管方可见；Private Inference 将模型推理放入硬件级隔离飞地执行，并提供环境完整性远程证明机制。",
+        "双支柱隐私架构：该服务与“零数据留存（ZDR）+ 私有化自动安全审计（Private Safety Processing，全程免人工审阅原始内容）”共同构成 OpenAI Private Intelligence 企业隐私套件。",
+        "准入现状与待公布项：目前处于定向受邀企业内测阶段（需主动联系销售与技术团队申请接入），具体支持的 GPT-6 系列型号清单、机密计算算力溢价及全面开放时间表尚待后续披露。"
+      ],
+      "action_snippet": "",
+      "source_platform": "X (@sama)",
+      "source_url": "https://x.com/sama/status/2125638790593274259"
+    },
+    {
       "id": "ai-20261124-16",
       "date": "2026-11-24",
       "channel": "RADAR",
@@ -1700,6 +1859,29 @@
       "action_snippet": "export CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME=1",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328"
+    },
+    {
+      "id": "ai-20261126-06",
+      "date": "2026-11-26",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "status": "ACTIVE",
+      "vendor": "Anthropic",
+      "priority": 89,
+      "media_url": "https://i4.ytimg.com/vi/wrfbI5eyLAI/hqdefault.jpg",
+      "metric_badge": "1000 代理并发 · 11天缩至30小时",
+      "impact": "正在设计大规模多 Agent 协作编排、长时程任务拆解与防死锁脚手架的 AI 工程负责人",
+      "title": "Anthropic 技术拆解《1000 个 Claude Agent 如何在 30 小时内形式化费马大定理》：仅靠 Git 与数据库实现零人工干预协同",
+      "value_tag": "从单代理 11 天压缩至 30 小时",
+      "tldr": "Anthropic 成员 Lance Martin 在 AI Engineer 演讲中复盘千级代理扩展实验：1,000 个 Claude 实例在不依赖数学专用外挂且零人工干预解题路线的条件下，仅凭 Git 与共享数据库自建协调表，用约 30 小时跑通了此前单实例耗时 11 天的费马大定理 Lean 形式化任务。",
+      "details": [
+        "极简底座去专用化：实验刻意砍掉任何针对数论定制的复杂工作流引擎，底层仅提供标准 Git 代码仓库与基础关系型数据库，倒逼主控（Lead）Agent 自主设计任务状态表、锁机制与依赖拓扑。",
+        "近十倍工期压缩：今年 9 月单个 Claude 实例端到端完成费马大定理（FLT）形式化曾耗时约 11 天；扩展至约 1,000 个并发协作代理后，跨模块重写、引理补全与编译器校验总耗时被直接压进 30 小时以内。",
+        "高复用编排经验：演讲重点拆解了超长周期多代理系统的“大脑与双手解耦”循环、对卡死子任务的超时回收重派策略，以及用确定性编译器反馈替代主观互评的防跑偏机制。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube (AI Engineer)",
+      "source_url": "https://www.youtube.com/watch?v=wrfbI5eyLAI"
     },
     {
       "id": "ai-20261125-06",
@@ -1896,6 +2078,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · OpenAI",
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
+    },
+    {
+      "id": "ai-20261126-07",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "Google DeepMind",
+      "priority": 88,
+      "metric_badge": "小分子鉴定准确率 <4% -> 97%",
+      "impact": "使用 Google Antigravity 开发科研 Agent 及从事代谢组学、环境与药物小分子质谱解析的研究人员",
+      "title": "Google DeepMind 为 Antigravity 推出科研技能包 Mass Spec Skills：串联开源化学工具，小分子质谱鉴定准确率从不足 4% 跃升至 97%",
+      "value_tag": "精准破解 90%+ 未标注质谱暗物质",
+      "tldr": "Google DeepMind 宣布在 Google Antigravity 平台的 Science 插件体系下发布 Mass Spec Skills，将 Gemini 的化学推理与 SIRIUS、MAGMa、RDKit 及 PubChem 等工具库打通，在串联质谱（MS/MS）测试集上把小分子结构识别准确率从裸跑的不足 4% 拉升至约 97%。",
+      "details": [
+        "直击质谱“暗物质”瓶颈：常规参考谱库匹配通常只能标注约 5% 的实测质谱信号（人体样本仅约 10%）；新技能包通过代理自主推理无现成标准谱图的已知化合物碎片规律，大幅拓宽结构解析覆盖面。",
+        "五步标准化自动流水线：技能包引导 Agent 依次执行原始谱图降噪清洗、参考谱库检索、同位素分子式精确推导、PubChem/GNPS/MoNA 候选结构拉取，以及结合 SIRIUS/MAGMa/RDKit 的裂解模拟与证据链交叉核验。",
+        "小模型高性价比与能力边界：实测显示挂载该技能包后，轻量级 Gemini 模型也能以极低 Token 消耗追平旗舰级检索精度；但官方明确指出当前方案仍无法单靠质谱区分手性对映异构体，对公共数据库完全未收录的全新分子仅输出预测分子式与峰标注。"
+      ],
+      "action_snippet": "",
+      "source_platform": "Google DeepMind Blog",
+      "source_url": "https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity/"
     },
     {
       "id": "ai-20261125-07",
@@ -2096,6 +2300,28 @@
       "action_snippet": "",
       "source_platform": "Simon Willison",
       "source_url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
+    },
+    {
+      "id": "ai-20261126-08",
+      "date": "2026-11-26",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "Adobe / NYT",
+      "priority": 87,
+      "metric_badge": "HN 261赞 · 禁升 Photoshop v28",
+      "impact": "对内容真实性元数据（C2PA/AI 标签）有严苛合规要求的新闻摄影师、出版机构与商业视觉团队",
+      "title": "《纽约时报》向摄影师下发紧急禁升令（HN 261 赞）：切勿升级 Photoshop 2027（v28.0+），隐蔽 AI 功能易静默污染真实照片元数据",
+      "value_tag": "防误打“AI 生成/编辑”元数据标签",
+      "tldr": "《纽约时报》摄影部负责人向全体供稿摄影师发出内部通告，要求严禁在新闻采编任务中使用最新 Adobe Photoshop 2027（v28.0.0 及后续版本），警告新版深度耦合的 AI 辅助编辑与超分功能极易在用户无感知情况下触发，导致纪实原片被写入“AI 生成或修改”元数据标记。",
+      "details": [
+        "无感误触隐患：《纽约时报》摄影总监 Meaghan Looram 与 Josh Haner 在邮件中指出，Photoshop v28.0.0 将 AI Assisted Editor、提示词修图及 AI 画质放大深度嵌入常规面板，“以用户难以察觉的方式运行”。",
+        "元数据连坐风险：一旦摄影师在进行合规的基础调色或裁切时无意间触碰相关开关，导出的照片元数据就会被永久打上 AI 介入标签，在社交媒体自动识别或读者核验时直接触发新闻造假信任危机。",
+        "官方回退处置方案：报社对新闻图像数字篡改实行零容忍红线，目前已强制要求在任签约与自由摄影师通过 Creative Cloud 将软件降级回退至旧版 Photoshop，直至评估出可靠的全局物理隔离方案。"
+      ],
+      "action_snippet": "",
+      "source_platform": "The Verge / Hacker News",
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features"
     },
     {
       "id": "ai-20261124-18",
