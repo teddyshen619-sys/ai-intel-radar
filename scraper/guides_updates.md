@@ -1,6 +1,6 @@
 # 教程更新线索
 
-采集时间 2026-11-27 14:09 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-27 18:03 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
 
@@ -26,6 +26,7 @@
 **[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功 · 无符合条件的条目
 
 
+- [issue: \[regression\] \[dev\] after an update, Settings opened in an already open window shows blank tabs until refresh](<https://github.com/open-webui/open-webui/issues/35173>) · GitHub · open-webui/open-webui · 2026-11-27 · 命中 Installation
 - [FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space](<https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>) · The Verge AI · 2026-11-25 · 命中 authorized
 - [Transept AI](<https://www.producthunt.com/products/transept-ai>) · Product Hunt · 2026-11-25 · 命中 authorship
 
@@ -53,8 +54,8 @@
 
 - [How your dot can keep work moving while you’re away](<https://www.youtube.com/watch?v=A4UNP-axGHU>) · YouTube · OpenAI · 2026-11-25 · 命中 workflow
 - [OS-Omni: Benchmarking Generalist Computer-Using Agents on Long-Horizon Workflows Across Platforms](<https://huggingface.co/papers/2611.34232>) · Hugging Face Daily Papers · 2026-11-25 · 命中 Workflows
-- [StateWeaver: Multi-Agent Coordination of Story-State Transitions for Long-Horizon Video Generation](<https://huggingface.co/papers/2611.34290>) · Hugging Face Daily Papers · 2026-11-25 · 命中 workflows
 - [Experiment with SVG &amp; 3D Design with the Codex Plugin](<https://www.youtube.com/watch?v=1u0hTd86_HU>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
 - [How to Search for Exoplanets](<https://www.youtube.com/watch?v=p8lvQQebvpg>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
+- [Hub](<https://www.producthunt.com/products/hub-20>) · Product Hunt · 2026-11-24 · 命中 Codex
 
 编辑核查 · 核对沙盒、审批、审查及自动执行示例；区分各工具的适用条件与行为差异。
