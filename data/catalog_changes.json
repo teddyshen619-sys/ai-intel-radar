@@ -1,8 +1,23 @@
 {
-  "updated_at": "2026-11-26T15:59:28.542202+00:00",
-  "previous_updated_at": "2026-11-26T14:07:13.630418+00:00",
+  "updated_at": "2026-11-27T00:00:42.103909+00:00",
+  "previous_updated_at": "2026-11-26T15:59:28.542202+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
   "new_free": [],
-  "price_changes": [],
+  "price_changes": [
+    {
+      "id": "deepseek/deepseek-v4.1-flash",
+      "field": "output_per_m",
+      "old": 0.2028,
+      "new": 0.567,
+      "change_pct": 179.59
+    },
+    {
+      "id": "deepseek/deepseek-v4.1-flash",
+      "field": "cache_read_per_m",
+      "old": 0.001014,
+      "new": 0.018,
+      "change_pct": 1675.15
+    }
+  ],
   "expiring": []
 }

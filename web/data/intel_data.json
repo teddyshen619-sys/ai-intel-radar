@@ -1,94 +1,86 @@
 {
-  "updated_at": "2026-11-27T00:03:27+08:00",
+  "updated_at": "2026-11-27T08:06:04+08:00",
   "items": [
     {
-      "id": "ai-20261126-01",
-      "date": "2026-11-26",
+      "id": "ai-20261127-01",
+      "date": "2026-11-27",
       "channel": "INTEL",
       "type": "POLICY",
       "status": "URGENT",
-      "vendor": "OpenAI",
+      "vendor": "NVIDIA",
       "priority": 97,
-      "metric_badge": "Astra 触顶快 40% · 单一额度池",
-      "impact": "高频使用 GPT-6.2 Astra/Sol 写代码与推理的 ChatGPT Plus、Pro、Business 订阅用户",
-      "title": "OpenAI 双重收紧订阅配额：修正计费错误致 GPT-6.2 Astra 触顶加快 40%，Chat 与 Work 合并为单一计量池",
-      "value_tag": "Astra 快 40% 触顶 · 送 1 次重置",
-      "tldr": "OpenAI 产品负责人 Tibo Sottiaux 发文承认 GPT-6.2 首发存在计费折算错误，修复后相同任务在 GPT-6.2 Astra 与 Sol 上将分别比上周快 40% 与 25% 触及配额上限；同日官方启动 Chat 与 Work（含 Codex）单一额度池合并灰度。",
+      "metric_badge": "急停新马泰印四国发货 · 严查远程租卡",
+      "impact": "在新加坡、马来西亚等东南亚节点托管 GPU 集群、采购算力服务器或跨境调用云端算力的企业与云厂商",
+      "title": "英伟达紧急叫停对东南亚四国 AI 服务器发货：通知戴尔与超微暂停发往新加坡、马来西亚、泰国与印尼以配合美方新规",
+      "value_tag": "封堵海外机房“远程租算力”通道",
+      "tldr": "据 TechCrunch 等多方披露，英伟达已正式要求戴尔（Dell）、超微（Supermicro）等核心服务器制造伙伴暂停向马来西亚、新加坡、泰国与印度尼西亚发运搭载高端 AI 芯片的服务器，以应对美国商务部针对“跨境远程算力访问”收紧的最新出口许可新规。",
       "details": [
-        "计费纠偏幅度：OpenAI 称 GPT-6.2 发布初期误对大多数用户低算了配额扣减比例，现已按原定权重修复；与上周相比，相同工作负载在 GPT-6.2 Astra 上触顶速度快 40%，在 GPT-6.2 Sol 上快 25%（官方称仍比旧代 GPT-6 Astra 与 6.1 Sol 更耐烧）。",
-        "免追缴与补偿方案：此前因配置失误少扣的历史用量不予追溯补扣；作为致歉，OpenAI 向 Go、Plus、Pro 与 Business 订阅账户统一发放 1 次可随时手动激活的“储备重置”（banked reset）额度。",
-        "Chat 与 Work 合并共享池：OpenAI 同步在部分 Pro 订阅者中灰度合并日常对话（Chat）与重度编码/多步任务（Work / Codex）界面及配额，改用单一共享 Token 计量表，计划 12 月推广至全体 Plus、Pro 与 Business 层级。",
-        "不限量兜底通道：合并单一计量表后，重度 Codex 代理任务会直接消耗主对话配额；仅有轻量级快速响应模型（Instant）继续豁免扣减、保持无限次调用作为触顶后的保底选项。"
+        "四国断供范围与代工指令：英伟达已向包括戴尔、超微在内的主流 OEM/ODM 服务器厂商下达暂停出货通知，直接冻结发往新加坡、马来西亚、泰国和印尼数据中心的高阶 Hopper 及 Blackwell 架构服务器订单。",
+        "剑指“远程云租用”合规漏洞：此举紧随美国商务部最新出口管制细则落地——美方不仅严查实体显卡转口流向，更将“在东南亚及巴西等第三国机房部署高端 GPU 供受限实体远程租赁训练”纳入出口许可证前置审批范围。",
+        "恢复时间未定与区域震荡：目前尚不清楚此次停发属于等待许可证审批流程跑通的临时缓冲还是长期配额收紧；作为英伟达年营收占比极高的亚太算力枢纽，新加坡与柔佛州多座在建智算中心交付排期已受直接波及。",
+        "叠加治理评级承压：就在黄仁勋本周复职后，标普全球（S&P Global）亦因“关键人依赖”及出口合规内控隐患将英伟达 AA 信用评级列入负面观察名单（90 天内或下调至 AA-），迫使管理层在合规审查上采取最严厉的一刀切避险动作。"
       ],
       "action_snippet": "",
-      "source_platform": "X (@thsottiaux)",
-      "source_url": "https://x.com/thsottiaux/status/2125784147889393806",
+      "source_platform": "TechCrunch",
+      "source_url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/",
       "story": [
         {
-          "heading": "“首发算错账了”：一周蜜月期后配额消耗骤增四成",
+          "heading": "从查转口走私到卡死“云端远程租卡”：东南亚算力走廊骤踩急刹车",
           "paragraphs": [
-            "北京时间 11 月 26 日中午，过去两天在 Reddit 与 Hacker News 上密集吐槽“GPT-6.2 突然变得极不经用”的订阅用户等来了官方实锤。OpenAI 产品负责人 Thibault “Tibo” Sottiaux（@thsottiaux）在 X 上公开致歉，坦言团队在 GPT-6.2 上线初期犯下了一项计费折算配置错误，导致绝大多数用户在调用 GPT-6.2 Astra 与 GPT-6.2 Sol 时享受了计划外的隐性折扣。",
-            "随着后台修复补丁正式生效，同样的代码重构与长链推理任务将按修正后的真实倍率扣减套餐额度。Sottiaux 给出了明确的体感对比数字：相较上周，用户在 GPT-6.2 Astra 上触及套餐上限的速度将加快 40%，在主力工程模型 GPT-6.2 Sol 上也将加快 25%。尽管官方补充强调修正后的配额效率依然优于上一代 6 Astra 与 6.1 Sol，且不会追缴历史差额并额外赠送一次“储备重置”（banked reset），这波突如其来的“体感缩水”仍在重度开发者群体中激起强烈讨论。"
+            "北京时间 11 月 27 日凌晨传出的这纸停发令，直接击中了过去两年全球 AI 基础设施扩张最迅猛的区域动脉。据知情人士透露，英伟达已通知戴尔科技（Dell Technologies）与超微电脑（Supermicro）等核心服务器组装伙伴，即刻暂停向马来西亚、新加坡、泰国和印度尼西亚发运 AI 服务器整机。",
+            "与早年主要防范硬件经第三国灰市拆机转运不同，本轮冻结的核心诱因指向了美国商务部刚刚收紧的“远程访问漏洞（Remote Access Loophole）”监管新规。过去一年多里，大批受出口管制限制的大模型团队选择在新加坡、马来西亚柔佛州及印尼巴淡岛等地合规注册海外主体或直接向区域云服务商租用裸金属集群，人不出境即可通过跨国专线训练参数模型。按照华盛顿最新规定，无论是向上述特定国家运送先进算力芯片，还是由当地机房向受限客户提供高规格远程算力租赁，均必须事先取得美方核发的专项出口许可证。"
           ]
         },
         {
-          "heading": "告别双池隔离：Chat 与 Work 并表重塑重度用户账本",
+          "heading": "黄仁勋复职后的第一把合规重锤：内外部双重紧箍咒",
           "paragraphs": [
-            "让高频用户倍感压力的还不止单模扣费权重的回调。就在前一日（美东时间 11 月 25 日），OpenAI 确认启动一项底层产品结构大改——将原本分池核算的日常聊天（Chat）与复杂多步工作流/编码代理（Work，含 Codex 会话）彻底打通，并入同一个统一界面与单一共享配额计量表。",
-            "这一调整率先面向小范围 ChatGPT Pro 用户开启灰度测试，预计 12 月全面铺开至 Plus、Pro 与 Business 订阅层。在旧体系下，不少全栈工程师习惯一边在 Codex 中挂着长周期后台重构任务，一边在网页端高频提问查资料而互不挤占额度；并表之后，每一次多代理并发跑单测都会实时抽干日常高阶对话余量，仅剩响应最快但推理深度受限的 Instant 模型继续维持无限量免费兜底。"
+            "将时间线拉回本周初，这场急刹车的信号其实早有伏笔。11 月 23 日英伟达董事会全票迎回黄仁勋、并获白宫高层“无国家安全风险”背书时，美方开出的核心附加条件之一便是“英伟达不得放松正在进行的出口管制内部合规调查”——其中围绕东南亚大型买家 Megaspeed 芯片真实终端去向的问询至今仍在发酵。",
+            "与此同时，华尔街评级机构也罕见从公司治理角度施压：标普全球（S&P Global Ratings）本周宣布将英伟达极高的 AA 级信用评级列入负面信用观察名单（CreditWatch Negative），警告若董事会独立性、继任梯队与出口合规内控无法匹配其庞大体量与地缘敏感度，将在 90 天评估期内把评级下调一档至 AA-。在华盛顿监管盯防与机构评级审视的双重聚光灯下，先主动冻结高风险区域发货、待许可证核验细则彻底厘清后再行放行，成为英伟达管理层最稳妥的自保选择。"
           ]
         },
         {
-          "heading": "前沿推理算力通胀下的订阅制定价困局",
+          "heading": "给跨境 AI 团队与算力买家的现实冲击评估",
           "paragraphs": [
-            "把这两项紧挨着落地的调整放在一起审视，不难看出头部实验室在固定月费（Flat-rate Subscription）模式下面临的毛利紧绷。进入 GPT-6.2 与长时程编码 Agent 时代，单次任务在后台自主循环调工具、跑编译所吞噬的思维链 Token 动辄达到传统一问一答的数十倍，继续维持宽松的独立分池与隐性补贴已难以为继。",
-            "对一线开发团队而言，应对策略也需要随之切换：日常语法查阅、文档润色与简单排障应主动切回免计量的 Instant 档位或本地轻量模型，把宝贵的共享池配额集中留给真正需要 Astra 与 Sol 介入的跨文件架构攻坚；而那张白送的“储备重置”券，则建议留到关键发版冲刺日再行启用。"
+            "对正在东南亚抢建超大规模机房的新兴算力云（Neoclouds）及基础设施投资方而言，突如其来的服务器断流意味着机柜上架周期与融资对赌节点将被迫重排，短期内新加坡与大马区域的现货 H200 / Blackwell 算力租金存在明显的看涨压力。",
+            "而对于依赖海外云节点开展日常训练与高并发推理的技术团队，当下亟需排查上游算力供应商的机房物理归属地与 KYC 穿透合规条款：切勿将核心长周期预训练任务单一押注在尚处许可证补办盲区的东南亚裸金属节点上，建议提前在北美、欧洲合规公有云区域或本土自研算力底座之间做好多活容灾与权重异地备份。"
           ]
         }
       ]
     },
     {
-      "id": "ai-20261126-02",
-      "date": "2026-11-26",
-      "channel": "INTEL",
-      "type": "MODEL",
+      "id": "ai-20261127-02",
+      "date": "2026-11-27",
+      "channel": "RADAR",
+      "type": "DEAL",
       "status": "URGENT",
-      "vendor": "Anthropic",
-      "priority": 96,
-      "metric_badge": "压缩 99.5% · 7.6 万行可编译",
-      "impact": "关注形式化数学验真、Lean 4 自动推理工程与千万行 AI 代码重构压缩的研究者和工程师",
-      "title": "Anthropic 开源精简版黎曼猜想 Lean 4 证明库：将 1700 万行代码暴力压缩 99.5% 至 7.6 万行，普通电脑 2 小时可验",
-      "value_tag": "Apache 2.0 · 12核24G可重放",
-      "tldr": "Anthropic 研究员 Luke Sernau 联合团队与 Claude 开源 Apache 2.0 仓库 lsernau/grh-lean（HN 345 赞），将此前 Alpöge 发布的 1700 万行黎曼猜想与狄利克雷 GRH 证明重构精简为 7.6 万行紧凑版与 30 万行可读导读版，仅用 12 核 24GB 内存即可在 1~2 小时内完成全量编译验真。",
+      "vendor": "ElevenLabs",
+      "priority": 93,
+      "metric_badge": "年付最高立减 55% · 12月1日截止",
+      "impact": "需要高拟真多语种配音、实时语音 Agent 或播客克隆且正在蹲守黑五订阅折扣的创作者与开发者",
+      "title": "2026 黑五 AI 订阅实盘核查：四大文本巨头全线零折扣，ElevenLabs 放出现货大促 Creator 首年直降至 $99（立省 55%）",
+      "value_tag": "原价 $220 砍至 $99/年 · 免优惠码",
+      "tldr": "黑五正式开启，经逐一核查 OpenAI、Anthropic、Perplexity 与 Cursor 官网均无任何节日降价；目前一线旗舰 AI 工具中力度最大的官方促销来自语音龙头 ElevenLabs（截至 12 月 1 日），官网直购 Creator 年付首年仅需 $99（立减 55%），新订 Pro 年付同享 45 折。",
       "details": [
-        "双版本开源架构：仓库以 Apache 2.0 协议（Copyright 2026 Anthropic, PBC）提供两套独立 Lake 工程——紧凑版 grh-compact/ 仅约 7.6 万行（较原版 1700 万行缩减逾 99.5%），可读版 grh/ 约 30 万行并附带结构导览文档 grh/GUIDE.md，两者完整证出相同的五项核心定理。",
-        "平民化复现门槛：工程基于 Lean v4.35.0 与 Mathlib（commit 56a00585），彻底告别此前需 64~80 线程服务器重放 61.57GB 导出文件的算力门槛；在拉取 Mathlib 缓存后，普通 12 核 CPU、24GB 内存机器仅需 1~2 小时即可跑通 lake build。",
-        "标准公理零夹带：内置 scripts/PrintAxioms.lean 审计脚本与 MIT 等外部独立重放确认，精简版覆盖经典黎曼猜想与狄利克雷 L-函数广义黎曼猜想（GRH），且仅依赖 propext、Classical.choice 与 Quot.sound 三项基础公理。",
-        "官方审慎边界声明：README 明确标注该仓库系“不接受外部 PR 的研究归档制品”，目前仅通过多项机器内核检查，尚无任何人类数学家完整通读全库，亦未附带传统自然语言学术论文。"
+        "四大高频工具防踩坑核查：截至 11 月 27 日，ChatGPT Plus/Pro、Claude Pro、Perplexity Pro 及代码编辑器 Cursor 官方定价页均维持日常原价，未开放任何黑五公众优惠码或充值翻倍活动，切勿轻信社媒钓鱼代充。",
+        "ElevenLabs 官方黑五档位明细：活动期持续至 2026 年 12 月 1 日，免输优惠码登录官网定价页直接生效——主力 Creator 年付计划首年由常规 $220 降至 $99（直降 55%）；新用户订阅 Pro 年付同样享首年 45 折（立省 55%）；现有 Pro 月付老用户转年付可享首年 5 折。",
+        "结算渠道与续费避坑必读：该折扣仅限在官网（elevenlabs.io）网页端直接支付，通过苹果 App Store 或 Google Play 移动端内购不享受减免；此外首年特惠到期后默认按常规原价自动续订，建议入手后在日历或账单面板提前设好次年续费提醒。"
       ],
-      "action_snippet": "git clone https://github.com/lsernau/grh-lean && cd grh-lean/grh-compact && lake exe cache get && lake build",
-      "source_platform": "GitHub (lsernau/grh-lean)",
-      "source_url": "https://github.com/lsernau/grh-lean",
+      "action_snippet": "",
+      "source_platform": "ElevenLabs Official",
+      "source_url": "https://elevenlabs.io/pricing",
       "story": [
         {
-          "heading": "从 61.57GB 巨兽到笔记本可跑：AI 给自己写的证明做“外科瘦身”",
+          "heading": "算力紧缺时代的黑五冷暖：文本与编程巨头集体“铁公鸡”",
           "paragraphs": [
-            "五天前，Levent Alpöge 携手 Claude 抛出的 14 卷压缩包曾让整个数学与计算机界陷入一种奇特的震撼与无奈：尽管 MIT 与 Lean 社区动用 64 至 80 线程服务器集群确认那 175,187 个模块、1700 万行代码确实在逻辑上严丝合缝地证出了黎曼猜想，但高达 61.57GB 的证明导出体积与展开后超过 25 万页的冗余跨步，让普通学者连在个人工作站上完整重跑一遍都成了奢望。",
-            "北京时间 11 月 26 日清晨冲上 Hacker News 热榜前列（345 赞）的开源仓库 lsernau/grh-lean，直接把这座高不可攀的代码大山削成了普通桌面机就能啃下的标准工程。Anthropic 研究员 Luke Sernau 与同事再度调用 Claude，对原始证明树展开了系统性的死分支剪枝、重复引理折叠与策略去展开重构，一次性砍掉了超过 99.5% 的代码行数。"
+            "往年黑色星期五（Black Friday）到网络星期一（Cyber Monday）往往是 SaaS 与效率工具全年折价最狠的囤货窗口，但到了 2026 年底，头部大模型实验室却给出了截然相反的冷淡态度。经横向核查 OpenAI、Anthropic、Perplexity 以及 AI 编辑器 Cursor 的官方结算通道，四大平台今年在黑五期间全部维持日常标准月费与 API 单价，没有任何限时折扣码或免费额度增发——OpenAI 甚至在节前刚刚修正了 GPT-6.2 的配额消耗权重。",
+            "背后的商业账本并不难理解：与传统零边际成本的纯软件不同，前沿长链推理模型与自主编码 Agent 每多跑一轮都在真实燃烧昂贵的机房电力与 GPU 折旧。在高端算力供给依然紧俏、重度订阅用户极易把固定月费“用穿毛利”的当下，一线文本与代码底座厂商普遍放弃了靠节日低价冲量的传统打法，转而仅保留常驻高校教育认证（如 SheerID 学生半价或学年限免）作为精准获客口。"
           ]
         },
         {
-          "heading": "7.6 万行紧凑版与 30 万行导读版：向人类可理解性迈出第一步",
+          "heading": "ElevenLabs 年付腰斩成全场真羊毛：入手门槛与避坑细节",
           "paragraphs": [
-            "新仓库以极其克制清晰的工程结构交付了两份平行制品：追求极致精炼的 grh-compact/ 目录仅用约 7.6 万行 Lean 4 代码（不到 800 个文件）便完整重现了原有的五条主定理；而面向希望顺藤摸瓜研读证明脉络的数论学者，团队专门整理出约 30 万行的可读版 grh/，并在入口处编写了模块化路线图 grh/GUIDE.md。",
-            "硬件门槛的断崖式下降尤为关键。在升级对齐至 Lean v4.35.0 与指定 Mathlib 快照（56a00585）后，任何拥有 12 核处理器与 24GB 内存的常规开发机，执行 lake exe cache get 拉取预编译缓存后只需 1 到 2 小时即可在本地从头跑完 lake build，并通过一行 PrintAxioms.lean 脚本亲眼核实底层仅依赖 propext、Classical.choice 与 Quot.sound 三大标准公理。"
-          ]
-        },
-        {
-          "heading": "克制的 Anthropic 落款与形式化科学的新分工",
-          "paragraphs": [
-            "值得玩味的是，不同于此前 Alpöge 纯以个人身份挂出分卷压缩包，本次精简库首次直接打上了“Apache 2.0, Copyright 2026 Anthropic, PBC”的官方开源版权署名。但与此同时，仓库 README 的措辞却保持了极高的学术克制——开门见山写明“目前仅通过机器检查，尚无数学家通读全文，亦无配套论文”。",
-            "从 1700 万行的暴力搜索原始轨迹，到 30 万行的结构化导览，再到 7.6 万行的紧凑内核，这轮仅隔五天的闪电迭代揭示了一条极具启发性的 AI 工程范式：前沿大模型在探索未知难题时往往会先堆砌出庞大啰嗦的“脚手架式机器证明”，随后再由重构代理群将其蒸馏压缩至人类专家足以介入审阅的数量级。接下来，真正的接力棒终于可以顺畅地交到全球数论学者的案头。"
+            "在一众“零折扣”大厂的衬托下，语音合成与实时对话音频龙头 ElevenLabs 今年端出的官方黑五活动显得格外实在。从即日起至 12 月 1 日截止，符合资格的账户无需四处搜寻兑换码，直接打开 elevenlabs.io 官方定价页即可看到折后年付价：最受独立视频创作者、播客主与多语种配音团队欢迎的 Creator 年付档直接砍去 55%，首年实付从 $220 降至 $99（折合每月仅约 $8.25）。",
+            "针对调用量更大的开发与工作室群体，新开通 Pro 年付套餐同样享受首年立减 55%，而已在按月付费的 Pro 老订户切换为年付账单也能拿到首年 5 折优惠。需要特别留心两个实操细节：第一，千万不要在手机 App 内走应用商店渠道付款，否则无法触发官网网页端专属折扣；第二，所有优惠均限首年，满一年后系统会按原价自动扣款续期，预算敏感型用户建议在锁单成功后顺手记录到期日或按需管理自动续费开关。"
           ]
         }
       ]
@@ -490,6 +482,52 @@
       ]
     },
     {
+      "id": "ai-20261126-01",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "POLICY",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 97,
+      "metric_badge": "Astra 触顶快 40% · 单一额度池",
+      "impact": "高频使用 GPT-6.2 Astra/Sol 写代码与推理的 ChatGPT Plus、Pro、Business 订阅用户",
+      "title": "OpenAI 双重收紧订阅配额：修正计费错误致 GPT-6.2 Astra 触顶加快 40%，Chat 与 Work 合并为单一计量池",
+      "value_tag": "Astra 快 40% 触顶 · 送 1 次重置",
+      "tldr": "OpenAI 产品负责人 Tibo Sottiaux 发文承认 GPT-6.2 首发存在计费折算错误，修复后相同任务在 GPT-6.2 Astra 与 Sol 上将分别比上周快 40% 与 25% 触及配额上限；同日官方启动 Chat 与 Work（含 Codex）单一额度池合并灰度。",
+      "details": [
+        "计费纠偏幅度：OpenAI 称 GPT-6.2 发布初期误对大多数用户低算了配额扣减比例，现已按原定权重修复；与上周相比，相同工作负载在 GPT-6.2 Astra 上触顶速度快 40%，在 GPT-6.2 Sol 上快 25%（官方称仍比旧代 GPT-6 Astra 与 6.1 Sol 更耐烧）。",
+        "免追缴与补偿方案：此前因配置失误少扣的历史用量不予追溯补扣；作为致歉，OpenAI 向 Go、Plus、Pro 与 Business 订阅账户统一发放 1 次可随时手动激活的“储备重置”（banked reset）额度。",
+        "Chat 与 Work 合并共享池：OpenAI 同步在部分 Pro 订阅者中灰度合并日常对话（Chat）与重度编码/多步任务（Work / Codex）界面及配额，改用单一共享 Token 计量表，计划 12 月推广至全体 Plus、Pro 与 Business 层级。",
+        "不限量兜底通道：合并单一计量表后，重度 Codex 代理任务会直接消耗主对话配额；仅有轻量级快速响应模型（Instant）继续豁免扣减、保持无限次调用作为触顶后的保底选项。"
+      ],
+      "action_snippet": "",
+      "source_platform": "X (@thsottiaux)",
+      "source_url": "https://x.com/thsottiaux/status/2125784147889393806",
+      "story": [
+        {
+          "heading": "“首发算错账了”：一周蜜月期后配额消耗骤增四成",
+          "paragraphs": [
+            "北京时间 11 月 26 日中午，过去两天在 Reddit 与 Hacker News 上密集吐槽“GPT-6.2 突然变得极不经用”的订阅用户等来了官方实锤。OpenAI 产品负责人 Thibault “Tibo” Sottiaux（@thsottiaux）在 X 上公开致歉，坦言团队在 GPT-6.2 上线初期犯下了一项计费折算配置错误，导致绝大多数用户在调用 GPT-6.2 Astra 与 GPT-6.2 Sol 时享受了计划外的隐性折扣。",
+            "随着后台修复补丁正式生效，同样的代码重构与长链推理任务将按修正后的真实倍率扣减套餐额度。Sottiaux 给出了明确的体感对比数字：相较上周，用户在 GPT-6.2 Astra 上触及套餐上限的速度将加快 40%，在主力工程模型 GPT-6.2 Sol 上也将加快 25%。尽管官方补充强调修正后的配额效率依然优于上一代 6 Astra 与 6.1 Sol，且不会追缴历史差额并额外赠送一次“储备重置”（banked reset），这波突如其来的“体感缩水”仍在重度开发者群体中激起强烈讨论。"
+          ]
+        },
+        {
+          "heading": "告别双池隔离：Chat 与 Work 并表重塑重度用户账本",
+          "paragraphs": [
+            "让高频用户倍感压力的还不止单模扣费权重的回调。就在前一日（美东时间 11 月 25 日），OpenAI 确认启动一项底层产品结构大改——将原本分池核算的日常聊天（Chat）与复杂多步工作流/编码代理（Work，含 Codex 会话）彻底打通，并入同一个统一界面与单一共享配额计量表。",
+            "这一调整率先面向小范围 ChatGPT Pro 用户开启灰度测试，预计 12 月全面铺开至 Plus、Pro 与 Business 订阅层。在旧体系下，不少全栈工程师习惯一边在 Codex 中挂着长周期后台重构任务，一边在网页端高频提问查资料而互不挤占额度；并表之后，每一次多代理并发跑单测都会实时抽干日常高阶对话余量，仅剩响应最快但推理深度受限的 Instant 模型继续维持无限量免费兜底。"
+          ]
+        },
+        {
+          "heading": "前沿推理算力通胀下的订阅制定价困局",
+          "paragraphs": [
+            "把这两项紧挨着落地的调整放在一起审视，不难看出头部实验室在固定月费（Flat-rate Subscription）模式下面临的毛利紧绷。进入 GPT-6.2 与长时程编码 Agent 时代，单次任务在后台自主循环调工具、跑编译所吞噬的思维链 Token 动辄达到传统一问一答的数十倍，继续维持宽松的独立分池与隐性补贴已难以为继。",
+            "对一线开发团队而言，应对策略也需要随之切换：日常语法查阅、文档润色与简单排障应主动切回免计量的 Instant 档位或本地轻量模型，把宝贵的共享池配额集中留给真正需要 Astra 与 Sol 介入的跨文件架构攻坚；而那张白送的“储备重置”券，则建议留到关键发版冲刺日再行启用。"
+          ]
+        }
+      ]
+    },
+    {
       "id": "ai-20261125-01",
       "date": "2026-11-25",
       "channel": "INTEL",
@@ -577,6 +615,52 @@
           "paragraphs": [
             "这套“多代理头脑风暴 + 形式化机械验真”的组合拳在多条科学战线上交出了远超预期的成绩单：在激光驱动惯性约束核聚变燃料模拟上，新算法直接砍掉了 11.8 倍的计算开销，将所需纠错量子比特数从 5,650 个压减至 4,338 个；光敏分子模拟成本下降约 8 倍，药物研发核心靶点细胞色素 P450 酶模拟成本降低 2.5 倍；而在更底层的量子数学原语 arcsin 计算上，代理群甚至挖出了高达 290 倍的资源缩减方案。",
             "DeepMind 在博文中保持了清晰的科学克制：研究团队坦承这批数字属于严格的理论电路资源上界评估，距离在第一代容错量子计算机上直接点火运行仍有硬件代差。但通过将全套问题定义与经 Lean 验真的量子程序库悉数开源至 GitHub，这套范式无疑证明了一件事——凡是能够被形式化语言精确定义评判标准的硬核科学分支，都正在成为多智能体规模化接管的下一片沃土。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-20261126-02",
+      "date": "2026-11-26",
+      "channel": "INTEL",
+      "type": "MODEL",
+      "status": "ACTIVE",
+      "vendor": "Anthropic",
+      "priority": 96,
+      "metric_badge": "压缩 99.5% · 7.6 万行可编译",
+      "impact": "关注形式化数学验真、Lean 4 自动推理工程与千万行 AI 代码重构压缩的研究者和工程师",
+      "title": "Anthropic 开源精简版黎曼猜想 Lean 4 证明库：将 1700 万行代码暴力压缩 99.5% 至 7.6 万行，普通电脑 2 小时可验",
+      "value_tag": "Apache 2.0 · 12核24G可重放",
+      "tldr": "Anthropic 研究员 Luke Sernau 联合团队与 Claude 开源 Apache 2.0 仓库 lsernau/grh-lean（HN 345 赞），将此前 Alpöge 发布的 1700 万行黎曼猜想与狄利克雷 GRH 证明重构精简为 7.6 万行紧凑版与 30 万行可读导读版，仅用 12 核 24GB 内存即可在 1~2 小时内完成全量编译验真。",
+      "details": [
+        "双版本开源架构：仓库以 Apache 2.0 协议（Copyright 2026 Anthropic, PBC）提供两套独立 Lake 工程——紧凑版 grh-compact/ 仅约 7.6 万行（较原版 1700 万行缩减逾 99.5%），可读版 grh/ 约 30 万行并附带结构导览文档 grh/GUIDE.md，两者完整证出相同的五项核心定理。",
+        "平民化复现门槛：工程基于 Lean v4.35.0 与 Mathlib（commit 56a00585），彻底告别此前需 64~80 线程服务器重放 61.57GB 导出文件的算力门槛；在拉取 Mathlib 缓存后，普通 12 核 CPU、24GB 内存机器仅需 1~2 小时即可跑通 lake build。",
+        "标准公理零夹带：内置 scripts/PrintAxioms.lean 审计脚本与 MIT 等外部独立重放确认，精简版覆盖经典黎曼猜想与狄利克雷 L-函数广义黎曼猜想（GRH），且仅依赖 propext、Classical.choice 与 Quot.sound 三项基础公理。",
+        "官方审慎边界声明：README 明确标注该仓库系“不接受外部 PR 的研究归档制品”，目前仅通过多项机器内核检查，尚无任何人类数学家完整通读全库，亦未附带传统自然语言学术论文。"
+      ],
+      "action_snippet": "git clone https://github.com/lsernau/grh-lean && cd grh-lean/grh-compact && lake exe cache get && lake build",
+      "source_platform": "GitHub (lsernau/grh-lean)",
+      "source_url": "https://github.com/lsernau/grh-lean",
+      "story": [
+        {
+          "heading": "从 61.57GB 巨兽到笔记本可跑：AI 给自己写的证明做“外科瘦身”",
+          "paragraphs": [
+            "五天前，Levent Alpöge 携手 Claude 抛出的 14 卷压缩包曾让整个数学与计算机界陷入一种奇特的震撼与无奈：尽管 MIT 与 Lean 社区动用 64 至 80 线程服务器集群确认那 175,187 个模块、1700 万行代码确实在逻辑上严丝合缝地证出了黎曼猜想，但高达 61.57GB 的证明导出体积与展开后超过 25 万页的冗余跨步，让普通学者连在个人工作站上完整重跑一遍都成了奢望。",
+            "北京时间 11 月 26 日清晨冲上 Hacker News 热榜前列（345 赞）的开源仓库 lsernau/grh-lean，直接把这座高不可攀的代码大山削成了普通桌面机就能啃下的标准工程。Anthropic 研究员 Luke Sernau 与同事再度调用 Claude，对原始证明树展开了系统性的死分支剪枝、重复引理折叠与策略去展开重构，一次性砍掉了超过 99.5% 的代码行数。"
+          ]
+        },
+        {
+          "heading": "7.6 万行紧凑版与 30 万行导读版：向人类可理解性迈出第一步",
+          "paragraphs": [
+            "新仓库以极其克制清晰的工程结构交付了两份平行制品：追求极致精炼的 grh-compact/ 目录仅用约 7.6 万行 Lean 4 代码（不到 800 个文件）便完整重现了原有的五条主定理；而面向希望顺藤摸瓜研读证明脉络的数论学者，团队专门整理出约 30 万行的可读版 grh/，并在入口处编写了模块化路线图 grh/GUIDE.md。",
+            "硬件门槛的断崖式下降尤为关键。在升级对齐至 Lean v4.35.0 与指定 Mathlib 快照（56a00585）后，任何拥有 12 核处理器与 24GB 内存的常规开发机，执行 lake exe cache get 拉取预编译缓存后只需 1 到 2 小时即可在本地从头跑完 lake build，并通过一行 PrintAxioms.lean 脚本亲眼核实底层仅依赖 propext、Classical.choice 与 Quot.sound 三大标准公理。"
+          ]
+        },
+        {
+          "heading": "克制的 Anthropic 落款与形式化科学的新分工",
+          "paragraphs": [
+            "值得玩味的是，不同于此前 Alpöge 纯以个人身份挂出分卷压缩包，本次精简库首次直接打上了“Apache 2.0, Copyright 2026 Anthropic, PBC”的官方开源版权署名。但与此同时，仓库 README 的措辞却保持了极高的学术克制——开门见山写明“目前仅通过机器检查，尚无数学家通读全文，亦无配套论文”。",
+            "从 1700 万行的暴力搜索原始轨迹，到 30 万行的结构化导览，再到 7.6 万行的紧凑内核，这轮仅隔五天的闪电迭代揭示了一条极具启发性的 AI 工程范式：前沿大模型在探索未知难题时往往会先堆砌出庞大啰嗦的“脚手架式机器证明”，随后再由重构代理群将其蒸馏压缩至人类专家足以介入审阅的数量级。接下来，真正的接力棒终于可以顺畅地交到全球数论学者的案头。"
           ]
         }
       ]
@@ -1769,6 +1853,28 @@
       "source_url": "https://github.com/open-webui/open-webui/issues/34646"
     },
     {
+      "id": "ai-20261127-03",
+      "date": "2026-11-27",
+      "channel": "RADAR",
+      "type": "HACK",
+      "status": "ACTIVE",
+      "vendor": "llama.cpp / AMD 社区",
+      "priority": 90,
+      "metric_badge": "HN 265赞 · 预填充暴涨 +85%",
+      "impact": "在本地 AMD Radeon / RDNA 显卡上跑 GGUF 开源大模型且苦于官方主线算子未吃满性能的玩家",
+      "title": "HN 265 赞硬核实测：轻量补丁集 llama-cpp-rdna-boosts 让 AMD 显卡解码提速 57%、预填充暴涨 85% 且零精度妥协",
+      "value_tag": "R9700 实测 700 -> 1300 tok/s",
+      "tldr": "技术博客 devnull.land 发布实测文章登上 Hacker News 热榜（265 赞）：针对 AMD Radeon/RDNA 架构定制的轻量补丁集 llama-cpp-rdna-boosts 在完全不篡改 MoE 专家路由的前提下，将 R9700 上的文本生成从 35 拉升至 55 tok/s，提示词预填充从 700 跃升至 1,300 tok/s。",
+      "details": [
+        "真实硬件前后提速对比：在 AMD R9700 平台实测中，打上该最小化底层补丁后，模型解码速率由约 35 tok/s 提升至约 55 tok/s（+57%），长上下文痛点所在的提示词预填充（Prompt Prefill）更是从约 700 tok/s 飙升至约 1,300 tok/s（+85%）。",
+        "严守数学等价拒绝“作弊式提速”：作者点名批评了部分第三方魔改推理引擎（如优先调用驻留显存专家、跳过卸载专家的偷懒路由）靠牺牲输出质量换取跑分的做法，强调该补丁集紧贴上游 llama.cpp 主干且保持输出严格一致。",
+        "维护与合并前景：由于补丁改动面极度克制，不仅方便本地玩家随上游新版快速变基（rebase），其核心 RDNA 算子优化思路也为后续反哺官方 ggml 主线提供了清晰样板。"
+      ],
+      "action_snippet": "",
+      "source_platform": "devnull.land / Hacker News",
+      "source_url": "https://devnull.land/amd-specific-llama-cpp"
+    },
+    {
       "id": "ai-20261126-11",
       "date": "2026-11-26",
       "channel": "INTEL",
@@ -1987,6 +2093,28 @@
       "action_snippet": "export CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME=1",
       "source_platform": "GitHub Releases",
       "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.328"
+    },
+    {
+      "id": "ai-20261127-04",
+      "date": "2026-11-27",
+      "channel": "INTEL",
+      "type": "PRODUCT",
+      "status": "ACTIVE",
+      "vendor": "alesha-pro (开源社区)",
+      "priority": 89,
+      "metric_badge": "24KB 纯汇编 OS · 作者测快 54%",
+      "impact": "关注极致底层系统精简、裸金属 CPU 推理极限与 x86-64 汇编内核工程的系统程序员",
+      "title": "硬核极客开源 24KB 纯汇编大模型裸金属系统 llm.asm：零 Linux 零 C 库直跑 Qwen3-0.6B，作者自测比 llama.cpp 快 54%",
+      "value_tag": "24,252 字节内核 · 74ms 极速冷启",
+      "tldr": "开发者 Alexey Fateev 开源纯 x86-64 NASM 汇编项目 llm.asm：其中裸金属操作系统内核 asm-llm-os.elf 体积仅 24,252 字节，完全剥离 Linux、C/Rust 与 libc 依赖，支持无硬盘全内存直接引导运行 Qwen3-0.6B（作者单平台测试称较 Linux 原生 llama.cpp 快 31%~54%）。",
+      "details": [
+        "全手写零依赖架构：整个仓库 100% 由 x86-64 汇编编写，自建 Multiboot 引导、2MiB 巨页（Huge Page）4GiB 内存映射（消除加载 614MB 权重时的页表遍历开销）、ACPI/APIC 多核并发调度、PS/2 与 VGA/串口驱动以及 AVX2/FMA 量化算子。",
+        "三合一递进工程：仓库同步包含 14.7KB 的 Linux 静态推理二进制（01-qwen3-inference）、24.2KB 的零磁盘裸金属 OS（02-baremetal-os）以及 32.9KB 带终端盲文点阵曲线界面的纯汇编 FP32 Mini-GPT 训练器（03-minigpt-train）。",
+        "作者自测成绩与待复核说明：据作者在 AMD EPYC 7642（16 vCPU QEMU/KVM）环境下的测试数据，系统冷启动至交互 REPL 仅耗时 74~94ms，Q8_0 解码达 134.94 tok/s（同条件 CPU 版 llama.cpp 为 103.03 tok/s，1~16 线程提速 1.31x~1.54x）；该幅度目前基于单一小尺寸模型与特定服务器处理器，跨架构表现有待社区进一步复现。"
+      ],
+      "action_snippet": "git clone https://github.com/alesha-pro/llm.asm",
+      "source_platform": "GitHub (alesha-pro/llm.asm)",
+      "source_url": "https://github.com/alesha-pro/llm.asm"
     },
     {
       "id": "ai-20261126-15",
@@ -2228,6 +2356,29 @@
       "action_snippet": "",
       "source_platform": "YouTube · OpenAI",
       "source_url": "https://www.youtube.com/watch?v=PkAmyub12K8"
+    },
+    {
+      "id": "ai-20261127-05",
+      "date": "2026-11-27",
+      "channel": "REVIEW",
+      "type": "VIDEO",
+      "status": "ACTIVE",
+      "vendor": "OpenAI",
+      "priority": 88,
+      "media_url": "https://i3.ytimg.com/vi/bFcob2p6u3A/hqdefault.jpg",
+      "metric_badge": "直面三大工程焦虑 · 告别拼 Token",
+      "impact": "在高频使用编码 Agent 过程中反思代码质量退化、团队审美标准与个人不可替代性的工程师",
+      "title": "OpenAI Jason Liu 最新演讲《当执行近乎免费，你的野心有多大？》：别拿消耗了多少 Token 炫耀，要对交付结果兜底",
+      "value_tag": "拆解“防垃圾代码与防思维退化”心法",
+      "tldr": "OpenAI 开发者体验团队成员、知名结构化输出库 Instructor 作者 Jason Liu 在 AI Engineer 发表主题演讲，直面“AI 制造代码垃圾、侵蚀独立思考、取代程序员”三大行业恐惧，指出当代码执行成本趋近于零时，真正的分水岭在于工程品味与敢于啃硬骨头的野心。",
+      "details": [
+        "戳破“烧 Token 虚荣指标”：Liu 直言如今不少开发者把每天并发跑多少代理、烧掉几亿 Token 当成勤奋勋章，但廉价执行本身不产生壁垒，唯有定义高价值问题并对上线产物负全责（Own the work you ship）才算数。",
+        "对抗思维退化的实操训练：针对“过度依赖 Agent 导致工程师丧失底层排障手感”的担忧，演讲提出用快速原型探索拓宽认知边界，同时在关键架构边界保留严苛的人工设计审阅与事后复盘。",
+        "重新校准个人与小团队野心：当过去需要十人团队折腾半年的试错成本被压缩到周末两天，工程师最不该做的就是继续停留在修补琐碎 CRUD 需求，而应主动向过去不敢触碰的系统级难题发起冲击。"
+      ],
+      "action_snippet": "",
+      "source_platform": "YouTube (AI Engineer)",
+      "source_url": "https://www.youtube.com/watch?v=bFcob2p6u3A"
     },
     {
       "id": "ai-20261126-12",
@@ -2695,6 +2846,28 @@
       "action_snippet": "",
       "source_platform": "YouTube · AI Engineer",
       "source_url": "https://www.youtube.com/watch?v=vlfCjWuv4es"
+    },
+    {
+      "id": "ai-20261127-06",
+      "date": "2026-11-27",
+      "channel": "RADAR",
+      "type": "BUG",
+      "status": "ACTIVE",
+      "vendor": "LangGraph",
+      "priority": 86,
+      "metric_badge": "PostgresStore · 数值过滤变文本比大小",
+      "impact": "使用 LangGraph PostgresStore 或 InMemoryStore 按时间戳、分数、金额做范围检索的生产 Agent 团队",
+      "title": "LangGraph 存储层范围查询严重 Bug（#9789）：PostgresStore 将大小比较当纯文本字典序处理，致“10 小于 2”静默漏数",
+      "value_tag": "排查 $gt/$lt 数值与时间戳过滤逻辑",
+      "tldr": "LangGraph 曝出两项底层键值存储检索缺陷：PostgresStore.search(filter=...) 在执行 $gt、$gte、$lt、$lte 范围过滤时误将数值按文本字典序比较，彻底破坏分数与数值区间查询；InMemoryStore 则会在字段缺失或类型不一时误匹配或直接抛错崩溃。",
+      "details": [
+        "PostgresStore 字典序陷阱（#9789）：由于 SQL 生成层对 JSONB 字段做范围比较时直接按文本提取而未根据传入值类型做数值转换，导致查询条件如 score > 2 时，实际得分为 10 的记录因首字符 \"1\" < \"2\" 被静默丢弃且不报任何异常。",
+        "InMemoryStore 崩溃与假阳性（#9791）：内存存储版在执行范围过滤时会将缺少目标键的条目当作 None 参与比较（Python 逻辑下误命中或触发 TypeError/ValueError），导致本地单测与线上 Postgres 行为双双失真。",
+        "线上业务排查建议：在官方发布修复版本前，切勿在 LangGraph Store 的 filter 参数中直接对未经零填充对齐的数字做大小区间筛选，建议改为拉取候选集后在业务代码层做显式数值过滤，或使用自定义 SQL 查询。"
+      ],
+      "action_snippet": "",
+      "source_platform": "GitHub Issues (langchain-ai/langgraph)",
+      "source_url": "https://github.com/langchain-ai/langgraph/issues/9789"
     },
     {
       "id": "ai-20261126-17",

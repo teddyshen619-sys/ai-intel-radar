@@ -1,6 +1,6 @@
 # 教程更新线索
 
-采集时间 2026-11-26 15:59 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-27 00:00 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
 
@@ -28,7 +28,7 @@
 
 - [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
-- [issue: bug:Requests route to the wrong OpenAI connection after deleting a connection with multiple workers](<https://github.com/open-webui/open-webui/issues/35114>) · GitHub · open-webui/open-webui · 2026-11-26 · 命中 Installation
+- [Renaming a pinned conversation in chat-with-history does not update the pinned list or header title](<https://github.com/langgenius/dify/issues/47243>) · GitHub · langgenius/dify · 2026-11-26 · 命中 installed
 - [FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space](<https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>) · The Verge AI · 2026-11-25 · 命中 authorized
 - [Transept AI](<https://www.producthunt.com/products/transept-ai>) · Product Hunt · 2026-11-25 · 命中 authorship
 
@@ -45,7 +45,6 @@
 **[anthropics/claude-code 官方发布](https://github.com/anthropics/claude-code/releases.atom)** · 成功
 
 - [anthropics/claude-code · v2.1.332](<https://github.com/anthropics/claude-code/releases/tag/v2.1.332>) · 订阅更新时间 2026-11-25 01:32 UTC。What's changed Added skills from MCP servers (beta). They show as server:skill in the / menu; other skills keep their names Added a PreSkillShellCommand hook event that can refuse…
-- [anthropics/claude-code · v2.1.331](<https://github.com/anthropics/claude-code/releases/tag/v2.1.331>) · 订阅更新时间 2026-11-23 21:34 UTC。What's changed Added Code Mode support in terminal sessions on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS Added…
 
 **[cline/cline 官方发布](https://github.com/cline/cline/releases.atom)** · 成功
 
@@ -61,6 +60,6 @@
 - [Experiment with SVG &amp; 3D Design with the Codex Plugin](<https://www.youtube.com/watch?v=1u0hTd86_HU>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
 - [How to Search for Exoplanets](<https://www.youtube.com/watch?v=p8lvQQebvpg>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
 - [Hub](<https://www.producthunt.com/products/hub-20>) · Product Hunt · 2026-11-24 · 命中 Codex
-- [GPT 5.6 is getting retired](<https://x.com/ChatGPT/status/2124981905380569283>) · X · @ChatGPT · 2026-11-24 · 命中 Codex
+- [Searching for distant planets with Astra](<https://openai.com/index/searching-for-distant-planets-with-astra>) · OpenAI News · 2026-11-24 · 命中 Codex
 
 编辑核查 · 核对沙盒、审批、审查及自动执行示例；区分各工具的适用条件与行为差异。
