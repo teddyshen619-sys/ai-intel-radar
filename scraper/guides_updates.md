@@ -1,6 +1,6 @@
 # 教程更新线索
 
-采集时间 2026-11-27 00:00 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
+采集时间 2026-11-27 14:09 UTC。版本与日常线索使用近 72 小时窗口。README 单独核对安装与版本段落。
 
 以下按通用主题汇总只读待审阅素材，不依赖课程数量，也不会生成或改写教程。仅关联 guides/ 下实际存在且文件名或内容命中关键词的 Markdown；无匹配时仅保留主题线索。社区反馈仅代表报告者遇到的情况。
 
@@ -10,7 +10,6 @@
 
 - [OpenAI cuts GPT-6.2 usage: Astra hits limits 40% faster, Sol 25% faster](<https://x.com/thsottiaux/status/2125784147889393806>) · X · @thsottiaux · 2026-11-26 · 命中 billing
 - [Finances in ChatGPT: A Beginner’s Guide](<https://www.youtube.com/watch?v=hwKct_1ilEQ>) · YouTube · OpenAI · 2026-11-25 · 命中 subscriptions
-- [Did AI JUST Solve Mathematics?](<https://www.youtube.com/watch?v=MkeKXJzJo98>) · YouTube · Matthew Berman · 2026-11-24 · 命中 Subscription
 
 编辑核查 · 核对服务地区、付款入口及续费条件；涉及账户的反馈先找厂商依据。
 
@@ -24,11 +23,9 @@
   - 摘录 · `brew install --cask codex`
 <!-- codex-readme-sha256: 7baf50df44354c4564f2873757181b6bd4b97760684256c4336cd3288167ecf3 -->
 
-**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功
+**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功 · 无符合条件的条目
 
-- [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
-- [Renaming a pinned conversation in chat-with-history does not update the pinned list or header title](<https://github.com/langgenius/dify/issues/47243>) · GitHub · langgenius/dify · 2026-11-26 · 命中 installed
 - [FCC signs off on SpaceX’s plan to put up to 1 million data center satellites into space](<https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers>) · The Verge AI · 2026-11-25 · 命中 authorized
 - [Transept AI](<https://www.producthunt.com/products/transept-ai>) · Product Hunt · 2026-11-25 · 命中 authorship
 
@@ -38,9 +35,8 @@
 
 关联教程 · [04-lesson-b101841fb51f](<../guides/04-lesson-b101841fb51f.md>)、[05-lesson-d8e774cab580](<../guides/05-lesson-d8e774cab580.md>)
 
-**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功
+**[openai/codex 官方发布](https://github.com/openai/codex/releases.atom)** · 成功 · 无符合条件的条目
 
-- [openai/codex · 0.172.0](<https://github.com/openai/codex/releases/tag/rust-v0.172.0>) · 订阅更新时间 2026-11-24 00:06 UTC。New Features Follow thread links from search results and transcripts to open saved conversations and nested agents in the terminal. ( #62332 ) Press Tab to complete arguments for…
 
 **[anthropics/claude-code 官方发布](https://github.com/anthropics/claude-code/releases.atom)** · 成功
 
@@ -54,12 +50,11 @@
 **[OpenHands/OpenHands 官方发布](https://github.com/OpenHands/OpenHands/releases.atom)** · 成功
 
 - [OpenHands/OpenHands · v1.46.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.46.0>) · 订阅更新时间 2026-11-25 14:19 UTC。1.46.0 (2026-11-25) What's Changed Features feat(conversation): list and unshare the conversations shared with a team org (OHE-4205) by @hieptl in #19954 feat: add Feedback button…
-- [OpenHands/OpenHands · v1.45.0](<https://github.com/OpenHands/OpenHands/releases/tag/v1.45.0>) · 订阅更新时间 2026-11-24 09:25 UTC。1.45.0 (2026-11-24) What's Changed Features feat(factories): show a factory's worklogs, newest first by @jpshackelford in #19811 feat(factories): delete a factory from its page by…
 
 - [How your dot can keep work moving while you’re away](<https://www.youtube.com/watch?v=A4UNP-axGHU>) · YouTube · OpenAI · 2026-11-25 · 命中 workflow
+- [OS-Omni: Benchmarking Generalist Computer-Using Agents on Long-Horizon Workflows Across Platforms](<https://huggingface.co/papers/2611.34232>) · Hugging Face Daily Papers · 2026-11-25 · 命中 Workflows
+- [StateWeaver: Multi-Agent Coordination of Story-State Transitions for Long-Horizon Video Generation](<https://huggingface.co/papers/2611.34290>) · Hugging Face Daily Papers · 2026-11-25 · 命中 workflows
 - [Experiment with SVG &amp; 3D Design with the Codex Plugin](<https://www.youtube.com/watch?v=1u0hTd86_HU>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
 - [How to Search for Exoplanets](<https://www.youtube.com/watch?v=p8lvQQebvpg>) · YouTube · OpenAI · 2026-11-24 · 命中 Codex
-- [Hub](<https://www.producthunt.com/products/hub-20>) · Product Hunt · 2026-11-24 · 命中 Codex
-- [Searching for distant planets with Astra](<https://openai.com/index/searching-for-distant-planets-with-astra>) · OpenAI News · 2026-11-24 · 命中 Codex
 
 编辑核查 · 核对沙盒、审批、审查及自动执行示例；区分各工具的适用条件与行为差异。
