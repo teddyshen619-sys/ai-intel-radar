@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-28T04:02:40.415515+00:00",
+  "updated_at": "2026-11-28T13:53:52.508633+00:00",
   "source_url": "https://openrouter.ai/api/v1/models",
   "models": [
     {
@@ -159,7 +159,7 @@
       "created_at": "2026-07-31T06:21:48+00:00",
       "context_length": 1048576,
       "input_per_m": 0.0456,
-      "output_per_m": 0.3,
+      "output_per_m": 0.27,
       "is_free": false,
       "cache_read_per_m": 0.035,
       "max_completion_tokens": 943718,
